@@ -1,5 +1,4 @@
 import * as constants from '../constants';
-// import * as types from '../types';
 
 const initialState = {
   items: {},
@@ -20,6 +19,9 @@ const tasklistList = (state = initialState, action: any) => {
         items: action.payload.items,
         isFetching: false
       };
+
+    default:
+      return state;
   }
 };
 
