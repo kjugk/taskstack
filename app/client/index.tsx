@@ -1,4 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { AppContainer } from './containers/AppContainer';
 
-ReactDOM.render(<div>hello</div>, document.getElementById('app'));
+ReactDOM.render(<AppContainer />, document.getElementById('app'));
