@@ -2,9 +2,17 @@ import * as constants from '../constants';
 import * as types from '../types';
 
 const initialState: types.TasklistListState = {
-  tasklistsById: {},
+  tasklistsById: {
+    1: {
+      title: "foo"
+    },
+    2: {
+      title: "bar"
+    }
+  },
   selectedId: -1,
-  isFetching: false
+  isFetching: false,
+  isInitialized: false
 };
 
 const tasklistList = (state = initialState, action: any) => {
@@ -19,7 +27,8 @@ const tasklistList = (state = initialState, action: any) => {
       return {
         ...state,
         tasklistsById: action.payload.tasklistsById,
-        isFetching: false
+        isFetching: false,
+        isInitialized: true
       };
 
     case constants.TASKLIST_SELECT:

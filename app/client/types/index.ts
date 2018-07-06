@@ -10,6 +10,7 @@ export interface TasklistListState {
   tasklistsById: {
     [index: number]: TasklistState
   };
+  isInitialized: boolean;
   isFetching: boolean;
   selectedId: number;
 }
