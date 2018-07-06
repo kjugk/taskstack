@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { Form, Button } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 interface CreateFormProps {
   title: string;
-  onTitleChange: (title: string) => void;
-  onSubmit: () => void;
+  onTitleChange: (title: string) => any;
+  onSubmit: () => any;
 }
+
+const ActionsContainer = styled.div`
+  text-align: right;
+`;
 
 class CreateForm extends React.Component<CreateFormProps> {
   render() {
@@ -29,9 +34,11 @@ class CreateForm extends React.Component<CreateFormProps> {
           />
         </Form.Field>
 
-        <Button disabled={title.trim() === ''} type="button">
-          作成
-        </Button>
+        <ActionsContainer>
+          <Button disabled={title.trim() === ''} type="submit">
+            作成
+          </Button>
+        </ActionsContainer>
       </Form>
     );
   }
