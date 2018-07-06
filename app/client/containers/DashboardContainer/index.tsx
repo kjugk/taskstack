@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { TasklistListContainer } from '../TasklistListContainer';
+import TasklistListContainer from '../TasklistListContainer';
+
+import { Icon } from 'semantic-ui-react';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -22,6 +24,7 @@ class DashboardContainer extends React.Component {
     return (
       <DashBoard>
         <Left>
+          <Icon name="users" />
           <TasklistListContainer />
         </Left>
         <Right />

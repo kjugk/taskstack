@@ -36,25 +36,22 @@ let config = {
         ]
       },
       {
-        test: /\.(woff|woff2)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: 'fonts/[hash].[ext]',
-            limit: 5000,
-            mimetype: 'application/font-woff'
-          }
-        }
+        test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
+        loader: 'file-loader',
+        options: {
+          outputPath: '../../../public/fonts',   // font ファイルの配置バス
+          publicPath : path => '/fonts/' + path, // css が参照するパス
+          name: '[name].[hash:8].[ext]',
+        },
       },
       {
-        test: /\.(ttf|eot|svg|png)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: 'fonts/[hash].[ext]'
-          }
-        }
-      }
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'public/[name].[hash:8].[ext]',
+        },
+      },
     ]
   }
 };
