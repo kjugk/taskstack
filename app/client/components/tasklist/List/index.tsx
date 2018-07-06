@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import { List as SuList } from 'semantic-ui-react';
 import { ListItem } from '../ListItem';
 import styled from 'styled-components';
 
@@ -10,7 +9,7 @@ interface ListProps {
 
 const Container = styled.ul`
   padding: 0;
-  margin: 0; 
+  margin: 0;
   flex: 1;
 `;
 

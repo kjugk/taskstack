@@ -4,9 +4,11 @@ import * as types from '../types';
 const initialState: types.TasklistListState = {
   tasklistsById: {
     1: {
+      id: 1,
       title: "foo"
     },
     2: {
+      id: 2,
       title: "bar"
     }
   },

@@ -1,8 +1,10 @@
 export interface RootState {
-  tasklistList: TasklistListState
+  tasklistList: TasklistListState,
+  tasklistCreateForm: TasklistCreateFormState
 }
 
 export interface TasklistState {
+  id: number;
   title: string;
 }
 
@@ -13,4 +15,9 @@ export interface TasklistListState {
   isInitialized: boolean;
   isFetching: boolean;
   selectedId: number;
+}
+
+export interface TasklistCreateFormState {
+  active: boolean;
+  title: string;
 }
