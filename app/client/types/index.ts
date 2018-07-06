@@ -19,5 +19,6 @@ export interface TasklistListState {
 
 export interface TasklistCreateFormState {
   active: boolean;
+  isSubmitting: boolean;
   title: string;
 }

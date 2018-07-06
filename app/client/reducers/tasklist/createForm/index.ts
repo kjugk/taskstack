@@ -3,7 +3,8 @@ import * as types from '../../../types';
 
 const initialState: types.TasklistCreateFormState = {
   active: false,
-  title: ''
+  title: '',
+  isSubmitting: false
 };
 
 const tasklistCreateForm = (state = initialState, action: any) => {
@@ -21,6 +22,12 @@ const tasklistCreateForm = (state = initialState, action: any) => {
       return {
         ...state,
         title: action.payload.title
+      };
+
+    case constants.TASKLIST_CREATE_FORM_SUBMIT:
+      return {
+        ...state,
+        isSubmitting: true
       };
 
     default:

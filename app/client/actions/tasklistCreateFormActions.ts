@@ -20,3 +20,12 @@ export const changeTitle = (title: string) => {
     payload: { title }
   };
 };
+
+export const submit = (params: object) => {
+  return {
+    type: constants.TASKLIST_CREATE_FORM_SUBMIT,
+    payload: {
+      params
+    }
+  };
+};
