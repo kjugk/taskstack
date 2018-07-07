@@ -33,10 +33,13 @@ const tasklistList = (state = initialState, action: any) => {
         isInitialized: true
       };
 
-    case constants.TASKLIST_SELECT:
+    case constants.TASKLIST_CREATE_SUCCESS:
       return {
         ...state,
-        selectedId: action.payload.selectedId
+        tasklistsById: {
+          ...{[action.payload.entity.id]: action.payload.entity},
+          ...state.tasklistsById,
+        }
       };
 
     default:
