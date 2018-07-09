@@ -5,18 +5,35 @@ import * as tasklistActions from '../actions/tasklistActions';
 import * as createFormActions from '../actions/tasklistCreateFormActions';
 import * as messageActions from '../actions/messageActions';
 import * as api from '../Api';
+import { normalize, schema } from 'normalizr';
+
+
 
 export default function* tasklistSaga() {
-  function* fetch(action: any) {
-    const res = yield call(api.fetchTasklists)
-    // TODO normalize here.
+  /**
+   * tasklist のリストを取得する。
+   */
+  function* fetch() {
+    const tasklist = new schema.Entity('tasklists');
+    const res = yield call(api.fetchTasklists);
+    const normalized = normalize(res.data, { tasklists: [tasklist] });
+
+    yield put(
+      tasklistActions.receiveTasklists(normalized.result.tasklists, normalized.entities.tasklists)
+    );
   }
 
+  /**
+   * tasklist のリストを作成する。
+   */
   function* create(action: any) {
     try {
+      const tasklist = new schema.Entity('tasklist');
       const res = yield call(api.postTasklist, action.payload.params);
+      const normalized = normalize(res.data, {tasklist: tasklist})
+
       yield delay(1000);
-      yield put(tasklistActions.receiveNewTasklist(res.data.tasklist));
+      yield put(tasklistActions.receiveNewTasklist(normalized.result.tasklist, normalized.entities.tasklist));
       yield put(createFormActions.close());
       yield put(messageActions.setMessage('リストを作成しました。'));
     } catch (e) {

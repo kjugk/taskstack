@@ -7,8 +7,6 @@ const initialState = {
 const message = (state = initialState, action: any) => {
   switch (action.type) {
     case constants.MESSAGE_SET:
-      console.log(action.payload.message);
-      
       return {
         ...state,
         message: action.payload.message

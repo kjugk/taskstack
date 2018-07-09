@@ -4,21 +4,27 @@ export const fetchTasklists = () => {
   return {
     type: constants.TASKLISTS_FETCH,
     payload: {}
-  }
-}
+  };
+};
 
-export const receiveTasklists = () => {
+// TODO entity type を定義する。
+export const receiveTasklists = (ids: number[], tasklistsById: any) => {
   return {
     type: constants.TASKLISTS_FETCH_SUCCESS,
-    payload: {}
-  }
-}
+    payload: {
+      ids,
+      tasklistsById
+    }
+  };
+};
 
-export const receiveNewTasklist = (entity: any) => {
+// TODO entity type を定義する。
+export const receiveNewTasklist = (id: number, tasklistById: any) => {
   return {
     type: constants.TASKLIST_CREATE_SUCCESS,
     payload: {
-      entity
+      id,
+      tasklistById
     }
-  }
-}
+  };
+};

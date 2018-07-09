@@ -2,19 +2,11 @@ import * as constants from '../constants';
 import * as types from '../types';
 
 const initialState: types.TasklistListState = {
-  tasklistsById: {
-    1: {
-      id: 1,
-      title: "foo"
-    },
-    2: {
-      id: 2,
-      title: "bar"
-    }
-  },
-  selectedId: -1,
+  ids: [],
+  tasklistsById: {},
   isFetching: false,
-  isInitialized: false
+  isInitialized: false,
+  selectedId: -1
 };
 
 const tasklistList = (state = initialState, action: any) => {
@@ -28,6 +20,7 @@ const tasklistList = (state = initialState, action: any) => {
     case constants.TASKLISTS_FETCH_SUCCESS:
       return {
         ...state,
+        ids: action.payload.ids,
         tasklistsById: action.payload.tasklistsById,
         isFetching: false,
         isInitialized: true
@@ -36,9 +29,10 @@ const tasklistList = (state = initialState, action: any) => {
     case constants.TASKLIST_CREATE_SUCCESS:
       return {
         ...state,
+        ids: [action.payload.id, ...state.ids],
         tasklistsById: {
-          ...{[action.payload.entity.id]: action.payload.entity},
-          ...state.tasklistsById,
+          ...action.payload.tasklistById,
+          ...state.tasklistsById
         }
       };
 
@@ -47,12 +41,13 @@ const tasklistList = (state = initialState, action: any) => {
   }
 };
 
-const getTaskLists = ({ tasklistsById }: types.TasklistListState) => {
-  return Object.keys(tasklistsById).map((id: any) => tasklistsById[id]);
+// SELECTOR
+const getTaskLists = ({ ids, tasklistsById }: types.TasklistListState) => {
+  return ids.map((id: any) => tasklistsById[id]);
 };
 
 const getSelectedTaskList = ({ selectedId, tasklistsById }: types.TasklistListState) => {
-  return tasklistsById[selectedId]
+  return tasklistsById[selectedId];
 };
 
 export { tasklistList, getTaskLists, getSelectedTaskList };

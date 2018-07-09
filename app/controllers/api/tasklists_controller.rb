@@ -2,7 +2,7 @@ class Api::TasklistsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @tasklists = Tasklist.all
+    @tasklists = Tasklist.order("created_at DESC").all
   end
 
   def create
