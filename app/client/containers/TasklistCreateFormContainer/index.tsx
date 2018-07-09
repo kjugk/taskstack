@@ -17,12 +17,13 @@ interface TasklistCreateFormContainerProps {
  */
 class TasklistCreateFormContainer extends React.Component<TasklistCreateFormContainerProps> {
   render() {
-    const { formState, changeTitle, submit, closeForm } = this.props;
+    const { formState, changeTitle, closeForm } = this.props;
 
     return (
       <Modal
         open={formState.active}
         onClose={closeForm}
+        closeOnEscape={!formState.isSubmitting}
         closeOnDimmerClick={!formState.isSubmitting}
         size="tiny"
       >

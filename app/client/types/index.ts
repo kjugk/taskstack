@@ -1,6 +1,7 @@
 export interface RootState {
   tasklistList: TasklistListState,
-  tasklistCreateForm: TasklistCreateFormState
+  tasklistCreateForm: TasklistCreateFormState,
+  message: MessageState
 }
 
 export interface TasklistState {
@@ -21,4 +22,8 @@ export interface TasklistCreateFormState {
   active: boolean;
   isSubmitting: boolean;
   title: string;
+}
+
+export interface MessageState {
+  message: string;
 }
