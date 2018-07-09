@@ -4,30 +4,47 @@ import { connect } from 'react-redux';
 import { getTaskLists } from '../../reducers/tasklistList';
 import { Loader } from 'semantic-ui-react';
 import { List } from '../../components/tasklist/List';
+import * as tasklistActions from '../../actions/tasklistActions';
+import styled from 'styled-components';
 
 interface TasklistListContainerProps {
   isFetching: boolean;
   isInitialized: boolean;
   tasklists: types.TasklistState[];
+  fetchTasklists: () => any;
 }
+
+const Container = styled.div`
+  flex: 1;
+`;
 
 class TasklistListContainer extends React.Component<TasklistListContainerProps> {
   componentDidMount() {
-    const { isInitialized } = this.props;
+    const { isInitialized, fetchTasklists } = this.props;
 
     if (isInitialized) {
       return;
     }
+
+    fetchTasklists();
   }
 
   render() {
     const { tasklists, isFetching } = this.props;
 
     if (isFetching) {
-      return <Loader active>Loading</Loader>;
+      return (
+        <Container>
+          <Loader active>Loading</Loader>
+        </Container>
+      );
     }
 
-    return <List items={tasklists} />;
+    return (
+      <Container>
+        <List items={tasklists} />
+      </Container>
+    );
   }
 }
 
@@ -41,4 +58,11 @@ const mapStateToProps = (state: types.RootState) => {
   };
 };
 
-export default connect(mapStateToProps)(TasklistListContainer);
+const mapDispatchToProps = (dispatch: any) => ({
+  fetchTasklists: () => dispatch(tasklistActions.fetchTasklists())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TasklistListContainer);

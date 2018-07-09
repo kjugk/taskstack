@@ -19,13 +19,13 @@ const initialState: types.TasklistListState = {
 
 const tasklistList = (state = initialState, action: any) => {
   switch (action.type) {
-    case constants.TASKLIST_LIST_FETCH:
+    case constants.TASKLISTS_FETCH:
       return {
         ...state,
         isFetching: true
       };
 
-    case constants.TASKLIST_LIST_FETCH_SUCCESS:
+    case constants.TASKLISTS_FETCH_SUCCESS:
       return {
         ...state,
         tasklistsById: action.payload.tasklistsById,

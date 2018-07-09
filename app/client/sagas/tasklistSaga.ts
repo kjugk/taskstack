@@ -7,6 +7,11 @@ import * as messageActions from '../actions/messageActions';
 import * as api from '../Api';
 
 export default function* tasklistSaga() {
+  function* fetch(action: any) {
+    const res = yield call(api.fetchTasklists)
+    // TODO normalize here.
+  }
+
   function* create(action: any) {
     try {
       const res = yield call(api.postTasklist, action.payload.params);
@@ -19,5 +24,6 @@ export default function* tasklistSaga() {
     }
   }
 
+  yield takeLatest(constants.TASKLISTS_FETCH, fetch);
   yield takeLatest(constants.TASKLIST_CREATE_FORM_SUBMIT, create);
 }
