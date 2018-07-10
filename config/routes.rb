@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   get '/', to: 'dashboard#show'
 
   namespace :api do
-    resources :tasklists, only: [:index, :create]
+    resources :tasklists, only: [:index, :create, :update]
   end
 end

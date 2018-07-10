@@ -36,6 +36,15 @@ const tasklistList = (state = initialState, action: any) => {
         }
       };
 
+    case constants.TASKLIST_UPDATE_SUCCESS:
+      return {
+        ...state,
+        tasklistsById: {
+          ...state.tasklistsById,
+          ...action.payload.tasklist
+        }
+      };
+
     default:
       return state;
   }

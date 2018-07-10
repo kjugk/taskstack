@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 export async function fetchTasklists() {
-  return await axios.get('/api/tasklists.json')
+  return await axios.get('/api/tasklists.json');
 }
 
 export async function postTasklist(params: any) {
-  return await axios.post('/api/tasklists.json', params)
+  return await axios.post('/api/tasklists.json', params);
+}
+
+export async function updateTasklist(id: number, params: any) {
+  return await axios.patch(`/api/tasklists/${id}.json`, params);
 }

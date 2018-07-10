@@ -3,19 +3,19 @@ import * as types from '../../types';
 import { connect } from 'react-redux';
 import { Modal, Loader, Dimmer } from 'semantic-ui-react';
 import { TasklistForm } from '../../components/tasklist/CreateForm';
-import * as formActions from '../../actions/tasklistCreateFormActions';
+import * as formActions from '../../actions/tasklistEditFormActions';
 
-interface TasklistCreateFormContainerProps {
-  formState: types.TasklistCreateFormState;
-  closeForm: () => any;
-  changeTitle: (title: string) => any;
-  submit: (params: object) => any;
+interface TasklistEditFormContainerProps {
+  formState: types.TasklistEditFormState;
+  closeForm(): any;
+  changeTitle(title: string): any;
+  submit(id: number, params: object): any;
 }
 
 /**
- * Tasklist 作成フォーム
+ * Tasklist 編集フォーム
  */
-class TasklistCreateFormContainer extends React.Component<TasklistCreateFormContainerProps> {
+class TasklistEditFormContainer extends React.Component<TasklistEditFormContainerProps> {
   render() {
     const { formState, changeTitle, closeForm } = this.props;
 
@@ -27,7 +27,7 @@ class TasklistCreateFormContainer extends React.Component<TasklistCreateFormCont
         closeOnDimmerClick={!formState.isSubmitting}
         size="tiny"
       >
-        <Modal.Header>リストを作成</Modal.Header>
+        <Modal.Header>リストを編集</Modal.Header>
         <Modal.Content>
           {formState.isSubmitting && (
             <Dimmer active>
@@ -48,23 +48,23 @@ class TasklistCreateFormContainer extends React.Component<TasklistCreateFormCont
   private handleSubmit() {
     const { formState, submit } = this.props;
 
-    submit({
+    submit(formState.id, {
       title: formState.title
     });
   }
 }
 
 const mapStateToProps = (state: types.RootState) => ({
-  formState: state.tasklistCreateForm
+  formState: state.tasklistEditForm
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   changeTitle: (title: string) => dispatch(formActions.changeTitle(title)),
   closeForm: () => dispatch(formActions.close()),
-  submit: (params: {}) => dispatch(formActions.submit(params))
+  submit: (id: number, params: {}) => dispatch(formActions.submit(id, params))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TasklistCreateFormContainer);
+)(TasklistEditFormContainer);

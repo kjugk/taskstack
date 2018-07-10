@@ -3,11 +3,10 @@ import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as createFormActions from '../actions/tasklistCreateFormActions';
+import * as editFormActions from '../actions/tasklistEditFormActions';
 import * as messageActions from '../actions/messageActions';
 import * as api from '../Api';
 import { normalize, schema } from 'normalizr';
-
-
 
 export default function* tasklistSaga() {
   /**
@@ -30,10 +29,12 @@ export default function* tasklistSaga() {
     try {
       const tasklist = new schema.Entity('tasklist');
       const res = yield call(api.postTasklist, action.payload.params);
-      const normalized = normalize(res.data, {tasklist: tasklist})
+      const normalized = normalize(res.data, { tasklist: tasklist });
 
       yield delay(1000);
-      yield put(tasklistActions.receiveNewTasklist(normalized.result.tasklist, normalized.entities.tasklist));
+      yield put(
+        tasklistActions.receiveNewTasklist(normalized.result.tasklist, normalized.entities.tasklist)
+      );
       yield put(createFormActions.close());
       yield put(messageActions.setMessage('リストを作成しました。'));
     } catch (e) {
@@ -41,6 +42,24 @@ export default function* tasklistSaga() {
     }
   }
 
+  /**
+   * tasklistを更新する.
+   */
+  function* update(action: any) {
+    try {
+      const tasklist = new schema.Entity('tasklist');
+      const { id, params } = action.payload;
+      const res = yield call(api.updateTasklist, id, params);
+      const normalized = normalize(res.data, { tasklist: tasklist });
+
+      yield delay(1000);
+      yield put(tasklistActions.receiveUpdatedTasklist(normalized.entities.tasklist));
+      yield put(editFormActions.close());
+      yield put(messageActions.setMessage('リストを更新しました。'));
+    } catch (e) {}
+  }
+
   yield takeLatest(constants.TASKLISTS_FETCH, fetch);
   yield takeLatest(constants.TASKLIST_CREATE_FORM_SUBMIT, create);
+  yield takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update);
 }

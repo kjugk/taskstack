@@ -9,16 +9,13 @@ const initialState: types.TasklistCreateFormState = {
 
 const tasklistCreateForm = (state = initialState, action: any) => {
   switch (action.type) {
-    case constants.TASKLIST_CREATE_FORM_ACTIVATE:
+    case constants.TASKLIST_CREATE_START:
       return {
         ...state,
         active: true
       };
 
-    case constants.TASKLIST_CREATE_FORM_CLOSE:
-      return initialState;
-
-    case constants.TASKLIST_TITLE_CHANGE:
+    case constants.TASKLIST_CREATE_FORM_TITLE_CHANGE:
       return {
         ...state,
         title: action.payload.title
@@ -29,6 +26,9 @@ const tasklistCreateForm = (state = initialState, action: any) => {
         ...state,
         isSubmitting: true
       };
+
+    case constants.TASKLIST_CREATE_FORM_CLOSE:
+      return initialState;
 
     default:
       return state;

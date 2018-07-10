@@ -12,7 +12,7 @@ const ActionsContainer = styled.div`
   text-align: right;
 `;
 
-class CreateForm extends React.Component<CreateFormProps> {
+class TasklistForm extends React.Component<CreateFormProps> {
   render() {
     const { title, onTitleChange, onSubmit } = this.props;
 
@@ -25,6 +25,7 @@ class CreateForm extends React.Component<CreateFormProps> {
       >
         <Form.Field>
           <label>タイトル</label>
+
           <input
             type="text"
             value={title}
@@ -36,7 +37,7 @@ class CreateForm extends React.Component<CreateFormProps> {
 
         <ActionsContainer>
           <Button disabled={title.trim() === ''} type="submit">
-            作成
+            保存
           </Button>
         </ActionsContainer>
       </Form>
@@ -44,4 +45,4 @@ class CreateForm extends React.Component<CreateFormProps> {
   }
 }
 
-export { CreateForm };
+export { TasklistForm };

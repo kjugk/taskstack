@@ -12,6 +12,7 @@ interface TasklistListContainerProps {
   isInitialized: boolean;
   tasklists: types.TasklistState[];
   fetchTasklists: () => any;
+  editTasklist: (tasklist: any) => any;
 }
 
 const Container = styled.div`
@@ -31,7 +32,7 @@ class TasklistListContainer extends React.Component<TasklistListContainerProps> 
   }
 
   render() {
-    const { tasklists, isFetching } = this.props;
+    const { tasklists, editTasklist, isFetching } = this.props;
 
     if (isFetching) {
       return (
@@ -43,7 +44,7 @@ class TasklistListContainer extends React.Component<TasklistListContainerProps> 
 
     return (
       <Container>
-        <List items={tasklists} />
+        <List onItemClick={editTasklist} items={tasklists} />
       </Container>
     );
   }
@@ -60,7 +61,8 @@ const mapStateToProps = (state: types.RootState) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  fetchTasklists: () => dispatch(tasklistActions.fetchTasklists())
+  fetchTasklists: () => dispatch(tasklistActions.fetchTasklists()),
+  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist))
 });
 
 export default connect(

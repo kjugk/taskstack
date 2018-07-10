@@ -16,6 +16,15 @@ class Api::TasklistsController < ApplicationController
     end
   end
 
+  def update
+    @tasklist = Tasklist.find(params[:id])
+
+    if @tasklist.update(tasklist_params)
+      render json: { tasklist: { id: @tasklist.id, title: @tasklist.title }}, status: :ok
+    else
+    end
+  end
+
   private
 
   def tasklist_params

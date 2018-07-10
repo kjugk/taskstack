@@ -2,8 +2,10 @@ import * as React from 'react';
 import styled from 'styled-components';
 import TasklistListContainer from '../TasklistListContainer';
 import TasklistCreateFormContainer from '../TasklistCreateFormContainer';
+import TasklistEditFormContainer from '../TasklistEditFormContainer';
 import { Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import * as tasklistActions from '../../actions/tasklistActions';
 import * as formActions from '../../actions/tasklistCreateFormActions';
 
 const DashBoard = styled.div`
@@ -29,7 +31,7 @@ const ButtonContainer = styled.div`
 `;
 
 interface DashboardContainerProps {
-  activateCreateForm: () => any;
+  createTasklist: () => any;
 }
 
 class DashboardContainer extends React.Component<DashboardContainerProps> {
@@ -39,7 +41,7 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
         <Left>
           <TasklistListContainer />
           <ButtonContainer>
-            <Button fluid primary icon onClick={this.props.activateCreateForm}>
+            <Button fluid primary icon onClick={this.props.createTasklist}>
               <Icon name="plus" /> リストを作成
             </Button>
           </ButtonContainer>
@@ -48,6 +50,7 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
         <Right />
 
         <TasklistCreateFormContainer />
+        <TasklistEditFormContainer />
       </DashBoard>
     );
   }
@@ -55,7 +58,7 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
 
 const mapStateToProps = () => ({});
 const mapDispatchToProps = (dispatch: any) => ({
-  activateCreateForm: () => dispatch(formActions.activate())
+  createTasklist: () => dispatch(tasklistActions.createTasklist())
 });
 
 export default connect(

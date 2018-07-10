@@ -18,6 +18,13 @@ export const receiveTasklists = (ids: number[], tasklistsById: any) => {
   };
 };
 
+export const createTasklist = () => {
+  return {
+    type: constants.TASKLIST_CREATE_START,
+    payload: {}
+  }
+}
+
 // TODO entity type を定義する。
 export const receiveNewTasklist = (id: number, tasklistById: any) => {
   return {
@@ -28,3 +35,21 @@ export const receiveNewTasklist = (id: number, tasklistById: any) => {
     }
   };
 };
+
+export const editTasklist = (tasklist: any) => {
+  return {
+    type: constants.TASKLIST_EDIT_START,
+    payload: {
+      tasklist
+    }
+  }
+}
+
+export const receiveUpdatedTasklist = (tasklist: any) => {
+  return {
+    type: constants.TASKLIST_UPDATE_SUCCESS,
+    payload: {
+      tasklist
+    }
+  }
+}

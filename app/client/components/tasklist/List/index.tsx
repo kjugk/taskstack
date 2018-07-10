@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 interface ListProps {
   items: types.TasklistState[];
+  onItemClick: (tasklist: any) => any;
 }
 
 const Container = styled.ul`
@@ -15,10 +16,12 @@ const Container = styled.ul`
 
 class List extends React.Component<ListProps> {
   render() {
+    const { items, onItemClick } = this.props;
+
     return (
       <Container>
-        {this.props.items.map((item, i) => {
-          return <ListItem item={item} key={i} />;
+        {items.map((item, i) => {
+          return <ListItem onClick={onItemClick} item={item} key={i} />;
         })}
       </Container>
     );

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 interface ListItemProps {
   item: types.TasklistState;
+  onClick: (item: any) => any;
 }
 
 const Wrapper = styled.li`
@@ -17,7 +18,7 @@ class ListItem extends React.Component<ListItemProps> {
   render() {
     const { item } = this.props;
 
-    return <Wrapper>{item.title}</Wrapper>;
+    return <Wrapper onClick={() => this.props.onClick(item)}>{item.title}</Wrapper>;
   }
 }
 
