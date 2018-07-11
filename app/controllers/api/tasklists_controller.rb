@@ -22,6 +22,19 @@ class Api::TasklistsController < ApplicationController
     if @tasklist.update(tasklist_params)
       render json: { tasklist: { id: @tasklist.id, title: @tasklist.title }}, status: :ok
     else
+      # TODO
+      # 共通のエラーフォーマットで、エラーメッセージを送信する
+    end
+  end
+
+  def destroy
+    @tasklist = Tasklist.find(params[:id])
+
+    if @tasklist.destroy
+      head :ok
+    else
+      # TODO
+      # 共通のエラーフォーマットで、エラーメッセージを送信する
     end
   end
 

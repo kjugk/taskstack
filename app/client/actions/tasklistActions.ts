@@ -53,3 +53,12 @@ export const receiveUpdatedTasklist = (tasklist: any) => {
     }
   }
 }
+
+export const receiveDestroyedTasklistId = (id: number) => {
+  return {
+    type: constants.TASKLIST_DESTROY_SUCCESS,
+    payload: {
+      id
+    }
+  }
+}

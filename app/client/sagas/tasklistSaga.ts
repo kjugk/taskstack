@@ -59,7 +59,17 @@ export default function* tasklistSaga() {
     } catch (e) {}
   }
 
+  function* destroy(action: any) {
+    yield call(api.destroyTasklist, action.payload.id);
+
+    yield delay(1000);
+    yield put(tasklistActions.receiveDestroyedTasklistId(action.payload.id));
+    yield put(editFormActions.close());
+    yield put(messageActions.setMessage('リストを削除しました。'));
+  }
+
   yield takeLatest(constants.TASKLISTS_FETCH, fetch);
   yield takeLatest(constants.TASKLIST_CREATE_FORM_SUBMIT, create);
   yield takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update);
+  yield takeLatest(constants.TASKLIST_DESTROY, destroy);
 }

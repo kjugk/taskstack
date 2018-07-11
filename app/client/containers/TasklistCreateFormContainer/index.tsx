@@ -39,6 +39,7 @@ class TasklistCreateFormContainer extends React.Component<TasklistCreateFormCont
             title={formState.title}
             onTitleChange={changeTitle}
             onSubmit={this.handleSubmit.bind(this)}
+            canDestroy={false}
           />
         </Modal.Content>
       </Modal>

@@ -45,14 +45,32 @@ const tasklistList = (state = initialState, action: any) => {
         }
       };
 
+    case constants.TASKLIST_DESTROY_SUCCESS:
+      return {
+        ...state,
+        ids: state.ids.filter((id) => id !== action.payload.id),
+        tasklistsById: destroyTasklistById(action.payload.id, state.tasklistsById)
+      };
+
     default:
       return state;
   }
 };
 
-// SELECTOR
+// helper
+/**
+ * tasklist を格納している object から、id で指定された tasklist を削除する。
+ * @param id 削除対象id
+ * @param tasklistsById tasklist を格納している object
+ */
+const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }) => {
+  delete tasklistsById[id];
+  return tasklistsById;
+};
+
+// selector
 const getTaskLists = ({ ids, tasklistsById }: types.TasklistListState) => {
-  return ids.map((id: any) => tasklistsById[id]);
+  return ids.map((id) => tasklistsById[id]);
 };
 
 const getSelectedTaskList = ({ selectedId, tasklistsById }: types.TasklistListState) => {

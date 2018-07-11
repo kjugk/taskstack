@@ -9,6 +9,7 @@ interface TasklistEditFormContainerProps {
   formState: types.TasklistEditFormState;
   closeForm(): any;
   changeTitle(title: string): any;
+  destroyTasklist(id: number): any;
   submit(id: number, params: object): any;
 }
 
@@ -17,7 +18,7 @@ interface TasklistEditFormContainerProps {
  */
 class TasklistEditFormContainer extends React.Component<TasklistEditFormContainerProps> {
   render() {
-    const { formState, changeTitle, closeForm } = this.props;
+    const { formState, changeTitle, closeForm, destroyTasklist } = this.props;
 
     return (
       <Modal
@@ -39,6 +40,12 @@ class TasklistEditFormContainer extends React.Component<TasklistEditFormContaine
             title={formState.title}
             onTitleChange={changeTitle}
             onSubmit={this.handleSubmit.bind(this)}
+            canDestroy={true}
+            onDestroyClick={() => {
+              if (window.confirm('本当に削除しますか?')) {
+                destroyTasklist(formState.id);
+              }
+            }}
           />
         </Modal.Content>
       </Modal>
@@ -61,6 +68,7 @@ const mapStateToProps = (state: types.RootState) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   changeTitle: (title: string) => dispatch(formActions.changeTitle(title)),
   closeForm: () => dispatch(formActions.close()),
+  destroyTasklist: (id: number) => dispatch(formActions.destroyTasklist(id)),
   submit: (id: number, params: {}) => dispatch(formActions.submit(id, params))
 });
 

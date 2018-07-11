@@ -4,17 +4,20 @@ import styled from 'styled-components';
 
 interface CreateFormProps {
   title: string;
+  canDestroy: boolean;
+  onDestroyClick?(): any;
   onTitleChange: (title: string) => any;
   onSubmit: () => any;
 }
 
 const ActionsContainer = styled.div`
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
 `;
 
 class TasklistForm extends React.Component<CreateFormProps> {
   render() {
-    const { title, onTitleChange, onSubmit } = this.props;
+    const { title, onTitleChange, onSubmit, canDestroy, onDestroyClick } = this.props;
 
     return (
       <Form
@@ -36,6 +39,12 @@ class TasklistForm extends React.Component<CreateFormProps> {
         </Form.Field>
 
         <ActionsContainer>
+          {canDestroy && (
+            <Button onClick={onDestroyClick} type="button">
+              削除
+            </Button>
+          )}
+
           <Button disabled={title.trim() === ''} type="submit">
             保存
           </Button>

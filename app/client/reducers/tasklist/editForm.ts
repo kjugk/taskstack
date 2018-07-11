@@ -4,8 +4,8 @@ import * as types from '../../types';
 const initialState: types.TasklistEditFormState = {
   active: false,
   id: -1,
-  title: '',
-  isSubmitting: false
+  isSubmitting: false,
+  title: ''
 };
 
 const tasklistEditForm = (state = initialState, action: any) => {
@@ -24,6 +24,7 @@ const tasklistEditForm = (state = initialState, action: any) => {
       };
 
     case constants.TASKLIST_EDIT_FORM_SUBMIT:
+    case constants.TASKLIST_DESTROY:
       return {
         ...state,
         isSubmitting: true

@@ -23,3 +23,12 @@ export const submit = (id: number, params: object) => {
     }
   };
 };
+
+export const destroyTasklist = (id: number) => {
+  return {
+    type: constants.TASKLIST_DESTROY,
+    payload: {
+      id
+    }
+  };
+};
