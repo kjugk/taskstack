@@ -7,18 +7,20 @@ import { List } from '../../components/tasklist/List';
 import * as tasklistActions from '../../actions/tasklistActions';
 import styled from 'styled-components';
 
-interface TasklistListContainerProps {
-  isFetching: boolean;
-  isInitialized: boolean;
-  tasklists: types.TasklistState[];
-  fetchTasklists: () => any;
-  editTasklist: (tasklist: any) => any;
-}
-
 const Container = styled.div`
   flex: 1;
   overflow-y: scroll;
 `;
+
+interface TasklistListContainerProps {
+  isFetching: boolean;
+  isInitialized: boolean;
+  selectingId: number;
+  tasklists: types.TasklistState[];
+  fetchTasklists(): any;
+  editTasklist(tasklist: any): any;
+  selectTasklist(id: number): any;
+}
 
 class TasklistListContainer extends React.Component<TasklistListContainerProps> {
   componentDidMount() {
@@ -30,7 +32,7 @@ class TasklistListContainer extends React.Component<TasklistListContainerProps> 
   }
 
   render() {
-    const { tasklists, editTasklist, isFetching } = this.props;
+    const { tasklists, selectTasklist, editTasklist, isFetching, selectingId } = this.props;
 
     if (isFetching) {
       return (
@@ -42,25 +44,32 @@ class TasklistListContainer extends React.Component<TasklistListContainerProps> 
 
     return (
       <Container>
-        <List onItemClick={editTasklist} items={tasklists} />
+        <List
+          selectingId={selectingId}
+          onItemClick={selectTasklist}
+          onEditButtonClick={editTasklist}
+          items={tasklists}
+        />
       </Container>
     );
   }
 }
 
 const mapStateToProps = (state: types.RootState) => {
-  const { isFetching, isInitialized } = state.tasklistList;
+  const { isFetching, isInitialized, selectingId } = state.tasklistList;
 
   return {
     isFetching,
     isInitialized,
+    selectingId,
     tasklists: getTaskLists(state.tasklistList)
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTasklists: () => dispatch(tasklistActions.fetchTasklists()),
-  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist))
+  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist)),
+  selectTasklist: (id: number) => dispatch(tasklistActions.selectTasklist(id))
 });
 
 export default connect(

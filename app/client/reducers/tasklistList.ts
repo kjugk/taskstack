@@ -3,10 +3,10 @@ import * as types from '../types';
 
 const initialState: types.TasklistListState = {
   ids: [],
-  tasklistsById: {},
   isFetching: false,
   isInitialized: false,
-  selectedId: -1
+  selectingId: undefined,
+  tasklistsById: {}
 };
 
 const tasklistList = (state = initialState, action: any) => {
@@ -21,15 +21,17 @@ const tasklistList = (state = initialState, action: any) => {
       return {
         ...state,
         ids: action.payload.ids,
-        tasklistsById: action.payload.tasklistsById,
         isFetching: false,
-        isInitialized: true
+        isInitialized: true,
+        selectingId: action.payload.ids[0],
+        tasklistsById: action.payload.tasklistsById
       };
 
     case constants.TASKLIST_CREATE_SUCCESS:
       return {
         ...state,
         ids: [action.payload.id, ...state.ids],
+        selectingId: action.payload.id,
         tasklistsById: {
           ...action.payload.tasklistById,
           ...state.tasklistsById
@@ -50,6 +52,12 @@ const tasklistList = (state = initialState, action: any) => {
         ...state,
         ids: state.ids.filter((id) => id !== action.payload.id),
         tasklistsById: destroyTasklistById(action.payload.id, state.tasklistsById)
+      };
+
+    case constants.TASKLIST_SELECT:
+      return {
+        ...state,
+        selectingId: action.payload.id
       };
 
     default:
@@ -73,8 +81,12 @@ const getTaskLists = ({ ids, tasklistsById }: types.TasklistListState) => {
   return ids.map((id) => tasklistsById[id]);
 };
 
-const getSelectedTaskList = ({ selectedId, tasklistsById }: types.TasklistListState) => {
-  return tasklistsById[selectedId];
+const getSelectedTaskList = ({ selectingId, tasklistsById }: types.TasklistListState) => {
+  if (typeof selectingId === 'undefined') {
+    return undefined;
+  }
+
+  return tasklistsById[selectingId];
 };
 
 export { tasklistList, getTaskLists, getSelectedTaskList };

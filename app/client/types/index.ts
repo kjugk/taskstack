@@ -11,13 +11,13 @@ export interface TasklistState {
 }
 
 export interface TasklistListState {
-  tasklistsById: {
-    [index: number]: TasklistState
-  };
   ids: number[];
   isInitialized: boolean;
   isFetching: boolean;
-  selectedId: number;
+  selectingId: number | undefined;
+  tasklistsById: {
+    [index: number]: TasklistState
+  };
 }
 
 export interface TasklistCreateFormState {

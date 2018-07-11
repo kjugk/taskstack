@@ -22,8 +22,8 @@ export const createTasklist = () => {
   return {
     type: constants.TASKLIST_CREATE_START,
     payload: {}
-  }
-}
+  };
+};
 
 // TODO entity type を定義する。
 export const receiveNewTasklist = (id: number, tasklistById: any) => {
@@ -42,8 +42,8 @@ export const editTasklist = (tasklist: any) => {
     payload: {
       tasklist
     }
-  }
-}
+  };
+};
 
 export const receiveUpdatedTasklist = (tasklist: any) => {
   return {
@@ -51,8 +51,8 @@ export const receiveUpdatedTasklist = (tasklist: any) => {
     payload: {
       tasklist
     }
-  }
-}
+  };
+};
 
 export const receiveDestroyedTasklistId = (id: number) => {
   return {
@@ -60,5 +60,14 @@ export const receiveDestroyedTasklistId = (id: number) => {
     payload: {
       id
     }
-  }
-}
+  };
+};
+
+export const selectTasklist = (id: number) => {
+  return {
+    type: constants.TASKLIST_SELECT,
+    payload: {
+      id
+    }
+  };
+};

@@ -43,7 +43,7 @@ export default function* tasklistSaga() {
   }
 
   /**
-   * tasklistを更新する.
+   * tasklistを更新する。
    */
   function* update(action: any) {
     try {
@@ -59,6 +59,9 @@ export default function* tasklistSaga() {
     } catch (e) {}
   }
 
+  /**
+   * tasklist を削除する。
+   */
   function* destroy(action: any) {
     yield call(api.destroyTasklist, action.payload.id);
 

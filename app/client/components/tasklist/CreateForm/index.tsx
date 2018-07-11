@@ -39,15 +39,15 @@ class TasklistForm extends React.Component<CreateFormProps> {
         </Form.Field>
 
         <ActionsContainer>
+          <Button primary disabled={title.trim() === ''} type="submit">
+            保存
+          </Button>
+
           {canDestroy && (
             <Button onClick={onDestroyClick} type="button">
               削除
             </Button>
           )}
-
-          <Button disabled={title.trim() === ''} type="submit">
-            保存
-          </Button>
         </ActionsContainer>
       </Form>
     );
