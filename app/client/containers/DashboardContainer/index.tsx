@@ -18,6 +18,7 @@ const Left = styled.div`
   height: 100%;
   position: relative;
   width: 300px;
+  background: #eee;
 `;
 
 const Right = styled.div`

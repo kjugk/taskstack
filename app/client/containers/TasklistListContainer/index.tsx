@@ -24,11 +24,9 @@ class TasklistListContainer extends React.Component<TasklistListContainerProps> 
   componentDidMount() {
     const { isInitialized, fetchTasklists } = this.props;
 
-    if (isInitialized) {
-      return;
+    if (!isInitialized) {
+      fetchTasklists();
     }
-
-    fetchTasklists();
   }
 
   render() {
