@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
@@ -18,7 +18,7 @@ export default function* tasklistSaga() {
     const normalized = normalize(res.data, { tasklists: [tasklist] });
 
     yield put(
-      tasklistActions.receiveTasklists(normalized.result.tasklists, normalized.entities.tasklists)
+      tasklistActions.receiveTasklists(normalized.result.tasklists, normalized.entities.tasklists || {})
     );
   }
 
@@ -71,8 +71,10 @@ export default function* tasklistSaga() {
     yield put(messageActions.setMessage('リストを削除しました。'));
   }
 
-  yield takeLatest(constants.TASKLISTS_FETCH, fetch);
-  yield takeLatest(constants.TASKLIST_CREATE_FORM_SUBMIT, create);
-  yield takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update);
-  yield takeLatest(constants.TASKLIST_DESTROY, destroy);
+  yield all([
+    takeLatest(constants.TASKLISTS_FETCH, fetch),
+    takeLatest(constants.TASKLIST_CREATE_FORM_SUBMIT, create),
+    takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update),
+    takeLatest(constants.TASKLIST_DESTROY, destroy)
+  ]);
 }

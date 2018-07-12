@@ -15,3 +15,7 @@ export async function updateTasklist(id: number, params: any) {
 export async function destroyTasklist(id: number) {
   return await axios.delete(`/api/tasklists/${id}.json`);
 }
+
+export async function fetchTasks(tasklistId: number) {
+  return await axios.get(`/api/tasklists/${tasklistId}/tasks.json`)
+}

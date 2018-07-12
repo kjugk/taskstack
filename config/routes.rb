@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :tasklists, only: [:index, :create, :update, :destroy] do
-      resources :tasks, only: [:index]
+      resources :tasks, only: [:index, :create]
     end
   end
 end

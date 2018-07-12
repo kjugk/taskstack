@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TasklistListContainer from '../TasklistListContainer';
 import TasklistCreateFormContainer from '../TasklistCreateFormContainer';
 import TasklistEditFormContainer from '../TasklistEditFormContainer';
+import TasksContainer from '../TasksContainer';
 import { Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as tasklistActions from '../../actions/tasklistActions';
@@ -24,6 +25,7 @@ const Left = styled.div`
 const Right = styled.div`
   height: 100%;
   overflow: hidden;
+  padding: 1rem;
 `;
 
 const ButtonContainer = styled.div`
@@ -47,7 +49,9 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
           </ButtonContainer>
         </Left>
 
-        <Right />
+        <Right>
+          <TasksContainer />
+        </Right>
 
         <TasklistCreateFormContainer />
         <TasklistEditFormContainer />
