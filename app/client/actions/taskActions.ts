@@ -17,3 +17,12 @@ export const receiveTasks = (tasksById: any) => {
     }
   };
 };
+
+export const receiveNewTask = (task: any) => {
+  return {
+    type: constants.TASK_CREATE_SUCCESS,
+    payload: {
+      task
+    }
+  };
+};

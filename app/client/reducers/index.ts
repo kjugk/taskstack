@@ -3,6 +3,7 @@ import { tasklistList } from './tasklistList';
 import { tasklistCreateForm } from './tasklist/createForm';
 import { tasklistEditForm } from './tasklist/editForm';
 import { tasks } from './tasks';
+import { taskCreateForm } from './taskCreateForm';
 import { message } from './message';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   tasklistCreateForm,
   tasklistEditForm,
   tasks,
+  taskCreateForm,
   message
 });
 

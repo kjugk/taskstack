@@ -32,14 +32,9 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 
   render() {
     const { tasklist, tasks } = this.props;
-
     if (!tasklist) return null;
 
-    return (
-      <div>
-        <List items={tasks} />
-      </div>
-    );
+    return <List items={tasks} />;
   }
 }
 

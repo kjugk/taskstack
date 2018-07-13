@@ -12,6 +12,7 @@ class Api::TasksController < ApplicationController
   def create
     tasklist = Tasklist.find(params[:tasklist_id])
     task = Task.new(task_params) 
+
     if tasklist.tasks << task
       render json: {task: {id: task.id, title: task.title, memo: task.memo}}
     else
@@ -21,6 +22,6 @@ class Api::TasksController < ApplicationController
   private
 
   def task_params
-    require(:task).permit(:title, :memo)
+    params.require(:task).permit(:title, :memo)
   end
 end

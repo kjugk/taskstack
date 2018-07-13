@@ -1,8 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as taskActions from '../actions/taskActions';
-import * as messageActions from '../actions/messageActions';
+import * as taskCreateFormActions from '../actions/taskCreateFormActions';
 import * as api from '../Api';
 import { normalize, schema } from 'normalizr';
 
@@ -19,5 +18,17 @@ export default function* taskSaga() {
     // TODO ids を tasklist に保存する
   }
 
-  yield all([takeLatest(constants.TASKS_FETCH, fetchTasks)]);
+  function* createTask(action: any) {
+    const task = new schema.Entity('task');
+    const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
+    const normalized = normalize(res.data, { task: task });
+
+    yield put(taskActions.receiveNewTask(normalized.entities.task || {}));
+    yield put(taskCreateFormActions.clear());
+  }
+
+  yield all([
+    takeLatest(constants.TASKS_FETCH, fetchTasks),
+    takeLatest(constants.TASK_CREATE_FORM_SUBMIT, createTask)
+  ]);
 }

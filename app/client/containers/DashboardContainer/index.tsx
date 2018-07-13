@@ -7,6 +7,7 @@ import TasksContainer from '../TasksContainer';
 import { Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as tasklistActions from '../../actions/tasklistActions';
+import TaskCreateFormContainer from '../TaskCreateFormContainer';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -50,6 +51,7 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
         </Left>
 
         <Right>
+          <TaskCreateFormContainer />
           <TasksContainer />
         </Right>
 

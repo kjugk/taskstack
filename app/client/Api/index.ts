@@ -17,5 +17,9 @@ export async function destroyTasklist(id: number) {
 }
 
 export async function fetchTasks(tasklistId: number) {
-  return await axios.get(`/api/tasklists/${tasklistId}/tasks.json`)
+  return await axios.get(`/api/tasklists/${tasklistId}/tasks.json`);
+}
+
+export async function createTask(tasklistId: number, params: any) {
+  return await axios.post(`/api/tasklists/${tasklistId}/tasks.json`, params);
 }

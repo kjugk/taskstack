@@ -21,6 +21,15 @@ const tasks = (state = initialState, action: any) => {
         tasksById: action.payload.tasksById
       };
 
+    case constants.TASK_CREATE_SUCCESS:
+      return {
+        ...state,
+        tasksById: {
+          ...state.tasksById,
+          ...action.payload.task
+        }
+      }
+
     default:
       return state;
   }

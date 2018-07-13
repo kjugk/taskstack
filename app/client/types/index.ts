@@ -3,6 +3,7 @@ export interface RootState {
   tasklistCreateForm: TasklistCreateFormState,
   tasklistEditForm: TasklistEditFormState,
   tasks: TasksState;
+  taskCreateForm: TaskCreateFormState;
   message: MessageState
 }
 
@@ -44,6 +45,11 @@ export interface TasksState {
 export interface TaskState {
   title: string,
   memo: string
+}
+
+export interface TaskCreateFormState {
+  title: string;
+  isSubmitting: boolean;
 }
 
 export interface MessageState {
