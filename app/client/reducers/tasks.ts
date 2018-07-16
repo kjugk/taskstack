@@ -1,5 +1,6 @@
 import * as constants from '../constants';
 import * as types from '../types';
+import { createSelector } from 'reselect';
 import { getSelectedTasklist } from '../reducers/tasklistList';
 
 const initialState: types.TasksState = {
@@ -46,39 +47,29 @@ const tasks = (state = initialState, action: any) => {
 };
 
 // selector
-// TODO: reselect を使う
-const getActiveTasks = (state: types.RootState): types.TaskState[] => {
-  const tasklist = getSelectedTasklist(state);
-  const { tasksById } = state.tasks;
+const getTasksById = (state: types.RootState) => {
+  return state.tasks.tasksById;
+};
 
+const getTasks = createSelector([getSelectedTasklist, getTasksById], (tasklist, tasksById) => {
   if (tasklist === undefined) return [];
-
-  console.log(tasksById);
 
   let res: types.TaskState[] = [];
   (tasklist.taskIds || []).forEach((id: any) => {
-    if (!tasksById[id].completed) {
+    if (tasksById[id]) {
       res.push(tasksById[id]);
     }
   });
 
   return res;
-};
+});
 
-const getCompletedTasks = (state: types.RootState): types.TaskState[] => {
-  const tasklist = getSelectedTasklist(state);
-  const { tasksById } = state.tasks;
+const getActiveTasks = createSelector([getTasks], (tasks) => {
+  return tasks.filter((task) => !task.completed);
+});
 
-  if (tasklist === undefined) return [];
-
-  let res: types.TaskState[] = [];
-  (tasklist.taskIds || []).forEach((id: any) => {
-    if (tasksById[id].completed) {
-      res.push(tasksById[id]);
-    }
-  });
-
-  return res;
-};
+const getCompletedTasks = createSelector([getTasks], (tasks) => {
+  return tasks.filter((task) => task.completed);
+});
 
 export { tasks, getActiveTasks, getCompletedTasks };
