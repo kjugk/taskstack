@@ -13,6 +13,8 @@ class List extends React.Component<ListProps> {
     return (
       <Segment.Group>
         {items.map((item, i) => {
+          if (item === undefined) return null;
+
           return <Segment key={i}>{item.title}</Segment>;
         })}
       </Segment.Group>

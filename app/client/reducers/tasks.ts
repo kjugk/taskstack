@@ -1,6 +1,8 @@
 import * as constants from '../constants';
 import * as types from '../types';
 
+import { getSelectedTaskList } from '../reducers/tasklistList';
+
 const initialState: types.TasksState = {
   isFetching: false,
   tasksById: {}
@@ -28,7 +30,7 @@ const tasks = (state = initialState, action: any) => {
           ...state.tasksById,
           ...action.payload.task
         }
-      }
+      };
 
     default:
       return state;
@@ -37,8 +39,12 @@ const tasks = (state = initialState, action: any) => {
 
 // selector
 const getTasks = (state: types.RootState) => {
+  const tasklist = getSelectedTaskList(state.tasklistList);
   const { tasksById } = state.tasks;
-  return Object.keys(tasksById).map((id: any) => tasksById[id]);
+
+  if (tasklist === undefined) return [];
+
+  return (tasklist.taskIds || []).map((id: any) => tasksById[id]);
 };
 
 export { tasks, getTasks };

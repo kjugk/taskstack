@@ -54,6 +54,37 @@ const tasklistList = (state = initialState, action: any) => {
         tasklistsById: destroyTasklistById(action.payload.id, state.tasklistsById)
       };
 
+    case constants.TASK_IDS_RECEIVE:
+      return {
+        ...state,
+        tasklistsById: {
+          ...state.tasklistsById,
+          ...{
+            [action.payload.tasklistId]: {
+              ...state.tasklistsById[action.payload.tasklistId],
+              taskIds: action.payload.taskIds
+            }
+          }
+        }
+      };
+
+    case constants.TASK_ID_RECEIVE:
+      return {
+        ...state,
+        tasklistsById: {
+          ...state.tasklistsById,
+          ...{
+            [action.payload.tasklistId]: {
+              ...state.tasklistsById[action.payload.tasklistId],
+              taskIds: [
+                action.payload.taskId,
+                ...(state.tasklistsById[action.payload.tasklistId].taskIds || [])
+              ]
+            }
+          }
+        }
+      };
+
     case constants.TASKLIST_SELECT:
       return {
         ...state,

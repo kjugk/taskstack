@@ -10,6 +10,7 @@ export interface RootState {
 export interface TasklistState {
   id: number;
   title: string;
+  taskIds?: number[];
 }
 
 export interface TasklistListState {
