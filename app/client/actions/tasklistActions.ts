@@ -91,3 +91,10 @@ export const selectTasklist = (id: number) => {
     }
   };
 };
+
+export const resetTasklistSelection = () => {
+  return {
+    type: constants.TASKLIST_SELECT_RESET,
+    payload: {}
+  };
+};

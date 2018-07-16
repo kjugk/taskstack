@@ -92,6 +92,12 @@ const tasklistList = (state = initialState, action: any) => {
         selectingId: action.payload.id
       };
 
+    case constants.TASKLIST_SELECT_RESET:
+      return {
+        ...state,
+        selectingId: state.ids[0]
+      };
+
     default:
       return state;
   }
@@ -109,18 +115,6 @@ const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }
 };
 
 // selector
-// const getTaskLists = ({ ids, tasklistsById }: types.TasklistListState) => {
-//   return ids.map((id) => tasklistsById[id]);
-// };
-
-// const getSelectedTaskList = ({ selectingId, tasklistsById }: types.TasklistListState) => {
-//   if (typeof selectingId === 'undefined') {
-//     return undefined;
-//   }
-
-//   return tasklistsById[selectingId];
-// };
-
 const getTasklistIds = (state: types.RootState) => {
   return state.tasklistList.ids;
 };
@@ -137,10 +131,13 @@ const getTasklists = createSelector([getTasklistIds, getTasklistsById], (ids, ta
   return ids.map((id) => tasklistsById[id]);
 });
 
-const getSelectedTasklist = createSelector([getSelectingId, getTasklistsById], (selectingId, tasklistsById) => {
+const getSelectedTasklist = createSelector(
+  [getSelectingId, getTasklistsById],
+  (selectingId, tasklistsById) => {
     if (typeof selectingId === 'undefined') return undefined;
 
     return tasklistsById[selectingId];
-});
+  }
+);
 
 export { tasklistList, getTasklists, getSelectedTasklist };

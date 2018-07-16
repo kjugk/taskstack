@@ -18,7 +18,10 @@ export default function* tasklistSaga() {
     const normalized = normalize(res.data, { tasklists: [tasklist] });
 
     yield put(
-      tasklistActions.receiveTasklists(normalized.result.tasklists, normalized.entities.tasklists || {})
+      tasklistActions.receiveTasklists(
+        normalized.result.tasklists,
+        normalized.entities.tasklists || {}
+      )
     );
   }
 
@@ -67,6 +70,7 @@ export default function* tasklistSaga() {
 
     yield delay(1000);
     yield put(tasklistActions.receiveDestroyedTasklistId(action.payload.id));
+    yield put(tasklistActions.resetTasklistSelection());
     yield put(editFormActions.close());
     yield put(messageActions.setMessage('リストを削除しました。'));
   }

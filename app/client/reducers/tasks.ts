@@ -54,14 +54,14 @@ const getTasksById = (state: types.RootState) => {
 const getTasks = createSelector([getSelectedTasklist, getTasksById], (tasklist, tasksById) => {
   if (tasklist === undefined) return [];
 
-  let res: types.TaskState[] = [];
+  let tasks: types.TaskState[] = [];
   (tasklist.taskIds || []).forEach((id: any) => {
     if (tasksById[id]) {
-      res.push(tasksById[id]);
+      tasks.push(tasksById[id]);
     }
   });
 
-  return res;
+  return tasks;
 });
 
 const getActiveTasks = createSelector([getTasks], (tasks) => {
