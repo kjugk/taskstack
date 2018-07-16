@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
-import { getSelectedTaskList } from '../../reducers/tasklistList';
+import { getSelectedTasklist } from '../../reducers/tasklistList';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
 import { List } from '../../components/task/List';
@@ -52,7 +52,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 }
 
 const mapStateToProps = (state: types.RootState) => ({
-  tasklist: getSelectedTaskList(state.tasklistList),
+  tasklist: getSelectedTasklist(state),
   tasks: getActiveTasks(state),
   completedTasks: getCompletedTasks(state)
 });

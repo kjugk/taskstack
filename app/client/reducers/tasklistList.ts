@@ -1,5 +1,6 @@
 import * as constants from '../constants';
 import * as types from '../types';
+import { createSelector } from 'reselect';
 
 const initialState: types.TasklistListState = {
   ids: [],
@@ -108,16 +109,38 @@ const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }
 };
 
 // selector
-const getTaskLists = ({ ids, tasklistsById }: types.TasklistListState) => {
+// const getTaskLists = ({ ids, tasklistsById }: types.TasklistListState) => {
+//   return ids.map((id) => tasklistsById[id]);
+// };
+
+// const getSelectedTaskList = ({ selectingId, tasklistsById }: types.TasklistListState) => {
+//   if (typeof selectingId === 'undefined') {
+//     return undefined;
+//   }
+
+//   return tasklistsById[selectingId];
+// };
+
+const getTasklistIds = (state: types.RootState) => {
+  return state.tasklistList.ids;
+};
+
+const getTasklistsById = (state: types.RootState) => {
+  return state.tasklistList.tasklistsById;
+};
+
+const getSelectingId = (state: types.RootState) => {
+  return state.tasklistList.selectingId;
+};
+
+const getTasklists = createSelector([getTasklistIds, getTasklistsById], (ids, tasklistsById) => {
   return ids.map((id) => tasklistsById[id]);
-};
+});
 
-const getSelectedTaskList = ({ selectingId, tasklistsById }: types.TasklistListState) => {
-  if (typeof selectingId === 'undefined') {
-    return undefined;
-  }
+const getSelectedTasklist = createSelector([getSelectingId, getTasklistsById], (selectingId, tasklistsById) => {
+    if (typeof selectingId === 'undefined') return undefined;
 
-  return tasklistsById[selectingId];
-};
+    return tasklistsById[selectingId];
+});
 
-export { tasklistList, getTaskLists, getSelectedTaskList };
+export { tasklistList, getTasklists, getSelectedTasklist };

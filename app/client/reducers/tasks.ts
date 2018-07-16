@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import * as types from '../types';
-import { getSelectedTaskList } from '../reducers/tasklistList';
+import { getSelectedTasklist } from '../reducers/tasklistList';
 
 const initialState: types.TasksState = {
   isFetching: false,
@@ -48,7 +48,7 @@ const tasks = (state = initialState, action: any) => {
 // selector
 // TODO: reselect を使う
 const getActiveTasks = (state: types.RootState): types.TaskState[] => {
-  const tasklist = getSelectedTaskList(state.tasklistList);
+  const tasklist = getSelectedTasklist(state);
   const { tasksById } = state.tasks;
 
   if (tasklist === undefined) return [];
@@ -66,7 +66,7 @@ const getActiveTasks = (state: types.RootState): types.TaskState[] => {
 };
 
 const getCompletedTasks = (state: types.RootState): types.TaskState[] => {
-  const tasklist = getSelectedTaskList(state.tasklistList);
+  const tasklist = getSelectedTasklist(state);
   const { tasksById } = state.tasks;
 
   if (tasklist === undefined) return [];

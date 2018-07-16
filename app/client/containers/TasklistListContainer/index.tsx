@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
-import { getTaskLists } from '../../reducers/tasklistList';
+import { getTasklists } from '../../reducers/tasklistList';
 import { Loader } from 'semantic-ui-react';
 import { List } from '../../components/tasklist/List';
 import * as tasklistActions from '../../actions/tasklistActions';
@@ -16,7 +16,8 @@ interface TasklistListContainerProps {
   isFetching: boolean;
   isInitialized: boolean;
   selectingId: number;
-  tasklists: types.TasklistState[];
+  // tasklists: types.TasklistState[];
+  tasklists: any;
   fetchTasklists(): any;
   editTasklist(tasklist: any): any;
   selectTasklist(id: number): any;
@@ -62,7 +63,7 @@ const mapStateToProps = (state: types.RootState) => {
     isFetching,
     isInitialized,
     selectingId,
-    tasklists: getTaskLists(state.tasklistList)
+    tasklists: getTasklists(state)
   };
 };
 
