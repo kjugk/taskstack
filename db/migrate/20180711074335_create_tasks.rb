@@ -4,6 +4,7 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :memo
       t.integer :tasklist_id
+      t.boolean :completed, default: false
 
       t.timestamps
     end

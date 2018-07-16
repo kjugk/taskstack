@@ -44,8 +44,10 @@ export interface TasksState {
 }
 
 export interface TaskState {
+  id: number,
   title: string,
-  memo: string
+  memo: string,
+  completed: boolean
 }
 
 export interface TaskCreateFormState {

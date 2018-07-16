@@ -26,3 +26,22 @@ export const receiveNewTask = (task: any) => {
     }
   };
 };
+
+export const updateTask = (id: number, params: any) => {
+  return {
+    type: constants.TASK_UPDATE,
+    payload: {
+      id,
+      params
+    }
+  };
+};
+
+export const receiveUpdatedTask = (task: any) => {
+  return {
+    type: constants.TASK_UPDATE_SUCCESS,
+    payload: {
+      task
+    }
+  };
+}

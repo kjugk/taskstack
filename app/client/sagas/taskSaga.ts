@@ -29,8 +29,17 @@ export default function* taskSaga() {
     yield put(taskCreateFormActions.clear());
   }
 
+  function* updateTask(action: any) {
+    const task = new schema.Entity('task');
+    const res = yield call(api.updateTask, action.payload.id, action.payload.params);
+    const normalized = normalize(res.data, { task: task });
+
+    yield put(taskActions.receiveUpdatedTask(normalized.entities.task))
+  }
+
   yield all([
     takeLatest(constants.TASKS_FETCH, fetchTasks),
-    takeLatest(constants.TASK_CREATE_FORM_SUBMIT, createTask)
+    takeLatest(constants.TASK_CREATE_FORM_SUBMIT, createTask),
+    takeLatest(constants.TASK_UPDATE, updateTask)
   ]);
 }

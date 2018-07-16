@@ -5,7 +5,7 @@ class Api::TasksController < ApplicationController
     tasklist = Tasklist.find(params[:tasklist_id])
 
     render json: {
-      tasks: tasklist.tasks.map {|task| {id: task.id, title: task.title, memo: task.memo}}
+      tasks: tasklist.tasks.map {|task| {id: task.id, title: task.title, memo: task.memo, completed: task.completed}}
     }
   end
 
@@ -14,7 +14,16 @@ class Api::TasksController < ApplicationController
     task = Task.new(task_params) 
 
     if tasklist.tasks << task
-      render json: {task: {id: task.id, title: task.title, memo: task.memo}}
+      render json: {task: {id: task.id, title: task.title, memo: task.memo, completed: task.completed}}
+    else
+    end
+  end
+
+  def update
+    task = Task.find(params[:id])
+
+    if task.update(task_params)
+      render json: {task: {id: task.id, title: task.title, memo: task.memo, completed: task.completed}}
     else
     end
   end
@@ -22,6 +31,6 @@ class Api::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :memo)
+    params.require(:task).permit(:title, :memo, :completed)
   end
 end

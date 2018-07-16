@@ -10,6 +10,7 @@ interface TasksContainerProps {
   tasklist: types.TasklistState | undefined;
   tasks: types.TaskState[];
   fetchTasks(tasklistId: number): any;
+  updateTask(id: number, params: any): any;
 }
 
 class TasksContainer extends React.Component<TasksContainerProps> {
@@ -31,10 +32,10 @@ class TasksContainer extends React.Component<TasksContainerProps> {
   }
 
   render() {
-    const { tasklist, tasks } = this.props;
+    const { tasklist, tasks, updateTask } = this.props;
     if (!tasklist) return null;
 
-    return <List items={tasks} />;
+    return <List items={tasks} onCheckChange={updateTask} />;
   }
 }
 
@@ -44,7 +45,8 @@ const mapStateToProps = (state: types.RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  fetchTasks: (tasklistId: number) => dispatch(taskActions.fetchTasks(tasklistId))
+  fetchTasks: (tasklistId: number) => dispatch(taskActions.fetchTasks(tasklistId)),
+  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params))
 });
 
 export default connect(

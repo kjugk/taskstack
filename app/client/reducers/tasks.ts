@@ -32,6 +32,15 @@ const tasks = (state = initialState, action: any) => {
         }
       };
 
+    case constants.TASK_UPDATE_SUCCESS:
+      return {
+        ...state,
+        tasksById: {
+          ...state.tasksById,
+          ...action.payload.task
+        }
+      };
+
     default:
       return state;
   }

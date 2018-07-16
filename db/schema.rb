@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2018_07_11_074335) do
     t.string "title"
     t.text "memo"
     t.integer "tasklist_id"
+    t.boolean "completed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tasklist_id"], name: "index_tasks_on_tasklist_id"

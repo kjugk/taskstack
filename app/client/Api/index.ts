@@ -23,3 +23,7 @@ export async function fetchTasks(tasklistId: number) {
 export async function createTask(tasklistId: number, params: any) {
   return await axios.post(`/api/tasklists/${tasklistId}/tasks.json`, params);
 }
+
+export async function updateTask(taskId: number, params: any) {
+  return await axios.patch(`/api/tasks/${taskId}`, params);
+}
