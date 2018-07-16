@@ -11,6 +11,8 @@ class List extends React.Component<ListProps> {
   render() {
     const { items, onCheckChange } = this.props;
 
+    if (items.length <= 0) return null;
+
     return (
       <Segment.Group>
         {items.map((item, i) => {

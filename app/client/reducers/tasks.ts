@@ -1,6 +1,5 @@
 import * as constants from '../constants';
 import * as types from '../types';
-
 import { getSelectedTaskList } from '../reducers/tasklistList';
 
 const initialState: types.TasksState = {
@@ -47,13 +46,39 @@ const tasks = (state = initialState, action: any) => {
 };
 
 // selector
-const getTasks = (state: types.RootState) => {
+// TODO: reselect を使う
+const getActiveTasks = (state: types.RootState): types.TaskState[] => {
   const tasklist = getSelectedTaskList(state.tasklistList);
   const { tasksById } = state.tasks;
 
   if (tasklist === undefined) return [];
 
-  return (tasklist.taskIds || []).map((id: any) => tasksById[id]);
+  console.log(tasksById);
+
+  let res: types.TaskState[] = [];
+  (tasklist.taskIds || []).forEach((id: any) => {
+    if (!tasksById[id].completed) {
+      res.push(tasksById[id]);
+    }
+  });
+
+  return res;
 };
 
-export { tasks, getTasks };
+const getCompletedTasks = (state: types.RootState): types.TaskState[] => {
+  const tasklist = getSelectedTaskList(state.tasklistList);
+  const { tasksById } = state.tasks;
+
+  if (tasklist === undefined) return [];
+
+  let res: types.TaskState[] = [];
+  (tasklist.taskIds || []).forEach((id: any) => {
+    if (tasksById[id].completed) {
+      res.push(tasksById[id]);
+    }
+  });
+
+  return res;
+};
+
+export { tasks, getActiveTasks, getCompletedTasks };

@@ -2,13 +2,14 @@ import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
 import { getSelectedTaskList } from '../../reducers/tasklistList';
-import { getTasks } from '../../reducers/tasks';
+import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
 import { List } from '../../components/task/List';
 
 interface TasksContainerProps {
   tasklist: types.TasklistState | undefined;
   tasks: types.TaskState[];
+  completedTasks: types.TaskState[];
   fetchTasks(tasklistId: number): any;
   updateTask(id: number, params: any): any;
 }
@@ -32,16 +33,28 @@ class TasksContainer extends React.Component<TasksContainerProps> {
   }
 
   render() {
-    const { tasklist, tasks, updateTask } = this.props;
+    const { tasklist, tasks, completedTasks, updateTask } = this.props;
     if (!tasklist) return null;
 
-    return <List items={tasks} onCheckChange={updateTask} />;
+    return (
+      <>
+        <List items={tasks} onCheckChange={updateTask} />
+
+        {(completedTasks.length >= 1) && (
+          <div>
+            <span>{completedTasks.length} 件の完了済みタスク</span>
+            <List items={completedTasks} onCheckChange={updateTask} />
+          </div>
+        )}
+      </>
+    );
   }
 }
 
 const mapStateToProps = (state: types.RootState) => ({
   tasklist: getSelectedTaskList(state.tasklistList),
-  tasks: getTasks(state)
+  tasks: getActiveTasks(state),
+  completedTasks: getCompletedTasks(state)
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
