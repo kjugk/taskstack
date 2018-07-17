@@ -1,6 +1,17 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import { Segment } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const ItemContainer = styled<{ completed: boolean }, any>(Segment)`
+  cursor: pointer;
+  ${(props) => props.completed && 'background: #eee!important; color: #ccc;'};
+`;
+
+const TitleWrapper = styled<{ completed: boolean }, any>('span')`
+  margin-left: 0.5rem;
+  ${(props) => props.completed && 'text-decoration: line-through;'};
+`;
 
 interface ListProps {
   items: types.TaskState[];
@@ -19,7 +30,7 @@ class List extends React.Component<ListProps> {
           if (item === undefined) return null;
 
           return (
-            <Segment key={i}>
+            <ItemContainer completed={item.completed} key={i}>
               <input
                 type="checkbox"
                 checked={item.completed}
@@ -27,8 +38,8 @@ class List extends React.Component<ListProps> {
                   onCheckChange(item.id, { completed: !item.completed });
                 }}
               />
-              {item.title}
-            </Segment>
+              <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
+            </ItemContainer>
           );
         })}
       </Segment.Group>
