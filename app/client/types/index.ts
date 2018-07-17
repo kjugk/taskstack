@@ -38,6 +38,7 @@ export interface TasklistEditFormState {
 
 export interface TasksState {
   isFetching: boolean;
+  selectingId: number | undefined;
   tasksById: {
     [index: number]: TaskState
   }

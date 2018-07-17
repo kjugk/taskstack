@@ -5,6 +5,7 @@ import { getSelectedTasklist } from '../reducers/tasklistList';
 
 const initialState: types.TasksState = {
   isFetching: false,
+  selectingId: undefined,
   tasksById: {}
 };
 
@@ -41,6 +42,12 @@ const tasks = (state = initialState, action: any) => {
         }
       };
 
+    case constants.TASK_SELECT:
+      return {
+        ...state,
+        selectingId: action.payload.id
+      };
+
     default:
       return state;
   }
@@ -49,6 +56,10 @@ const tasks = (state = initialState, action: any) => {
 // selector
 const getTasksById = (state: types.RootState) => {
   return state.tasks.tasksById;
+};
+
+const getSelectingId = (state: types.RootState) => {
+  return state.tasks.selectingId;
 };
 
 const getTasks = createSelector([getSelectedTasklist, getTasksById], (tasklist, tasksById) => {
@@ -72,4 +83,10 @@ const getCompletedTasks = createSelector([getTasks], (tasks) => {
   return tasks.filter((task) => task.completed);
 });
 
-export { tasks, getActiveTasks, getCompletedTasks };
+const getSelectingTask = createSelector([getTasksById, getSelectingId], (tasks, id) => {
+  if (typeof id === "undefined") return undefined;
+
+  return tasks[id];
+})
+
+export { tasks, getActiveTasks, getCompletedTasks, getSelectingTask };

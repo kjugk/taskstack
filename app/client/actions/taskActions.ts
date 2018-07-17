@@ -44,4 +44,13 @@ export const receiveUpdatedTask = (task: any) => {
       task
     }
   };
-}
+};
+
+export const selectTask = (id: number) => {
+  return {
+    type: constants.TASK_SELECT,
+    payload: {
+      id
+    }
+  };
+};
