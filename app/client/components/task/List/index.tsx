@@ -3,9 +3,9 @@ import * as types from '../../../types';
 import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-const ItemContainer = styled<{ completed: boolean }, any>(Segment)`
+const ItemContainer = styled<{ completed: boolean }, any>('div')`
   cursor: pointer;
-  ${(props) => props.completed && 'background: #eee!important; color: #ccc;'};
+  ${(props) => props.completed && 'color: #ccc;'};
 `;
 
 const TitleWrapper = styled<{ completed: boolean }, any>('span')`
@@ -15,12 +15,13 @@ const TitleWrapper = styled<{ completed: boolean }, any>('span')`
 
 interface ListProps {
   items: types.TaskState[];
+  onItemClick(id: number): any;
   onCheckChange(id: number, params: any): any;
 }
 
 class List extends React.Component<ListProps> {
   render() {
-    const { items, onCheckChange } = this.props;
+    const { items, onCheckChange, onItemClick } = this.props;
 
     if (items.length <= 0) return null;
 
@@ -30,16 +31,22 @@ class List extends React.Component<ListProps> {
           if (item === undefined) return null;
 
           return (
-            <ItemContainer completed={item.completed} key={i}>
-              <input
-                type="checkbox"
-                checked={item.completed}
-                onChange={() => {
-                  onCheckChange(item.id, { completed: !item.completed });
-                }}
-              />
-              <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
-            </ItemContainer>
+            <Segment key={i}>
+              <ItemContainer completed={item.completed} onClick={() => onItemClick(item.id)}>
+                <input
+                  type="checkbox"
+                  checked={item.completed}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    onCheckChange(item.id, { completed: !item.completed });
+                  }}
+                />
+                <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
+              </ItemContainer>
+            </Segment>
           );
         })}
       </Segment.Group>
