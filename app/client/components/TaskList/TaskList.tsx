@@ -19,7 +19,7 @@ interface ListProps {
   onCheckChange(id: number, params: any): any;
 }
 
-class List extends React.Component<ListProps> {
+class TaskList extends React.Component<ListProps> {
   render() {
     const { items, onCheckChange, onItemClick } = this.props;
 
@@ -54,4 +54,4 @@ class List extends React.Component<ListProps> {
   }
 }
 
-export { List };
+export { TaskList };

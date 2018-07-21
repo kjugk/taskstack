@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-interface CreateFormProps {
+interface TasklistFormProps {
   title: string;
   canDestroy: boolean;
   onDestroyClick?(): any;
@@ -15,7 +15,7 @@ const ActionsContainer = styled.div`
   justify-content: space-between;
 `;
 
-class TasklistForm extends React.Component<CreateFormProps> {
+class TasklistForm extends React.Component<TasklistFormProps> {
   render() {
     const { title, onTitleChange, onSubmit, canDestroy, onDestroyClick } = this.props;
 

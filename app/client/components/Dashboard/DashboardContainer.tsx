@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import TasklistListContainer from '../TasklistListContainer';
-import TasklistCreateFormContainer from '../TasklistCreateFormContainer';
-import TasklistEditFormContainer from '../TasklistEditFormContainer';
-import TasksContainer from '../TasksContainer';
+import TasklistListContainer from '../TasklistList/TasklistListContainer';
+import TasklistCreateFormContainer from '../TasklistCreateForm/TasklistCreateFormContainer';
+import TasklistEditFormContainer from '../TasklistEditForm/TasklistEditFormContainer';
+import TaskListContainer from '../tasklist/TaskListContainer';
+import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import { Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as tasklistActions from '../../actions/tasklistActions';
-import TaskCreateFormContainer from '../TaskCreateFormContainer';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -52,7 +52,7 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
 
         <Right>
           <TaskCreateFormContainer />
-          <TasksContainer />
+          <TaskListContainer />
         </Right>
 
         <TasklistCreateFormContainer />
