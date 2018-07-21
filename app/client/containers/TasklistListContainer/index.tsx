@@ -3,7 +3,7 @@ import * as types from '../../types';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklistList';
 import { Loader } from 'semantic-ui-react';
-import { List } from '../../components/tasklist/List';
+import { TasklistList } from '../../components/TasklistList/TasklistList';
 import * as tasklistActions from '../../actions/tasklistActions';
 import styled from 'styled-components';
 
@@ -45,7 +45,7 @@ class TasklistListContainer extends React.Component<TasklistListContainerProps> 
 
     return (
       <Container>
-        <List
+        <TasklistList
           selectingId={selectingId}
           onItemClick={selectTasklist}
           onEditButtonClick={editTasklist}

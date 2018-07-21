@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getSelectedTasklist } from '../../reducers/tasklistList';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
-import { List } from '../../components/task/List';
+import { List } from '../../components/TaskList/TaskList';
 
 interface TasksContainerProps {
   tasklist: types.TasklistState | undefined;

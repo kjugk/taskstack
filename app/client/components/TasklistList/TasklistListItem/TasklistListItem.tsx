@@ -34,7 +34,7 @@ interface ListItemProps {
   onEditButtonClick(item: any): any;
 }
 
-class ListItem extends React.Component<ListItemProps> {
+class TasklistListItem extends React.Component<ListItemProps> {
   render() {
     const { item, onClick, onEditButtonClick, isSelecting } = this.props;
 
@@ -52,4 +52,4 @@ class ListItem extends React.Component<ListItemProps> {
   }
 }
 
-export { ListItem };
+export { TasklistListItem };

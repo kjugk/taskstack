@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as types from '../../../types';
-import { ListItem } from '../ListItem';
+import * as types from '../../types';
+import { TasklistListItem } from './TasklistListItem/TasklistListItem';
 import styled from 'styled-components';
 
 const Container = styled.ul`
@@ -16,7 +16,7 @@ interface ListProps {
   onEditButtonClick(tasklist: any): any;
 }
 
-class List extends React.Component<ListProps> {
+class TasklistList extends React.Component<ListProps> {
   render() {
     const { items, onItemClick, onEditButtonClick, selectingId } = this.props;
 
@@ -24,7 +24,7 @@ class List extends React.Component<ListProps> {
       <Container>
         {items.map((item, i) => {
           return (
-            <ListItem
+            <TasklistListItem
               onClick={onItemClick}
               onEditButtonClick={onEditButtonClick}
               item={item}
@@ -38,4 +38,4 @@ class List extends React.Component<ListProps> {
   }
 }
 
-export { List };
+export { TasklistList };

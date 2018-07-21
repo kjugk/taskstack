@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as types from '../../../types';
+import * as types from '../../types';
 import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
