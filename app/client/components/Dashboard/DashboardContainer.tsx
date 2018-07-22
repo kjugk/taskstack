@@ -5,6 +5,7 @@ import TasklistCreateFormContainer from '../TasklistCreateForm/TasklistCreateFor
 import TasklistEditFormContainer from '../TasklistEditForm/TasklistEditFormContainer';
 import TaskListContainer from '../tasklist/TaskListContainer';
 import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
+import TaskContainer from '../Task/TaskContainer';
 import { Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as tasklistActions from '../../actions/tasklistActions';
@@ -19,18 +20,14 @@ const Left = styled.div`
   float: left;
   height: 100%;
   position: relative;
-  width: 300px;
+  width: 260px;
   background: #eee;
 `;
 
 const Right = styled.div`
   height: 100%;
   overflow: hidden;
-  padding: 1rem;
-`;
-
-const ButtonContainer = styled.div`
-  padding: 0.6rem;
+  display: flex;
 `;
 
 interface DashboardContainerProps {
@@ -43,16 +40,24 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
       <DashBoard>
         <Left>
           <TasklistListContainer />
-          <ButtonContainer>
-            <Button fluid primary icon onClick={this.props.createTasklist}>
-              <Icon name="plus" /> リストを作成
-            </Button>
-          </ButtonContainer>
+          <Button
+            fluid
+            primary
+            icon
+            onClick={this.props.createTasklist}
+            size="huge"
+            style={{ borderRadius: 0 }}
+          >
+            <Icon name="plus" /> リストを作成
+          </Button>
         </Left>
 
         <Right>
-          <TaskCreateFormContainer />
-          <TaskListContainer />
+          <div style={{ flex: 1, padding: '1rem'}}>
+            <TaskCreateFormContainer />
+            <TaskListContainer />
+          </div>
+          <TaskContainer />
         </Right>
 
         <TasklistCreateFormContainer />
