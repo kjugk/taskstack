@@ -11,18 +11,22 @@ const Container = styled.div`
 
 const TitleContainer = styled.div`
   display: flex;
-  padding: 1rem 1rem 0 1rem;
-  border-bottom: 1px solid #eee;
+  padding: 1rem;
+  background: #eee;
+  align-items: center;
+  min-height: 2rem;
 `;
 
-const Title = styled.h2`
+const Title = styled.div`
   flex: 1;
   overflow: hidden;
   word-wrap: break-word;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-left: 1rem;
 `;
 
 const CloseIcon = styled(Icon)`
-  margin-top: 2px;
   cursor: pointer;
 `;
 
@@ -33,10 +37,13 @@ const Contents = styled('div')`
 interface TaskProps {
   task: types.TaskState;
   onCloseClick(): any;
+  onUpdate(id: number, params: any): any;
 }
 
 interface TaskState {
+  title: string;
   memo: string;
+  isTitleEditing: boolean;
   isEditing: boolean;
 }
 
@@ -44,8 +51,10 @@ class Task extends React.Component<TaskProps, TaskState> {
   constructor(props: TaskProps) {
     super(props);
     this.state = {
+      title: props.task.title,
       memo: props.task.memo,
-      isEditing: false
+      isEditing: false,
+      isTitleEditing: false
     };
   }
 
@@ -55,6 +64,7 @@ class Task extends React.Component<TaskProps, TaskState> {
     return (
       <Container>
         <TitleContainer>
+          <input type="checkbox" checked={task.completed} onChange={this.handleCheckChange.bind(this)}/>
           <Title>{task.title}</Title>
           <CloseIcon onClick={onCloseClick} name="close" size="large" />
         </TitleContainer>
@@ -65,6 +75,16 @@ class Task extends React.Component<TaskProps, TaskState> {
         </Contents>
       </Container>
     );
+  }
+
+  private handleTitleClick(e: any) {
+    this.setState({isTitleEditing: true})
+  }
+
+  private handleCheckChange(e: any){
+    e.preventDefault();
+    const {task, onUpdate} = this.props;
+    onUpdate(task.id, {completed: !task.completed})
   }
 }
 

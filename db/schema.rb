@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2018_07_11_074335) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
-    t.text "memo"
+    t.text "memo", default: ""
     t.integer "tasklist_id"
     t.boolean "completed", default: false
     t.datetime "created_at", null: false

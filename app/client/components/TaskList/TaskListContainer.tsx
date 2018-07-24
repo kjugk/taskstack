@@ -5,6 +5,7 @@ import { getSelectedTasklist } from '../../reducers/tasklistList';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
 import { TaskList } from './TaskList';
+import { Button } from 'semantic-ui-react';
 
 interface TaskListContainerProps {
   tasklist: types.TasklistState | undefined;
@@ -15,7 +16,19 @@ interface TaskListContainerProps {
   selectTask(id: number): any;
 }
 
-class TaskListContainer extends React.Component<TaskListContainerProps> {
+interface TaskListContainerState {
+  openCompletedList: boolean;
+}
+
+class TaskListContainer extends React.Component<TaskListContainerProps, TaskListContainerState> {
+  constructor(props: TaskListContainerProps) {
+    super(props);
+
+    this.state = {
+      openCompletedList: false
+    };
+  }
+
   componentDidUpdate(prevProps: TaskListContainerProps) {
     const prevTasklist = prevProps.tasklist;
     const { tasklist, fetchTasks } = this.props;
@@ -34,7 +47,7 @@ class TaskListContainer extends React.Component<TaskListContainerProps> {
   }
 
   render() {
-    const { tasklist, tasks, completedTasks, updateTask, selectTask} = this.props;
+    const { tasklist, tasks, completedTasks, updateTask, selectTask } = this.props;
     if (!tasklist) return null;
 
     return (
@@ -43,12 +56,27 @@ class TaskListContainer extends React.Component<TaskListContainerProps> {
 
         {completedTasks.length >= 1 && (
           <div>
-            <span>{completedTasks.length} 件の完了済みタスク</span>
-            <TaskList items={completedTasks} onCheckChange={updateTask} onItemClick={selectTask} />
+            <Button type="button" secondary onClick={this.handleToggleButtonClick.bind(this)}>
+              {completedTasks.length} 件の完了済みタスク
+            </Button>
+
+            {this.state.openCompletedList && (
+              <TaskList
+                items={completedTasks}
+                onCheckChange={updateTask}
+                onItemClick={selectTask}
+              />
+            )}
           </div>
         )}
       </>
     );
+  }
+
+  handleToggleButtonClick() {
+    this.setState({
+      openCompletedList: !this.state.openCompletedList
+    });
   }
 }
 
