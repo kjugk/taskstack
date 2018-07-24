@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
 import { Icon, Form } from 'semantic-ui-react';
+import { TaskTitle } from './TaskTitle/TaskTitle';
 
 const Container = styled.div`
   height: 100%;
@@ -64,8 +65,23 @@ class Task extends React.Component<TaskProps, TaskState> {
     return (
       <Container>
         <TitleContainer>
-          <input type="checkbox" checked={task.completed} onChange={this.handleCheckChange.bind(this)}/>
-          <Title>{task.title}</Title>
+          <input
+            type="checkbox"
+            checked={task.completed}
+            onChange={this.handleCheckChange.bind(this)}
+            style={{ marginRight: '1.4rem' }}
+          />
+          <TaskTitle
+            title={this.state.title}
+            isEditing={this.state.isTitleEditing}
+            onClick={() => this.setState({ isTitleEditing: !this.state.isTitleEditing })}
+            onChange={(title) => this.setState({ title })}
+            onSubmit={() => {
+              this.setState({ isTitleEditing: false });
+              alert('submit');
+            }}
+          />
+
           <CloseIcon onClick={onCloseClick} name="close" size="large" />
         </TitleContainer>
         <Contents>
@@ -77,14 +93,10 @@ class Task extends React.Component<TaskProps, TaskState> {
     );
   }
 
-  private handleTitleClick(e: any) {
-    this.setState({isTitleEditing: true})
-  }
-
-  private handleCheckChange(e: any){
+  private handleCheckChange(e: any) {
     e.preventDefault();
-    const {task, onUpdate} = this.props;
-    onUpdate(task.id, {completed: !task.completed})
+    const { task, onUpdate } = this.props;
+    onUpdate(task.id, { completed: !task.completed });
   }
 }
 

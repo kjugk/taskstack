@@ -11,7 +11,8 @@
       "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
       "object-literal-sort-keys": false,
       "member-access": [true, "no-public"],
-      "curly": [true, "ignore-same-line"]
+      "curly": [true, "ignore-same-line"],
+      "no-debugger": false
   },
   "rulesDirectory": []
 }
