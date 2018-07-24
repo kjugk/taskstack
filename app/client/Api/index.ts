@@ -27,3 +27,7 @@ export async function createTask(tasklistId: number, params: any) {
 export async function updateTask(taskId: number, params: any) {
   return await axios.patch(`/api/tasks/${taskId}`, params);
 }
+
+export async function destroyTask(taskId: number) {
+  return await axios.delete(`/api/tasks/${taskId}`);
+}

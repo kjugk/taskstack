@@ -3,6 +3,7 @@ import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
 import * as taskCreateFormActions from '../actions/taskCreateFormActions';
+import * as messageActions from '../actions/messageActions';
 import * as api from '../Api';
 import { normalize, schema } from 'normalizr';
 
@@ -22,7 +23,7 @@ export default function* taskSaga() {
   function* createTask(action: any) {
     const task = new schema.Entity('task');
     const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
-    const normalized = normalize(res.data, { task: task });
+    const normalized = normalize(res.data, { task });
 
     yield put(taskActions.receiveNewTask(normalized.entities.task || {}));
     yield put(tasklistActions.receiveTaskId(action.payload.tasklistId, normalized.result.task));
@@ -32,14 +33,21 @@ export default function* taskSaga() {
   function* updateTask(action: any) {
     const task = new schema.Entity('task');
     const res = yield call(api.updateTask, action.payload.id, action.payload.params);
-    const normalized = normalize(res.data, { task: task });
+    const normalized = normalize(res.data, { task });
 
-    yield put(taskActions.receiveUpdatedTask(normalized.entities.task))
+    yield put(taskActions.receiveUpdatedTask(normalized.entities.task));
+  }
+
+  function* destroyTask(action: any) {
+    yield call(api.destroyTask, action.payload.id);
+    yield put(taskActions.receiveDestroyedTaskId(action.payload.id));
+    yield put(messageActions.setMessage('削除しました'));
   }
 
   yield all([
     takeLatest(constants.TASKS_FETCH, fetchTasks),
     takeLatest(constants.TASK_CREATE_FORM_SUBMIT, createTask),
-    takeLatest(constants.TASK_UPDATE, updateTask)
+    takeLatest(constants.TASK_UPDATE, updateTask),
+    takeLatest(constants.TASK_DESTROY, destroyTask)
   ]);
 }

@@ -9,15 +9,23 @@ interface TaskContainerProps {
   task: types.TaskState | undefined;
   selectTask(id: number): any;
   updateTask(id: number, params: any): any;
+  destroyTask(id: number): any;
 }
 
 class TaskContainer extends React.Component<TaskContainerProps> {
   render() {
-    const { task, selectTask, updateTask } = this.props;
+    const { task, selectTask, updateTask, destroyTask } = this.props;
 
     if (!task) return null;
 
-    return <Task task={task} onCloseClick={() => selectTask(-1)} onUpdate={updateTask} />;
+    return (
+      <Task
+        task={task}
+        onCloseClick={() => selectTask(-1)}
+        onUpdate={updateTask}
+        onDestroy={destroyTask}
+      />
+    );
   }
 }
 
@@ -27,7 +35,8 @@ const mapStateToProps = (state: types.RootState) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   selectTask: (id: number) => dispatch(taskActions.selectTask(id)),
-  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params))
+  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params)),
+  destroyTask: (id: number) => dispatch(taskActions.destroyTask(id))
 });
 
 export default connect(

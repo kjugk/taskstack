@@ -7,6 +7,6 @@ Rails.application.routes.draw do
       resources :tasks, only: [:index, :create]
     end
 
-    resources :tasks, only: [:update]
+    resources :tasks, only: [:update, :destroy]
   end
 end

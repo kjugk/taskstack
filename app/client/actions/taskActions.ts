@@ -46,6 +46,22 @@ export const receiveUpdatedTask = (task: any) => {
   };
 };
 
+export const destroyTask = (id: number) => {
+  return {
+    type: constants.TASK_DESTROY,
+    payload: {
+      id
+    }
+  };
+};
+
+export const receiveDestroyedTaskId = (id: number) => ({
+  type: constants.TASK_DESTROY_SUCCESS,
+  payload: {
+    id
+  }
+});
+
 export const selectTask = (id: number) => {
   return {
     type: constants.TASK_SELECT,

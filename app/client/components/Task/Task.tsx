@@ -1,13 +1,15 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import { Icon, Form } from 'semantic-ui-react';
+import { Icon, Form, Button } from 'semantic-ui-react';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 
 const Container = styled.div`
   height: 100%;
   width: 320px;
   border-left: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
 `;
 
 const TitleContainer = styled.div`
@@ -18,27 +20,20 @@ const TitleContainer = styled.div`
   min-height: 2rem;
 `;
 
-const Title = styled.div`
-  flex: 1;
-  overflow: hidden;
-  word-wrap: break-word;
-  font-size: 1.4rem;
-  font-weight: bold;
-  margin-left: 1rem;
-`;
-
 const CloseIcon = styled(Icon)`
   cursor: pointer;
 `;
 
 const Contents = styled('div')`
   padding: 1rem;
+  flex: 1;
 `;
 
 interface TaskProps {
   task: types.TaskState;
   onCloseClick(): any;
   onUpdate(id: number, params: any): any;
+  onDestroy(id: number): any;
 }
 
 interface TaskState {
@@ -89,6 +84,17 @@ class Task extends React.Component<TaskProps, TaskState> {
             <Form.TextArea label="メモ" value={this.state.memo} />
           </Form>
         </Contents>
+        <div>
+          <Button
+            onClick={() => {
+              if (window.confirm('削除しますか?')) {
+                this.props.onDestroy(task.id);
+              }
+            }}
+          >
+            delete
+          </Button>
+        </div>
       </Container>
     );
   }

@@ -42,6 +42,12 @@ const tasks = (state = initialState, action: any) => {
         }
       };
 
+    case constants.TASK_DESTROY_SUCCESS:
+      return {
+        ...state,
+        tasksById: deleteTask(state.tasksById, action.payload.id)
+      };
+
     case constants.TASK_SELECT:
       return {
         ...state,
@@ -51,6 +57,15 @@ const tasks = (state = initialState, action: any) => {
     default:
       return state;
   }
+};
+
+// helpers
+const deleteTask = (tasksById: any, id: number) => {
+  // TODO deep copy (lodash?)
+  const cloned = Object.assign({}, tasksById);
+
+  delete cloned[id];
+  return cloned;
 };
 
 // selector
@@ -65,14 +80,14 @@ const getSelectingId = (state: types.RootState) => {
 const getTasks = createSelector([getSelectedTasklist, getTasksById], (tasklist, tasksById) => {
   if (tasklist === undefined) return [];
 
-  let tasks: types.TaskState[] = [];
+  const t: types.TaskState[] = [];
   (tasklist.taskIds || []).forEach((id: any) => {
     if (tasksById[id]) {
-      tasks.push(tasksById[id]);
+      t.push(tasksById[id]);
     }
   });
 
-  return tasks;
+  return t;
 });
 
 const getActiveTasks = createSelector([getTasks], (tasks) => {
@@ -84,10 +99,10 @@ const getCompletedTasks = createSelector([getTasks], (tasks) => {
 });
 
 const getSelectingTask = createSelector([getTasksById, getSelectingId], (tasks, id) => {
-  if (typeof id === "undefined") return undefined;
+  if (typeof id === 'undefined') return undefined;
 
   // TODO コピーしたオブジェクトを渡す
   return tasks[id];
-})
+});
 
 export { tasks, getActiveTasks, getCompletedTasks, getSelectingTask };

@@ -32,7 +32,7 @@ export default function* tasklistSaga() {
     try {
       const tasklist = new schema.Entity('tasklist');
       const res = yield call(api.postTasklist, action.payload.params);
-      const normalized = normalize(res.data, { tasklist: tasklist });
+      const normalized = normalize(res.data, { tasklist });
 
       yield delay(1000);
       yield put(
