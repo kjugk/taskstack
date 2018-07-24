@@ -50,16 +50,16 @@ export default function* tasklistSaga() {
    */
   function* update(action: any) {
     try {
-      const tasklist = new schema.Entity('tasklist');
       const { id, params } = action.payload;
       const res = yield call(api.updateTasklist, id, params);
-      const normalized = normalize(res.data, { tasklist: tasklist });
 
       yield delay(1000);
-      yield put(tasklistActions.receiveUpdatedTasklist(normalized.entities.tasklist));
+      yield put(tasklistActions.receiveUpdatedTasklist(res.data.tasklist));
       yield put(editFormActions.close());
       yield put(messageActions.setMessage('リストを更新しました。'));
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /**

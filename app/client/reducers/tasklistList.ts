@@ -44,7 +44,10 @@ const tasklistList = (state = initialState, action: any) => {
         ...state,
         tasklistsById: {
           ...state.tasklistsById,
-          ...action.payload.tasklist
+          [action.payload.tasklist.id]: {
+            ...state.tasklistsById[action.payload.tasklist.id],
+            ...action.payload.tasklist
+          }
         }
       };
 
@@ -60,11 +63,9 @@ const tasklistList = (state = initialState, action: any) => {
         ...state,
         tasklistsById: {
           ...state.tasklistsById,
-          ...{
-            [action.payload.tasklistId]: {
-              ...state.tasklistsById[action.payload.tasklistId],
-              taskIds: action.payload.taskIds
-            }
+          [action.payload.tasklistId]: {
+            ...state.tasklistsById[action.payload.tasklistId],
+            ...{ taskIds: action.payload.taskIds }
           }
         }
       };
@@ -74,9 +75,9 @@ const tasklistList = (state = initialState, action: any) => {
         ...state,
         tasklistsById: {
           ...state.tasklistsById,
-          ...{
-            [action.payload.tasklistId]: {
-              ...state.tasklistsById[action.payload.tasklistId],
+          [action.payload.tasklistId]: {
+            ...state.tasklistsById[action.payload.tasklistId],
+            ...{
               taskIds: [
                 action.payload.taskId,
                 ...(state.tasklistsById[action.payload.tasklistId].taskIds || [])
@@ -110,8 +111,9 @@ const tasklistList = (state = initialState, action: any) => {
  * @param tasklistsById tasklist を格納している object
  */
 const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }) => {
-  delete tasklistsById[id];
-  return tasklistsById;
+  const cloned = Object.assign({}, tasklistsById);
+  delete cloned[id];
+  return cloned;
 };
 
 // selector

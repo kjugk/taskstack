@@ -58,7 +58,7 @@ export const receiveNewTasklist = (id: number, tasklistById: any) => {
 
 export const editTasklist = (tasklist: any) => {
   return {
-    type: constants.TASKLIST_EDIT_START,
+  type: constants.TASKLIST_EDIT_START,
     payload: {
       tasklist
     }
