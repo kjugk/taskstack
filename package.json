@@ -41,7 +41,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dev": "./node_modules/.bin/webpack --mode development --config ./app/client/webpack.config.dev.js"
+    "build:dev": "./node_modules/.bin/webpack --mode development --config ./app/client/webpack.config.dev.js",
+    "build:prod": "./node_modules/.bin/webpack --mode production --config ./app/client/webpack.config.dev.js"
   },
   "author": "",
   "license": "ISC",

@@ -86,6 +86,7 @@ const getCompletedTasks = createSelector([getTasks], (tasks) => {
 const getSelectingTask = createSelector([getTasksById, getSelectingId], (tasks, id) => {
   if (typeof id === "undefined") return undefined;
 
+  // TODO コピーしたオブジェクトを渡す
   return tasks[id];
 })
 

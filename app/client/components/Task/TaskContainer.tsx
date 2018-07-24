@@ -3,7 +3,7 @@ import * as types from '../../types';
 import { connect } from 'react-redux';
 import { getSelectingTask } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
-import { Task } from './Task'
+import { Task } from './Task';
 
 interface TaskContainerProps {
   task: types.TaskState | undefined;
@@ -17,12 +17,7 @@ class TaskContainer extends React.Component<TaskContainerProps> {
 
     if (!task) return null;
 
-    return (
-      <Task task={task}
-        onCloseClick={() => selectTask(-1)}
-        onUpdate={updateTask}
-      />
-    );
+    return <Task task={task} onCloseClick={() => selectTask(-1)} onUpdate={updateTask} />;
   }
 }
 

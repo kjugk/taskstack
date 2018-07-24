@@ -20,11 +20,11 @@ interface TaskCreateFormContainerProps {
 class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerProps> {
   private input: any;
 
-  componentDidUpdate(prevProps: TaskCreateFormContainerProps){
-    const {formState} = this.props;
+  componentDidUpdate(prevProps: TaskCreateFormContainerProps) {
+    const { formState } = this.props;
 
-    if(prevProps.formState.isSubmitting && !formState.isSubmitting) {
-      this.input && this.input.focus();
+    if (prevProps.formState.isSubmitting && !formState.isSubmitting) {
+      this.input.focus();
     }
   }
 
@@ -52,7 +52,7 @@ class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerPro
             onChange={(e: any) => changeTitle(e.currentTarget.value)}
             placeholder="タスクを作成"
             value={formState.title}
-            ref={ref => this.input = ref}
+            ref={(ref) => (this.input = ref)}
           />
         </form>
       </Container>
