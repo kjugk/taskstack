@@ -1,32 +1,14 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import { Icon, Form, Button } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 import { TaskTitle } from './TaskTitle/TaskTitle';
-
-const Container = styled.div`
-  height: 100%;
-  width: 320px;
-  border-left: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-`;
+import { Modal } from 'semantic-ui-react';
 
 const TitleContainer = styled.div`
   display: flex;
-  padding: 1rem;
-  background: #eee;
   align-items: center;
   min-height: 2rem;
-`;
-
-const CloseIcon = styled(Icon)`
-  cursor: pointer;
-`;
-
-const Contents = styled('div')`
-  padding: 1rem;
-  flex: 1;
 `;
 
 interface TaskProps {
@@ -58,33 +40,35 @@ class Task extends React.Component<TaskProps, TaskState> {
     const { task, onCloseClick } = this.props;
 
     return (
-      <Container>
-        <TitleContainer>
-          <input
-            type="checkbox"
-            checked={task.completed}
-            onChange={this.handleCheckChange.bind(this)}
-            style={{ marginRight: '1.4rem' }}
-          />
-          <TaskTitle
-            title={this.state.title}
-            isEditing={this.state.isTitleEditing}
-            onClick={() => this.setState({ isTitleEditing: !this.state.isTitleEditing })}
-            onChange={(title) => this.setState({ title })}
-            onSubmit={() => {
-              this.setState({ isTitleEditing: false });
-              alert('submit');
-            }}
-          />
+      <Modal open={true} onClose={onCloseClick} size="tiny">
+        <Modal.Header>
+          <TitleContainer>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={this.handleCheckChange.bind(this)}
+              style={{ marginRight: '1.4rem' }}
+            />
+            <TaskTitle
+              title={this.state.title}
+              isEditing={this.state.isTitleEditing}
+              onClick={() => this.setState({ isTitleEditing: !this.state.isTitleEditing })}
+              onChange={(title) => this.setState({ title })}
+              onSubmit={(title) => {
+                this.setState({ isTitleEditing: false });
+                alert('submit');
+              }}
+            />
+          </TitleContainer>
+        </Modal.Header>
 
-          <CloseIcon onClick={onCloseClick} name="close" size="large" />
-        </TitleContainer>
-        <Contents>
+        <Modal.Content>
           <Form>
             <Form.TextArea label="メモ" value={this.state.memo} />
           </Form>
-        </Contents>
-        <div>
+
+        </Modal.Content>
+        <Modal.Actions>
           <Button
             onClick={() => {
               if (window.confirm('削除しますか?')) {
@@ -94,8 +78,8 @@ class Task extends React.Component<TaskProps, TaskState> {
           >
             delete
           </Button>
-        </div>
-      </Container>
+        </Modal.Actions>
+      </Modal>
     );
   }
 

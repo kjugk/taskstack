@@ -27,13 +27,6 @@ const Left = styled.div`
 const Right = styled.div`
   height: 100%;
   overflow: hidden;
-  display: flex;
-`;
-
-const RightContainer = styled.div`
-  flex: 1;
-  padding: 1rem;
-  overflowY: scroll;
 `;
 
 interface DashboardContainerProps {
@@ -59,13 +52,11 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
         </Left>
 
         <Right>
-          <RightContainer>
-            <TaskCreateFormContainer />
-            <TaskListContainer />
-          </RightContainer>
-          <TaskContainer />
+          <TaskCreateFormContainer />
+          <TaskListContainer />
         </Right>
 
+        <TaskContainer />
         <TasklistCreateFormContainer />
         <TasklistEditFormContainer />
       </DashBoard>
