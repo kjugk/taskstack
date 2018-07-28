@@ -1,14 +1,16 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import { Form, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { TaskTitle } from './TaskTitle/TaskTitle';
+import { TaskMemo } from './TaskMemo/TaskMemo';
 import { Modal } from 'semantic-ui-react';
 
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   min-height: 2rem;
+  flex-direction: row;
 `;
 
 interface TaskProps {
@@ -19,9 +21,7 @@ interface TaskProps {
 }
 
 interface TaskState {
-  title: string;
   memo: string;
-  isTitleEditing: boolean;
   isEditing: boolean;
 }
 
@@ -29,18 +29,16 @@ class Task extends React.Component<TaskProps, TaskState> {
   constructor(props: TaskProps) {
     super(props);
     this.state = {
-      title: props.task.title,
       memo: props.task.memo,
-      isEditing: false,
-      isTitleEditing: false
+      isEditing: false
     };
   }
 
   render() {
-    const { task, onCloseClick } = this.props;
+    const { task, onCloseClick, onUpdate } = this.props;
 
     return (
-      <Modal open={true} onClose={onCloseClick} size="tiny">
+      <Modal open={true} onClose={onCloseClick} size="small">
         <Modal.Header>
           <TitleContainer>
             <input
@@ -49,25 +47,14 @@ class Task extends React.Component<TaskProps, TaskState> {
               onChange={this.handleCheckChange.bind(this)}
               style={{ marginRight: '1.4rem' }}
             />
-            <TaskTitle
-              title={this.state.title}
-              isEditing={this.state.isTitleEditing}
-              onClick={() => this.setState({ isTitleEditing: !this.state.isTitleEditing })}
-              onChange={(title) => this.setState({ title })}
-              onSubmit={(title) => {
-                this.setState({ isTitleEditing: false });
-                alert('submit');
-              }}
-            />
+            <TaskTitle task={task} onSubmit={onUpdate} />
           </TitleContainer>
         </Modal.Header>
 
         <Modal.Content>
-          <Form>
-            <Form.TextArea label="メモ" value={this.state.memo} />
-          </Form>
-
+          <TaskMemo task={task} onSubmit={onUpdate} />
         </Modal.Content>
+
         <Modal.Actions>
           <Button
             onClick={() => {
@@ -85,6 +72,7 @@ class Task extends React.Component<TaskProps, TaskState> {
 
   private handleCheckChange(e: any) {
     e.preventDefault();
+
     const { task, onUpdate } = this.props;
     onUpdate(task.id, { completed: !task.completed });
   }

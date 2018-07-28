@@ -27,6 +27,7 @@ const Left = styled.div`
 const Right = styled.div`
   height: 100%;
   overflow: hidden;
+  padding: 1rem;
 `;
 
 interface DashboardContainerProps {

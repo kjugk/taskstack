@@ -38,7 +38,10 @@ const tasks = (state = initialState, action: any) => {
         ...state,
         tasksById: {
           ...state.tasksById,
-          ...action.payload.task
+          [action.payload.task.id]: {
+            ...state.tasksById[action.payload.task.id],
+            ...action.payload.task
+          }
         }
       };
 
@@ -101,7 +104,6 @@ const getCompletedTasks = createSelector([getTasks], (tasks) => {
 const getSelectingTask = createSelector([getTasksById, getSelectingId], (tasks, id) => {
   if (typeof id === 'undefined') return undefined;
 
-  // TODO コピーしたオブジェクトを渡す
   return tasks[id];
 });
 

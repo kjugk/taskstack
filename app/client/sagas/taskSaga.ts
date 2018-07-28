@@ -1,4 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
@@ -31,15 +32,14 @@ export default function* taskSaga() {
   }
 
   function* updateTask(action: any) {
-    const task = new schema.Entity('task');
     const res = yield call(api.updateTask, action.payload.id, action.payload.params);
-    const normalized = normalize(res.data, { task });
 
-    yield put(taskActions.receiveUpdatedTask(normalized.entities.task));
+    yield put(taskActions.receiveUpdatedTask(res.data.task));
   }
 
   function* destroyTask(action: any) {
     yield call(api.destroyTask, action.payload.id);
+
     yield put(taskActions.receiveDestroyedTaskId(action.payload.id));
     yield put(messageActions.setMessage('削除しました'));
   }

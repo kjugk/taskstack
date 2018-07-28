@@ -35,6 +35,7 @@ class TaskListContainer extends React.Component<TaskListContainerProps, TaskList
 
     if (!tasklist) return;
 
+    // TODO initialze も見るようにして、無駄な load をへらす!!!
     if (!prevTasklist && tasklist) {
       fetchTasks(tasklist.id);
       return;
