@@ -26,7 +26,7 @@ export const receiveTaskIds = (tasklistId: number, taskIds: number[]) => {
       taskIds
     }
   };
-}
+};
 
 export const receiveTaskId = (tasklistId: number, taskId: number) => {
   return {
@@ -36,7 +36,7 @@ export const receiveTaskId = (tasklistId: number, taskId: number) => {
       taskId
     }
   };
-}
+};
 
 export const createTasklist = () => {
   return {
@@ -58,7 +58,7 @@ export const receiveNewTasklist = (id: number, tasklistById: any) => {
 
 export const editTasklist = (tasklist: any) => {
   return {
-  type: constants.TASKLIST_EDIT_START,
+    type: constants.TASKLIST_EDIT_START,
     payload: {
       tasklist
     }

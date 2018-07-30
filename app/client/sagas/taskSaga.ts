@@ -44,10 +44,16 @@ export default function* taskSaga() {
     yield put(messageActions.setMessage('削除しました'));
   }
 
+  function* updateSort(action: any) {
+    // TODO: サーバーに patch リクエスト投げる
+    yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, action.payload.taskIds));
+  }
+
   yield all([
     takeLatest(constants.TASKS_FETCH, fetchTasks),
     takeLatest(constants.TASK_CREATE_FORM_SUBMIT, createTask),
     takeLatest(constants.TASK_UPDATE, updateTask),
-    takeLatest(constants.TASK_DESTROY, destroyTask)
+    takeLatest(constants.TASK_DESTROY, destroyTask),
+    takeLatest(constants.TASK_SORT_UPDATE, updateSort)
   ]);
 }

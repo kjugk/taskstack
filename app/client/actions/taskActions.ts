@@ -62,6 +62,14 @@ export const receiveDestroyedTaskId = (id: number) => ({
   }
 });
 
+export const updateSort = (tasklistId: number, taskIds: number[]) => ({
+  type: constants.TASK_SORT_UPDATE,
+  payload: {
+    tasklistId,
+    taskIds
+  }
+});
+
 export const selectTask = (id: number) => {
   return {
     type: constants.TASK_SELECT,

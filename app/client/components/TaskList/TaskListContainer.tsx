@@ -5,7 +5,7 @@ import { getSelectedTasklist } from '../../reducers/tasklistList';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
 import { TaskList } from './TaskList';
-import { Button } from 'semantic-ui-react';
+import { CompletedList } from './CompletedList/CompletedList';
 
 interface TaskListContainerProps {
   tasklist: types.TasklistState | undefined;
@@ -14,21 +14,10 @@ interface TaskListContainerProps {
   fetchTasks(tasklistId: number): any;
   updateTask(id: number, params: any): any;
   selectTask(id: number): any;
+  updateSort(tasklistId: number, taskIds: number[]): any;
 }
 
-interface TaskListContainerState {
-  openCompletedList: boolean;
-}
-
-class TaskListContainer extends React.Component<TaskListContainerProps, TaskListContainerState> {
-  constructor(props: TaskListContainerProps) {
-    super(props);
-
-    this.state = {
-      openCompletedList: false
-    };
-  }
-
+class TaskListContainer extends React.Component<TaskListContainerProps> {
   componentDidUpdate(prevProps: TaskListContainerProps) {
     const prevTasklist = prevProps.tasklist;
     const { tasklist, fetchTasks } = this.props;
@@ -48,36 +37,24 @@ class TaskListContainer extends React.Component<TaskListContainerProps, TaskList
   }
 
   render() {
-    const { tasklist, tasks, completedTasks, updateTask, selectTask } = this.props;
+    const { tasklist, tasks, completedTasks, updateTask, updateSort, selectTask } = this.props;
     if (!tasklist) return null;
 
     return (
       <>
-        <TaskList items={tasks} onCheckChange={updateTask} onItemClick={selectTask} />
+        <TaskList
+          tasklist={tasklist}
+          items={tasks}
+          onCheckChange={updateTask}
+          onItemClick={selectTask}
+          onSort={(tasklistId: number, taskIds: number[]) => {
+            this.props.updateSort(tasklistId, taskIds.concat(completedTasks.map((t) => t.id)));
+          }}
+        />
 
-        {completedTasks.length >= 1 && (
-          <div>
-            <Button type="button" secondary onClick={this.handleToggleButtonClick.bind(this)}>
-              {completedTasks.length} 件の完了済みタスク
-            </Button>
-
-            {this.state.openCompletedList && (
-              <TaskList
-                items={completedTasks}
-                onCheckChange={updateTask}
-                onItemClick={selectTask}
-              />
-            )}
-          </div>
-        )}
+        <CompletedList items={completedTasks} onCheckChange={updateTask} onItemClick={selectTask} />
       </>
     );
-  }
-
-  handleToggleButtonClick() {
-    this.setState({
-      openCompletedList: !this.state.openCompletedList
-    });
   }
 }
 
@@ -90,7 +67,9 @@ const mapStateToProps = (state: types.RootState) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTasks: (tasklistId: number) => dispatch(taskActions.fetchTasks(tasklistId)),
   updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params)),
-  selectTask: (id: number) => dispatch(taskActions.selectTask(id))
+  selectTask: (id: number) => dispatch(taskActions.selectTask(id)),
+  updateSort: (tasklistId: number, taskIds: number[]) =>
+    dispatch(taskActions.updateSort(tasklistId, taskIds))
 });
 
 export default connect(
