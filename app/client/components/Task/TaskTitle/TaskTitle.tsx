@@ -3,15 +3,6 @@ import * as types from '../../../types';
 import styled from 'styled-components';
 import { Input, Button, Icon } from 'semantic-ui-react';
 
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  overflow: hidden;
-`;
-
 const Title = styled<{ completed: boolean }, any>('div')`
   font-size: 1.4rem;
   font-weight: bold;
@@ -44,22 +35,26 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
     };
   }
 
+  componentDidUpdate(prevProps: TaskTitleProps, prevState: TaskTitleState) {
+    if (!prevState.isEditing && this.state.isEditing) {
+      if (this.input) {
+        this.input.focus();
+      }
+    }
+  }
+
   render() {
     const { title, isEditing } = this.state;
 
     return (
-      <Container>
-        <div style={{ flex: 1 }}>
-          {isEditing && this.renderInput()}
-          {!isEditing && (
-            <Title completed={this.props.task.completed} onClick={this.handleEdit.bind(this)}>
-              {title}
-            </Title>
-          )}
-        </div>
-
-        <Button.Group size="mini">{this.renderButtons()}</Button.Group>
-      </Container>
+      <div style={{ flex: 1 }}>
+        {isEditing && this.renderInput()}
+        {!isEditing && (
+          <Title completed={this.props.task.completed} onClick={this.handleEdit.bind(this)}>
+            {title}
+          </Title>
+        )}
+      </div>
     );
   }
 
@@ -70,9 +65,17 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
         style={{ width: '100%' }}
         size="mini"
         value={this.state.title}
-        onChange={(e) => {
+        onKeyDown={(e: any) => {
+          e.stopPropagation();
+
+          if (e.keyCode === 13) {
+            this.handleSubmit();
+          }
+        }}
+        onChange={(e: any) => {
           this.setState({ title: e.currentTarget.value });
         }}
+        onBlur={this.handleSubmit.bind(this)}
       />
     );
   }
@@ -89,16 +92,15 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
           </Button>
         </>
       );
-    } else {
-      return (
-        <Button icon onClick={this.handleEdit.bind(this)}>
-          <Icon name="pencil" />
-        </Button>
-      );
     }
   }
 
   private handleSubmit() {
+    if (this.state.title.trim() === '') {
+      this.handleCancel();
+      return;
+    }
+
     this.props.onSubmit(this.props.task.id, { title: this.state.title });
     this.setState({ isEditing: false });
   }
