@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
-import { Form, Button, Icon, Message } from 'semantic-ui-react';
+import { Form, TextArea, Message } from 'semantic-ui-react';
 
 const HeaderContainer = styled.div`
   margin-bottom: 1rem;
@@ -18,10 +18,6 @@ const Memo = styled(Message)`
   min-height: 5.4rem !important;
 `;
 
-const ButtonContainer = styled.div`
-  text-align: right;
-`;
-
 interface TaskMemoProps {
   task: types.TaskState;
   onSubmit(id: number, params: any): any;
@@ -33,6 +29,8 @@ interface TaskMemoState {
 }
 
 class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
+  private input: any;
+
   constructor(props: TaskMemoProps) {
     super(props);
 
@@ -42,16 +40,19 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     };
   }
 
+  componentDidUpdate(prevProps: TaskMemoProps, prevState: TaskMemoState) {
+    if (!prevState.isEditing && this.state.isEditing) {
+      if (this.input) {
+        this.input.focus();
+      }
+    }
+  }
+
   render() {
     return (
       <>
         <HeaderContainer>メモ</HeaderContainer>
-
         <MemoContainer>{this.renderMemo()}</MemoContainer>
-
-        <ButtonContainer>
-          <Button.Group size="mini">{this.renderButtons()}</Button.Group>
-        </ButtonContainer>
       </>
     );
   }
@@ -60,9 +61,11 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     if (this.state.isEditing) {
       return (
         <Form>
-          <Form.TextArea
+          <TextArea
+            ref={(r: any) => (this.input = r)}
             value={this.state.memo}
             placeholder="メモを追加"
+            onBlur={this.handleSubmit.bind(this)}
             onChange={this.handleInputChange.bind(this)}
           />
         </Form>
@@ -72,27 +75,6 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
         <Memo onClick={this.handleEdit.bind(this)}>
           {this.state.memo || <span style={{ color: '#ccc' }}>メモを追加</span>}
         </Memo>
-      );
-    }
-  }
-
-  private renderButtons() {
-    if (this.state.isEditing) {
-      return (
-        <>
-          <Button icon primary onClick={this.handleSubmit.bind(this)}>
-            <Icon name="check" />
-          </Button>
-          <Button icon onClick={this.handleCancel.bind(this)}>
-            <Icon name="close" />
-          </Button>
-        </>
-      );
-    } else {
-      return (
-        <Button icon onClick={this.handleEdit.bind(this)}>
-          <Icon name="pencil" />
-        </Button>
       );
     }
   }

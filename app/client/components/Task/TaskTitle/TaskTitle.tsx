@@ -66,8 +66,6 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
         size="mini"
         value={this.state.title}
         onKeyDown={(e: any) => {
-          e.stopPropagation();
-
           if (e.keyCode === 13) {
             this.handleSubmit();
           }
