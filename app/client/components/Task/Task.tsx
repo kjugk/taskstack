@@ -38,7 +38,7 @@ class Task extends React.Component<TaskProps, TaskState> {
     const { task, onCloseClick, onUpdate } = this.props;
 
     return (
-      <Modal open={true} onClose={onCloseClick} size="small">
+      <Modal open={true} onClose={onCloseClick} size="tiny">
         <Modal.Header>
           <TitleContainer>
             <input

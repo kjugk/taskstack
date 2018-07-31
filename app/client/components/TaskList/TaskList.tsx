@@ -38,7 +38,7 @@ class TaskList extends React.Component<ListProps> {
 
     return (
       <SortableList
-        distance={10}
+        distance={5}
         items={items}
         onSortEnd={(props: any) => this.handleSortEnd(props.oldIndex, props.newIndex)}
         {...rest}
@@ -47,6 +47,8 @@ class TaskList extends React.Component<ListProps> {
   }
 
   private handleSortEnd(oldIndex: number, newIndex: number) {
+    if (oldIndex === newIndex) return;
+
     const taskIds = arrayMove(this.props.items, oldIndex, newIndex).map((item) => item.id);
     this.props.onSort(this.props.tasklist.id, taskIds);
   }

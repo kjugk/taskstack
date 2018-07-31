@@ -20,7 +20,7 @@ class Api::TasklistsController < ApplicationController
     @tasklist = Tasklist.find(params[:id])
 
     if @tasklist.update(tasklist_params)
-      render json: { tasklist: { id: @tasklist.id, title: @tasklist.title }}, status: :ok
+      render 'api/tasklists/show', status: :ok
     else
       # TODO
       # 共通のエラーフォーマットで、エラーメッセージを送信する
@@ -41,6 +41,6 @@ class Api::TasklistsController < ApplicationController
   private
 
   def tasklist_params
-    params.require(:tasklist).permit(:title, :task_ids)
+    params.require(:tasklist).permit(:title, task_id_list: [])
   end
 end

@@ -18,7 +18,6 @@ export default function* taskSaga() {
     const normalized = normalize(res.data, { tasks: [tasks] });
 
     yield put(taskActions.receiveTasks(normalized.entities.tasks || {}));
-    yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, normalized.result.tasks));
   }
 
   function* createTask(action: any) {
@@ -27,7 +26,7 @@ export default function* taskSaga() {
     const normalized = normalize(res.data, { task });
 
     yield put(taskActions.receiveNewTask(normalized.entities.task || {}));
-    yield put(tasklistActions.receiveTaskId(action.payload.tasklistId, normalized.result.task));
+    yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, res.data.taskIds));
     yield put(tasklistActions.receiveTaskCount(action.payload.tasklistId, res.data.taskCount));
     yield put(taskCreateFormActions.clear());
   }
@@ -43,12 +42,14 @@ export default function* taskSaga() {
     const res = yield call(api.destroyTask, action.payload.id);
 
     yield put(taskActions.receiveDestroyedTaskId(action.payload.id));
+    yield put(tasklistActions.receiveTaskIds(res.data.task.tasklistId, res.data.taskIds));
     yield put(tasklistActions.receiveTaskCount(res.data.task.tasklistId, res.data.taskCount));
     yield put(messageActions.setMessage('削除しました'));
   }
 
   function* updateSort(action: any) {
-    // TODO: サーバーに patch リクエスト投げる
+    api.updateTasklist(action.payload.tasklistId, { task_id_list: action.payload.taskIds });
+
     yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, action.payload.taskIds));
   }
 

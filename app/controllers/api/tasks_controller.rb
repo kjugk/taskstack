@@ -10,7 +10,9 @@ class Api::TasksController < ApplicationController
     @tasklist = Tasklist.find(params[:tasklist_id])
     @task = Task.new(task_params) 
 
+    # TODO サービスにする
     if @tasklist.tasks << @task
+      @tasklist.unshift_task_id(@task.id)
       render 'api/tasks/show'
     else
     end
@@ -31,6 +33,7 @@ class Api::TasksController < ApplicationController
     @tasklist = @task.tasklist
 
     if @task.destroy
+      @tasklist.delete_task_id(@task.id)
       render 'api/tasks/show'
     else
     end
