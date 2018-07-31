@@ -1,3 +1,3 @@
 class Task < ApplicationRecord
-  belongs_to :tasklist, counter_cache: :task_count
+  belongs_to :tasklist
 end

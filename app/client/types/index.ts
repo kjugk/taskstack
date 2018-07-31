@@ -1,16 +1,17 @@
 export interface RootState {
-  tasklistList: TasklistListState,
-  tasklistCreateForm: TasklistCreateFormState,
-  tasklistEditForm: TasklistEditFormState,
+  tasklistList: TasklistListState;
+  tasklistCreateForm: TasklistCreateFormState;
+  tasklistEditForm: TasklistEditFormState;
   tasks: TasksState;
   taskCreateForm: TaskCreateFormState;
-  message: MessageState
+  message: MessageState;
 }
 
 export interface TasklistState {
   id: number;
   title: string;
   taskIds?: number[];
+  taskCount: number;
 }
 
 export interface TasklistListState {
@@ -19,7 +20,7 @@ export interface TasklistListState {
   isFetching: boolean;
   selectingId: number | undefined;
   tasklistsById: {
-    [index: number]: TasklistState
+    [index: number]: TasklistState;
   };
 }
 
@@ -40,15 +41,15 @@ export interface TasksState {
   isFetching: boolean;
   selectingId: number | undefined;
   tasksById: {
-    [index: number]: TaskState
-  }
+    [index: number]: TaskState;
+  };
 }
 
 export interface TaskState {
-  id: number,
-  title: string,
-  memo: string,
-  completed: boolean
+  id: number;
+  title: string;
+  memo: string;
+  completed: boolean;
 }
 
 export interface TaskCreateFormState {

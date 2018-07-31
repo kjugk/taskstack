@@ -98,3 +98,11 @@ export const resetTasklistSelection = () => {
     payload: {}
   };
 };
+
+export const receiveTaskCount = (tasklistId: number, taskCount: number) => ({
+  type: constants.TASK_COUNT_UPDATE_SUCCESS,
+  payload: {
+    tasklistId,
+    taskCount
+  }
+});

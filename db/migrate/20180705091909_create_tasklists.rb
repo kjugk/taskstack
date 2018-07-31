@@ -2,7 +2,6 @@ class CreateTasklists < ActiveRecord::Migration[5.2]
   def change
     create_table :tasklists do |t|
       t.string :title
-      t.integer :task_count, default: 0
       t.timestamps
     end
   end

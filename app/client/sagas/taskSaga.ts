@@ -28,6 +28,7 @@ export default function* taskSaga() {
 
     yield put(taskActions.receiveNewTask(normalized.entities.task || {}));
     yield put(tasklistActions.receiveTaskId(action.payload.tasklistId, normalized.result.task));
+    yield put(tasklistActions.receiveTaskCount(action.payload.tasklistId, res.data.taskCount));
     yield put(taskCreateFormActions.clear());
   }
 
@@ -35,12 +36,14 @@ export default function* taskSaga() {
     const res = yield call(api.updateTask, action.payload.id, action.payload.params);
 
     yield put(taskActions.receiveUpdatedTask(res.data.task));
+    yield put(tasklistActions.receiveTaskCount(res.data.task.tasklistId, res.data.taskCount));
   }
 
   function* destroyTask(action: any) {
-    yield call(api.destroyTask, action.payload.id);
+    const res = yield call(api.destroyTask, action.payload.id);
 
     yield put(taskActions.receiveDestroyedTaskId(action.payload.id));
+    yield put(tasklistActions.receiveTaskCount(res.data.task.tasklistId, res.data.taskCount));
     yield put(messageActions.setMessage('削除しました'));
   }
 

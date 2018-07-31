@@ -65,7 +65,7 @@ const tasklistList = (state = initialState, action: any) => {
           ...state.tasklistsById,
           [action.payload.tasklistId]: {
             ...state.tasklistsById[action.payload.tasklistId],
-            ...{ taskIds: action.payload.taskIds }
+            taskIds: action.payload.taskIds
           }
         }
       };
@@ -77,12 +77,22 @@ const tasklistList = (state = initialState, action: any) => {
           ...state.tasklistsById,
           [action.payload.tasklistId]: {
             ...state.tasklistsById[action.payload.tasklistId],
-            ...{
-              taskIds: [
-                action.payload.taskId,
-                ...(state.tasklistsById[action.payload.tasklistId].taskIds || [])
-              ]
-            }
+            taskIds: [
+              action.payload.taskId,
+              ...(state.tasklistsById[action.payload.tasklistId].taskIds || [])
+            ]
+          }
+        }
+      };
+
+    case constants.TASK_COUNT_UPDATE_SUCCESS:
+      return {
+        ...state,
+        tasklistsById: {
+          ...state.tasklistsById,
+          [action.payload.tasklistId]: {
+            ...state.tasklistsById[action.payload.tasklistId],
+            taskCount: action.payload.taskCount
           }
         }
       };

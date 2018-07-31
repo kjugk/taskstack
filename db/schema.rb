@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 2018_07_11_074335) do
 
   create_table "tasklists", force: :cascade do |t|
     t.string "title"
-    t.integer "task_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

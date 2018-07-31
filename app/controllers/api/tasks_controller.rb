@@ -3,36 +3,35 @@ class Api::TasksController < ApplicationController
 
   def index
     tasklist = Tasklist.find(params[:tasklist_id])
-
-    render json: {
-      tasks: tasklist.tasks.map {|task| {id: task.id, title: task.title, memo: task.memo, completed: task.completed}}
-    }
+    @tasks = tasklist.tasks
   end
 
   def create
-    tasklist = Tasklist.find(params[:tasklist_id])
-    task = Task.new(task_params) 
+    @tasklist = Tasklist.find(params[:tasklist_id])
+    @task = Task.new(task_params) 
 
-    if tasklist.tasks << task
-      render json: {task: {id: task.id, title: task.title, memo: task.memo, completed: task.completed}}
+    if @tasklist.tasks << @task
+      render 'api/tasks/show'
     else
     end
   end
 
   def update
-    task = Task.find(params[:id])
+    @task = Task.find(params[:id])
+    @tasklist = @task.tasklist
 
-    if task.update(task_params)
-      render json: {task: {id: task.id, title: task.title, memo: task.memo, completed: task.completed}}
+    if @task.update(task_params)
+      render 'api/tasks/show'
     else
     end
   end
 
   def destroy
-    task = Task.find(params[:id])
+    @task = Task.find(params[:id])
+    @tasklist = @task.tasklist
 
-    if task.destroy
-      head 200
+    if @task.destroy
+      render 'api/tasks/show'
     else
     end
   end

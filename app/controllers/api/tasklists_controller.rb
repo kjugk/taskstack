@@ -9,7 +9,7 @@ class Api::TasklistsController < ApplicationController
     @tasklist = Tasklist.new(tasklist_params)
 
     if @tasklist.save
-      render json: { tasklist: { id: @tasklist.id, title: @tasklist.title }}, status: :created
+      render 'api/tasklists/show', status: :created
     else
       # TODO
       # 共通のエラーフォーマットで、エラーメッセージを送信する
