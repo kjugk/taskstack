@@ -4,58 +4,57 @@ import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
-import { Modal } from 'semantic-ui-react';
+
+const Container = styled.div`
+  height: 100%;
+  width: 340px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #eee;
+`;
 
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   min-height: 2rem;
   flex-direction: row;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+`;
+
+const Contents = styled.div`
+  flex: 1;
 `;
 
 interface TaskProps {
   task: types.TaskState;
-  onCloseClick(): any;
   onUpdate(id: number, params: any): any;
   onDestroy(id: number): any;
 }
 
-interface TaskState {
-  memo: string;
-  isEditing: boolean;
-}
-
-class Task extends React.Component<TaskProps, TaskState> {
-  constructor(props: TaskProps) {
-    super(props);
-    this.state = {
-      memo: props.task.memo,
-      isEditing: false
-    };
-  }
-
+class Task extends React.Component<TaskProps> {
   render() {
-    const { task, onCloseClick, onUpdate } = this.props;
+    const { task, onUpdate } = this.props;
 
     return (
-      <Modal open={true} onClose={onCloseClick} size="tiny">
-        <Modal.Header>
-          <TitleContainer>
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={this.handleCheckChange.bind(this)}
-              style={{ marginRight: '1.4rem' }}
-            />
-            <TaskTitle task={task} onSubmit={onUpdate} />
-          </TitleContainer>
-        </Modal.Header>
+      <Container>
+        <TitleContainer>
+          <input
+            type="checkbox"
+            checked={task.completed}
+            onChange={this.handleCheckChange.bind(this)}
+            style={{ marginRight: '1.4rem' }}
+          />
+          <TaskTitle task={task} onSubmit={onUpdate} />
+        </TitleContainer>
 
-        <Modal.Content>
+        <Contents>
           <TaskMemo task={task} onSubmit={onUpdate} />
-        </Modal.Content>
+        </Contents>
 
-        <Modal.Actions>
+        <div style={{ textAlign: 'right' }}>
           <Button
             onClick={() => {
               if (window.confirm('削除しますか?')) {
@@ -65,8 +64,8 @@ class Task extends React.Component<TaskProps, TaskState> {
           >
             delete
           </Button>
-        </Modal.Actions>
-      </Modal>
+        </div>
+      </Container>
     );
   }
 

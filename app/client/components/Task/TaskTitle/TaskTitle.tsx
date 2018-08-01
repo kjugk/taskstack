@@ -3,7 +3,7 @@ import * as types from '../../../types';
 import styled from 'styled-components';
 import { Input, Button, Icon } from 'semantic-ui-react';
 
-const Title = styled<{ completed: boolean }, any>('div')`
+const Title = styled<{ completed: boolean }, any>('h2')`
   font-size: 1.4rem;
   font-weight: bold;
   cursor: pointer;
@@ -36,6 +36,15 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
   }
 
   componentDidUpdate(prevProps: TaskTitleProps, prevState: TaskTitleState) {
+    // 選択済みtask が変更された場合
+    if (prevProps.task.id !== this.props.task.id && this.props.task) {
+      const title = this.props.task.title;
+      this.setState({
+        title,
+        isEditing: false
+      });
+    }
+
     if (!prevState.isEditing && this.state.isEditing) {
       if (this.input) {
         this.input.focus();
@@ -68,6 +77,11 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
         onKeyDown={(e: any) => {
           if (e.keyCode === 13) {
             this.handleSubmit();
+            return;
+          }
+          if (e.keyCode === 27) {
+            this.handleCancel();
+            return;
           }
         }}
         onChange={(e: any) => {
@@ -76,21 +90,6 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
         onBlur={this.handleSubmit.bind(this)}
       />
     );
-  }
-
-  private renderButtons() {
-    if (this.state.isEditing) {
-      return (
-        <>
-          <Button icon primary onClick={this.handleSubmit.bind(this)}>
-            <Icon name="check" />
-          </Button>
-          <Button icon onClick={this.handleCancel.bind(this)}>
-            <Icon name="close" />
-          </Button>
-        </>
-      );
-    }
   }
 
   private handleSubmit() {

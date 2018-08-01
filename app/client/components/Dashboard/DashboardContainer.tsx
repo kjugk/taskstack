@@ -12,22 +12,26 @@ import * as tasklistActions from '../../actions/tasklistActions';
 
 const DashBoard = styled.div`
   height: 100%;
+  display: flex;
 `;
 
 const Left = styled.div`
   display: flex;
   flex-direction: column;
-  float: left;
   height: 100%;
   position: relative;
-  width: 260px;
+  flex-basis: 260px;
   background: #eee;
+`;
+
+const Center = styled.div`
+  height: 100%;
+  padding: 1rem;
+  flex: 1;
 `;
 
 const Right = styled.div`
   height: 100%;
-  overflow: hidden;
-  padding: 1rem;
 `;
 
 interface DashboardContainerProps {
@@ -52,12 +56,14 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
           </Button>
         </Left>
 
-        <Right>
+        <Center>
           <TaskCreateFormContainer />
           <TaskListContainer />
-        </Right>
+        </Center>
 
-        <TaskContainer />
+        <Right>
+          <TaskContainer />
+        </Right>
         <TasklistCreateFormContainer />
         <TasklistEditFormContainer />
       </DashBoard>

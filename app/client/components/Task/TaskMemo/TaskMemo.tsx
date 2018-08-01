@@ -41,6 +41,15 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
   }
 
   componentDidUpdate(prevProps: TaskMemoProps, prevState: TaskMemoState) {
+    // 選択済みtask が変更された場合
+    if (prevProps.task.id !== this.props.task.id && this.props.task) {
+      const memo = this.props.task.memo;
+      this.setState({
+        memo,
+        isEditing: false
+      });
+    }
+
     if (!prevState.isEditing && this.state.isEditing) {
       if (this.input) {
         this.input.focus();
@@ -67,6 +76,12 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
             placeholder="メモを追加"
             onBlur={this.handleSubmit.bind(this)}
             onChange={this.handleInputChange.bind(this)}
+            onKeyDown={(e: any) => {
+              if (e.keyCode === 27) {
+                this.handleCancel();
+                return;
+              }
+            }}
           />
         </Form>
       );
