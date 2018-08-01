@@ -6,12 +6,13 @@ interface TasklistFormProps {
   title: string;
   canDestroy: boolean;
   onDestroyClick?(): any;
-  onTitleChange: (title: string) => any;
-  onSubmit: () => any;
+  onTitleChange(title: string): any;
+  onSubmit(): any;
 }
 
 const ActionsContainer = styled.div`
   display: flex;
+  margin-top: 2rem;
   justify-content: space-between;
 `;
 
@@ -39,14 +40,23 @@ class TasklistForm extends React.Component<TasklistFormProps> {
         </Form.Field>
 
         <ActionsContainer>
-          <Button primary disabled={title.trim() === ''} type="submit">
-            保存
-          </Button>
+          <Button
+            primary
+            icon="check"
+            disabled={title.trim() === ''}
+            content="保存"
+            type="submit"
+          />
 
           {canDestroy && (
-            <Button onClick={onDestroyClick} type="button">
-              削除
-            </Button>
+            <Button
+              basic
+              color="red"
+              content="削除"
+              icon="trash"
+              onClick={onDestroyClick}
+              type="button"
+            />
           )}
         </ActionsContainer>
       </Form>

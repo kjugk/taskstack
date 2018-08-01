@@ -6,7 +6,7 @@ import TasklistEditFormContainer from '../TasklistEditForm/TasklistEditFormConta
 import TaskListContainer from '../tasklist/TaskListContainer';
 import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TaskContainer from '../Task/TaskContainer';
-import { Button, Icon } from 'semantic-ui-react';
+import { TasklistCreateButton } from '../TasklistCreateButton/TasklistCreateButton';
 import { connect } from 'react-redux';
 import * as tasklistActions from '../../actions/tasklistActions';
 
@@ -47,16 +47,7 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
       <DashBoard>
         <Left>
           <TasklistListContainer />
-          <Button
-            fluid
-            primary
-            icon
-            onClick={this.props.createTasklist}
-            size="huge"
-            style={{ borderRadius: 0 }}
-          >
-            <Icon name="plus" /> リストを作成
-          </Button>
+          <TasklistCreateButton onClick={this.props.createTasklist} />
         </Left>
 
         <Center>

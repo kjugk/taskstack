@@ -60,17 +60,18 @@ class Task extends React.Component<TaskProps> {
               <TaskMemo task={task} onSubmit={onUpdate} />
             </Contents>
 
-            <div style={{ textAlign: 'right' }}>
-              <Button
-                onClick={() => {
-                  if (window.confirm('削除しますか?')) {
-                    this.props.onDestroy(task.id);
-                  }
-                }}
-              >
-                delete
-              </Button>
-            </div>
+            <Button
+              basic
+              color="red"
+              content="削除"
+              fluid
+              icon="trash"
+              onClick={() => {
+                if (window.confirm('削除しますか?')) {
+                  this.props.onDestroy(task.id);
+                }
+              }}
+            />
           </Container>
         )}
       </Transition>
