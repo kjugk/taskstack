@@ -37,11 +37,11 @@ class TaskListContainer extends React.Component<TaskListContainerProps> {
   }
 
   render() {
-    const { tasklist, tasks, completedTasks, updateTask, updateSort, selectTask } = this.props;
+    const { tasklist, tasks, completedTasks, updateTask, selectTask } = this.props;
     if (!tasklist) return null;
 
     return (
-      <>
+      <div style={{ flex: 1 }} onClick={() => selectTask(-1)}>
         <TaskList
           tasklist={tasklist}
           items={tasks}
@@ -53,7 +53,7 @@ class TaskListContainer extends React.Component<TaskListContainerProps> {
         />
 
         <CompletedList items={completedTasks} onCheckChange={updateTask} onItemClick={selectTask} />
-      </>
+      </div>
     );
   }
 }

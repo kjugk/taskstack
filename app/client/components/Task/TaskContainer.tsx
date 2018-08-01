@@ -26,8 +26,8 @@ const mapStateToProps = (state: types.RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params)),
-  destroyTask: (id: number) => dispatch(taskActions.destroyTask(id))
+  destroyTask: (id: number) => dispatch(taskActions.destroyTask(id)),
+  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params))
 });
 
 export default connect(

@@ -28,6 +28,9 @@ const Center = styled.div`
   height: 100%;
   padding: 1rem;
   flex: 1;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Right = styled.div`

@@ -25,7 +25,13 @@ class TaskListItem extends React.Component<TaskListItemProps> {
 
     return (
       <Segment>
-        <ItemContainer completed={item.completed} onClick={() => onItemClick(item.id)}>
+        <ItemContainer
+          completed={item.completed}
+          onClick={(e: any) => {
+            e.stopPropagation();
+            onItemClick(item.id);
+          }}
+        >
           <input
             type="checkbox"
             checked={item.completed}

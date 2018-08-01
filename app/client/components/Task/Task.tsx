@@ -4,24 +4,28 @@ import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
+import { Transition } from 'react-transition-group';
 
-const Container = styled.div`
-  height: 100%;
-  width: 340px;
-  padding: 1rem;
+const Container = styled<{ state: string }, any>('div')`
+  border-left: 1px solid #eee;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #eee;
+  height: 100%;
+  padding: 1rem;
+  transform: translateX(100%);
+  transition: all 0.2s linear;
+  width: 0px;
+  ${(props) => props.state === 'entered' && `transform: translate3D(0,0,0); width: 340px;`};
 `;
 
 const TitleContainer = styled.div`
-  display: flex;
   align-items: center;
-  min-height: 2rem;
-  flex-direction: row;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
   border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  min-height: 2rem;
+  padding-bottom: 1rem;
 `;
 
 const Contents = styled.div`
@@ -39,39 +43,42 @@ class Task extends React.Component<TaskProps> {
     const { task, onUpdate } = this.props;
 
     return (
-      <Container>
-        <TitleContainer>
-          <input
-            type="checkbox"
-            checked={task.completed}
-            onChange={this.handleCheckChange.bind(this)}
-            style={{ marginRight: '1.4rem' }}
-          />
-          <TaskTitle task={task} onSubmit={onUpdate} />
-        </TitleContainer>
+      <Transition appear in={true} timeout={{ enter: 0, exit: 200 }}>
+        {(state: string) => (
+          <Container state={state}>
+            <TitleContainer>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={this.handleCheckChange.bind(this)}
+                style={{ marginRight: '1.4rem' }}
+              />
+              <TaskTitle task={task} onSubmit={onUpdate} />
+            </TitleContainer>
 
-        <Contents>
-          <TaskMemo task={task} onSubmit={onUpdate} />
-        </Contents>
+            <Contents>
+              <TaskMemo task={task} onSubmit={onUpdate} />
+            </Contents>
 
-        <div style={{ textAlign: 'right' }}>
-          <Button
-            onClick={() => {
-              if (window.confirm('削除しますか?')) {
-                this.props.onDestroy(task.id);
-              }
-            }}
-          >
-            delete
-          </Button>
-        </div>
-      </Container>
+            <div style={{ textAlign: 'right' }}>
+              <Button
+                onClick={() => {
+                  if (window.confirm('削除しますか?')) {
+                    this.props.onDestroy(task.id);
+                  }
+                }}
+              >
+                delete
+              </Button>
+            </div>
+          </Container>
+        )}
+      </Transition>
     );
   }
 
   private handleCheckChange(e: any) {
     e.preventDefault();
-
     const { task, onUpdate } = this.props;
     onUpdate(task.id, { completed: !task.completed });
   }
