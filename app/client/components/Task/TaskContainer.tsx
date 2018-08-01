@@ -14,9 +14,6 @@ interface TaskContainerProps {
 class TaskContainer extends React.Component<TaskContainerProps> {
   render() {
     const { task, updateTask, destroyTask } = this.props;
-
-    if (!task) return null;
-
     return <Task task={task} onUpdate={updateTask} onDestroy={destroyTask} />;
   }
 }
