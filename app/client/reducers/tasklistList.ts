@@ -82,6 +82,18 @@ const tasklistList = (state = initialState, action: any) => {
         }
       };
 
+    case constants.TASKS_FETCH_SUCCESS:
+      return {
+        ...state,
+        tasklistsById: {
+          ...state.tasklistsById,
+          [action.payload.tasklistId]: {
+            ...state.tasklistsById[action.payload.tasklistId],
+            taskLoaded: true
+          }
+        }
+      };
+
     case constants.TASKLIST_SELECT:
       return {
         ...state,

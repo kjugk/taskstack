@@ -9,10 +9,11 @@ export const fetchTasks = (tasklistId: number) => {
   };
 };
 
-export const receiveTasks = (tasksById: any) => {
+export const receiveTasks = (tasklistId: number, tasksById: any) => {
   return {
     type: constants.TASKS_FETCH_SUCCESS,
     payload: {
+      tasklistId,
       tasksById
     }
   };

@@ -21,7 +21,10 @@ const tasks = (state = initialState, action: any) => {
       return {
         ...state,
         isFetching: false,
-        tasksById: action.payload.tasksById
+        tasksById: {
+          ...state.tasksById,
+          ...action.payload.tasksById
+        }
       };
 
     case constants.TASK_CREATE_SUCCESS:

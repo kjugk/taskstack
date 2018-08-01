@@ -12,6 +12,7 @@ export interface TasklistState {
   title: string;
   taskIds: number[];
   taskCount: number;
+  taskLoaded: boolean;
 }
 
 export interface TasklistListState {
