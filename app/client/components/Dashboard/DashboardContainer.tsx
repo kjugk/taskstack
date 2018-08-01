@@ -31,6 +31,7 @@ const Center = styled.div`
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const Right = styled.div`

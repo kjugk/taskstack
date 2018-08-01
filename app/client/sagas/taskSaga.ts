@@ -1,5 +1,4 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
@@ -20,6 +19,9 @@ export default function* taskSaga() {
     yield put(taskActions.receiveTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
   }
 
+  /**
+   * task を作成する
+   */
   function* createTask(action: any) {
     const task = new schema.Entity('task');
     const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
@@ -31,6 +33,10 @@ export default function* taskSaga() {
     yield put(taskCreateFormActions.clear());
   }
 
+  /**
+   * task を更新する
+   * @param action
+   */
   function* updateTask(action: any) {
     const res = yield call(api.updateTask, action.payload.id, action.payload.params);
 
@@ -38,6 +44,10 @@ export default function* taskSaga() {
     yield put(tasklistActions.receiveTaskCount(res.data.task.tasklistId, res.data.taskCount));
   }
 
+  /**
+   * task を削除する
+   * @param action
+   */
   function* destroyTask(action: any) {
     const res = yield call(api.destroyTask, action.payload.id);
 
@@ -47,6 +57,11 @@ export default function* taskSaga() {
     yield put(messageActions.setMessage('削除しました'));
   }
 
+  /**
+   * task の並び順を更新する。
+   * 更新されるのは、tasklist の taskIds なのに注意。(てかそれならtasklsitAction にあるべきでは?)
+   * @param action
+   */
   function* updateSort(action: any) {
     api.updateTasklist(action.payload.tasklistId, { task_id_list: action.payload.taskIds });
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
+import { Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getSelectedTasklist } from '../../reducers/tasklistList';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
@@ -8,6 +9,7 @@ import { TaskList } from './TaskList';
 import { CompletedList } from './CompletedList/CompletedList';
 
 interface TaskListContainerProps {
+  tasksState: types.TasksState;
   tasklist: types.TasklistState | undefined;
   tasks: types.TaskState[];
   completedTasks: types.TaskState[];
@@ -36,8 +38,12 @@ class TaskListContainer extends React.Component<TaskListContainerProps> {
   }
 
   render() {
-    const { tasklist, tasks, completedTasks, updateTask, selectTask } = this.props;
+    const { tasksState, tasklist, tasks, completedTasks, updateTask, selectTask } = this.props;
     if (!tasklist) return null;
+
+    if (tasksState.isFetching) {
+      return <Loader active>Loading</Loader>;
+    }
 
     return (
       <div style={{ flex: 1 }} onClick={() => selectTask(-1)}>
@@ -58,6 +64,7 @@ class TaskListContainer extends React.Component<TaskListContainerProps> {
 }
 
 const mapStateToProps = (state: types.RootState) => ({
+  tasksState: state.tasks,
   tasklist: getSelectedTasklist(state),
   tasks: getActiveTasks(state),
   completedTasks: getCompletedTasks(state)

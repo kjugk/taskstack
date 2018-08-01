@@ -71,6 +71,7 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
       return (
         <Form>
           <TextArea
+            autoHeight
             ref={(r: any) => (this.input = r)}
             value={this.state.memo}
             placeholder="メモを追加"
