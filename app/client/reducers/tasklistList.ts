@@ -70,21 +70,6 @@ const tasklistList = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASK_ID_RECEIVE:
-      return {
-        ...state,
-        tasklistsById: {
-          ...state.tasklistsById,
-          [action.payload.tasklistId]: {
-            ...state.tasklistsById[action.payload.tasklistId],
-            taskIds: [
-              action.payload.taskId,
-              ...(state.tasklistsById[action.payload.tasklistId].taskIds || [])
-            ]
-          }
-        }
-      };
-
     case constants.TASK_COUNT_UPDATE_SUCCESS:
       return {
         ...state,

@@ -28,16 +28,6 @@ export const receiveTaskIds = (tasklistId: number, taskIds: number[]) => {
   };
 };
 
-export const receiveTaskId = (tasklistId: number, taskId: number) => {
-  return {
-    type: constants.TASK_ID_RECEIVE,
-    payload: {
-      tasklistId,
-      taskId
-    }
-  };
-};
-
 export const createTasklist = () => {
   return {
     type: constants.TASKLIST_CREATE_START,
