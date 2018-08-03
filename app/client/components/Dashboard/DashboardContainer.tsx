@@ -1,10 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import TasklistListContainer from '../TasklistList/TasklistListContainer';
+import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateFormContainer from '../TasklistCreateForm/TasklistCreateFormContainer';
 import TasklistEditFormContainer from '../TasklistEditForm/TasklistEditFormContainer';
-import TaskListContainer from '../tasklist/TaskListContainer';
 import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
+import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import { TasklistCreateButton } from '../TasklistCreateButton/TasklistCreateButton';
 import { connect } from 'react-redux';
@@ -47,13 +47,13 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
     return (
       <DashBoard>
         <Left>
-          <TasklistListContainer />
+          <TasklistsContainer />
           <TasklistCreateButton onClick={this.props.createTasklist} />
         </Left>
 
         <Center>
           <TaskCreateFormContainer />
-          <TaskListContainer />
+          <TasksContainer />
         </Center>
 
         <Right>

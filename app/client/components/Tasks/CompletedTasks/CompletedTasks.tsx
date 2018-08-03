@@ -4,18 +4,18 @@ import { Segment } from 'semantic-ui-react';
 import { TaskListItem } from '../TaskListItem/TaskListItem';
 import { Button } from 'semantic-ui-react';
 
-interface ListProps {
+interface CompletedTasksProps {
   items: types.TaskState[];
   onItemClick(id: number): any;
   onCheckChange(id: number, params: any): any;
 }
 
-interface ListState {
+interface CompletedTasksState {
   openCompletedList: boolean;
 }
 
-class CompletedList extends React.Component<ListProps, ListState> {
-  constructor(props: ListProps) {
+class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasksState> {
+  constructor(props: CompletedTasksProps) {
     super(props);
 
     this.state = {
@@ -52,4 +52,4 @@ class CompletedList extends React.Component<ListProps, ListState> {
   }
 }
 
-export { CompletedList };
+export { CompletedTasks };

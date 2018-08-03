@@ -3,16 +3,17 @@ import * as types from '../../types';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklistList';
 import { Loader } from 'semantic-ui-react';
-import { TasklistList } from './TasklistList';
+import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
 import styled from 'styled-components';
 
 const Container = styled.div`
   flex: 1;
   overflow-y: scroll;
+  position: relative;
 `;
 
-interface TasklistListContainerProps {
+interface TasklistsContainerProps {
   isFetching: boolean;
   isInitialized: boolean;
   selectingId: number;
@@ -22,7 +23,7 @@ interface TasklistListContainerProps {
   selectTasklist(id: number): any;
 }
 
-class TasklistListContainer extends React.Component<TasklistListContainerProps> {
+class TasklistsContainer extends React.Component<TasklistsContainerProps> {
   componentDidMount() {
     const { isInitialized, fetchTasklists } = this.props;
 
@@ -44,7 +45,7 @@ class TasklistListContainer extends React.Component<TasklistListContainerProps> 
 
     return (
       <Container>
-        <TasklistList
+        <Tasklists
           selectingId={selectingId}
           onItemClick={selectTasklist}
           onEditButtonClick={editTasklist}
@@ -75,4 +76,4 @@ const mapDispatchToProps = (dispatch: any) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TasklistListContainer);
+)(TasklistsContainer);

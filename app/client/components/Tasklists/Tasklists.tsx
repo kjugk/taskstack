@@ -9,14 +9,14 @@ const Container = styled.ul`
   flex: 1;
 `;
 
-interface ListProps {
+interface TasklistsProps {
   items: types.TasklistState[];
   selectingId: number;
   onItemClick(id: number): any;
   onEditButtonClick(tasklist: any): any;
 }
 
-class TasklistList extends React.Component<ListProps> {
+class Tasklists extends React.Component<TasklistsProps> {
   render() {
     const { items, onItemClick, onEditButtonClick, selectingId } = this.props;
 
@@ -38,4 +38,4 @@ class TasklistList extends React.Component<ListProps> {
   }
 }
 
-export { TasklistList };
+export { Tasklists };

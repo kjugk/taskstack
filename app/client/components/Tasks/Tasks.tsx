@@ -4,7 +4,7 @@ import { Segment } from 'semantic-ui-react';
 import { TaskListItem } from './TaskListItem/TaskListItem';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
-interface ListProps {
+interface TasksProps {
   tasklist: types.TasklistState;
   items: types.TaskState[];
   onItemClick(id: number): any;
@@ -30,7 +30,7 @@ const SortableList = SortableContainer((props: any) => {
   );
 });
 
-class TaskList extends React.Component<ListProps> {
+class Tasks extends React.Component<TasksProps> {
   render() {
     const { items, ...rest } = this.props;
 
@@ -49,9 +49,9 @@ class TaskList extends React.Component<ListProps> {
   private handleSortEnd(oldIndex: number, newIndex: number) {
     if (oldIndex === newIndex) return;
 
-    const taskIds = arrayMove(this.props.items, oldIndex, newIndex).map((item) => item.id);
-    this.props.onSort(this.props.tasklist.id, taskIds);
+    const newTaskIds = arrayMove(this.props.items, oldIndex, newIndex).map((item) => item.id);
+    this.props.onSort(this.props.tasklist.id, newTaskIds);
   }
 }
 
-export { TaskList };
+export { Tasks };

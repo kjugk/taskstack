@@ -30,11 +30,11 @@ interface TaskMemoState {
 
 // TODO: move to utils.
 const nlToBr = (str: string) =>
-  str.split('\n').map((s) => (
-    <>
+  str.split('\n').map((s, i) => (
+    <span key={i}>
       {s}
       <br />
-    </>
+    </span>
   ));
 
 class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
