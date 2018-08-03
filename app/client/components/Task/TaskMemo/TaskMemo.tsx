@@ -42,7 +42,7 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
 
   componentDidUpdate(prevProps: TaskMemoProps, prevState: TaskMemoState) {
     // 選択済みtask が変更された場合
-    if (prevProps.task.id !== this.props.task.id && this.props.task) {
+    if (this.props.task && prevProps.task.id !== this.props.task.id) {
       const memo = this.props.task.memo;
       this.setState({
         memo,

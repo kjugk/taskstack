@@ -17,6 +17,14 @@ const ActionsContainer = styled.div`
 `;
 
 class TasklistForm extends React.Component<TasklistFormProps> {
+  private input: any;
+
+  componentDidMount() {
+    if (this.input) {
+      this.input.focus();
+    }
+  }
+
   render() {
     const { title, onTitleChange, onSubmit, canDestroy, onDestroyClick } = this.props;
 
@@ -31,6 +39,7 @@ class TasklistForm extends React.Component<TasklistFormProps> {
           <label>タイトル</label>
 
           <input
+            ref={(r) => (this.input = r)}
             type="text"
             value={title}
             onChange={(e) => {
