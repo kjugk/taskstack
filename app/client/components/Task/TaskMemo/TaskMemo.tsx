@@ -28,6 +28,15 @@ interface TaskMemoState {
   isEditing: boolean;
 }
 
+// TODO: move to utils.
+const nlToBr = (str: string) =>
+  str.split('\n').map((s) => (
+    <>
+      {s}
+      <br />
+    </>
+  ));
+
 class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
   private input: any;
 
@@ -72,9 +81,9 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
         <Form>
           <TextArea
             autoHeight
+            placeholder="メモを追加"
             ref={(r: any) => (this.input = r)}
             value={this.state.memo}
-            placeholder="メモを追加"
             onBlur={this.handleSubmit.bind(this)}
             onChange={this.handleInputChange.bind(this)}
             onKeyDown={(e: any) => {
@@ -89,7 +98,8 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     } else {
       return (
         <Memo onClick={this.handleEdit.bind(this)}>
-          {this.state.memo || <span style={{ color: '#ccc' }}>メモを追加</span>}
+          {!this.state.memo && <span style={{ color: '#ccc' }}>メモを追加</span>}
+          {this.state.memo && nlToBr(this.state.memo)}
         </Memo>
       );
     }
