@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as types from '../../types';
 import { Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { getSelectedTasklist } from '../../reducers/tasklistList';
+import { getSelectedTasklist } from '../../reducers/tasklists';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
 import { Tasks } from './Tasks';

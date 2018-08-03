@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
 
-const initialState: types.TasklistListState = {
+const initialState: types.TasklistsState = {
   ids: [],
   isFetching: false,
   isInitialized: false,
@@ -10,7 +10,7 @@ const initialState: types.TasklistListState = {
   tasklistsById: {}
 };
 
-const tasklistList = (state = initialState, action: any) => {
+const tasklists = (state = initialState, action: any) => {
   switch (action.type) {
     case constants.TASKLISTS_FETCH:
       return {
@@ -125,15 +125,15 @@ const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }
 
 // selector
 const getTasklistIds = (state: types.RootState) => {
-  return state.tasklistList.ids;
+  return state.tasklists.ids;
 };
 
 const getTasklistsById = (state: types.RootState) => {
-  return state.tasklistList.tasklistsById;
+  return state.tasklists.tasklistsById;
 };
 
 const getSelectingId = (state: types.RootState) => {
-  return state.tasklistList.selectingId;
+  return state.tasklists.selectingId;
 };
 
 const getTasklists = createSelector([getTasklistIds, getTasklistsById], (ids, tasklistsById) => {
@@ -149,4 +149,4 @@ const getSelectedTasklist = createSelector(
   }
 );
 
-export { tasklistList, getTasklists, getSelectedTasklist };
+export { tasklists, getTasklists, getSelectedTasklist };

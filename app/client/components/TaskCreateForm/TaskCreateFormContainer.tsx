@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
 import * as taskCreateFormActions from '../../actions/taskCreateFormActions';
-import { getSelectedTasklist } from '../../reducers/tasklistList';
+import { getSelectedTasklist } from '../../reducers/tasklists';
 import { Input, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 

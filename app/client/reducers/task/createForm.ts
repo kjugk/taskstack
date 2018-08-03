@@ -1,5 +1,5 @@
-import * as constants from '../constants';
-import * as types from '../types';
+import * as constants from '../../constants';
+import * as types from '../../types';
 
 const initialState: types.TaskCreateFormState = {
   title: '',

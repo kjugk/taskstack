@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
-import { tasklistList } from './tasklistList';
+import { tasklists } from './tasklists';
 import { tasklistCreateForm } from './tasklist/createForm';
 import { tasklistEditForm } from './tasklist/editForm';
 import { tasks } from './tasks';
-import { taskCreateForm } from './taskCreateForm';
+import { taskCreateForm } from './task/createForm';
 import { message } from './message';
 
 const rootReducer = combineReducers({
-  tasklistList,
+  tasklists,
   tasklistCreateForm,
   tasklistEditForm,
   tasks,

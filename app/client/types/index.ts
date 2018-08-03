@@ -1,5 +1,5 @@
 export interface RootState {
-  tasklistList: TasklistListState;
+  tasklists: TasklistsState;
   tasklistCreateForm: TasklistCreateFormState;
   tasklistEditForm: TasklistEditFormState;
   tasks: TasksState;
@@ -15,7 +15,7 @@ export interface TasklistState {
   taskLoaded: boolean;
 }
 
-export interface TasklistListState {
+export interface TasklistsState {
   ids: number[];
   isInitialized: boolean;
   isFetching: boolean;

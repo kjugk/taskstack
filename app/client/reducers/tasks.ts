@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
-import { getSelectedTasklist } from '../reducers/tasklistList';
+import { getSelectedTasklist } from '../reducers/tasklists';
 
 const initialState: types.TasksState = {
   isFetching: false,

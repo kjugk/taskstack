@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
-import { getTasklists } from '../../reducers/tasklistList';
+import { getTasklists } from '../../reducers/tasklists';
 import { Loader } from 'semantic-ui-react';
 import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
@@ -57,7 +57,7 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
 }
 
 const mapStateToProps = (state: types.RootState) => {
-  const { isFetching, isInitialized, selectingId } = state.tasklistList;
+  const { isFetching, isInitialized, selectingId } = state.tasklists;
 
   return {
     isFetching,
