@@ -1,4 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
@@ -16,6 +17,7 @@ export default function* taskSaga() {
     const res = yield call(api.fetchTasks, action.payload.tasklistId);
     const normalized = normalize(res.data, { tasks: [tasks] });
 
+    yield delay(500);
     yield put(taskActions.receiveTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
   }
 

@@ -2,43 +2,45 @@ import * as React from 'react';
 import * as types from '../../types';
 import { Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { getSelectedTasklist } from '../../reducers/tasklists';
-import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
+import { getSelectingTasklist } from '../../reducers/tasklists';
+import { getAllTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
 import { Tasks } from './Tasks';
 import { CompletedTasks } from './CompletedTasks/CompletedTasks';
+import { withRouter } from 'react-router-dom';
 
 interface TasksContainerProps {
   tasksState: types.TasksState;
   tasklist: types.TasklistState | undefined;
-  tasks: types.TaskState[];
+  activeTasks: types.TaskState[];
   completedTasks: types.TaskState[];
+  history: any;
   fetchTasks(tasklistId: number): any;
   updateTask(id: number, params: any): any;
-  selectTask(id: number): any;
   updateSort(tasklistId: number, taskIds: number[]): any;
 }
 
 class TasksContainer extends React.Component<TasksContainerProps> {
-  componentDidUpdate(prevProps: TasksContainerProps) {
-    const prevTasklist = prevProps.tasklist;
+  componentDidMount() {
     const { tasklist, fetchTasks } = this.props;
-
     if (!tasklist) return;
 
-    if (!prevTasklist && tasklist && !tasklist.taskLoaded) {
-      fetchTasks(tasklist.id);
+    fetchTasks(tasklist.id);
+  }
+
+  componentDidUpdate() {
+    const { tasklist, tasksState, fetchTasks } = this.props;
+    if (!tasklist) {
       return;
     }
 
-    if (prevTasklist && prevTasklist.id !== tasklist.id && !tasklist.taskLoaded) {
+    if (!tasklist.taskLoaded && !tasksState.isFetching) {
       fetchTasks(tasklist.id);
-      return;
     }
   }
 
   render() {
-    const { tasksState, tasklist, tasks, completedTasks, updateTask, selectTask } = this.props;
+    const { tasksState, tasklist, activeTasks, completedTasks, updateTask } = this.props;
     if (!tasklist) return null;
 
     if (tasksState.isFetching) {
@@ -46,12 +48,12 @@ class TasksContainer extends React.Component<TasksContainerProps> {
     }
 
     return (
-      <div style={{ flex: 1 }} onClick={() => selectTask(-1)}>
+      <div style={{ flex: 1 }} onClick={() => this.props.history.push(`/tasklists/${tasklist.id}`)}>
         <Tasks
           tasklist={tasklist}
-          items={tasks}
+          items={activeTasks}
           onCheckChange={updateTask}
-          onItemClick={selectTask}
+          onItemClick={this.handleTaskSelect.bind(this)}
           onSort={(tasklistId: number, taskIds: number[]) => {
             this.props.updateSort(tasklistId, taskIds.concat(completedTasks.map((t) => t.id)));
           }}
@@ -60,29 +62,43 @@ class TasksContainer extends React.Component<TasksContainerProps> {
         <CompletedTasks
           items={completedTasks}
           onCheckChange={updateTask}
-          onItemClick={selectTask}
+          onItemClick={this.handleTaskSelect.bind(this)}
         />
       </div>
     );
   }
+
+  private handleTaskSelect(id: number) {
+    const { history, tasklist } = this.props;
+    if (!tasklist) return;
+    history.push(`/tasklists/${tasklist.id}/tasks/${id}`);
+  }
 }
 
-const mapStateToProps = (state: types.RootState) => ({
-  tasksState: state.tasks,
-  tasklist: getSelectedTasklist(state),
-  tasks: getActiveTasks(state),
-  completedTasks: getCompletedTasks(state)
-});
+const mapStateToProps = (state: types.RootState, ownProps: any) => {
+  const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
+  const tasklist = getSelectingTasklist(tasklistId)(state);
+  const activeTasks = getAllTasks(tasklist)(state).filter((t) => !t.completed);
+  const completedTasks = getAllTasks(tasklist)(state).filter((t) => t.completed);
+
+  return {
+    tasksState: state.tasks,
+    tasklist,
+    activeTasks,
+    completedTasks
+  };
+};
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTasks: (tasklistId: number) => dispatch(taskActions.fetchTasks(tasklistId)),
   updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params)),
-  selectTask: (id: number) => dispatch(taskActions.selectTask(id)),
   updateSort: (tasklistId: number, taskIds: number[]) =>
     dispatch(taskActions.updateSort(tasklistId, taskIds))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasksContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TasksContainer)
+);

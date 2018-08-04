@@ -70,12 +70,3 @@ export const updateSort = (tasklistId: number, taskIds: number[]) => ({
     taskIds
   }
 });
-
-export const selectTask = (id: number) => {
-  return {
-    type: constants.TASK_SELECT,
-    payload: {
-      id
-    }
-  };
-};

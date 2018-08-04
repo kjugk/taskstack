@@ -6,6 +6,7 @@ import { Loader } from 'semantic-ui-react';
 import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
 import styled from 'styled-components';
+import { withRouter, match } from 'react-router-dom';
 
 const Container = styled.div`
   flex: 1;
@@ -16,11 +17,11 @@ const Container = styled.div`
 interface TasklistsContainerProps {
   isFetching: boolean;
   isInitialized: boolean;
-  selectingId: number;
   tasklists: types.TasklistState[];
+  match: any;
+  history: any;
   fetchTasklists(): any;
   editTasklist(tasklist: any): any;
-  selectTasklist(id: number): any;
 }
 
 class TasklistsContainer extends React.Component<TasklistsContainerProps> {
@@ -32,8 +33,17 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
     }
   }
 
+  componentDidUpdate() {
+    const { tasklists, isFetching, isInitialized, match, history } = this.props;
+    // TODO DashboradContainer に移す???
+    if (match.path === '/' && !isFetching && isInitialized && tasklists.length > 0) {
+      history.replace(`/tasklists/${tasklists[0].id}`);
+    }
+  }
+
   render() {
-    const { tasklists, selectTasklist, editTasklist, isFetching, selectingId } = this.props;
+    const { tasklists, editTasklist, isFetching, match } = this.props;
+    const selectingId = parseInt(match.params.tasklistId, 10);
 
     if (isFetching) {
       return (
@@ -47,7 +57,7 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
       <Container>
         <Tasklists
           selectingId={selectingId}
-          onItemClick={selectTasklist}
+          onItemClick={(id: number) => this.props.history.push(`/tasklists/${id}`)}
           onEditButtonClick={editTasklist}
           items={tasklists}
         />
@@ -56,24 +66,25 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
   }
 }
 
-const mapStateToProps = (state: types.RootState) => {
-  const { isFetching, isInitialized, selectingId } = state.tasklists;
+const mapStateToProps = (state: types.RootState, ownProps: any) => {
+  const { isFetching, isInitialized } = state.tasklists;
 
   return {
     isFetching,
     isInitialized,
-    selectingId,
-    tasklists: getTasklists(state)
+    tasklists: getTasklists(state),
+    ...ownProps
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTasklists: () => dispatch(tasklistActions.fetchTasklists()),
-  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist)),
-  selectTasklist: (id: number) => dispatch(tasklistActions.selectTasklist(id))
+  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasklistsContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TasklistsContainer)
+);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as types from '../../types';
 import styled from 'styled-components';
 import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateFormContainer from '../TasklistCreateForm/TasklistCreateFormContainer';
@@ -7,6 +8,7 @@ import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
+import { Route } from 'react-router-dom';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -46,12 +48,19 @@ class DashboardContainer extends React.Component {
         </Left>
 
         <Center>
-          <TaskCreateFormContainer />
-          <TasksContainer />
+          <Route
+            path="/tasklists/:tasklistId"
+            render={() => (
+              <>
+                <TaskCreateFormContainer />
+                <TasksContainer />
+              </>
+            )}
+          />
         </Center>
 
         <Right>
-          <TaskContainer />
+          <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
         </Right>
 
         <TasklistCreateFormContainer />

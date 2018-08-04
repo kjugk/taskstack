@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
 import * as taskCreateFormActions from '../../actions/taskCreateFormActions';
-import { getSelectedTasklist } from '../../reducers/tasklists';
+import { getSelectingTasklist } from '../../reducers/tasklists';
 import { Input, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
   margin-bottom: 1rem;
@@ -60,9 +61,11 @@ class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerPro
   }
 }
 
-const mapStateToProps = (state: types.RootState) => {
+const mapStateToProps = (state: types.RootState, ownProps: any) => {
+  const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
+
   return {
-    tasklist: getSelectedTasklist(state),
+    tasklist: getSelectingTasklist(tasklistId)(state),
     formState: state.taskCreateForm
   };
 };
@@ -73,7 +76,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(taskCreateFormActions.submit(tasklistId, params))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TaskCreateFormContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TaskCreateFormContainer)
+);

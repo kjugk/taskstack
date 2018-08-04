@@ -1,11 +1,9 @@
 import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
-import { getSelectedTasklist } from '../reducers/tasklists';
 
 const initialState: types.TasksState = {
   isFetching: false,
-  selectingId: undefined,
   tasksById: {}
 };
 
@@ -54,12 +52,6 @@ const tasks = (state = initialState, action: any) => {
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
-    case constants.TASK_SELECT:
-      return {
-        ...state,
-        selectingId: action.payload.id
-      };
-
     default:
       return state;
   }
@@ -74,40 +66,28 @@ const deleteTask = (tasksById: any, id: number) => {
   return cloned;
 };
 
-// selector
+// selectors
 const getTasksById = (state: types.RootState) => {
   return state.tasks.tasksById;
 };
 
-const getSelectingId = (state: types.RootState) => {
-  return state.tasks.selectingId;
-};
+export const getAllTasks = (tasklist: types.TasklistState | undefined) =>
+  createSelector([getTasksById], (tasksById) => {
+    if (tasklist === undefined) return [];
 
-const getTasks = createSelector([getSelectedTasklist, getTasksById], (tasklist, tasksById) => {
-  if (tasklist === undefined) return [];
+    const t: types.TaskState[] = [];
+    (tasklist.taskIds || []).forEach((id: any) => {
+      if (tasksById[id]) {
+        t.push(tasksById[id]);
+      }
+    });
 
-  const t: types.TaskState[] = [];
-  (tasklist.taskIds || []).forEach((id: any) => {
-    if (tasksById[id]) {
-      t.push(tasksById[id]);
-    }
+    return t;
   });
 
-  return t;
-});
+const getSelectingTask = (taskId: number) =>
+  createSelector([getTasksById], (tasks) => {
+    return tasks[taskId];
+  });
 
-const getActiveTasks = createSelector([getTasks], (tasks) => {
-  return tasks.filter((task) => !task.completed);
-});
-
-const getCompletedTasks = createSelector([getTasks], (tasks) => {
-  return tasks.filter((task) => task.completed);
-});
-
-const getSelectingTask = createSelector([getTasksById, getSelectingId], (tasks, id) => {
-  if (typeof id === 'undefined') return undefined;
-
-  return tasks[id];
-});
-
-export { tasks, getActiveTasks, getCompletedTasks, getSelectingTask };
+export { tasks, getSelectingTask };

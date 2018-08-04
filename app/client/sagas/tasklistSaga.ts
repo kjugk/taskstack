@@ -70,7 +70,7 @@ export default function* tasklistSaga() {
 
     yield delay(1000);
     yield put(tasklistActions.receiveDestroyedTasklistId(action.payload.id));
-    yield put(tasklistActions.resetTasklistSelection());
+    // yield put(tasklistActions.resetTasklistSelection());
     yield put(editFormActions.close());
     yield put(messageActions.setMessage('リストを削除しました。'));
   }

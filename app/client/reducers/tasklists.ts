@@ -24,7 +24,6 @@ const tasklists = (state = initialState, action: any) => {
         ids: action.payload.ids,
         isFetching: false,
         isInitialized: true,
-        selectingId: action.payload.ids[0],
         tasklistsById: action.payload.tasklistsById
       };
 
@@ -32,7 +31,6 @@ const tasklists = (state = initialState, action: any) => {
       return {
         ...state,
         ids: [action.payload.id, ...state.ids],
-        selectingId: action.payload.id,
         tasklistsById: {
           ...action.payload.tasklistById,
           ...state.tasklistsById
@@ -94,18 +92,6 @@ const tasklists = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASKLIST_SELECT:
-      return {
-        ...state,
-        selectingId: action.payload.id
-      };
-
-    case constants.TASKLIST_SELECT_RESET:
-      return {
-        ...state,
-        selectingId: state.ids[0]
-      };
-
     default:
       return state;
   }
@@ -123,7 +109,7 @@ const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }
   return cloned;
 };
 
-// selector
+// selectors
 const getTasklistIds = (state: types.RootState) => {
   return state.tasklists.ids;
 };
@@ -132,21 +118,15 @@ const getTasklistsById = (state: types.RootState) => {
   return state.tasklists.tasklistsById;
 };
 
-const getSelectingId = (state: types.RootState) => {
-  return state.tasklists.selectingId;
-};
-
 const getTasklists = createSelector([getTasklistIds, getTasklistsById], (ids, tasklistsById) => {
   return ids.map((id) => tasklistsById[id]);
 });
 
-const getSelectedTasklist = createSelector(
-  [getSelectingId, getTasklistsById],
-  (selectingId, tasklistsById) => {
+const getSelectingTasklist = (selectingId: number | undefined) =>
+  createSelector([getTasklistsById], (tasklistsById) => {
     if (typeof selectingId === 'undefined') return undefined;
 
     return tasklistsById[selectingId];
-  }
-);
+  });
 
-export { tasklists, getTasklists, getSelectedTasklist };
+export { tasklists, getTasklists, getSelectingTasklist };
