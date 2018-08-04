@@ -6,9 +6,7 @@ import TasklistEditFormContainer from '../TasklistEditForm/TasklistEditFormConta
 import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
-import { TasklistCreateButton } from '../TasklistCreateButton/TasklistCreateButton';
-import { connect } from 'react-redux';
-import * as tasklistActions from '../../actions/tasklistActions';
+import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -38,17 +36,13 @@ const Right = styled.div`
   height: 100%;
 `;
 
-interface DashboardContainerProps {
-  createTasklist: () => any;
-}
-
-class DashboardContainer extends React.Component<DashboardContainerProps> {
+class DashboardContainer extends React.Component {
   render() {
     return (
       <DashBoard>
         <Left>
           <TasklistsContainer />
-          <TasklistCreateButton onClick={this.props.createTasklist} />
+          <TasklistCreateButtonContainer />
         </Left>
 
         <Center>
@@ -59,6 +53,7 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
         <Right>
           <TaskContainer />
         </Right>
+
         <TasklistCreateFormContainer />
         <TasklistEditFormContainer />
       </DashBoard>
@@ -66,12 +61,4 @@ class DashboardContainer extends React.Component<DashboardContainerProps> {
   }
 }
 
-const mapStateToProps = () => ({});
-const mapDispatchToProps = (dispatch: any) => ({
-  createTasklist: () => dispatch(tasklistActions.createTasklist())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DashboardContainer);
+export default DashboardContainer;
