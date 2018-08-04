@@ -6,7 +6,7 @@ import { Loader } from 'semantic-ui-react';
 import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
 import styled from 'styled-components';
-import { withRouter, match } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 const Container = styled.div`
   flex: 1;
@@ -33,14 +33,6 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
     }
   }
 
-  componentDidUpdate() {
-    const { tasklists, isFetching, isInitialized, match, history } = this.props;
-    // TODO DashboradContainer に移す???
-    if (match.path === '/' && !isFetching && isInitialized && tasklists.length > 0) {
-      history.replace(`/tasklists/${tasklists[0].id}`);
-    }
-  }
-
   render() {
     const { tasklists, editTasklist, isFetching, match } = this.props;
     const selectingId = parseInt(match.params.tasklistId, 10);
@@ -51,6 +43,11 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
           <Loader active>Loading</Loader>
         </Container>
       );
+    }
+
+    // Dashboard に移譲する?
+    if (match.path === '/' && tasklists.length > 0) {
+      return <Redirect to={`/tasklists/${tasklists[0].id}`} />;
     }
 
     return (

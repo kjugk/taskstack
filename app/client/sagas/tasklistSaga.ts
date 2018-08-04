@@ -38,7 +38,8 @@ export default function* tasklistSaga() {
       yield put(
         tasklistActions.receiveNewTasklist(normalized.result.tasklist, normalized.entities.tasklist)
       );
-      yield put(createFormActions.close());
+      // yield put(createFormActions.close());
+      yield put(createFormActions.complete());
       yield put(messageActions.setMessage('リストを作成しました。'));
     } catch (e) {
       // TODO error handrong

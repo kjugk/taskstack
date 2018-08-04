@@ -5,37 +5,33 @@ import { getSelectingTask } from '../../reducers/tasks';
 import { getSelectingTasklist } from '../../reducers/tasklists';
 import * as taskActions from '../../actions/taskActions';
 import { Task } from './Task';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 interface TaskContainerProps {
   task: types.TaskState | undefined;
   tasklist: types.TasklistState;
-  history: any;
   updateTask(id: number, params: any): any;
   destroyTask(id: number): any;
 }
 
 class TaskContainer extends React.Component<TaskContainerProps> {
-  componentDidUpdate() {
-    const { task, tasklist, history } = this.props;
+  render() {
+    const { task, tasklist, updateTask, destroyTask } = this.props;
 
     if (!task) {
-      history.replace(`/tasklists/${tasklist.id}`);
+      return <Redirect to={`/tasklists/${tasklist.id}`} />;
     }
-  }
 
-  render() {
-    const { task, updateTask, destroyTask } = this.props;
     return <Task task={task} onUpdate={updateTask} onDestroy={destroyTask} />;
   }
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
-  const selectingId = parseInt(ownProps.match.params.taskId, 10);
+  const taskId = parseInt(ownProps.match.params.taskId, 10);
   const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
 
   return {
-    task: getSelectingTask(selectingId)(state),
+    task: getSelectingTask(taskId)(state),
     tasklist: getSelectingTasklist(tasklistId)(state),
     ...ownProps
   };

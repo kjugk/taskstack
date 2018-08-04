@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as types from '../../types';
 import styled from 'styled-components';
 import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateFormContainer from '../TasklistCreateForm/TasklistCreateFormContainer';
@@ -48,22 +47,15 @@ class DashboardContainer extends React.Component {
         </Left>
 
         <Center>
-          <Route
-            path="/tasklists/:tasklistId"
-            render={() => (
-              <>
-                <TaskCreateFormContainer />
-                <TasksContainer />
-              </>
-            )}
-          />
+          <TaskCreateFormContainer />
+          <TasksContainer />
         </Center>
 
         <Right>
           <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
         </Right>
 
-        <TasklistCreateFormContainer />
+        <Route exact path="/tasklists/new" component={TasklistCreateFormContainer} />
         <TasklistEditFormContainer />
       </DashBoard>
     );

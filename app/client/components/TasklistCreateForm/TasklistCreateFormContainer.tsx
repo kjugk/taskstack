@@ -4,25 +4,35 @@ import { connect } from 'react-redux';
 import { Modal, Loader, Dimmer } from 'semantic-ui-react';
 import { TasklistForm } from '../TasklistForm/TasklistForm';
 import * as formActions from '../../actions/tasklistCreateFormActions';
+import { Redirect, withRouter } from 'react-router-dom';
 
 interface TasklistCreateFormContainerProps {
   formState: types.TasklistCreateFormState;
-  closeForm: () => any;
-  changeTitle: (title: string) => any;
-  submit: (params: object) => any;
+  history: any;
+  changeTitle(title: string): any;
+  submit(params: object): any;
+  close(): any;
 }
 
 /**
  * Tasklist 作成フォーム
  */
 class TasklistCreateFormContainer extends React.Component<TasklistCreateFormContainerProps> {
+  componentWillUnmount() {
+    this.props.close();
+  }
+
   render() {
-    const { formState, changeTitle, closeForm } = this.props;
+    const { formState, changeTitle, history } = this.props;
+
+    if (formState.isSubmitted) return <Redirect to="/" />;
 
     return (
       <Modal
-        open={formState.active}
-        onClose={closeForm}
+        open={true}
+        onClose={() => {
+          history.goBack();
+        }}
         closeOnEscape={!formState.isSubmitting}
         closeOnDimmerClick={!formState.isSubmitting}
         size="tiny"
@@ -55,17 +65,19 @@ class TasklistCreateFormContainer extends React.Component<TasklistCreateFormCont
   }
 }
 
-const mapStateToProps = (state: types.RootState) => ({
+const mapStateToProps = (state: types.RootState, ownProps: any) => ({
   formState: state.tasklistCreateForm
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   changeTitle: (title: string) => dispatch(formActions.changeTitle(title)),
-  closeForm: () => dispatch(formActions.close()),
-  submit: (params: {}) => dispatch(formActions.submit(params))
+  submit: (params: {}) => dispatch(formActions.submit(params)),
+  close: () => dispatch(formActions.close())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasklistCreateFormContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TasklistCreateFormContainer)
+);

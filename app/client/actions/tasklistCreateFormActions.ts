@@ -22,3 +22,10 @@ export const submit = (params: object) => {
     }
   };
 };
+
+export const complete = () => {
+  return {
+    type: constants.TASKLIST_CREATE_FORM_SUBMIT_SUCCESS,
+    payload: {}
+  };
+};

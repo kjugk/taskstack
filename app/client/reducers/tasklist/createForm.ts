@@ -2,19 +2,13 @@ import * as constants from '../../constants';
 import * as types from '../../types';
 
 const initialState: types.TasklistCreateFormState = {
-  active: false,
   title: '',
-  isSubmitting: false
+  isSubmitting: false,
+  isSubmitted: false
 };
 
 const tasklistCreateForm = (state = initialState, action: any) => {
   switch (action.type) {
-    case constants.TASKLIST_CREATE_START:
-      return {
-        ...state,
-        active: true
-      };
-
     case constants.TASKLIST_CREATE_FORM_TITLE_CHANGE:
       return {
         ...state,
@@ -25,6 +19,13 @@ const tasklistCreateForm = (state = initialState, action: any) => {
       return {
         ...state,
         isSubmitting: true
+      };
+
+    case constants.TASKLIST_CREATE_FORM_SUBMIT_SUCCESS:
+      return {
+        ...state,
+        isSubmitting: false,
+        isSubmitted: true
       };
 
     case constants.TASKLIST_CREATE_FORM_CLOSE:

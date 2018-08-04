@@ -1,23 +1,17 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import * as tasklistActions from '../../actions/tasklistActions';
 import { TasklistCreateButton } from './TasklistCreateButton';
+import { withRouter } from 'react-router-dom';
 
 interface TasklistCreateButtonContainerProps {
-  createTasklist: () => any;
+  history: any;
+  match: any;
+  location: any;
 }
 
 class TasklistCreateButtonContainer extends React.Component<TasklistCreateButtonContainerProps> {
   render() {
-    return <TasklistCreateButton onClick={this.props.createTasklist} />;
+    return <TasklistCreateButton onClick={() => this.props.history.push('/tasklists/new')} />;
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => ({
-  createTasklist: () => dispatch(tasklistActions.createTasklist())
-});
-
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(TasklistCreateButtonContainer);
+export default withRouter(TasklistCreateButtonContainer);
