@@ -5,7 +5,6 @@ import { getTasklists } from '../../reducers/tasklists';
 import { Loader } from 'semantic-ui-react';
 import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
-import styled from 'styled-components';
 import { withRouter, Redirect } from 'react-router-dom';
 
 interface TasklistsContainerProps {

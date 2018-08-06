@@ -19,6 +19,7 @@ class TaskContainer extends React.Component<TaskContainerProps> {
     const { task, tasklist, updateTask, destroyTask } = this.props;
 
     if (!task) {
+      // TODO: tasklist もなかったらどうする?
       return <Redirect to={`/tasklists/${tasklist.id}`} />;
     }
 
@@ -27,12 +28,9 @@ class TaskContainer extends React.Component<TaskContainerProps> {
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
-  const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
-  const taskId = parseInt(ownProps.match.params.taskId, 10);
-
   return {
-    tasklist: getTasklist(tasklistId)(state),
-    task: getTask(taskId)(state),
+    tasklist: getTasklist(state, ownProps),
+    task: getTask(state, ownProps),
     ...ownProps
   };
 };

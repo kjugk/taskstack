@@ -10,7 +10,7 @@ const initialState: types.TasklistsState = {
   tasklistsById: {}
 };
 
-const tasklists = (state = initialState, action: any) => {
+export const tasklists = (state = initialState, action: any) => {
   switch (action.type) {
     case constants.TASKLISTS_FETCH:
       return {
@@ -118,15 +118,26 @@ const getTasklistsById = (state: types.RootState) => {
   return state.tasklists.tasklistsById;
 };
 
-const getTasklists = createSelector([getTasklistIds, getTasklistsById], (ids, tasklistsById) => {
-  return ids.map((id) => tasklistsById[id]);
-});
+// url params から tasklistId を抽出して返す。
+const getTasklistId = (state: types.RootState, props: any) => {
+  const { match } = props;
+  if (match.params.tasklistId) {
+    return parseInt(props.match.params.tasklistId, 10);
+  } else {
+    return -1;
+  }
+};
 
-const getTasklist = (selectingId: number | undefined) =>
-  createSelector([getTasklistsById], (tasklistsById) => {
-    if (typeof selectingId === 'undefined') return undefined;
+export const getTasklists = createSelector(
+  [getTasklistIds, getTasklistsById],
+  (ids, tasklistsById) => {
+    return ids.map((id) => tasklistsById[id]);
+  }
+);
 
-    return tasklistsById[selectingId];
-  });
-
-export { tasklists, getTasklists, getTasklist };
+export const getTasklist = createSelector(
+  [getTasklistsById, getTasklistId],
+  (tasklistById, tasklistId) => {
+    return tasklistById[tasklistId];
+  }
+);

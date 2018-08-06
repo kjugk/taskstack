@@ -1,13 +1,14 @@
 import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
+import { getTasklist } from './tasklists';
 
 const initialState: types.TasksState = {
   isFetching: false,
   tasksById: {}
 };
 
-const tasks = (state = initialState, action: any) => {
+export const tasks = (state = initialState, action: any) => {
   switch (action.type) {
     case constants.TASKS_FETCH:
       return {
@@ -71,23 +72,46 @@ const getTasksById = (state: types.RootState) => {
   return state.tasks.tasksById;
 };
 
-export const getAllTasks = (tasklist: types.TasklistState | undefined) =>
-  createSelector([getTasksById], (tasksById) => {
-    if (tasklist === undefined) return [];
+const getTaskId = (state: types.RootState, props: any) => {
+  return parseInt(props.match.params.taskId, 10);
+};
 
-    const t: types.TaskState[] = [];
-    (tasklist.taskIds || []).forEach((id: any) => {
-      if (tasksById[id]) {
-        t.push(tasksById[id]);
+export const getActiveTasks = createSelector([getTasksById, getTasklist], (tasksById, tasklist) => {
+  if (!tasklist) return [];
+
+  return tasklist.taskIds.reduce(
+    (acc, cur) => {
+      if (tasksById[cur] && !tasksById[cur].completed) {
+        acc.push(tasksById[cur]);
       }
-    });
 
-    return t;
-  });
+      return acc;
+    },
+    [] as types.TaskState[]
+  );
+});
 
-const getTask = (taskId: number) =>
-  createSelector([getTasksById], (tasks) => {
-    return tasks[taskId];
-  });
+export const getCompletedTasks = createSelector(
+  [getTasksById, getTasklist],
+  (tasksById, tasklist) => {
+    if (!tasklist) return [];
 
-export { tasks, getTask };
+    return tasklist.taskIds.reduce(
+      (acc, cur) => {
+        if (tasksById[cur] && tasksById[cur].completed) {
+          acc.push(tasksById[cur]);
+        }
+
+        return acc;
+      },
+      [] as types.TaskState[]
+    );
+  }
+);
+
+export const getTask = createSelector(
+  [getTasksById, getTaskId],
+  (tasksById: any, taskId: number) => {
+    return tasksById[taskId];
+  }
+);

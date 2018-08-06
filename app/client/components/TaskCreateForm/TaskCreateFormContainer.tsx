@@ -65,8 +65,9 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
   const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
 
   return {
-    tasklist: getTasklist(tasklistId)(state),
-    formState: state.taskCreateForm
+    tasklist: getTasklist(state, ownProps),
+    formState: state.taskCreateForm,
+    ...ownProps
   };
 };
 
