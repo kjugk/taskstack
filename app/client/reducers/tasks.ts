@@ -85,9 +85,9 @@ export const getAllTasks = (tasklist: types.TasklistState | undefined) =>
     return t;
   });
 
-const getSelectingTask = (taskId: number) =>
+const getTask = (taskId: number) =>
   createSelector([getTasksById], (tasks) => {
     return tasks[taskId];
   });
 
-export { tasks, getSelectingTask };
+export { tasks, getTask };

@@ -3,27 +3,48 @@ import * as types from '../../types';
 import { connect } from 'react-redux';
 import { Modal, Loader, Dimmer } from 'semantic-ui-react';
 import { TasklistForm } from '../TasklistForm/TasklistForm';
+import { getTasklist } from '../../reducers/tasklists';
 import * as formActions from '../../actions/tasklistEditFormActions';
+import { withRouter, Redirect } from 'react-router-dom';
 
 interface TasklistEditFormContainerProps {
   formState: types.TasklistEditFormState;
+  tasklist: types.TasklistState;
+  history: any;
   closeForm(): any;
   changeTitle(title: string): any;
   destroyTasklist(id: number): any;
   submit(id: number, params: object): any;
+  init(tasklist: types.TasklistState): any;
 }
 
 /**
  * Tasklist 編集フォーム
  */
 class TasklistEditFormContainer extends React.Component<TasklistEditFormContainerProps> {
+  componentDidMount() {
+    this.props.init(this.props.tasklist);
+  }
+
+  componentWillUnmount() {
+    this.props.closeForm();
+  }
+
   render() {
-    const { formState, changeTitle, closeForm, destroyTasklist } = this.props;
+    const { formState, changeTitle, destroyTasklist, tasklist, history } = this.props;
+
+    if (!tasklist) {
+      return <Redirect to="/" />;
+    }
+
+    if (formState.isSubmitted) {
+      return <Redirect to={`/tasklists/${tasklist.id}`} />;
+    }
 
     return (
       <Modal
-        open={formState.active}
-        onClose={closeForm}
+        open={true}
+        onClose={() => history.replace(`/tasklists/${tasklist.id}`)}
         closeOnEscape={!formState.isSubmitting}
         closeOnDimmerClick={!formState.isSubmitting}
         size="tiny"
@@ -61,18 +82,26 @@ class TasklistEditFormContainer extends React.Component<TasklistEditFormContaine
   }
 }
 
-const mapStateToProps = (state: types.RootState) => ({
-  formState: state.tasklistEditForm
-});
+const mapStateToProps = (state: types.RootState, ownProps: any) => {
+  const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
+
+  return {
+    tasklist: getTasklist(tasklistId)(state),
+    formState: state.tasklistEditForm
+  };
+};
 
 const mapDispatchToProps = (dispatch: any) => ({
   changeTitle: (title: string) => dispatch(formActions.changeTitle(title)),
   closeForm: () => dispatch(formActions.close()),
   destroyTasklist: (id: number) => dispatch(formActions.destroyTasklist(id)),
-  submit: (id: number, params: {}) => dispatch(formActions.submit(id, params))
+  submit: (id: number, params: {}) => dispatch(formActions.submit(id, params)),
+  init: (tasklist: types.TasklistState) => dispatch(formActions.init(tasklist))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasklistEditFormContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TasklistEditFormContainer)
+);

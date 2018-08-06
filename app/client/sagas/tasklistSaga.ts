@@ -56,7 +56,7 @@ export default function* tasklistSaga() {
 
       yield delay(1000);
       yield put(tasklistActions.receiveUpdatedTasklist(res.data.tasklist));
-      yield put(editFormActions.close());
+      yield put(editFormActions.complete());
       yield put(messageActions.setMessage('リストを更新しました。'));
     } catch (e) {
       console.log(e);
@@ -71,8 +71,6 @@ export default function* tasklistSaga() {
 
     yield delay(1000);
     yield put(tasklistActions.receiveDestroyedTasklistId(action.payload.id));
-    // yield put(tasklistActions.resetTasklistSelection());
-    yield put(editFormActions.close());
     yield put(messageActions.setMessage('リストを削除しました。'));
   }
 

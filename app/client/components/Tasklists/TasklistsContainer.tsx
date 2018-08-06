@@ -8,12 +8,6 @@ import * as tasklistActions from '../../actions/tasklistActions';
 import styled from 'styled-components';
 import { withRouter, Redirect } from 'react-router-dom';
 
-const Container = styled.div`
-  flex: 1;
-  overflow-y: scroll;
-  position: relative;
-`;
-
 interface TasklistsContainerProps {
   isFetching: boolean;
   isInitialized: boolean;
@@ -34,15 +28,11 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
   }
 
   render() {
-    const { tasklists, editTasklist, isFetching, match } = this.props;
+    const { tasklists, isFetching, match } = this.props;
     const selectingId = parseInt(match.params.tasklistId, 10);
 
     if (isFetching) {
-      return (
-        <Container>
-          <Loader active>Loading</Loader>
-        </Container>
-      );
+      return <Loader active>Loading</Loader>;
     }
 
     // Dashboard に移譲する?
@@ -51,14 +41,12 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
     }
 
     return (
-      <Container>
-        <Tasklists
-          selectingId={selectingId}
-          onItemClick={(id: number) => this.props.history.push(`/tasklists/${id}`)}
-          onEditButtonClick={editTasklist}
-          items={tasklists}
-        />
-      </Container>
+      <Tasklists
+        selectingId={selectingId}
+        onItemClick={(id: number) => this.props.history.push(`/tasklists/${id}`)}
+        onEditButtonClick={(id: number) => this.props.history.push(`/tasklists/${id}/edit`)}
+        items={tasklists}
+      />
     );
   }
 }

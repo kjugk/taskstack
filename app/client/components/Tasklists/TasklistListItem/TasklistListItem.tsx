@@ -28,7 +28,7 @@ interface ListItemProps {
   isSelecting: boolean;
   item: types.TasklistState;
   onClick(id: number): any;
-  onEditButtonClick(item: any): any;
+  onEditButtonClick(id: number): any;
 }
 
 class TasklistListItem extends React.Component<ListItemProps> {
@@ -42,7 +42,12 @@ class TasklistListItem extends React.Component<ListItemProps> {
         <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>
 
         {isSelecting && (
-          <IconWrapper onClick={() => onEditButtonClick(item)}>
+          <IconWrapper
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditButtonClick(item.id);
+            }}
+          >
             <Icon name="pencil" />
           </IconWrapper>
         )}

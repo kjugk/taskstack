@@ -32,7 +32,7 @@ export interface TasklistCreateFormState {
 }
 
 export interface TasklistEditFormState {
-  active: boolean;
+  isSubmitted: boolean;
   isSubmitting: boolean;
   title: string;
   id: number;

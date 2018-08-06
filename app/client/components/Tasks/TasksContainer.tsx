@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as types from '../../types';
 import { Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { getSelectingTasklist } from '../../reducers/tasklists';
+import { getTasklist } from '../../reducers/tasklists';
 import { getAllTasks } from '../../reducers/tasks';
 import * as taskActions from '../../actions/taskActions';
 import { Tasks } from './Tasks';
@@ -78,7 +78,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
   const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
-  const tasklist = getSelectingTasklist(tasklistId)(state);
+  const tasklist = getTasklist(tasklistId)(state);
   const activeTasks = getAllTasks(tasklist)(state).filter((t) => !t.completed);
   const completedTasks = getAllTasks(tasklist)(state).filter((t) => t.completed);
 

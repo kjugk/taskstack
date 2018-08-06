@@ -1,4 +1,14 @@
 import * as constants from '../constants';
+import * as types from '../types';
+
+export const init = (tasklist: types.TasklistState) => {
+  return {
+    type: constants.TASKLIST_EDIT_START,
+    payload: {
+      tasklist
+    }
+  };
+};
 
 export const close = () => {
   return {
@@ -30,5 +40,12 @@ export const destroyTasklist = (id: number) => {
     payload: {
       id
     }
+  };
+};
+
+export const complete = () => {
+  return {
+    type: constants.TASKLIST_EDIT_FORM_SUBMIT_COMPLETE,
+    payload: {}
   };
 };

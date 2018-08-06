@@ -13,7 +13,7 @@ interface TasklistsProps {
   items: types.TasklistState[];
   selectingId: number;
   onItemClick(id: number): any;
-  onEditButtonClick(tasklist: any): any;
+  onEditButtonClick(id: number): any;
 }
 
 class Tasklists extends React.Component<TasklistsProps> {

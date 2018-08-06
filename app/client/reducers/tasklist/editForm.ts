@@ -2,9 +2,9 @@ import * as constants from '../../constants';
 import * as types from '../../types';
 
 const initialState: types.TasklistEditFormState = {
-  active: false,
   id: -1,
   isSubmitting: false,
+  isSubmitted: false,
   title: ''
 };
 
@@ -13,8 +13,7 @@ const tasklistEditForm = (state = initialState, action: any) => {
     case constants.TASKLIST_EDIT_START:
       return {
         ...state,
-        ...action.payload.tasklist,
-        active: true
+        ...action.payload.tasklist
       };
 
     case constants.TASKLIST_EDIT_FORM_TITLE_CHANGE:
@@ -28,6 +27,13 @@ const tasklistEditForm = (state = initialState, action: any) => {
       return {
         ...state,
         isSubmitting: true
+      };
+
+    case constants.TASKLIST_EDIT_FORM_SUBMIT_COMPLETE:
+      return {
+        ...state,
+        isSubmitting: false,
+        isSubmitted: true
       };
 
     case constants.TASKLIST_EDIT_FORM_CLOSE:

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
-import { getSelectingTask } from '../../reducers/tasks';
-import { getSelectingTasklist } from '../../reducers/tasklists';
+import { getTask } from '../../reducers/tasks';
+import { getTasklist } from '../../reducers/tasklists';
 import * as taskActions from '../../actions/taskActions';
 import { Task } from './Task';
 import { withRouter, Redirect } from 'react-router-dom';
 
 interface TaskContainerProps {
-  task: types.TaskState | undefined;
   tasklist: types.TasklistState;
+  task: types.TaskState | undefined;
   updateTask(id: number, params: any): any;
   destroyTask(id: number): any;
 }
@@ -27,12 +27,12 @@ class TaskContainer extends React.Component<TaskContainerProps> {
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
-  const taskId = parseInt(ownProps.match.params.taskId, 10);
   const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
+  const taskId = parseInt(ownProps.match.params.taskId, 10);
 
   return {
-    task: getSelectingTask(taskId)(state),
-    tasklist: getSelectingTasklist(tasklistId)(state),
+    tasklist: getTasklist(tasklistId)(state),
+    task: getTask(taskId)(state),
     ...ownProps
   };
 };

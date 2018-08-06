@@ -56,7 +56,7 @@ class DashboardContainer extends React.Component {
         </Right>
 
         <Route exact path="/tasklists/new" component={TasklistCreateFormContainer} />
-        <TasklistEditFormContainer />
+        <Route exact path="/tasklists/:tasklistId/edit" component={TasklistEditFormContainer} />
       </DashBoard>
     );
   }

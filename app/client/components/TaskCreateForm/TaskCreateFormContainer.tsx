@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as types from '../../types';
 import { connect } from 'react-redux';
 import * as taskCreateFormActions from '../../actions/taskCreateFormActions';
-import { getSelectingTasklist } from '../../reducers/tasklists';
+import { getTasklist } from '../../reducers/tasklists';
 import { Input, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
@@ -65,7 +65,7 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
   const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
 
   return {
-    tasklist: getSelectingTasklist(tasklistId)(state),
+    tasklist: getTasklist(tasklistId)(state),
     formState: state.taskCreateForm
   };
 };

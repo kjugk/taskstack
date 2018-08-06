@@ -122,11 +122,11 @@ const getTasklists = createSelector([getTasklistIds, getTasklistsById], (ids, ta
   return ids.map((id) => tasklistsById[id]);
 });
 
-const getSelectingTasklist = (selectingId: number | undefined) =>
+const getTasklist = (selectingId: number | undefined) =>
   createSelector([getTasklistsById], (tasklistsById) => {
     if (typeof selectingId === 'undefined') return undefined;
 
     return tasklistsById[selectingId];
   });
 
-export { tasklists, getTasklists, getSelectingTasklist };
+export { tasklists, getTasklists, getTasklist };
