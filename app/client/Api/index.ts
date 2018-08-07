@@ -31,3 +31,7 @@ export async function updateTask(taskId: number, params: any) {
 export async function destroyTask(taskId: number) {
   return await axios.delete(`/api/tasks/${taskId}.json`);
 }
+
+export async function destoryCompletedTasks(tasklistId: number) {
+  return await axios.delete(`/api/tasklists/${tasklistId}/completed_tasks.json`);
+}

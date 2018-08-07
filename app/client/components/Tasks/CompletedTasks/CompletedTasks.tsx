@@ -8,6 +8,7 @@ interface CompletedTasksProps {
   items: types.TaskState[];
   onItemClick(id: number): any;
   onCheckChange(id: number, params: any): any;
+  onDeleteButtonClick(): any;
 }
 
 interface CompletedTasksState {
@@ -30,16 +31,35 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
 
     return (
       <>
-        <Button type="button" secondary onClick={this.handleToggleButtonClick.bind(this)}>
-          {items.length} 件の完了済みタスク
-        </Button>
+        <div style={{ marginBottom: '1rem' }}>
+          <Button type="button" secondary onClick={this.handleToggleButtonClick.bind(this)}>
+            {items.length} 件の完了済みタスク
+          </Button>
+        </div>
 
         {this.state.openCompletedList && (
-          <Segment.Group>
-            {items.map((item: any, i: number) => {
-              return <TaskListItem key={i} item={item} {...rest} />;
-            })}
-          </Segment.Group>
+          <div>
+            <Segment.Group>
+              {items.map((item: any, i: number) => {
+                return <TaskListItem key={i} item={item} {...rest} />;
+              })}
+            </Segment.Group>
+            <div style={{ textAlign: 'right' }}>
+              <Button
+                basic
+                color="red"
+                type="button"
+                icon="trash"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (window.confirm('削除してよろしいですか?')) {
+                    this.props.onDeleteButtonClick();
+                  }
+                }}
+                content="完了済みを削除"
+              />
+            </div>
+          </div>
         )}
       </>
     );

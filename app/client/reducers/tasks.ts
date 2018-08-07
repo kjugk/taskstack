@@ -5,6 +5,7 @@ import { getTasklist } from './tasklists';
 
 const initialState: types.TasksState = {
   isFetching: false,
+  isUpdating: false,
   tasksById: {}
 };
 
@@ -53,6 +54,19 @@ export const tasks = (state = initialState, action: any) => {
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
+    case constants.COMPLETED_TASKS_DESTROY:
+      return {
+        ...state,
+        isUpdating: true
+      };
+
+    case constants.COMPLETED_TASKS_DESTROY_SUCCESS:
+      return {
+        ...state,
+        isUpdating: false,
+        tasksById: deleteTasks(state.tasksById, action.payload.taskIds)
+      };
+
     default:
       return state;
   }
@@ -64,6 +78,13 @@ const deleteTask = (tasksById: any, id: number) => {
   const cloned = Object.assign({}, tasksById);
 
   delete cloned[id];
+  return cloned;
+};
+
+const deleteTasks = (tasksById: any, ids: number[]) => {
+  const cloned = Object.assign({}, tasksById);
+  ids.forEach((id) => delete cloned[id]);
+
   return cloned;
 };
 

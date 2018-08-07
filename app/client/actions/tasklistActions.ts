@@ -73,3 +73,11 @@ export const receiveTaskCount = (tasklistId: number, taskCount: number) => ({
     taskCount
   }
 });
+
+export const destroyCompletedTasks = (tasklistId: number, taskIds: number[]) => ({
+  type: constants.COMPLETED_TASKS_DESTROY,
+  payload: {
+    tasklistId,
+    taskIds
+  }
+});

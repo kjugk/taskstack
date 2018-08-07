@@ -38,6 +38,15 @@ class Api::TasklistsController < ApplicationController
     end
   end
 
+  def destory_completed_tasks
+    @tasklist = Tasklist.find(params[:tasklist_id])
+
+    if @tasklist.destroy_completed_tasks
+      render 'api/tasklists/show', status: :ok
+    else
+    end
+  end
+
   private
 
   def tasklist_params

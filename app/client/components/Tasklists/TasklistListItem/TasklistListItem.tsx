@@ -48,7 +48,7 @@ class TasklistListItem extends React.Component<ListItemProps> {
               onEditButtonClick(item.id);
             }}
           >
-            <Icon name="pencil" />
+            <Icon name="edit" />
           </IconWrapper>
         )}
       </Container>

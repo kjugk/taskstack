@@ -70,3 +70,10 @@ export const updateSort = (tasklistId: number, taskIds: number[]) => ({
     taskIds
   }
 });
+
+export const receiveDestroyedTaskIds = (taskIds: number[]) => ({
+  type: constants.COMPLETED_TASKS_DESTROY_SUCCESS,
+  payload: {
+    taskIds
+  }
+});

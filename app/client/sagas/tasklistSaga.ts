@@ -2,6 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
+import * as taskActions from '../actions/taskActions';
 import * as createFormActions from '../actions/tasklistCreateFormActions';
 import * as editFormActions from '../actions/tasklistEditFormActions';
 import * as messageActions from '../actions/messageActions';
@@ -74,10 +75,20 @@ export default function* tasklistSaga() {
     yield put(messageActions.setMessage('リストを削除しました。'));
   }
 
+  function* destoryCompletedTasks(action: any) {
+    const res = yield call(api.destoryCompletedTasks, action.payload.tasklistId);
+
+    yield delay(1000);
+    yield put(tasklistActions.receiveUpdatedTasklist(res.data.tasklist));
+    yield put(taskActions.receiveDestroyedTaskIds(action.payload.taskIds));
+    yield put(messageActions.setMessage(`${action.payload.taskIds.length}件削除しました。`));
+  }
+
   yield all([
     takeLatest(constants.TASKLISTS_FETCH, fetch),
     takeLatest(constants.TASKLIST_CREATE_FORM_SUBMIT, create),
     takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update),
-    takeLatest(constants.TASKLIST_DESTROY, destroy)
+    takeLatest(constants.TASKLIST_DESTROY, destroy),
+    takeLatest(constants.COMPLETED_TASKS_DESTROY, destoryCompletedTasks)
   ]);
 }
