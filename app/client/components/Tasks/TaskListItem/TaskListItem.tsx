@@ -24,7 +24,7 @@ class TaskListItem extends React.Component<TaskListItemProps> {
     const { item, onItemClick, onCheckChange } = this.props;
 
     return (
-      <Segment>
+      <Segment style={{ background: item.completed ? '#f5f5f5' : '' }}>
         <ItemContainer
           completed={item.completed}
           onClick={(e: any) => {

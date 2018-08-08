@@ -25,7 +25,7 @@ class TasklistCreateFormContainer extends React.Component<TasklistCreateFormCont
   render() {
     const { formState, changeTitle, history } = this.props;
 
-    if (formState.isSubmitted) return <Redirect to="/" />;
+    if (formState.isSubmitted) return <Redirect to="/tasklists" />;
 
     return (
       <Modal

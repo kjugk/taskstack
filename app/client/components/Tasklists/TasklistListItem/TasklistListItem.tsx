@@ -18,6 +18,7 @@ const TitleWrapper = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-right: 0.5rem;
 `;
 
 const IconWrapper = styled.div`

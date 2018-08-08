@@ -3,12 +3,13 @@ import * as types from '../../types';
 import { Loader, Dimmer } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getTasklist } from '../../reducers/tasklists';
-import { getActiveTasks, getCompletedTasks, tasks } from '../../reducers/tasks';
+import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as tasklistActions from '../../actions/tasklistActions';
 import * as taskActions from '../../actions/taskActions';
 import { Tasks } from './Tasks';
 import { CompletedTasks } from './CompletedTasks/CompletedTasks';
 import { withRouter } from 'react-router-dom';
+import { FallbackContent } from './FallbackContent/FallbackContent';
 
 interface TasksContainerProps {
   tasksState: types.TasksState;
@@ -54,12 +55,12 @@ class TasksContainer extends React.Component<TasksContainerProps> {
       updateSort,
       destroyCompletedTasks
     } = this.props;
-    // TODO fall back content を出す
-    if (!tasklist) return null;
 
     if (tasksState.isFetching) {
       return <Loader active>Loading</Loader>;
     }
+
+    if (!tasklist) return <FallbackContent />;
 
     return (
       <div style={{ flex: 1 }} onClick={() => this.props.history.push(`/tasklists/${tasklist.id}`)}>

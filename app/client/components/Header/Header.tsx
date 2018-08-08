@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as types from '../../types';
 import styled from 'styled-components';
 
 const Container = styled.div`

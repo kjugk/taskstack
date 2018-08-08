@@ -2,7 +2,19 @@ import * as React from 'react';
 import * as types from '../../../types';
 import { Segment } from 'semantic-ui-react';
 import { TaskListItem } from '../TaskListItem/TaskListItem';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const Chevron = styled<{ open: boolean }, any>('span')`
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.25s;
+  margin-left: 0.5rem;
+  i {
+    margin: 0;
+  }
+  ${(props) => props.open && 'transform: rotate(-180deg)'};
+`;
 
 interface CompletedTasksProps {
   items: types.TaskState[];
@@ -32,8 +44,11 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
     return (
       <>
         <div style={{ marginBottom: '1rem' }}>
-          <Button type="button" secondary onClick={this.handleToggleButtonClick.bind(this)}>
+          <Button type="button" primary basic onClick={this.handleToggleButtonClick.bind(this)}>
             {items.length} 件の完了済みタスク
+            <Chevron open={this.state.openCompletedList}>
+              <Icon name="chevron down" style={{ margin: 0 }} />
+            </Chevron>
           </Button>
         </div>
 

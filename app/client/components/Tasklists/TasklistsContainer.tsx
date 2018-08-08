@@ -17,6 +17,9 @@ interface TasklistsContainerProps {
   editTasklist(tasklist: any): any;
 }
 
+/**
+ * タスクリスト一覧
+ */
 class TasklistsContainer extends React.Component<TasklistsContainerProps> {
   componentDidMount() {
     const { isInitialized, fetchTasklists } = this.props;
@@ -35,7 +38,7 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
     }
 
     // Dashboard に移譲する?
-    if (match.path === '/' && tasklists.length > 0) {
+    if (match.path === '/tasklists' && tasklists.length > 0) {
       return <Redirect to={`/tasklists/${tasklists[0].id}`} />;
     }
 

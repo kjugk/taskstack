@@ -19,7 +19,7 @@ class TaskContainer extends React.Component<TaskContainerProps> {
     const { task, tasklist, updateTask, destroyTask } = this.props;
 
     if (!task) {
-      // TODO: tasklist もなかったらどうする?
+      // TODO: tasklist もなかったらどうする?(Error Boundary に任せるで良いのでは?)
       return <Redirect to={`/tasklists/${tasklist.id}`} />;
     }
 

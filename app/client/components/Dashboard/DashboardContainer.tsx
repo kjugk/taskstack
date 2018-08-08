@@ -7,6 +7,7 @@ import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
+import { InlineHeader } from '../Header/InlineHeader/InlineHeader';
 import { Route } from 'react-router-dom';
 
 const DashBoard = styled.div`
@@ -21,6 +22,7 @@ const Left = styled.div`
   position: relative;
   flex-basis: 260px;
   background: #eee;
+  max-width: 260px;
 `;
 
 const Center = styled.div`
@@ -42,6 +44,7 @@ class DashboardContainer extends React.Component {
     return (
       <DashBoard>
         <Left>
+          <InlineHeader />
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Left>

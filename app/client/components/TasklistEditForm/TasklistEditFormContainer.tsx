@@ -34,7 +34,7 @@ class TasklistEditFormContainer extends React.Component<TasklistEditFormContaine
     const { formState, changeTitle, destroyTasklist, tasklist, history } = this.props;
 
     if (!tasklist) {
-      return <Redirect to="/" />;
+      return <Redirect to="/tasklists" />;
     }
 
     if (formState.isSubmitted) {

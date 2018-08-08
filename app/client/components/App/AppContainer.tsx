@@ -1,28 +1,21 @@
 import * as React from 'react';
 import DashboardContainer from '../Dashboard/DashboardContainer';
 import MessageContainer from '../Message/MessageContainer';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Header } from '../Header/Header';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Home } from '../Home/Home';
 
 class AppContainer extends React.Component {
   render() {
     return (
       <Router>
-        <Container>
-          <Header />
-          <div style={{ flex: 1 }}>
-            <Route exact path="/" component={DashboardContainer} />
+        <>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/tasklists" component={DashboardContainer} />
             <Route path="/tasklists/:tasklistId" component={DashboardContainer} />
-          </div>
+          </Switch>
           <MessageContainer />
-        </Container>
+        </>
       </Router>
     );
   }
