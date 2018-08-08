@@ -2,6 +2,7 @@ import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getTasklist } from './tasklists';
+import _ from 'lodash';
 
 const initialState: types.TasksState = {
   isFetching: false,
@@ -74,15 +75,14 @@ export const tasks = (state = initialState, action: any) => {
 
 // helpers
 const deleteTask = (tasksById: any, id: number) => {
-  // TODO deep copy (lodash?)
-  const cloned = Object.assign({}, tasksById);
-
+  const cloned = _.cloneDeep(tasksById);
   delete cloned[id];
+
   return cloned;
 };
 
 const deleteTasks = (tasksById: any, ids: number[]) => {
-  const cloned = Object.assign({}, tasksById);
+  const cloned = _.cloneDeep(tasksById);
   ids.forEach((id) => delete cloned[id]);
 
   return cloned;

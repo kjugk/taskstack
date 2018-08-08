@@ -1,6 +1,7 @@
 import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
+import _ from 'lodash';
 
 const initialState: types.TasklistsState = {
   ids: [],
@@ -104,8 +105,9 @@ export const tasklists = (state = initialState, action: any) => {
  * @param tasklistsById tasklist を格納している object
  */
 const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }) => {
-  const cloned = Object.assign({}, tasklistsById);
+  const cloned = _.cloneDeep(tasklistsById);
   delete cloned[id];
+
   return cloned;
 };
 
