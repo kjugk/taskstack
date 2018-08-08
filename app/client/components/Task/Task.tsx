@@ -49,7 +49,7 @@ class Task extends React.Component<TaskProps> {
     const { task, onUpdate } = this.props;
 
     return (
-      <Transition in={!!task} timeout={0}>
+      <Transition appear in={!!task} timeout={0}>
         {(state: string) => (
           <Container state={state}>
             {task && (

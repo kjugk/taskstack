@@ -10,7 +10,7 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
   height: 3.4rem;
   padding: 0 1rem;
   ${(props) =>
-    props.isSelecting && 'transition: background .1s; background: #2185d0!important; color: #fff;'};
+    props.isSelecting && 'transition: background .1s; background: #4598D8!important; color: #fff;'};
 `;
 
 const TitleWrapper = styled.div`
