@@ -31,14 +31,14 @@ class Home extends React.Component {
         <Header />
         <Hero>
           <div>
-            <Link to="/tasklists">
+            <a href="/login">
               <Button
                 icon="google plus square"
                 color="google plus"
                 size="huge"
                 content="Googleログイン"
               />
-            </Link>
+            </a>
           </div>
         </Hero>
         <Container />
