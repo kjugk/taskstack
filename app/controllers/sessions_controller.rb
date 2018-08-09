@@ -1,10 +1,15 @@
 class SessionsController < ApplicationController
   def create
     user_info = request.env["omniauth.auth"]
+    user = User.where(google_uid: user_info['uid']).first
 
-    # TODO user が存在しない場合は、作成する
-    # user_info["uid"] と、user_info["info"]["name"] と、user_info["info"]["image"] を保存しよう
-    # google_uid とかにしておこうかな
+    unless user
+      user = User.create(
+        google_uid: user_info['uid'],
+        name: user_info['info']['name'],
+        image_url: user_info['info']['image']
+      )
+    end
 
     # jwt token を生成して、response に 含める
     # ApplicationController で、毎回jwt を decode して、ユーザーを取得する
