@@ -6,6 +6,7 @@ import { TaskMemo } from './TaskMemo/TaskMemo';
 import { Transition } from 'react-transition-group';
 import { CloseButton } from './CloseButton/CloseButton';
 import { DeleteButton } from './DeleteButton/DeleteButton';
+import key from 'keymaster';
 
 const Container = styled<{ state: string }, any>('div')`
   background: #eee;
@@ -60,6 +61,14 @@ class Task extends React.Component<TaskProps, TaskState> {
     this.state = {
       open: true
     };
+  }
+
+  componentDidMount() {
+    key('esc', () => this.setState({ open: false }));
+  }
+
+  componentWillUnmount() {
+    key.unbind('esc');
   }
 
   componentDidUpdate(prevProps: TaskProps, prevState: TaskState) {
