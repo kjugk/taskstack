@@ -23,9 +23,9 @@ const SortableList = SortableContainer((props: any) => {
 
   return (
     <Segment.Group style={{ marginBottom: '3rem' }}>
-      {props.items.map((item: any, i: number) => {
-        return <SortableItem key={i} index={i} value={item} {...rest} />;
-      })}
+      {props.items.map((item: any, i: number) => (
+        <SortableItem key={i} index={i} value={item} {...rest} />
+      ))}
     </Segment.Group>
   );
 });
@@ -33,7 +33,6 @@ const SortableList = SortableContainer((props: any) => {
 class Tasks extends React.Component<TasksProps> {
   render() {
     const { items, ...rest } = this.props;
-
     if (items.length <= 0) return null;
 
     return (

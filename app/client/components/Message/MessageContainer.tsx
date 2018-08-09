@@ -34,7 +34,7 @@ class MessageContainer extends React.Component<MessageContainerProps> {
         in={message !== ''}
         timeout={{ enter: 2500 }}
         onEntered={() => {
-          setTimeout(function() {
+          setTimeout(() => {
             setMessage('');
           }, 500);
         }}

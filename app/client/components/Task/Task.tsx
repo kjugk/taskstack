@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
 import { Transition } from 'react-transition-group';
+import { CloseButton } from './CloseButton/CloseButton';
+import { DeleteButton } from './DeleteButton/DeleteButton';
 
 const Container = styled<{ state: string }, any>('div')`
   background: #eee;
@@ -36,54 +37,74 @@ const Contents = styled.div`
 
 const ButtonContainer = styled.div`
   padding: 1rem;
+  display: flex;
 `;
 
+/**
+ * TODO onClose を追加
+ */
 interface TaskProps {
-  task: types.TaskState | undefined;
+  task: types.TaskState;
   onUpdate(id: number, params: any): any;
   onDestroy(id: number): any;
+  onClose(): any;
 }
 
-class Task extends React.Component<TaskProps> {
+interface TaskState {
+  open: boolean;
+}
+
+class Task extends React.Component<TaskProps, TaskState> {
+  constructor(props: TaskProps) {
+    super(props);
+    this.state = {
+      open: true
+    };
+  }
+
+  componentDidUpdate(prevProps: TaskProps, prevState: TaskState) {
+    if (prevState.open && !this.state.open) {
+      setTimeout(this.props.onClose, 200);
+    }
+  }
+
   render() {
     const { task, onUpdate } = this.props;
 
     return (
-      <Transition appear in={!!task} timeout={0}>
+      <Transition appear in={this.state.open} timeout={0}>
         {(state: string) => (
           <Container state={state}>
-            {task && (
-              <>
-                <TitleContainer>
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={this.handleCheckChange.bind(this)}
-                    style={{ marginRight: '1.4rem' }}
-                  />
-                  <TaskTitle task={task} onSubmit={onUpdate} />
-                </TitleContainer>
+            <TitleContainer>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={this.handleCheckChange.bind(this)}
+                style={{ marginRight: '1.4rem' }}
+              />
+              <TaskTitle task={task} onSubmit={onUpdate} />
+            </TitleContainer>
 
-                <Contents>
-                  <TaskMemo task={task} onSubmit={onUpdate} />
-                </Contents>
+            <Contents>
+              <TaskMemo task={task} onSubmit={onUpdate} />
+            </Contents>
 
-                <ButtonContainer>
-                  <Button
-                    basic
-                    color="red"
-                    content="削除"
-                    fluid
-                    icon="trash"
-                    onClick={() => {
-                      if (window.confirm('削除しますか?')) {
-                        this.props.onDestroy(task.id);
-                      }
-                    }}
-                  />
-                </ButtonContainer>
-              </>
-            )}
+            <ButtonContainer>
+              <CloseButton
+                onClick={() => {
+                  this.setState({
+                    open: false
+                  });
+                }}
+              />
+              <DeleteButton
+                onClick={() => {
+                  if (window.confirm('削除しますか?')) {
+                    this.props.onDestroy(task.id);
+                  }
+                }}
+              />
+            </ButtonContainer>
           </Container>
         )}
       </Transition>
@@ -92,6 +113,7 @@ class Task extends React.Component<TaskProps> {
 
   private handleCheckChange(e: any) {
     e.preventDefault();
+
     const { task, onUpdate } = this.props;
     if (!task) return;
     onUpdate(task.id, { completed: !task.completed });

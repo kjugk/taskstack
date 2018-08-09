@@ -54,7 +54,7 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
 
         {this.state.openCompletedList && (
           <div>
-            <Segment.Group>
+            <Segment.Group style={{ boxShadow: 'none' }}>
               {items.map((item: any, i: number) => {
                 return <TaskListItem key={i} item={item} {...rest} />;
               })}
@@ -80,7 +80,9 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
     );
   }
 
-  private handleToggleButtonClick() {
+  private handleToggleButtonClick(e: any) {
+    e.stopPropagation();
+
     this.setState({
       openCompletedList: !this.state.openCompletedList
     });

@@ -10,6 +10,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 interface TaskContainerProps {
   tasklist: types.TasklistState;
   task: types.TaskState | undefined;
+  history: any;
   updateTask(id: number, params: any): any;
   destroyTask(id: number): any;
 }
@@ -23,7 +24,16 @@ class TaskContainer extends React.Component<TaskContainerProps> {
       return <Redirect to={`/tasklists/${tasklist.id}`} />;
     }
 
-    return <Task task={task} onUpdate={updateTask} onDestroy={destroyTask} />;
+    return (
+      <Task
+        task={task}
+        onUpdate={updateTask}
+        onDestroy={destroyTask}
+        onClose={() => {
+          this.props.history.push(`/tasklists/${tasklist.id}`);
+        }}
+      />
+    );
   }
 }
 
