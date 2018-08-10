@@ -27,6 +27,11 @@ interface TasksContainerProps {
  * タスク一覧
  */
 class TasksContainer extends React.Component<TasksContainerProps> {
+  constructor(props: TasksContainerProps) {
+    super(props);
+    this.handleTaskSelect = this.handleTaskSelect.bind(this);
+  }
+
   componentDidMount() {
     const { tasklist, fetchTasks } = this.props;
     if (!tasklist) return;
@@ -36,9 +41,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 
   componentDidUpdate() {
     const { tasklist, tasksState, fetchTasks } = this.props;
-    if (!tasklist) {
-      return;
-    }
+    if (!tasklist) return;
 
     if (!tasklist.taskLoaded && !tasksState.isFetching) {
       fetchTasks(tasklist.id);
@@ -56,11 +59,11 @@ class TasksContainer extends React.Component<TasksContainerProps> {
       destroyCompletedTasks
     } = this.props;
 
+    if (!tasklist) return <FallbackContent />;
+
     if (tasksState.isFetching) {
       return <Loader active>Loading</Loader>;
     }
-
-    if (!tasklist) return <FallbackContent />;
 
     return (
       <div style={{ flex: 1 }} onClick={() => this.props.history.push(`/tasklists/${tasklist.id}`)}>
@@ -72,7 +75,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
           tasklist={tasklist}
           items={activeTasks}
           onCheckChange={updateTask}
-          onItemClick={this.handleTaskSelect.bind(this)}
+          onItemClick={this.handleTaskSelect}
           onSort={(tasklistId: number, taskIds: number[]) => {
             updateSort(tasklistId, taskIds.concat(completedTasks.map((t) => t.id)));
           }}
@@ -84,7 +87,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
           onDeleteButtonClick={() =>
             destroyCompletedTasks(tasklist.id, completedTasks.map((t) => t.id))
           }
-          onItemClick={this.handleTaskSelect.bind(this)}
+          onItemClick={this.handleTaskSelect}
         />
       </div>
     );

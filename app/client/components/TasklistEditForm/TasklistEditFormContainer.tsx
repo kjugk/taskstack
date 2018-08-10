@@ -22,6 +22,11 @@ interface TasklistEditFormContainerProps {
  * Tasklist 編集フォーム
  */
 class TasklistEditFormContainer extends React.Component<TasklistEditFormContainerProps> {
+  constructor(props: TasklistEditFormContainerProps) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentDidMount() {
     this.props.init(this.props.tasklist);
   }
@@ -60,7 +65,7 @@ class TasklistEditFormContainer extends React.Component<TasklistEditFormContaine
           <TasklistForm
             title={formState.title}
             onTitleChange={changeTitle}
-            onSubmit={this.handleSubmit.bind(this)}
+            onSubmit={this.handleSubmit}
             canDestroy={true}
             onDestroyClick={() => {
               if (window.confirm('本当に削除しますか?')) {

@@ -3,9 +3,9 @@ import * as types from '../../types';
 import { connect } from 'react-redux';
 import * as taskCreateFormActions from '../../actions/taskCreateFormActions';
 import { getTasklist } from '../../reducers/tasklists';
-import { Input, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
+import { TaskCreateForm } from './TaskCreateForm';
 
 const Container = styled.div`
   margin-bottom: 1rem;
@@ -19,45 +19,39 @@ interface TaskCreateFormContainerProps {
 }
 
 class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerProps> {
-  private input: any;
-
-  componentDidUpdate(prevProps: TaskCreateFormContainerProps) {
-    const { formState } = this.props;
-
-    if (prevProps.formState.isSubmitting && !formState.isSubmitting) {
-      this.input.focus();
-    }
+  constructor(props: TaskCreateFormContainerProps) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render() {
-    const { tasklist, formState, changeTitle, submit } = this.props;
-
+    const { tasklist, formState, changeTitle } = this.props;
     if (!tasklist) return null;
 
     return (
       <Container>
         <h2>{tasklist.title}</h2>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (formState.title.trim() === '') return;
-
-            submit(tasklist.id, { title: formState.title });
-          }}
-        >
-          <Input
-            disabled={formState.isSubmitting}
-            fluid
-            icon={formState.isSubmitting && <Icon loading name="spinner" />}
-            onChange={(e: any) => changeTitle(e.currentTarget.value)}
-            placeholder="タスクを作成"
-            value={formState.title}
-            ref={(ref) => (this.input = ref)}
-          />
-        </form>
+        <TaskCreateForm
+          formState={formState}
+          onSubmit={this.handleSubmit}
+          onTitleChange={(e) => changeTitle(e.currentTarget.value)}
+        />
       </Container>
     );
+  }
+
+  private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const { formState, tasklist, submit } = this.props;
+
+    if (!tasklist) return;
+
+    if (formState.title.trim() === '') {
+      return;
+    }
+
+    submit(tasklist.id, { title: formState.title });
   }
 }
 

@@ -18,6 +18,11 @@ interface TasklistCreateFormContainerProps {
  * Tasklist 作成フォーム
  */
 class TasklistCreateFormContainer extends React.Component<TasklistCreateFormContainerProps> {
+  constructor(props: TasklistCreateFormContainerProps) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentWillUnmount() {
     this.props.close();
   }
@@ -48,7 +53,7 @@ class TasklistCreateFormContainer extends React.Component<TasklistCreateFormCont
           <TasklistForm
             title={formState.title}
             onTitleChange={changeTitle}
-            onSubmit={this.handleSubmit.bind(this)}
+            onSubmit={this.handleSubmit}
             canDestroy={false}
           />
         </Modal.Content>

@@ -58,6 +58,7 @@ interface TaskState {
 class Task extends React.Component<TaskProps, TaskState> {
   constructor(props: TaskProps) {
     super(props);
+    this.handleCheckChange = this.handleCheckChange.bind(this);
     this.state = {
       open: true
     };
@@ -88,7 +89,7 @@ class Task extends React.Component<TaskProps, TaskState> {
               <input
                 type="checkbox"
                 checked={task.completed}
-                onChange={this.handleCheckChange.bind(this)}
+                onChange={this.handleCheckChange}
                 style={{ marginRight: '1.4rem' }}
               />
               <TaskTitle task={task} onSubmit={onUpdate} />
@@ -101,9 +102,9 @@ class Task extends React.Component<TaskProps, TaskState> {
             <ButtonContainer>
               <CloseButton
                 onClick={() => {
-                  this.setState({
+                  this.setState((prevState, props) => ({
                     open: false
-                  });
+                  }));
                 }}
               />
               <DeleteButton

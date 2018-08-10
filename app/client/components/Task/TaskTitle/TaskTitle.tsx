@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
-import { Input, Button, Icon } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 
 const Title = styled<{ completed: boolean }, any>('h2')`
   font-size: 1.4rem;
@@ -28,6 +28,10 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
 
   constructor(props: TaskTitleProps) {
     super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
 
     this.state = {
       title: props.task.title,
@@ -59,7 +63,7 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
       <div style={{ flex: 1 }}>
         {isEditing && this.renderInput()}
         {!isEditing && (
-          <Title completed={this.props.task.completed} onClick={this.handleEdit.bind(this)}>
+          <Title completed={this.props.task.completed} onClick={this.handleEdit}>
             {title}
           </Title>
         )}
@@ -85,9 +89,9 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
           }
         }}
         onChange={(e: any) => {
-          this.setState({ title: e.currentTarget.value });
+          this.setState(() => ({ title: e.currentTarget.value }));
         }}
-        onBlur={this.handleSubmit.bind(this)}
+        onBlur={this.handleSubmit}
       />
     );
   }
@@ -99,16 +103,15 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
     }
 
     this.props.onSubmit(this.props.task.id, { title: this.state.title });
-    this.setState({ isEditing: false });
+    this.setState(() => ({ isEditing: false }));
   }
 
   private handleEdit() {
-    this.setState({ isEditing: true });
+    this.setState(() => ({ isEditing: true }));
   }
 
   private handleCancel() {
-    const initialTitle = this.props.task.title;
-    this.setState({ title: initialTitle, isEditing: false });
+    this.setState((prevState, props) => ({ title: props.task.title, isEditing: false }));
   }
 }
 

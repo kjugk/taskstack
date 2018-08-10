@@ -43,6 +43,11 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
   constructor(props: TaskMemoProps) {
     super(props);
 
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
       memo: props.task.memo,
       isEditing: false
@@ -53,10 +58,10 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     // 選択済みtask が変更された場合
     if (this.props.task && prevProps.task.id !== this.props.task.id) {
       const memo = this.props.task.memo;
-      this.setState({
+      this.setState(() => ({
         memo,
         isEditing: false
-      });
+      }));
     }
 
     if (!prevState.isEditing && this.state.isEditing) {
@@ -84,8 +89,8 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
             placeholder="メモを追加"
             ref={(r: any) => (this.input = r)}
             value={this.state.memo}
-            onBlur={this.handleSubmit.bind(this)}
-            onChange={this.handleInputChange.bind(this)}
+            onBlur={this.handleSubmit}
+            onChange={this.handleInputChange}
             onKeyDown={(e: any) => {
               if (e.keyCode === 27) {
                 this.handleCancel();
@@ -97,7 +102,7 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
       );
     } else {
       return (
-        <Memo onClick={this.handleEdit.bind(this)}>
+        <Memo onClick={this.handleEdit}>
           {!this.state.memo && <span style={{ color: '#ccc' }}>メモを追加</span>}
           {this.state.memo && nlToBr(this.state.memo)}
         </Memo>
@@ -106,32 +111,32 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
   }
 
   private handleEdit() {
-    this.setState({
+    this.setState(() => ({
       isEditing: true
-    });
+    }));
   }
 
   private handleCancel() {
     const initialMemo = this.props.task.memo;
-    this.setState({
+    this.setState(() => ({
       memo: initialMemo,
       isEditing: false
-    });
+    }));
   }
 
   private handleInputChange(e: any) {
     e.stopPropagation();
 
-    this.setState({
+    this.setState(() => ({
       memo: e.target.value
-    });
+    }));
   }
 
   private handleSubmit() {
     this.props.onSubmit(this.props.task.id, { memo: this.state.memo });
-    this.setState({
+    this.setState(() => ({
       isEditing: false
-    });
+    }));
   }
 }
 
