@@ -8,7 +8,7 @@ class Api::TasksController < ApplicationController
 
   def create
     @tasklist = Tasklist.find(params[:tasklist_id])
-    @task = Task.new(task_params) 
+    @task = Task.new(task_params.merge(user: current_user)) 
 
     # TODO サービスにする
     if @tasklist.tasks << @task

@@ -1,12 +1,15 @@
 class Api::TasklistsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  # TODO: verify token and send error
+  # TODO model authorization
 
   def index
-    @tasklists = Tasklist.order("created_at DESC").all
+    @tasklists = current_user.tasklists.order("created_at DESC")
   end
 
   def create
     @tasklist = Tasklist.new(tasklist_params)
+    @tasklist.user = current_user
 
     if @tasklist.save
       render 'api/tasklists/show', status: :created

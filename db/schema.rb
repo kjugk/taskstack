@@ -15,8 +15,10 @@ ActiveRecord::Schema.define(version: 2018_08_09_043003) do
   create_table "tasklists", force: :cascade do |t|
     t.string "title"
     t.text "task_id_list"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tasklists_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -24,9 +26,11 @@ ActiveRecord::Schema.define(version: 2018_08_09_043003) do
     t.text "memo", default: ""
     t.integer "tasklist_id"
     t.boolean "completed", default: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tasklist_id"], name: "index_tasks_on_tasklist_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

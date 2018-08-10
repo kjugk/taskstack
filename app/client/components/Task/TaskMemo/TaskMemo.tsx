@@ -111,9 +111,7 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
   }
 
   private handleEdit() {
-    this.setState(() => ({
-      isEditing: true
-    }));
+    this.setState(() => ({ isEditing: true }));
   }
 
   private handleCancel() {
@@ -127,16 +125,15 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
   private handleInputChange(e: React.FormEvent<HTMLTextAreaElement>) {
     e.stopPropagation();
     const value = e.currentTarget.value;
-    this.setState(() => ({
-      memo: value
-    }));
+    this.setState(() => ({ memo: value }));
   }
 
   private handleSubmit() {
-    this.props.onSubmit(this.props.task.id, { memo: this.state.memo });
-    this.setState(() => ({
-      isEditing: false
-    }));
+    if (this.state.memo !== this.props.task.memo) {
+      this.props.onSubmit(this.props.task.id, { memo: this.state.memo });
+    }
+
+    this.setState(() => ({ isEditing: false }));
   }
 }
 

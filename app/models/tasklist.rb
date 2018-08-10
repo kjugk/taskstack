@@ -1,4 +1,5 @@
 class Tasklist < ApplicationRecord
+  belongs_to :user
   has_many :tasks, dependent: :destroy
   serialize :task_id_list, Array
 

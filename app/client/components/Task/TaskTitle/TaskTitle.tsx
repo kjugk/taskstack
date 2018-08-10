@@ -103,7 +103,10 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
       return;
     }
 
-    this.props.onSubmit(this.props.task.id, { title: this.state.title });
+    if (this.state.title !== this.props.task.title) {
+      this.props.onSubmit(this.props.task.id, { title: this.state.title });
+    }
+
     this.setState(() => ({ isEditing: false }));
   }
 
