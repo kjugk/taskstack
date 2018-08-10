@@ -7,6 +7,20 @@ export const verify = () => {
   };
 };
 
+export const signOut = () => {
+  return {
+    type: constants.USER_SIGN_OUT,
+    payload: {}
+  };
+};
+
+export const signOutSuccess = () => {
+  return {
+    type: constants.USER_SIGN_OUT_SUCCESS,
+    payload: {}
+  };
+};
+
 export const receiveVerifiedUser = (user: any) => {
   return {
     type: constants.USER_VERIFY_SUCCESS,

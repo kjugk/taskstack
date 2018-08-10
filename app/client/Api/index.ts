@@ -2,8 +2,11 @@ import axios from 'axios';
 import * as Cookies from 'js-cookie';
 
 const getOptions = () => {
+  const token = Cookies.get('token');
+  if (typeof token === 'undefined') return {};
+
   return {
-    headers: { Authorization: `Bearer ${Cookies.get('token')}` }
+    headers: { Authorization: `Bearer ${token}` }
   };
 };
 

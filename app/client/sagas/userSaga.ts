@@ -3,6 +3,7 @@ import { delay } from 'redux-saga';
 import * as constants from '../constants';
 import * as api from '../Api';
 import * as userActions from '../actions/userActions';
+import * as Cookies from 'js-cookie';
 
 export default function* userSaga() {
   function* verifyUser(action: any) {
@@ -15,5 +16,11 @@ export default function* userSaga() {
     }
   }
 
+  function* signOut(action: any) {
+    Cookies.remove('token');
+    yield put(userActions.signOutSuccess());
+  }
+
   yield all([takeLatest(constants.USER_VERIFY, verifyUser)]);
+  yield all([takeLatest(constants.USER_SIGN_OUT, signOut)]);
 }

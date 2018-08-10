@@ -18,6 +18,12 @@ const user = (state = initialState, action: any) => {
         imageUrl: action.payload.imageUrl
       };
 
+    case constants.USER_SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        signedIn: false
+      };
+
     case constants.USER_VERIFY_FAILURE:
       return {
         ...state,

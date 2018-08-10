@@ -7,7 +7,7 @@ import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
-import { InlineHeader } from '../Header/InlineHeader/InlineHeader';
+import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
 import { Route } from 'react-router-dom';
 import * as types from '../../types';
 import { connect } from 'react-redux';
@@ -51,13 +51,13 @@ class DashboardContainer extends React.Component<DashboardProps> {
     const { user } = this.props;
 
     if (!user.signedIn) {
-      return <Redirect to="/tasklists" />;
+      return <Redirect to="/" />;
     }
 
     return (
       <DashBoard>
         <Left>
-          <InlineHeader user={user} />
+          <InlineHeaderContainer />
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Left>
