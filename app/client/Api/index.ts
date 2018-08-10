@@ -1,4 +1,15 @@
 import axios from 'axios';
+import * as Cookies from 'js-cookie';
+
+const getOptions = () => {
+  return {
+    headers: { Authorization: `Bearer ${Cookies.get('token')}` }
+  };
+};
+
+export async function verifyUser() {
+  return await axios.get('/api/users/verify', getOptions());
+}
 
 export async function fetchTasklists() {
   return await axios.get('/api/tasklists.json');

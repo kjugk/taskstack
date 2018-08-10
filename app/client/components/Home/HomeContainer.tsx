@@ -2,7 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Header } from '../Header/Header';
 import { Container, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import * as types from '../../types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const Hero = styled.div`
   height: 480px;
@@ -14,18 +16,18 @@ const Hero = styled.div`
   position: relative;
 `;
 
-const Overlay = styled.div`
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(33, 132, 208, 0.1);
-  position: absolute;
-  z-index: 2;
-`;
+interface HomeProps {
+  user: types.UserState;
+}
 
-class Home extends React.Component {
+class HomeContainer extends React.Component<HomeProps> {
   render() {
+    const { user } = this.props;
+
+    if (user.signedIn) {
+      return <Redirect to="/tasklists" />;
+    }
+
     return (
       <div>
         <Header />
@@ -47,4 +49,8 @@ class Home extends React.Component {
   }
 }
 
-export { Home };
+const mapStateToProps = (state: types.RootState) => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(HomeContainer);

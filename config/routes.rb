@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get "/login", to: redirect("/auth/google_oauth2")
 
   namespace :api do
+    get '/users/verify', to: "users#verify"
+
     resources :tasklists, only: [:index, :create, :update, :destroy] do
       resources :tasks, only: [:index, :create]
       delete :completed_tasks, to: 'tasklists#destory_completed_tasks'

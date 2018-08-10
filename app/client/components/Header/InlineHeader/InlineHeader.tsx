@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
+import * as types from '../../../types';
 
 const Wrapper = styled.div`
   padding: 0.8rem 1rem;
@@ -13,13 +14,21 @@ const Avatar = styled.div`
   margin-right: 1rem;
 `;
 
-const InlineHeader: React.SFC = () => (
-  <Wrapper>
-    <Avatar>
-      <Image src="/images/sample-avatar.png" avatar size="mini" />
-    </Avatar>
-    <span style={{ fontWeight: 'bold' }}>Koji Uegaki</span>
-  </Wrapper>
-);
+interface Props {
+  user: types.UserState;
+}
+
+const InlineHeader: React.SFC<Props> = (props) => {
+  const { user } = props;
+
+  return (
+    <Wrapper>
+      <Avatar>
+        <Image src={user.imageUrl} avatar size="mini" />
+      </Avatar>
+      <span style={{ fontWeight: 'bold' }}>{user.name}</span>
+    </Wrapper>
+  );
+};
 
 export { InlineHeader };

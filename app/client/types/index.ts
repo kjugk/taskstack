@@ -1,10 +1,18 @@
 export interface RootState {
+  user: UserState;
   tasklists: TasklistsState;
   tasklistCreateForm: TasklistCreateFormState;
   tasklistEditForm: TasklistEditFormState;
   tasks: TasksState;
   taskCreateForm: TaskCreateFormState;
   message: MessageState;
+}
+
+export interface UserState {
+  initialized: boolean;
+  signedIn: boolean;
+  name: string;
+  imageUrl: string;
 }
 
 export interface TasklistState {

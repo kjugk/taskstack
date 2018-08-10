@@ -9,6 +9,9 @@ import TaskContainer from '../Task/TaskContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 import { InlineHeader } from '../Header/InlineHeader/InlineHeader';
 import { Route } from 'react-router-dom';
+import * as types from '../../types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -39,12 +42,22 @@ const Right = styled.div`
   height: 100%;
 `;
 
-class DashboardContainer extends React.Component {
+interface DashboardProps {
+  user: types.UserState;
+}
+
+class DashboardContainer extends React.Component<DashboardProps> {
   render() {
+    const { user } = this.props;
+
+    if (!user.signedIn) {
+      return <Redirect to="/tasklists" />;
+    }
+
     return (
       <DashBoard>
         <Left>
-          <InlineHeader />
+          <InlineHeader user={user} />
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Left>
@@ -65,4 +78,8 @@ class DashboardContainer extends React.Component {
   }
 }
 
-export default DashboardContainer;
+const mapStateToProps = (state: types.RootState) => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(DashboardContainer);
