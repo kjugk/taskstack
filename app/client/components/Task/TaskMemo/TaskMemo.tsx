@@ -124,11 +124,11 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     }));
   }
 
-  private handleInputChange(e: any) {
+  private handleInputChange(e: React.FormEvent<HTMLTextAreaElement>) {
     e.stopPropagation();
-
+    const value = e.currentTarget.value;
     this.setState(() => ({
-      memo: e.target.value
+      memo: value
     }));
   }
 

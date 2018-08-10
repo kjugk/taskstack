@@ -89,7 +89,8 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
           }
         }}
         onChange={(e: any) => {
-          this.setState(() => ({ title: e.currentTarget.value }));
+          const value = e.currentTarget.value;
+          this.setState(() => ({ title: value }));
         }}
         onBlur={this.handleSubmit}
       />

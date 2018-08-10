@@ -60,6 +60,7 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
                 return <TaskListItem key={i} item={item} {...rest} />;
               })}
             </Segment.Group>
+
             <div style={{ textAlign: 'right' }}>
               <Button
                 basic
