@@ -30,8 +30,6 @@ class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerPro
 
     return (
       <Container>
-        <h2>{tasklist.title}</h2>
-
         <TaskCreateForm
           formState={formState}
           onSubmit={this.handleSubmit}

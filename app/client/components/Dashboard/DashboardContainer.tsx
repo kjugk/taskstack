@@ -8,10 +8,12 @@ import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
+import { TasklistTitle } from '../TasklistTitle/TasklistTitle';
 import { Route, Switch } from 'react-router-dom';
 import * as types from '../../types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { getTasklist } from '../../reducers/tasklists';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -44,11 +46,12 @@ const Right = styled.div`
 
 interface DashboardProps {
   user: types.UserState;
+  tasklist: types.TasklistState;
 }
 
 class DashboardContainer extends React.Component<DashboardProps> {
   render() {
-    const { user } = this.props;
+    const { user, tasklist } = this.props;
 
     if (!user.signedIn) {
       return <Redirect to="/" />;
@@ -63,6 +66,7 @@ class DashboardContainer extends React.Component<DashboardProps> {
         </Left>
 
         <Center>
+          <TasklistTitle tasklist={tasklist} />
           <TaskCreateFormContainer />
           <TasksContainer />
         </Center>
@@ -81,8 +85,9 @@ class DashboardContainer extends React.Component<DashboardProps> {
   }
 }
 
-const mapStateToProps = (state: types.RootState) => ({
-  user: state.user
+const mapStateToProps = (state: types.RootState, ownProps: any) => ({
+  user: state.user,
+  tasklist: getTasklist(state, ownProps)
 });
 
 export default connect(mapStateToProps)(DashboardContainer);
