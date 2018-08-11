@@ -1,15 +1,20 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const ItemContainer = styled<{ completed: boolean }, any>('div')`
   cursor: pointer;
-  ${(props) => props.completed && 'color: #ccc;'};
+  display: block;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  :last-child {
+    border-bottom: none;
+  }
+  ${(props) => props.completed && 'color: #ccc; background: #f5f5f5'};
 `;
 
 const TitleWrapper = styled<{ completed: boolean }, any>('span')`
-  margin-left: 0.5rem;
+  margin-left: 0.8rem;
   ${(props) => props.completed && 'text-decoration: line-through;'};
 `;
 
@@ -24,28 +29,25 @@ class TaskListItem extends React.Component<TaskListItemProps> {
     const { item, onItemClick, onCheckChange } = this.props;
 
     return (
-      <Segment style={{ background: item.completed ? '#f5f5f5' : '' }}>
-        <ItemContainer
-          completed={item.completed}
-          onClick={(e: any) => {
+      <ItemContainer
+        completed={item.completed}
+        onClick={(e: any) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onItemClick(item.id);
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={item.completed}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) => {
             e.stopPropagation();
-            onItemClick(item.id);
+            onCheckChange(item.id, { completed: !item.completed });
           }}
-        >
-          <input
-            type="checkbox"
-            checked={item.completed}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onChange={(e) => {
-              e.stopPropagation();
-              onCheckChange(item.id, { completed: !item.completed });
-            }}
-          />
-          <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
-        </ItemContainer>
-      </Segment>
+        />
+        <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
+      </ItemContainer>
     );
   }
 }

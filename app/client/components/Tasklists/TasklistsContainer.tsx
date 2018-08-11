@@ -8,8 +8,7 @@ import * as tasklistActions from '../../actions/tasklistActions';
 import { withRouter, Redirect } from 'react-router-dom';
 
 interface TasklistsContainerProps {
-  isFetching: boolean;
-  isInitialized: boolean;
+  tasklistsState: types.TasklistsState;
   tasklists: types.TasklistState[];
   match: any;
   history: any;
@@ -22,18 +21,18 @@ interface TasklistsContainerProps {
  */
 class TasklistsContainer extends React.Component<TasklistsContainerProps> {
   componentDidMount() {
-    const { isInitialized, fetchTasklists } = this.props;
+    const { tasklistsState, fetchTasklists } = this.props;
 
-    if (!isInitialized) {
+    if (!tasklistsState.isInitialized) {
       fetchTasklists();
     }
   }
 
   render() {
-    const { tasklists, isFetching, match } = this.props;
+    const { tasklistsState, tasklists, match } = this.props;
     const selectingId = parseInt(match.params.tasklistId, 10);
 
-    if (isFetching) {
+    if (tasklistsState.isFetching) {
       return <Loader active>Loading</Loader>;
     }
 
@@ -54,11 +53,8 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
-  const { isFetching, isInitialized } = state.tasklists;
-
   return {
-    isFetching,
-    isInitialized,
+    tasklistsState: state.tasklists,
     tasklists: getTasklists(state),
     ...ownProps
   };
