@@ -6,6 +6,7 @@ export interface RootState {
   tasks: TasksState;
   taskCreateForm: TaskCreateFormState;
   message: MessageState;
+  sidebar: SidebarState;
 }
 
 export interface UserState {
@@ -68,4 +69,8 @@ export interface TaskCreateFormState {
 
 export interface MessageState {
   message: string;
+}
+
+export interface SidebarState {
+  isOpen: boolean;
 }

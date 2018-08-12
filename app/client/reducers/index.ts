@@ -6,6 +6,7 @@ import { tasklistEditForm } from './tasklist/editForm';
 import { tasks } from './tasks';
 import { taskCreateForm } from './task/createForm';
 import { message } from './message';
+import { sidebar } from './sidebar';
 
 const rootReducer = combineReducers({
   user,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   tasklistEditForm,
   tasks,
   taskCreateForm,
-  message
+  message,
+  sidebar
 });
 
 export default rootReducer;

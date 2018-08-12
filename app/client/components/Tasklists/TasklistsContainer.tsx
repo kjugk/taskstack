@@ -6,12 +6,14 @@ import { Loader } from 'semantic-ui-react';
 import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
 import { withRouter, Redirect } from 'react-router-dom';
+import * as sidebarActions from '../../actions/sidebarActions';
 
 interface TasklistsContainerProps {
   tasklistsState: types.TasklistsState;
   tasklists: types.TasklistState[];
   match: any;
   history: any;
+  closeMenu(): any;
   fetchTasklists(): any;
   editTasklist(tasklist: any): any;
 }
@@ -44,7 +46,10 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
     return (
       <Tasklists
         selectingId={selectingId}
-        onItemClick={(id: number) => this.props.history.push(`/tasklists/${id}`)}
+        onItemClick={(id: number) => {
+          this.props.closeMenu();
+          this.props.history.push(`/tasklists/${id}`);
+        }}
         onEditButtonClick={(id: number) => this.props.history.push(`/tasklists/${id}/edit`)}
         items={tasklists}
       />
@@ -62,7 +67,8 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTasklists: () => dispatch(tasklistActions.fetchTasklists()),
-  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist))
+  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist)),
+  closeMenu: () => dispatch(sidebarActions.close())
 });
 
 export default withRouter(

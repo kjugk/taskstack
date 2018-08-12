@@ -8,16 +8,18 @@ import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
-import { TasklistTitle } from '../TasklistTitle/TasklistTitle';
+import TasklistTitleContainer from '../TasklistTitle/TasklistTitleContainer';
 import { Route, Switch } from 'react-router-dom';
 import * as types from '../../types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getTasklist } from '../../reducers/tasklists';
+import { Responsive } from 'semantic-ui-react';
+import * as sidebarActions from '../../actions/sidebarActions';
 
 const DashBoard = styled.div`
   height: 100%;
   display: flex;
+  position: relative;
 `;
 
 const Left = styled.div`
@@ -28,6 +30,35 @@ const Left = styled.div`
   flex-basis: 260px;
   background: #eee;
   max-width: 260px;
+`;
+
+// TODO: Sidebar component に切り出そう
+const MobileLeft = styled<{ open: boolean }, any>('div')`
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #eee;
+  z-index: 3;
+  transform: translateX(-100%);
+  transition: transform 0.15s linear;
+  ${(props) => props.open && 'transform: translate3D(0,0,0)'};
+`;
+
+const MobileOverlay = styled<{ open: boolean }, any>('div')`
+  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  z-index: 2;
+  transform: translateX(-100%);
+  transition: transform 0.15s linear;
+  ${(props) => props.open && 'transform: translate3D(0,0,0)'};
 `;
 
 const Center = styled.div`
@@ -44,14 +75,19 @@ const Right = styled.div`
   height: 100%;
 `;
 
+const Overlay: React.SFC = (props: any) => (
+  <MobileOverlay open={props.open} onClick={props.onClick} />
+);
+
 interface DashboardProps {
   user: types.UserState;
-  tasklist: types.TasklistState;
+  sidebar: types.SidebarState;
+  dispatch: any;
 }
 
 class DashboardContainer extends React.Component<DashboardProps> {
   render() {
-    const { user, tasklist } = this.props;
+    const { user, sidebar } = this.props;
 
     if (!user.signedIn) {
       return <Redirect to="/" />;
@@ -59,14 +95,26 @@ class DashboardContainer extends React.Component<DashboardProps> {
 
     return (
       <DashBoard>
-        <Left>
+        <Responsive as={Left} minWidth={768}>
           <InlineHeaderContainer />
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
-        </Left>
+        </Responsive>
+
+        <Responsive as={MobileLeft} maxWidth={767} open={sidebar.isOpen}>
+          <InlineHeaderContainer />
+          <TasklistsContainer />
+          <TasklistCreateButtonContainer />
+        </Responsive>
+        <Responsive
+          as={Overlay}
+          maxWidth={767}
+          open={sidebar.isOpen}
+          onClick={() => this.props.dispatch(sidebarActions.close())}
+        />
 
         <Center>
-          <TasklistTitle tasklist={tasklist} />
+          <TasklistTitleContainer />
           <TaskCreateFormContainer />
           <TasksContainer />
         </Center>
@@ -85,9 +133,9 @@ class DashboardContainer extends React.Component<DashboardProps> {
   }
 }
 
-const mapStateToProps = (state: types.RootState, ownProps: any) => ({
+const mapStateToProps = (state: types.RootState) => ({
   user: state.user,
-  tasklist: getTasklist(state, ownProps)
+  sidebar: state.sidebar
 });
 
 export default connect(mapStateToProps)(DashboardContainer);

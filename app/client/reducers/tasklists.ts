@@ -140,6 +140,6 @@ export const getTasklists = createSelector(
 export const getTasklist = createSelector(
   [getTasklistsById, getTasklistId],
   (tasklistById, tasklistId) => {
-    return tasklistById[tasklistId];
+    return tasklistById[tasklistId] || undefined;
   }
 );

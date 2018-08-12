@@ -6,6 +6,7 @@ import * as taskActions from '../actions/taskActions';
 import * as createFormActions from '../actions/tasklistCreateFormActions';
 import * as editFormActions from '../actions/tasklistEditFormActions';
 import * as messageActions from '../actions/messageActions';
+import * as sidebarActions from '../actions/sidebarActions';
 import * as api from '../Api';
 import { normalize, schema } from 'normalizr';
 
@@ -39,7 +40,7 @@ export default function* tasklistSaga() {
       yield put(
         tasklistActions.receiveNewTasklist(normalized.result.tasklist, normalized.entities.tasklist)
       );
-      // yield put(createFormActions.close());
+      yield put(sidebarActions.close());
       yield put(createFormActions.complete());
       yield put(messageActions.setMessage('リストを作成しました。'));
     } catch (e) {
