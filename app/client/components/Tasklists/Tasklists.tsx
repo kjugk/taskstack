@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const Container = styled.ul`
   padding: 0;
   margin: 0;
+  overflow-y: scroll;
   flex: 1;
 `;
 

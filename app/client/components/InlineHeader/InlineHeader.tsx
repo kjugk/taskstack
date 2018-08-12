@@ -3,8 +3,10 @@ import * as types from '../../types';
 import { Image, Icon, Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
 import key from 'keymaster';
+import { UserMenu } from './UserMenu/UserMenu';
 
 const Wrapper = styled.div`
+  cursor: pointer;
   padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
@@ -18,6 +20,12 @@ const Avatar = styled.div`
 const UserName = styled.div`
   flex: 1;
   font-weight: bold;
+`;
+
+const Chevron = styled<{ open: boolean }, any>(Icon)`
+  transform: rotate(0);
+  transition: transform 0.2s ease;
+  ${(props) => props.open && 'transform: rotate(-180deg)'};
 `;
 
 interface Props {
@@ -39,14 +47,9 @@ class InlineHeader extends React.Component<Props, State> {
     };
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
-    if (!prevState.openMenu && this.state.openMenu) {
-      key('esc', this.closeMenu);
-      window.addEventListener('click', this.closeMenu);
-    } else if (prevState.openMenu && !this.state.openMenu) {
-      key.unbind('esc');
-      window.removeEventListener('click', this.closeMenu);
-    }
+  componentDidMount() {
+    key('esc', this.closeMenu);
+    window.addEventListener('click', this.closeMenu);
   }
 
   componentWillUnmount() {
@@ -71,16 +74,10 @@ class InlineHeader extends React.Component<Props, State> {
             <Image src={user.imageUrl} avatar size="mini" />
           </Avatar>
           <UserName>{user.name}</UserName>
-          <Icon name="chevron down" style={{ color: '#ccc' }} />
+          <Chevron name="chevron down" color="grey" open={this.state.openMenu} />
         </Wrapper>
 
-        {this.state.openMenu && (
-          <Menu vertical style={{ position: 'absolute', top: 40 }}>
-            <Menu.Item name="signOut" onClick={onSignOutClick}>
-              ログアウト
-            </Menu.Item>
-          </Menu>
-        )}
+        <UserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
       </>
     );
   }

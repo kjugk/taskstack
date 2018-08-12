@@ -29,7 +29,7 @@ interface TasksContainerProps {
 class TasksContainer extends React.Component<TasksContainerProps> {
   constructor(props: TasksContainerProps) {
     super(props);
-    this.handleTaskSelect = this.handleTaskSelect.bind(this);
+    this.handleOnItemClick = this.handleOnItemClick.bind(this);
   }
 
   componentDidMount() {
@@ -75,7 +75,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
           tasklist={tasklist}
           items={activeTasks}
           onCheckChange={updateTask}
-          onItemClick={this.handleTaskSelect}
+          onItemClick={this.handleOnItemClick}
           onSort={(tasklistId: number, taskIds: number[]) => {
             updateSort(tasklistId, taskIds.concat(completedTasks.map((t) => t.id)));
           }}
@@ -87,14 +87,15 @@ class TasksContainer extends React.Component<TasksContainerProps> {
           onDeleteButtonClick={() =>
             destroyCompletedTasks(tasklist.id, completedTasks.map((t) => t.id))
           }
-          onItemClick={this.handleTaskSelect}
+          onItemClick={this.handleOnItemClick}
         />
       </div>
     );
   }
 
-  private handleTaskSelect(id: number) {
+  private handleOnItemClick(id: number) {
     const { history, tasklist } = this.props;
+
     if (!tasklist) return;
     history.push(`/tasklists/${tasklist.id}/tasks/${id}`);
   }
