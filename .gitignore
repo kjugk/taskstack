@@ -32,4 +32,5 @@
 /app/assets/javascripts/bundle.js
 /app/assets/javascripts/bundle.js.map
 
+/config/credentials.yml.enc
 *.DS_Store
