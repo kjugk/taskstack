@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as types from '../../types';
-import { Image, Icon, Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
 import key from 'keymaster';
+import { Image, Icon } from 'semantic-ui-react';
 import { UserMenu } from './UserMenu/UserMenu';
 
 const Wrapper = styled.div`
@@ -33,6 +33,7 @@ interface Props {
   onSignOutClick(): any;
 }
 
+// reducer に移そうかな?
 interface State {
   openMenu: boolean;
 }
@@ -61,7 +62,7 @@ class InlineHeader extends React.Component<Props, State> {
     const { user, onSignOutClick } = this.props;
 
     return (
-      <>
+      <div>
         <Wrapper
           onClick={(e) => {
             e.stopPropagation();
@@ -78,7 +79,7 @@ class InlineHeader extends React.Component<Props, State> {
         </Wrapper>
 
         <UserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
-      </>
+      </div>
     );
   }
 

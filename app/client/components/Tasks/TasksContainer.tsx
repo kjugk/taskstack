@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
 import { Loader, Dimmer } from 'semantic-ui-react';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTasklist } from '../../reducers/tasklists';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
@@ -8,7 +9,7 @@ import * as tasklistActions from '../../actions/tasklistActions';
 import * as taskActions from '../../actions/taskActions';
 import { Tasks } from './Tasks';
 import { CompletedTasks } from './CompletedTasks/CompletedTasks';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { FallbackContent } from './FallbackContent/FallbackContent';
 
 interface TasksContainerProps {
@@ -111,14 +112,18 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  destroyCompletedTasks: (tasklistId: number, taskIds: number[]) =>
-    dispatch(tasklistActions.destroyCompletedTasks(tasklistId, taskIds)),
-  fetchTasks: (tasklistId: number) => dispatch(taskActions.fetchTasks(tasklistId)),
-  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params)),
-  updateSort: (tasklistId: number, taskIds: number[]) =>
-    dispatch(taskActions.updateSort(tasklistId, taskIds))
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      fetchTasks: (tasklistId: number) => taskActions.fetchTasks(tasklistId),
+      updateTask: (id: number, params: any) => taskActions.updateTask(id, params),
+      updateSort: (tasklistId: number, taskIds: number[]) =>
+        taskActions.updateSort(tasklistId, taskIds),
+      destroyCompletedTasks: (tasklistId: number, taskIds: number[]) =>
+        tasklistActions.destroyCompletedTasks(tasklistId, taskIds)
+    },
+    dispatch
+  );
 
 export default withRouter(
   connect(

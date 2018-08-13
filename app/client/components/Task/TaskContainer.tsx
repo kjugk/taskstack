@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTask } from '../../reducers/tasks';
 import { getTasklist } from '../../reducers/tasklists';
@@ -45,10 +46,14 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  destroyTask: (id: number) => dispatch(taskActions.destroyTask(id)),
-  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params))
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      destroyTask: (id: number) => taskActions.destroyTask(id),
+      updateTask: (id: number, params: any) => taskActions.updateTask(id, params)
+    },
+    dispatch
+  );
 
 export default withRouter(
   connect(

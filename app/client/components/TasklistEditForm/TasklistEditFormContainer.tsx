@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Modal, Loader, Dimmer } from 'semantic-ui-react';
 import { TasklistForm } from '../TasklistForm/TasklistForm';
@@ -88,21 +89,23 @@ class TasklistEditFormContainer extends React.Component<TasklistEditFormContaine
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
-  const tasklistId = parseInt(ownProps.match.params.tasklistId, 10);
-
   return {
     tasklist: getTasklist(state, ownProps),
     formState: state.tasklistEditForm
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  changeTitle: (title: string) => dispatch(formActions.changeTitle(title)),
-  closeForm: () => dispatch(formActions.close()),
-  destroyTasklist: (id: number) => dispatch(formActions.destroyTasklist(id)),
-  submit: (id: number, params: {}) => dispatch(formActions.submit(id, params)),
-  init: (tasklist: types.TasklistState) => dispatch(formActions.init(tasklist))
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      changeTitle: (title: string) => formActions.changeTitle(title),
+      closeForm: () => formActions.close(),
+      destroyTasklist: (id: number) => formActions.destroyTasklist(id),
+      submit: (id: number, params: {}) => formActions.submit(id, params),
+      init: (tasklist: types.TasklistState) => formActions.init(tasklist)
+    },
+    dispatch
+  );
 
 export default withRouter(
   connect(

@@ -23,7 +23,7 @@ const Hamberger: React.SFC<{ onClick(): any }> = (props: any) => (
 );
 
 interface TasklistTitleProps {
-  tasklist: types.TasklistState | undefined;
+  tasklist: types.TasklistState;
   onHambergerClick(): any;
 }
 

@@ -1,29 +1,22 @@
-import * as React from 'react';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as types from '../../types';
-import { InlineHeader } from './InlineHeader';
 import * as userActions from '../../actions/userActions';
-
-interface InlineHeaderContainerProps {
-  user: types.UserState;
-  signOut(): any;
-}
-
-class InlineHeaderContainer extends React.Component<InlineHeaderContainerProps> {
-  render() {
-    return <InlineHeader user={this.props.user} onSignOutClick={this.props.signOut} />;
-  }
-}
+import { InlineHeader } from './InlineHeader';
 
 const mapStateToProps = (state: types.RootState) => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  signOut: () => dispatch(userActions.signOut())
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      onSignOutClick: () => userActions.signOut()
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(InlineHeaderContainer);
+)(InlineHeader);

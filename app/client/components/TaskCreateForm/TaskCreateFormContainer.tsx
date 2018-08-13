@@ -1,15 +1,11 @@
 import * as React from 'react';
 import * as types from '../../types';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as taskCreateFormActions from '../../actions/taskCreateFormActions';
 import { getTasklist } from '../../reducers/tasklists';
-import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { TaskCreateForm } from './TaskCreateForm';
-
-const Container = styled.div`
-  margin-bottom: 1rem;
-`;
 
 interface TaskCreateFormContainerProps {
   formState: types.TaskCreateFormState;
@@ -21,7 +17,7 @@ interface TaskCreateFormContainerProps {
 class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerProps> {
   constructor(props: TaskCreateFormContainerProps) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   render() {
@@ -29,22 +25,19 @@ class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerPro
     if (!tasklist) return null;
 
     return (
-      <Container>
-        <TaskCreateForm
-          formState={formState}
-          onSubmit={this.handleSubmit}
-          onTitleChange={(e) => changeTitle(e.currentTarget.value)}
-        />
-      </Container>
+      <TaskCreateForm
+        formState={formState}
+        onSubmit={this.handleOnSubmit}
+        onTitleChange={(e) => changeTitle(e.currentTarget.value)}
+      />
     );
   }
 
-  private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  private handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { formState, tasklist, submit } = this.props;
 
     if (!tasklist) return;
-
     if (formState.title.trim() === '') {
       return;
     }
@@ -61,11 +54,14 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  changeTitle: (title: string) => dispatch(taskCreateFormActions.changeTitle(title)),
-  submit: (tasklistId: number, params: any) =>
-    dispatch(taskCreateFormActions.submit(tasklistId, params))
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      changeTitle: (title: string) => taskCreateFormActions.changeTitle(title),
+      submit: (tasklistId: number, params: any) => taskCreateFormActions.submit(tasklistId, params)
+    },
+    dispatch
+  );
 
 export default withRouter(
   connect(
