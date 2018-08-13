@@ -7,6 +7,8 @@ import * as taskCreateFormActions from '../actions/taskCreateFormActions';
 import * as messageActions from '../actions/messageActions';
 import * as api from '../Api';
 import { normalize, schema } from 'normalizr';
+import { getType, isActionOf } from 'typesafe-actions';
+import { TaskCreateFormAction } from '../reducers/task/createForm';
 
 export default function* taskSaga() {
   /**
@@ -24,15 +26,17 @@ export default function* taskSaga() {
   /**
    * task を作成する
    */
-  function* createTask(action: any) {
-    const task = new schema.Entity('task');
-    const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
-    const normalized = normalize(res.data, { task });
+  function* createTask(action: TaskCreateFormAction) {
+    if (isActionOf(taskCreateFormActions.submit, action)) {
+      const task = new schema.Entity('task');
+      const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
+      const normalized = normalize(res.data, { task });
 
-    yield put(taskActions.receiveNewTask(normalized.entities.task || {}));
-    yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, res.data.taskIds));
-    yield put(tasklistActions.receiveTaskCount(action.payload.tasklistId, res.data.taskCount));
-    yield put(taskCreateFormActions.clear());
+      yield put(taskActions.receiveNewTask(normalized.entities.task || {}));
+      yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, res.data.taskIds));
+      yield put(tasklistActions.receiveTaskCount(action.payload.tasklistId, res.data.taskCount));
+      yield put(taskCreateFormActions.clear());
+    }
   }
 
   /**
@@ -72,7 +76,7 @@ export default function* taskSaga() {
 
   yield all([
     takeLatest(constants.TASKS_FETCH, fetchTasks),
-    takeLatest(constants.TASK_CREATE_FORM_SUBMIT, createTask),
+    takeLatest(getType(taskCreateFormActions.submit), createTask),
     takeLatest(constants.TASK_UPDATE, updateTask),
     takeLatest(constants.TASK_DESTROY, destroyTask),
     takeLatest(constants.TASK_SORT_UPDATE, updateSort)

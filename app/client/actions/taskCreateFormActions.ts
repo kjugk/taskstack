@@ -1,27 +1,13 @@
-import * as constants from '../constants';
+import { createAction } from 'typesafe-actions';
 
-export const changeTitle = (title: string) => {
-  return {
-    type: constants.TASK_TITLE_CHANGE,
-    payload: {
-      title
-    }
-  };
-};
+export const changeTitle = createAction('taskCreateForm/TITLE_CHANGE', (resolve) => {
+  return (title: string) => resolve({ title });
+});
 
-export const submit = (tasklistId: number, params: any) => {
-  return {
-    type: constants.TASK_CREATE_FORM_SUBMIT,
-    payload: {
-      tasklistId,
-      params
-    }
-  };
-};
+export const submit = createAction('taskCreateForm/SUBMIT', (resolve) => {
+  return (tasklistId: number, params: any) => resolve({ tasklistId, params });
+});
 
-export const clear = () => {
-  return {
-    type: constants.TASK_CREATE_FORM_CLEAR,
-    payload: {}
-  };
-};
+export const clear = createAction('taskCreateForm/CLEAR', (resolve) => {
+  return () => resolve();
+});
