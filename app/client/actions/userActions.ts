@@ -1,38 +1,22 @@
-import * as constants from '../constants';
+import { createAction } from 'typesafe-actions';
 
-export const verify = () => {
-  return {
-    type: constants.USER_VERIFY,
-    payload: {}
-  };
-};
+export const verify = createAction('user/VERIFY', (resolve) => {
+  return () => resolve();
+});
 
-export const signOut = () => {
-  return {
-    type: constants.USER_SIGN_OUT,
-    payload: {}
-  };
-};
+// TODO: define entity
+export const verifySuccess = createAction('user/VERIFY_SUCCESS', (resolve) => {
+  return (user: any) => resolve({ user });
+});
 
-export const signOutSuccess = () => {
-  return {
-    type: constants.USER_SIGN_OUT_SUCCESS,
-    payload: {}
-  };
-};
+export const verifyFailure = createAction('user/VERIFY_FAILURE', (resolve) => {
+  return () => resolve();
+});
 
-export const receiveVerifiedUser = (user: any) => {
-  return {
-    type: constants.USER_VERIFY_SUCCESS,
-    payload: {
-      ...user
-    }
-  };
-};
+export const signOut = createAction('user/SIGN_OUT', (resolve) => {
+  return () => resolve();
+});
 
-export const failVefirication = () => {
-  return {
-    type: constants.USER_VERIFY_FAILURE,
-    payload: {}
-  };
-};
+export const signOutSuccess = createAction('user/SIGN_OUT_SUCCESS', (resolve) => {
+  return () => resolve();
+});
