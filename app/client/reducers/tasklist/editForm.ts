@@ -1,4 +1,3 @@
-import * as constants from '../../constants';
 import * as types from '../../types';
 import { getType, ActionType } from 'typesafe-actions';
 import * as formActions from '../../actions/tasklistEditFormActions';

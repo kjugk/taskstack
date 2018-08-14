@@ -1,7 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { getType, isActionOf } from 'typesafe-actions';
-import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
 import * as createFormActions from '../actions/tasklistCreateFormActions';
@@ -99,9 +98,9 @@ export default function* tasklistSaga() {
 
   yield all([
     takeLatest(getType(tasklistActions.fetchTasklists), fetch),
+    takeLatest(getType(tasklistActions.destroyCompletedTasks), destoryCompletedTasks),
     takeLatest(getType(createFormActions.submit), create),
     takeLatest(getType(editFormActions.submit), update),
-    takeLatest(getType(editFormActions.destroyTasklist), destroy),
-    takeLatest(constants.COMPLETED_TASKS_DESTROY, destoryCompletedTasks)
+    takeLatest(getType(editFormActions.destroyTasklist), destroy)
   ]);
 }

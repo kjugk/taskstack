@@ -1,4 +1,3 @@
-import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getTasklist } from './tasklists';
@@ -58,7 +57,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
-    case constants.COMPLETED_TASKS_DESTROY_SUCCESS:
+    case getType(taskActions.receiveDestroyedTaskIds):
       return {
         ...state,
         isUpdating: false,
