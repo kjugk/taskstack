@@ -19,6 +19,7 @@ export default function* taskSaga() {
     const normalized = normalize(res.data, { tasks: [tasks] });
 
     yield put(taskActions.receiveTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
+    yield put(tasklistActions.fetchTasksSuccess(action.payload.tasklistId));
   }
 
   /**

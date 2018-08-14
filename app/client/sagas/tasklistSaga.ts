@@ -41,7 +41,7 @@ export default function* tasklistSaga() {
 
         yield delay(1000);
         yield put(
-          tasklistActions.receiveNewTasklist(
+          tasklistActions.receiveCreatedTasklist(
             normalized.result.tasklist,
             normalized.entities.tasklist
           )
@@ -93,7 +93,7 @@ export default function* tasklistSaga() {
   }
 
   yield all([
-    takeLatest(constants.TASKLISTS_FETCH, fetch),
+    takeLatest(getType(tasklistActions.fetchTasklists), fetch),
     takeLatest(getType(createFormActions.submit), create),
     takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update),
     takeLatest(constants.TASKLIST_DESTROY, destroy),
