@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getType, ActionType } from 'typesafe-actions';
