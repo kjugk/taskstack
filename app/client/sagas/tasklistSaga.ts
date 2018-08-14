@@ -11,6 +11,7 @@ import * as sidebarActions from '../actions/sidebarActions';
 import * as api from '../Api';
 import { normalize, schema } from 'normalizr';
 import { TasklistCreateFormAction } from '../reducers/tasklist/createForm';
+import { TasklistEditFormAction } from '../reducers/tasklist/editForm';
 
 export default function* tasklistSaga() {
   /**
@@ -33,32 +34,34 @@ export default function* tasklistSaga() {
    * tasklist のリストを作成する。
    */
   function* create(action: TasklistCreateFormAction) {
-    if (isActionOf(createFormActions.submit, action)) {
-      try {
-        const tasklist = new schema.Entity('tasklist');
-        const res = yield call(api.postTasklist, action.payload.params);
-        const normalized = normalize(res.data, { tasklist });
+    if (!isActionOf(createFormActions.submit, action)) return;
 
-        yield delay(1000);
-        yield put(
-          tasklistActions.receiveCreatedTasklist(
-            normalized.result.tasklist,
-            normalized.entities.tasklist
-          )
-        );
-        yield put(sidebarActions.close());
-        yield put(createFormActions.complete());
-        yield put(messageActions.setMessage('リストを作成しました。'));
-      } catch (e) {
-        // TODO error handrong
-      }
+    try {
+      const tasklist = new schema.Entity('tasklist');
+      const res = yield call(api.postTasklist, action.payload.params);
+      const normalized = normalize(res.data, { tasklist });
+
+      yield delay(1000);
+      yield put(
+        tasklistActions.receiveCreatedTasklist(
+          normalized.result.tasklist,
+          normalized.entities.tasklist
+        )
+      );
+      yield put(sidebarActions.close());
+      yield put(createFormActions.complete());
+      yield put(messageActions.setMessage('リストを作成しました。'));
+    } catch (e) {
+      // TODO error handrong
     }
   }
 
   /**
    * tasklistを更新する。
    */
-  function* update(action: any) {
+  function* update(action: TasklistEditFormAction) {
+    if (!isActionOf(editFormActions.submit, action)) return;
+
     try {
       const { id, params } = action.payload;
       const res = yield call(api.updateTasklist, id, params);
@@ -76,6 +79,8 @@ export default function* tasklistSaga() {
    * tasklist を削除する。
    */
   function* destroy(action: any) {
+    if (!isActionOf(editFormActions.destroyTasklist, action)) return;
+
     yield call(api.destroyTasklist, action.payload.id);
 
     yield delay(1000);
@@ -95,8 +100,8 @@ export default function* tasklistSaga() {
   yield all([
     takeLatest(getType(tasklistActions.fetchTasklists), fetch),
     takeLatest(getType(createFormActions.submit), create),
-    takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update),
-    takeLatest(constants.TASKLIST_DESTROY, destroy),
+    takeLatest(getType(editFormActions.submit), update),
+    takeLatest(getType(editFormActions.destroyTasklist), destroy),
     takeLatest(constants.COMPLETED_TASKS_DESTROY, destoryCompletedTasks)
   ]);
 }
