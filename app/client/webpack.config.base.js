@@ -19,11 +19,12 @@ let config = {
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.(scss|sass)$/,
-        use: [
+        loader: [
           {
             loader: 'style-loader' // creates style nodes from JS strings
           },
@@ -39,19 +40,19 @@ let config = {
         test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
         loader: 'file-loader',
         options: {
-          outputPath: '../../../public/fonts',   // font ファイルの配置バス
-          publicPath : path => '/fonts/' + path, // css が参照するパス
-          name: '[name].[hash:8].[ext]',
-        },
+          outputPath: '../../../public/fonts', // font ファイルの配置バス
+          publicPath: (path) => '/fonts/' + path, // css が参照するパス
+          name: '[name].[hash:8].[ext]'
+        }
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'public/[name].[hash:8].[ext]',
-        },
-      },
+          name: 'public/[name].[hash:8].[ext]'
+        }
+      }
     ]
   }
 };

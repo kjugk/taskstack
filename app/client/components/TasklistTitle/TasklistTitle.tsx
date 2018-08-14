@@ -18,8 +18,8 @@ const Title = styled.div`
   line-height: 1;
 `;
 
-const Hamberger: React.SFC<{ onClick(): any }> = (props: any) => (
-  <Icon name="sidebar" size="big" style={{ cursor: 'pointer' }} onClick={props.onClick} />
+const Hamberger: React.SFC<{ onClick(): any }> = ({ onClick }) => (
+  <Icon name="sidebar" size="big" style={{ cursor: 'pointer' }} onClick={onClick} />
 );
 
 interface TasklistTitleProps {

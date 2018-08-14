@@ -34,6 +34,7 @@ const TitleContainer = styled.div`
 const Contents = styled.div`
   flex: 1;
   padding: 1rem;
+  overflow-y: scroll;
 `;
 
 const ButtonContainer = styled.div`

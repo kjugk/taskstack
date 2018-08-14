@@ -1,5 +1,7 @@
-import * as constants from '../../constants';
 import * as types from '../../types';
+import { getType, ActionType } from 'typesafe-actions';
+import * as formActions from '../../actions/tasklistCreateFormActions';
+export type TasklistCreateFormAction = ActionType<typeof formActions>;
 
 const initialState: types.TasklistCreateFormState = {
   title: '',
@@ -7,28 +9,28 @@ const initialState: types.TasklistCreateFormState = {
   isSubmitted: false
 };
 
-const tasklistCreateForm = (state = initialState, action: any) => {
+const tasklistCreateForm = (state = initialState, action: TasklistCreateFormAction) => {
   switch (action.type) {
-    case constants.TASKLIST_CREATE_FORM_TITLE_CHANGE:
+    case getType(formActions.changeTitle):
       return {
         ...state,
         title: action.payload.title
       };
 
-    case constants.TASKLIST_CREATE_FORM_SUBMIT:
+    case getType(formActions.submit):
       return {
         ...state,
         isSubmitting: true
       };
 
-    case constants.TASKLIST_CREATE_FORM_SUBMIT_SUCCESS:
+    case getType(formActions.complete):
       return {
         ...state,
         isSubmitting: false,
         isSubmitted: true
       };
 
-    case constants.TASKLIST_CREATE_FORM_CLOSE:
+    case getType(formActions.close):
       return initialState;
 
     default:

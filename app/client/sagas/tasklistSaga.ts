@@ -1,5 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
+import { getType, isActionOf } from 'typesafe-actions';
 import * as constants from '../constants';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
@@ -9,6 +10,7 @@ import * as messageActions from '../actions/messageActions';
 import * as sidebarActions from '../actions/sidebarActions';
 import * as api from '../Api';
 import { normalize, schema } from 'normalizr';
+import { TasklistCreateFormAction } from '../reducers/tasklist/createForm';
 
 export default function* tasklistSaga() {
   /**
@@ -30,21 +32,26 @@ export default function* tasklistSaga() {
   /**
    * tasklist のリストを作成する。
    */
-  function* create(action: any) {
-    try {
-      const tasklist = new schema.Entity('tasklist');
-      const res = yield call(api.postTasklist, action.payload.params);
-      const normalized = normalize(res.data, { tasklist });
+  function* create(action: TasklistCreateFormAction) {
+    if (isActionOf(createFormActions.submit, action)) {
+      try {
+        const tasklist = new schema.Entity('tasklist');
+        const res = yield call(api.postTasklist, action.payload.params);
+        const normalized = normalize(res.data, { tasklist });
 
-      yield delay(1000);
-      yield put(
-        tasklistActions.receiveNewTasklist(normalized.result.tasklist, normalized.entities.tasklist)
-      );
-      yield put(sidebarActions.close());
-      yield put(createFormActions.complete());
-      yield put(messageActions.setMessage('リストを作成しました。'));
-    } catch (e) {
-      // TODO error handrong
+        yield delay(1000);
+        yield put(
+          tasklistActions.receiveNewTasklist(
+            normalized.result.tasklist,
+            normalized.entities.tasklist
+          )
+        );
+        yield put(sidebarActions.close());
+        yield put(createFormActions.complete());
+        yield put(messageActions.setMessage('リストを作成しました。'));
+      } catch (e) {
+        // TODO error handrong
+      }
     }
   }
 
@@ -87,7 +94,7 @@ export default function* tasklistSaga() {
 
   yield all([
     takeLatest(constants.TASKLISTS_FETCH, fetch),
-    takeLatest(constants.TASKLIST_CREATE_FORM_SUBMIT, create),
+    takeLatest(getType(createFormActions.submit), create),
     takeLatest(constants.TASKLIST_EDIT_FORM_SUBMIT, update),
     takeLatest(constants.TASKLIST_DESTROY, destroy),
     takeLatest(constants.COMPLETED_TASKS_DESTROY, destoryCompletedTasks)

@@ -44,7 +44,7 @@ const MobileLeft = styled<{ open: boolean }, any>('div')`
   background: #eee;
   z-index: 3;
   transform: translateX(-100%);
-  transition: transform 0.15s linear;
+  transition: transform 0.25s linear;
   ${(props) => props.open && 'transform: translate3D(0,0,0)'};
 `;
 
@@ -52,13 +52,13 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
   background: rgba(0, 0, 0, 0.5);
   left: 0;
   top: 0;
-  right: 0;
   position: absolute;
   height: 100%;
   z-index: 2;
-  transform: translateX(-100%);
-  transition: transform 0.15s linear;
-  ${(props) => props.open && 'transform: translate3D(0,0,0)'};
+  opacity: 0;
+  width: 0;
+  transition: opacity 0.2s ease;
+  ${(props) => props.open && 'opacity: 1; width: 100%;'};
 `;
 
 const Center = styled.div`
