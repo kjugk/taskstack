@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { getTask } from '../../reducers/tasks';
 import { getTasklist } from '../../reducers/tasklists';
 import * as taskActions from '../../actions/taskActions';
-import { Task } from './Task';
 import { withRouter, Redirect } from 'react-router-dom';
+import { Task } from './Task';
+import key from 'keymaster';
 
 interface TaskContainerProps {
   tasklist: types.TasklistState;
@@ -17,24 +18,30 @@ interface TaskContainerProps {
 }
 
 class TaskContainer extends React.Component<TaskContainerProps> {
+  constructor(props: TaskContainerProps) {
+    super(props);
+    this.close = this.close.bind(this);
+  }
+
+  componentDidMount() {
+    key('esc', this.close);
+  }
+
+  componentWillUnmount() {
+    key.unbind('esc');
+  }
+
   render() {
     const { task, tasklist, updateTask, destroyTask } = this.props;
 
-    if (!task) {
-      // TODO: tasklist もなかったらどうする?(Error Boundary に任せるで良いのでは?)
-      return <Redirect to={`/tasklists/${tasklist.id}`} />;
-    }
+    if (!task) return <Redirect to={`/tasklists/${tasklist.id}`} />;
 
-    return (
-      <Task
-        task={task}
-        onUpdate={updateTask}
-        onDestroy={destroyTask}
-        onClose={() => {
-          this.props.history.push(`/tasklists/${tasklist.id}`);
-        }}
-      />
-    );
+    return <Task task={task} onUpdate={updateTask} onDestroy={destroyTask} onClose={this.close} />;
+  }
+
+  private close() {
+    const { history, tasklist } = this.props;
+    history.push(`/tasklists/${tasklist.id}`);
   }
 }
 
