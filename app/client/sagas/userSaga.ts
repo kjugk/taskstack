@@ -7,7 +7,7 @@ import * as Cookies from 'js-cookie';
 import { UserAction } from '../reducers/user';
 
 export default function* userSaga() {
-  function* verifyUser(action: UserAction) {
+  function* verify(action: UserAction) {
     try {
       const res = yield call(api.verifyUser);
 
@@ -23,6 +23,6 @@ export default function* userSaga() {
     yield put(messageActions.setMessage('ログアウトしました'));
   }
 
-  yield all([takeLatest(getType(userActions.verify), verifyUser)]);
+  yield all([takeLatest(getType(userActions.verify), verify)]);
   yield all([takeLatest(getType(userActions.signOut), signOut)]);
 }

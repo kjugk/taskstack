@@ -57,7 +57,7 @@ class Task extends React.Component<TaskProps> {
     const { task, onUpdate } = this.props;
 
     return (
-      <Container>
+      <Container onClick={(e) => e.stopPropagation()}>
         <TitleContainer>
           <input
             type="checkbox"

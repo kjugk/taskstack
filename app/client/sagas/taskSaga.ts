@@ -29,16 +29,16 @@ export default function* taskSaga() {
    * @param action TaskCreateFormAction
    */
   function* createTask(action: TaskCreateFormAction) {
-    if (isActionOf(taskCreateFormActions.submit, action)) {
-      const task = new schema.Entity('task');
-      const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
-      const normalized = normalize(res.data, { task });
+    if (!isActionOf(taskCreateFormActions.submit, action)) return;
 
-      yield put(taskActions.setCreatedTask(normalized.entities.task || {}));
-      yield put(tasklistActions.setTaskIds(action.payload.tasklistId, res.data.taskIds));
-      yield put(tasklistActions.setTaskCount(action.payload.tasklistId, res.data.taskCount));
-      yield put(taskCreateFormActions.clear());
-    }
+    const task = new schema.Entity('task');
+    const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
+    const normalized = normalize(res.data, { task });
+
+    yield put(taskActions.setCreatedTask(normalized.entities.task || {}));
+    yield put(tasklistActions.setTaskIds(action.payload.tasklistId, res.data.taskIds));
+    yield put(tasklistActions.setTaskCount(action.payload.tasklistId, res.data.taskCount));
+    yield put(taskCreateFormActions.clear());
   }
 
   /**
@@ -76,8 +76,8 @@ export default function* taskSaga() {
    */
   function* updateSort(action: any) {
     if (!isActionOf(taskActions.updateTaskSort, action)) return;
-    api.updateTasklist(action.payload.tasklistId, { task_id_list: action.payload.taskIds });
 
+    api.updateTasklist(action.payload.tasklistId, { task_id_list: action.payload.taskIds });
     yield put(tasklistActions.setTaskIds(action.payload.tasklistId, action.payload.taskIds));
   }
 

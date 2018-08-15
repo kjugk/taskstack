@@ -25,10 +25,12 @@ class TaskContainer extends React.Component<TaskContainerProps> {
 
   componentDidMount() {
     key('esc', this.close);
+    window.addEventListener('click', this.close);
   }
 
   componentWillUnmount() {
     key.unbind('esc');
+    window.removeEventListener('click', this.close);
   }
 
   render() {

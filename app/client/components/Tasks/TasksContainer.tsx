@@ -67,7 +67,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
     }
 
     return (
-      <div style={{ flex: 1 }} onClick={() => this.props.history.push(`/tasklists/${tasklist.id}`)}>
+      <div>
         <Dimmer page active={tasksState.isUpdating}>
           <Loader>Loading</Loader>
         </Dimmer>
