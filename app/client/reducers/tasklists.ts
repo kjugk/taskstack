@@ -21,7 +21,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         isFetching: true
       };
 
-    case getType(tasklistActions.receiveTasklists):
+    case getType(tasklistActions.setTasklists):
       return {
         ...state,
         ids: action.payload.ids,
@@ -30,7 +30,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         tasklistsById: action.payload.tasklistsById
       };
 
-    case getType(tasklistActions.receiveCreatedTasklist):
+    case getType(tasklistActions.setCreatedTasklist):
       return {
         ...state,
         ids: [action.payload.id, ...state.ids],
@@ -40,7 +40,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.receiveUpdatedTasklist):
+    case getType(tasklistActions.setUpdatedTasklist):
       return {
         ...state,
         tasklistsById: {
@@ -52,14 +52,14 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.receiveDestroyedTasklistId):
+    case getType(tasklistActions.setDestroyedTasklistId):
       return {
         ...state,
         ids: state.ids.filter((id) => id !== action.payload.id),
         tasklistsById: destroyTasklistById(action.payload.id, state.tasklistsById)
       };
 
-    case getType(tasklistActions.receiveTaskIds):
+    case getType(tasklistActions.setTaskIds):
       return {
         ...state,
         tasklistsById: {
@@ -71,7 +71,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.receiveTaskCount):
+    case getType(tasklistActions.setTaskCount):
       return {
         ...state,
         tasklistsById: {
@@ -83,7 +83,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.fetchTasksSuccess):
+    case getType(tasklistActions.setTaskLoadedFlag):
       return {
         ...state,
         tasklistsById: {

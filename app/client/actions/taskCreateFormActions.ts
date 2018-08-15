@@ -1,6 +1,6 @@
 import { createAction } from 'typesafe-actions';
 
-export const changeTitle = createAction('taskCreateForm/TITLE_CHANGE', (resolve) => {
+export const setChangedTitle = createAction('taskCreateForm/SET_CHANGED_TITLE', (resolve) => {
   return (title: string) => resolve({ title });
 });
 

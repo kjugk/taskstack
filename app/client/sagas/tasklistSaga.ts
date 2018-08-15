@@ -22,10 +22,7 @@ export default function* tasklistSaga() {
     const normalized = normalize(res.data, { tasklists: [tasklist] });
 
     yield put(
-      tasklistActions.receiveTasklists(
-        normalized.result.tasklists,
-        normalized.entities.tasklists || {}
-      )
+      tasklistActions.setTasklists(normalized.result.tasklists, normalized.entities.tasklists || {})
     );
   }
 
@@ -42,10 +39,7 @@ export default function* tasklistSaga() {
 
       yield delay(1000);
       yield put(
-        tasklistActions.receiveCreatedTasklist(
-          normalized.result.tasklist,
-          normalized.entities.tasklist
-        )
+        tasklistActions.setCreatedTasklist(normalized.result.tasklist, normalized.entities.tasklist)
       );
       yield put(sidebarActions.close());
       yield put(createFormActions.complete());
@@ -66,7 +60,7 @@ export default function* tasklistSaga() {
       const res = yield call(api.updateTasklist, id, params);
 
       yield delay(1000);
-      yield put(tasklistActions.receiveUpdatedTasklist(res.data.tasklist));
+      yield put(tasklistActions.setUpdatedTasklist(res.data.tasklist));
       yield put(editFormActions.complete());
       yield put(messageActions.setMessage('リストを更新しました。'));
     } catch (e) {
@@ -83,7 +77,7 @@ export default function* tasklistSaga() {
     yield call(api.destroyTasklist, action.payload.id);
 
     yield delay(1000);
-    yield put(tasklistActions.receiveDestroyedTasklistId(action.payload.id));
+    yield put(tasklistActions.setDestroyedTasklistId(action.payload.id));
     yield put(messageActions.setMessage('リストを削除しました。'));
   }
 
@@ -91,14 +85,14 @@ export default function* tasklistSaga() {
     const res = yield call(api.destoryCompletedTasks, action.payload.tasklistId);
 
     yield delay(1000);
-    yield put(tasklistActions.receiveUpdatedTasklist(res.data.tasklist));
-    yield put(taskActions.receiveDestroyedTaskIds(action.payload.taskIds));
+    yield put(tasklistActions.setUpdatedTasklist(res.data.tasklist));
+    yield put(taskActions.removeDestroyedTaskIds(action.payload.taskIds));
     yield put(messageActions.setMessage(`${action.payload.taskIds.length}件削除しました。`));
   }
 
   yield all([
     takeLatest(getType(tasklistActions.fetchTasklists), fetch),
-    takeLatest(getType(tasklistActions.destroyCompletedTasks), destoryCompletedTasks),
+    takeLatest(getType(tasklistActions.removeCompletedTaskIds), destoryCompletedTasks),
     takeLatest(getType(createFormActions.submit), create),
     takeLatest(getType(editFormActions.submit), update),
     takeLatest(getType(editFormActions.destroyTasklist), destroy)

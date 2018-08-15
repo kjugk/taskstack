@@ -57,7 +57,7 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      changeTitle: (title: string) => taskCreateFormActions.changeTitle(title),
+      changeTitle: (title: string) => taskCreateFormActions.setChangedTitle(title),
       submit: (tasklistId: number, params: any) => taskCreateFormActions.submit(tasklistId, params)
     },
     dispatch

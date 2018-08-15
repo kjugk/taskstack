@@ -20,8 +20,8 @@ export default function* taskSaga() {
     const res = yield call(api.fetchTasks, action.payload.tasklistId);
     const normalized = normalize(res.data, { tasks: [tasks] });
 
-    yield put(taskActions.receiveTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
-    yield put(tasklistActions.fetchTasksSuccess(action.payload.tasklistId));
+    yield put(taskActions.setTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
+    yield put(tasklistActions.setTaskLoadedFlag(action.payload.tasklistId));
   }
 
   /**
@@ -34,9 +34,9 @@ export default function* taskSaga() {
       const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
       const normalized = normalize(res.data, { task });
 
-      yield put(taskActions.receiveNewTask(normalized.entities.task || {}));
-      yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, res.data.taskIds));
-      yield put(tasklistActions.receiveTaskCount(action.payload.tasklistId, res.data.taskCount));
+      yield put(taskActions.setCreatedTask(normalized.entities.task || {}));
+      yield put(tasklistActions.setTaskIds(action.payload.tasklistId, res.data.taskIds));
+      yield put(tasklistActions.setTaskCount(action.payload.tasklistId, res.data.taskCount));
       yield put(taskCreateFormActions.clear());
     }
   }
@@ -50,8 +50,8 @@ export default function* taskSaga() {
 
     const res = yield call(api.updateTask, action.payload.id, action.payload.params);
 
-    yield put(taskActions.receiveUpdatedTask(res.data.task));
-    yield put(tasklistActions.receiveTaskCount(res.data.task.tasklistId, res.data.taskCount));
+    yield put(taskActions.setUpdatedTask(res.data.task));
+    yield put(tasklistActions.setTaskCount(res.data.task.tasklistId, res.data.taskCount));
   }
 
   /**
@@ -63,9 +63,9 @@ export default function* taskSaga() {
 
     const res = yield call(api.destroyTask, action.payload.id);
 
-    yield put(taskActions.receiveDestroyedTaskId(action.payload.id));
-    yield put(tasklistActions.receiveTaskIds(res.data.task.tasklistId, res.data.taskIds));
-    yield put(tasklistActions.receiveTaskCount(res.data.task.tasklistId, res.data.taskCount));
+    yield put(taskActions.removeDestroyedTaskId(action.payload.id));
+    yield put(tasklistActions.setTaskIds(res.data.task.tasklistId, res.data.taskIds));
+    yield put(tasklistActions.setTaskCount(res.data.task.tasklistId, res.data.taskCount));
     yield put(messageActions.setMessage('削除しました'));
   }
 
@@ -75,10 +75,10 @@ export default function* taskSaga() {
    * @param action
    */
   function* updateSort(action: any) {
-    if (!isActionOf(taskActions.updateSort, action)) return;
+    if (!isActionOf(taskActions.updateTaskSort, action)) return;
     api.updateTasklist(action.payload.tasklistId, { task_id_list: action.payload.taskIds });
 
-    yield put(tasklistActions.receiveTaskIds(action.payload.tasklistId, action.payload.taskIds));
+    yield put(tasklistActions.setTaskIds(action.payload.tasklistId, action.payload.taskIds));
   }
 
   yield all([
@@ -86,6 +86,6 @@ export default function* taskSaga() {
     takeLatest(getType(taskCreateFormActions.submit), createTask),
     takeLatest(getType(taskActions.updateTask), updateTask),
     takeLatest(getType(taskActions.destroyTask), destroyTask),
-    takeLatest(getType(taskActions.updateSort), updateSort)
+    takeLatest(getType(taskActions.updateTaskSort), updateSort)
   ]);
 }

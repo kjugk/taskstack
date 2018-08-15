@@ -20,7 +20,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         isFetching: true
       };
 
-    case getType(taskActions.receiveTasks):
+    case getType(taskActions.setTasks):
       return {
         ...state,
         isFetching: false,
@@ -30,7 +30,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.receiveNewTask):
+    case getType(taskActions.setCreatedTask):
       return {
         ...state,
         tasksById: {
@@ -39,7 +39,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.receiveUpdatedTask):
+    case getType(taskActions.setUpdatedTask):
       return {
         ...state,
         tasksById: {
@@ -51,13 +51,13 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.receiveDestroyedTaskId):
+    case getType(taskActions.removeDestroyedTaskId):
       return {
         ...state,
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
-    case getType(taskActions.receiveDestroyedTaskIds):
+    case getType(taskActions.removeDestroyedTaskIds):
       return {
         ...state,
         isUpdating: false,

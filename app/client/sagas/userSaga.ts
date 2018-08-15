@@ -11,7 +11,7 @@ export default function* userSaga() {
     try {
       const res = yield call(api.verifyUser);
 
-      yield put(userActions.verifySuccess(res.data.user));
+      yield put(userActions.setVerifiedUser(res.data.user));
     } catch (e) {
       yield put(userActions.verifyFailure());
     }

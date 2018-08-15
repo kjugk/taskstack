@@ -11,7 +11,7 @@ const initialState = {
 
 const user = (state = initialState, action: UserAction) => {
   switch (action.type) {
-    case getType(userActions.verifySuccess):
+    case getType(userActions.setVerifiedUser):
       return {
         ...state,
         initialized: true,

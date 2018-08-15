@@ -5,7 +5,7 @@ export const verify = createAction('user/VERIFY', (resolve) => {
 });
 
 // TODO: define entity
-export const verifySuccess = createAction('user/VERIFY_SUCCESS', (resolve) => {
+export const setVerifiedUser = createAction('user/SET_VERIFIED_USER', (resolve) => {
   return (user: any) => resolve({ user });
 });
 

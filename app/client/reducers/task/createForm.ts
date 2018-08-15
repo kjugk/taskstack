@@ -10,7 +10,7 @@ const initialState: types.TaskCreateFormState = {
 
 const taskCreateForm = (state = initialState, action: TaskCreateFormAction) => {
   switch (action.type) {
-    case getType(formActions.changeTitle):
+    case getType(formActions.setChangedTitle):
       return {
         ...state,
         title: action.payload.title

@@ -118,9 +118,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       fetchTasks: (tasklistId: number) => taskActions.fetchTasks(tasklistId),
       updateTask: (id: number, params: any) => taskActions.updateTask(id, params),
       updateSort: (tasklistId: number, taskIds: number[]) =>
-        taskActions.updateSort(tasklistId, taskIds),
+        taskActions.updateTaskSort(tasklistId, taskIds),
       destroyCompletedTasks: (tasklistId: number, taskIds: number[]) =>
-        tasklistActions.destroyCompletedTasks(tasklistId, taskIds)
+        tasklistActions.removeCompletedTaskIds(tasklistId, taskIds)
     },
     dispatch
   );
