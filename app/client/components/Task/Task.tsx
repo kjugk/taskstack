@@ -3,8 +3,8 @@ import * as types from '../../types';
 import styled from 'styled-components';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
-import { CloseButton } from './CloseButton/CloseButton';
-import { DeleteButton } from './DeleteButton/DeleteButton';
+import { TaskCloseButton } from './TaskCloseButton/TaskCloseButton';
+import { TaskDeleteButton } from './TaskDeleteButton/TaskDeleteButton';
 
 const Container = styled('div')`
   background: #eee;
@@ -73,8 +73,8 @@ class Task extends React.Component<TaskProps> {
         </Contents>
 
         <ButtonContainer>
-          <CloseButton onClick={this.props.onClose} />
-          <DeleteButton
+          <TaskCloseButton onClick={this.props.onClose} />
+          <TaskDeleteButton
             onClick={() => {
               if (window.confirm('削除しますか?')) {
                 this.props.onDestroy(task.id);

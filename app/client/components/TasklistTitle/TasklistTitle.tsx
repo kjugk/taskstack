@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import { Count } from './Count/Count';
+import { TasklistTitleCount } from './TasklistTitleCount/TasklistTitleCount';
 import { Responsive, Icon } from 'semantic-ui-react';
 
 const Wrapper = styled.div`
@@ -37,7 +37,7 @@ class TasklistTitle extends React.Component<TasklistTitleProps> {
       <Wrapper>
         <Responsive as={Hamberger} maxWidth={767} onClick={onHambergerClick} />
         <Title>{tasklist.title}</Title>
-        <Count count={tasklist.taskCount} />
+        <TasklistTitleCount count={tasklist.taskCount} />
       </Wrapper>
     );
   }

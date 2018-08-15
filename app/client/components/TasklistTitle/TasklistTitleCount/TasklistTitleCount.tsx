@@ -51,7 +51,7 @@ interface CountState {
   changed: boolean;
 }
 
-class Count extends React.Component<CountProps, CountState> {
+class TasklistTitleCount extends React.Component<CountProps, CountState> {
   constructor(props: CountProps) {
     super(props);
     this.state = {
@@ -73,4 +73,4 @@ class Count extends React.Component<CountProps, CountState> {
   }
 }
 
-export { Count };
+export { TasklistTitleCount };

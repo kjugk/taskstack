@@ -7,10 +7,10 @@ import { getTasklist } from '../../reducers/tasklists';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as tasklistActions from '../../actions/tasklistActions';
 import * as taskActions from '../../actions/taskActions';
-import { Tasks } from './Tasks';
+import { ActiveTasks } from './ActiveTasks/ActiveTasks';
 import { CompletedTasks } from './CompletedTasks/CompletedTasks';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { FallbackContent } from './FallbackContent/FallbackContent';
+import { withRouter } from 'react-router-dom';
+import { TasksFallbackContent } from './TasksFallbackContent/TasksFallbackContent';
 
 interface TasksContainerProps {
   tasksState: types.TasksState;
@@ -60,7 +60,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
       destroyCompletedTasks
     } = this.props;
 
-    if (!tasklist) return <FallbackContent />;
+    if (!tasklist) return <TasksFallbackContent />;
 
     if (tasksState.isFetching) {
       return <Loader active>Loading</Loader>;
@@ -72,7 +72,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
           <Loader>Loading</Loader>
         </Dimmer>
 
-        <Tasks
+        <ActiveTasks
           tasklist={tasklist}
           items={activeTasks}
           onCheckChange={updateTask}

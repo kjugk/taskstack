@@ -24,7 +24,7 @@ interface TaskListItemProps {
   onCheckChange(id: number, params: any): any;
 }
 
-class TaskListItem extends React.Component<TaskListItemProps> {
+class TasksListItem extends React.Component<TaskListItemProps> {
   render() {
     const { item, onItemClick, onCheckChange } = this.props;
 
@@ -52,4 +52,4 @@ class TaskListItem extends React.Component<TaskListItemProps> {
   }
 }
 
-export { TaskListItem };
+export { TasksListItem };

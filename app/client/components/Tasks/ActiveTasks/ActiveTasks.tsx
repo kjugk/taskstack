@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as types from '../../types';
+import * as types from '../../../types';
 import { Segment } from 'semantic-ui-react';
-import { TaskListItem } from './TaskListItem/TaskListItem';
+import { TasksListItem } from '../TasksListItem/TasksListItem';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 interface TasksProps {
@@ -15,7 +15,7 @@ interface TasksProps {
 const SortableItem = SortableElement((props: any) => {
   const { value, ...rest } = props;
 
-  return <TaskListItem item={value} {...rest} />;
+  return <TasksListItem item={value} {...rest} />;
 });
 
 const SortableList = SortableContainer((props: any) => {
@@ -30,7 +30,7 @@ const SortableList = SortableContainer((props: any) => {
   );
 });
 
-class Tasks extends React.Component<TasksProps> {
+class ActiveTasks extends React.Component<TasksProps> {
   render() {
     const { items, ...rest } = this.props;
     if (items.length <= 0) return null;
@@ -53,4 +53,4 @@ class Tasks extends React.Component<TasksProps> {
   }
 }
 
-export { Tasks };
+export { ActiveTasks };

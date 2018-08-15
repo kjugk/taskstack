@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
 import key from 'keymaster';
-import { Image, Icon, Divider } from 'semantic-ui-react';
-import { UserMenu } from './UserMenu/UserMenu';
+import { Image, Icon } from 'semantic-ui-react';
+import { InlineHeaderUserMenu } from './InlineHeaderUserMenu/InlineHeaderUserMenu';
 
 const Wrapper = styled.div`
   cursor: pointer;
@@ -78,7 +78,7 @@ class InlineHeader extends React.Component<Props, State> {
           <Chevron name="chevron down" color="grey" open={this.state.openMenu} />
         </Wrapper>
 
-        <UserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
+        <InlineHeaderUserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
       </div>
     );
   }
