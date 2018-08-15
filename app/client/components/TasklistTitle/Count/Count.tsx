@@ -40,7 +40,7 @@ const Wrapper = styled<{ changed: boolean }, any>(`div`)`
   border-radius: 500rem;
   background: #2185d0;
   color: #fff;
-  ${(props) => props.changed && `animation: ${Bound} 1s linear both`};
+  ${(props) => props.changed && `animation: ${Bound} 1.1s linear`};
 `;
 
 interface CountProps {

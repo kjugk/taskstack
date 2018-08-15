@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom';
 
 const Hero = styled.div`
   height: 480px;
-  background: #eee;
   display: flex;
   flex-direction: column;
   align-items: center;

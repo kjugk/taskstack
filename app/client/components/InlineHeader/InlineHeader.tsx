@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
 import key from 'keymaster';
-import { Image, Icon } from 'semantic-ui-react';
+import { Image, Icon, Divider } from 'semantic-ui-react';
 import { UserMenu } from './UserMenu/UserMenu';
 
 const Wrapper = styled.div`
@@ -62,7 +62,7 @@ class InlineHeader extends React.Component<Props, State> {
     const { user, onSignOutClick } = this.props;
 
     return (
-      <div>
+      <div style={{ borderBottom: '1px solid #f5f5f5' }}>
         <Wrapper
           onClick={(e) => {
             e.stopPropagation();

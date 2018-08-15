@@ -6,7 +6,7 @@ interface CloseButtonProps {
 }
 
 const CloseButton: React.SFC<CloseButtonProps> = (props) => (
-  <Button basic primary icon onClick={props.onClick}>
+  <Button basic color="grey" icon onClick={props.onClick}>
     <Icon name="close" />
   </Button>
 );

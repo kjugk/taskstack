@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 1rem;
-  background: #2184d0;
-  color: #fff;
 `;
 
 const Brand = styled.span`
