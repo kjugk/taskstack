@@ -20,8 +20,8 @@ export default function* taskSaga() {
     const res = yield call(api.fetchTasks, action.payload.tasklistId);
     const normalized = normalize(res.data, { tasks: [tasks] });
 
-    yield put(taskActions.setTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
     yield put(tasklistActions.setTaskLoadedFlag(action.payload.tasklistId));
+    yield put(taskActions.setTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
   }
 
   /**
