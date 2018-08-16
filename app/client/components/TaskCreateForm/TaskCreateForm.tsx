@@ -34,7 +34,8 @@ class TaskCreateForm extends React.Component<TaskCreateFormProps> {
           <Input
             disabled={formState.isSubmitting}
             fluid
-            icon={formState.isSubmitting && <Icon loading name="spinner" />}
+            icon="plus"
+            iconPosition="left"
             onChange={(e) => onTitleChange(e)}
             placeholder="タスクを作成"
             value={formState.title}

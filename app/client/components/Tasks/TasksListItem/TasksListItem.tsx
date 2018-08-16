@@ -1,10 +1,13 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
+import { Icon } from 'semantic-ui-react';
 
 const ItemContainer = styled<{ completed: boolean }, any>('div')`
   cursor: pointer;
-  display: block;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
   padding: 1rem;
   border-bottom: 1px solid rgba(34, 36, 38, 0.15);
   :last-child {
@@ -15,6 +18,7 @@ const ItemContainer = styled<{ completed: boolean }, any>('div')`
 
 const TitleWrapper = styled<{ completed: boolean }, any>('span')`
   margin-left: 0.8rem;
+  flex: 1;
   ${(props) => props.completed && 'text-decoration: line-through;'};
 `;
 
@@ -47,6 +51,7 @@ class TasksListItem extends React.Component<TaskListItemProps> {
           }}
         />
         <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
+        {item.memo !== '' && <Icon name="pen square" color="grey" />}
       </ItemContainer>
     );
   }
