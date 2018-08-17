@@ -5,7 +5,7 @@ const config = merge(baseConfig, {
   watch: true,
   devtool: 'source-map',
   watchOptions: {
-    poll: true
+    poll: false
   }
 });
 
