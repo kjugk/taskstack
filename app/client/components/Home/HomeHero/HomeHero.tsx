@@ -41,7 +41,7 @@ const HomeHero: React.SFC = () => (
             </a>
           </div>
         </Grid.Column>
-        <Grid.Column width={6}>
+        <Grid.Column width={6} only="computer">
           <HomeHeroImage />
         </Grid.Column>
       </Grid>

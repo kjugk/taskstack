@@ -13,7 +13,7 @@ const HomeHeroImage: React.SFC = () => (
     <desc>Created with Sketch.</desc>
     <defs />
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-      <g id="Group-2" fillRule="nonzero" stroke="#ffffff">
+      <g id="Group-2" fillRule="nonzero" stroke="#f5f5f5">
         <rect id="Rectangle-2" strokeWidth="8" x="4" y="4" width="312" height="312" />
         <g id="Group" transform="translate(26.000000, 40.000000)">
           <path d="M55.5,20.25 L267.5,20.25" id="Line" strokeWidth="8" strokeLinecap="square" />

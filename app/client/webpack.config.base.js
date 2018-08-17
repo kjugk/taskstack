@@ -23,20 +23,6 @@ let config = {
         exclude: /node_modules/
       },
       {
-        test: /\.(scss|sass)$/,
-        loader: [
-          {
-            loader: 'style-loader' // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader' // translates CSS into CommonJS
-          },
-          {
-            loader: 'sass-loader' // compiles Sass to CSS
-          }
-        ]
-      },
-      {
         test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
         loader: 'file-loader',
         options: {
@@ -50,6 +36,7 @@ let config = {
         loader: 'url-loader',
         options: {
           limit: 10000,
+          outputPath: '../../../',
           name: 'public/[name].[hash:8].[ext]'
         }
       }

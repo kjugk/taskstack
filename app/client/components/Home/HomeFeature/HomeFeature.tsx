@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 `;
 
 const FeatureCard = styled(Card)`
-  transform: translateY(-50px);
+  transform: translateY(-60px);
   width: 100% !important;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3) !important;
 `;
