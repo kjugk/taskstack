@@ -16,7 +16,6 @@ let config = {
 
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
@@ -33,12 +32,17 @@ let config = {
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          outputPath: '../../../',
-          name: 'public/[name].[hash:8].[ext]'
-        }
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: 10000,
+              outputPath: '../../../public',
+              publicPath: (path) => '/' + path,
+              name: '[name].[hash:8].[ext]'
+            }
+          }
+        ]
       }
     ]
   }

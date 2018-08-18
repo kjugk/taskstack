@@ -1,12 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Container, Button, Grid } from 'semantic-ui-react';
-import { HomeHeroImage } from './HomeHeroImage';
 
 const Hero = styled.div`
   color: #f5f5f5 !important;
   padding-top: 100px;
-  padding-bottom: 180px;
+  padding-bottom: 160px;
   position: relative;
 `;
 
@@ -19,7 +18,7 @@ const HeroHeader = styled.h1`
 
 const HeroSubheader = styled.div`
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
 `;
 
 const HomeHero: React.SFC = () => (
@@ -27,7 +26,7 @@ const HomeHero: React.SFC = () => (
     <Hero>
       <Grid stackable>
         <Grid.Column
-          width={10}
+          width={9}
           style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
           <HeroHeader>山積みの仕事を、 終わらせましょう</HeroHeader>
@@ -41,8 +40,8 @@ const HomeHero: React.SFC = () => (
             </a>
           </div>
         </Grid.Column>
-        <Grid.Column width={6} only="computer">
-          <HomeHeroImage />
+        <Grid.Column width={7}>
+          <img src="/images/samlpe@3x-min.png" style={{ width: '100%' }} />
         </Grid.Column>
       </Grid>
     </Hero>

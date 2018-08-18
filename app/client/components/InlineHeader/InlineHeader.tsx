@@ -62,7 +62,7 @@ class InlineHeader extends React.Component<Props, State> {
     const { user, onSignOutClick } = this.props;
 
     return (
-      <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+      <div>
         <Wrapper
           onClick={(e) => {
             e.stopPropagation();
