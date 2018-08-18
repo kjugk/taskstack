@@ -35,9 +35,6 @@ const HomeHero: React.SFC = () => (
             <a href="/login">
               <Button icon="google" color="google plus" size="huge" content="Google ログイン" />
             </a>
-            <a href="/login">
-              <Button icon="facebook" color="facebook" size="huge" content="facebook ログイン" />
-            </a>
           </div>
         </Grid.Column>
         <Grid.Column width={7}>
