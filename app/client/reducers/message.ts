@@ -1,15 +1,17 @@
-import * as constants from '../constants';
+import { ActionType, getType } from 'typesafe-actions';
+import * as messages from '../actions/messageActions';
+type MessageAction = ActionType<typeof messages>;
 
 const initialState = {
   message: ''
 };
 
-const message = (state = initialState, action: any) => {
+const message = (state = initialState, action: MessageAction) => {
   switch (action.type) {
-    case constants.MESSAGE_SET:
+    case getType(messages.setMessage):
       return {
         ...state,
-        message: action.payload.message
+        message: action.payload
       };
 
     default:

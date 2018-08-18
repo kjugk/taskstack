@@ -1,10 +1,5 @@
-import * as constants from '../constants';
+import { createAction } from 'typesafe-actions';
 
-export const setMessage = (message: string) => {
-  return {
-    type: constants.MESSAGE_SET,
-    payload: {
-      message
-    }
-  };
-};
+export const setMessage = createAction('message/SET', (resolve) => {
+  return (message: string) => resolve(message);
+});

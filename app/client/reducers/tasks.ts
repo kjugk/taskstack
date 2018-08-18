@@ -1,8 +1,10 @@
-import * as constants from '../constants';
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getTasklist } from './tasklists';
 import _ from 'lodash';
+import { getType, ActionType } from 'typesafe-actions';
+import * as taskActions from '../actions/taskActions';
+export type TaskAction = ActionType<typeof taskActions>;
 
 const initialState: types.TasksState = {
   isFetching: false,
@@ -10,15 +12,15 @@ const initialState: types.TasksState = {
   tasksById: {}
 };
 
-export const tasks = (state = initialState, action: any) => {
+export const tasks = (state = initialState, action: TaskAction) => {
   switch (action.type) {
-    case constants.TASKS_FETCH:
+    case getType(taskActions.fetchTasks):
       return {
         ...state,
         isFetching: true
       };
 
-    case constants.TASKS_FETCH_SUCCESS:
+    case getType(taskActions.setTasks):
       return {
         ...state,
         isFetching: false,
@@ -28,7 +30,7 @@ export const tasks = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASK_CREATE_SUCCESS:
+    case getType(taskActions.setCreatedTask):
       return {
         ...state,
         tasksById: {
@@ -37,7 +39,7 @@ export const tasks = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASK_UPDATE_SUCCESS:
+    case getType(taskActions.setUpdatedTask):
       return {
         ...state,
         tasksById: {
@@ -49,19 +51,13 @@ export const tasks = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASK_DESTROY_SUCCESS:
+    case getType(taskActions.removeDestroyedTaskId):
       return {
         ...state,
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
-    case constants.COMPLETED_TASKS_DESTROY:
-      return {
-        ...state,
-        isUpdating: true
-      };
-
-    case constants.COMPLETED_TASKS_DESTROY_SUCCESS:
+    case getType(taskActions.removeDestroyedTaskIds):
       return {
         ...state,
         isUpdating: false,

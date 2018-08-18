@@ -10,11 +10,11 @@ class Api::TasksController < ApplicationController
     @tasklist = Tasklist.find(params[:tasklist_id])
     @task = Task.new(task_params.merge(user: current_user)) 
 
-    # TODO サービスにする
-    if @tasklist.tasks << @task
+    @tasklist.transaction do 
+      @task.tasklist = @tasklist
+      @task.save!
       @tasklist.unshift_task_id(@task.id)
       render 'api/tasks/show'
-    else
     end
   end
 
@@ -32,10 +32,10 @@ class Api::TasksController < ApplicationController
     @task = Task.find(params[:id])
     @tasklist = @task.tasklist
 
-    if @task.destroy
+    @tasklist.transaction do
+      @task.destroy!
       @tasklist.delete_task_id(@task.id)
       render 'api/tasks/show'
-    else
     end
   end
 

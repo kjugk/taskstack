@@ -1,26 +1,28 @@
-import * as constants from '../../constants';
 import * as types from '../../types';
+import { getType, ActionType } from 'typesafe-actions';
+import * as formActions from '../../actions/taskCreateFormActions';
+export type TaskCreateFormAction = ActionType<typeof formActions>;
 
 const initialState: types.TaskCreateFormState = {
   title: '',
   isSubmitting: false
 };
 
-const taskCreateForm = (state = initialState, action: any) => {
+const taskCreateForm = (state = initialState, action: TaskCreateFormAction) => {
   switch (action.type) {
-    case constants.TASK_TITLE_CHANGE:
+    case getType(formActions.setChangedTitle):
       return {
         ...state,
         title: action.payload.title
       };
 
-    case constants.TASK_CREATE_FORM_SUBMIT:
+    case getType(formActions.submit):
       return {
         ...state,
         isSubmitting: true
       };
 
-    case constants.TASK_CREATE_FORM_CLEAR:
+    case getType(formActions.clear):
       return initialState;
 
     default:

@@ -1,4 +1,6 @@
-import * as constants from '../constants';
+import { ActionType, getType } from 'typesafe-actions';
+import * as userActions from '../actions/userActions';
+export type UserAction = ActionType<typeof userActions>;
 
 const initialState = {
   initialized: false,
@@ -7,24 +9,23 @@ const initialState = {
   imageUrl: ''
 };
 
-const user = (state = initialState, action: any) => {
+const user = (state = initialState, action: UserAction) => {
   switch (action.type) {
-    case constants.USER_VERIFY_SUCCESS:
+    case getType(userActions.setVerifiedUser):
       return {
         ...state,
         initialized: true,
         signedIn: true,
-        name: action.payload.name,
-        imageUrl: action.payload.imageUrl
+        ...action.payload.user
       };
 
-    case constants.USER_SIGN_OUT_SUCCESS:
+    case getType(userActions.signOutSuccess):
       return {
         ...state,
         signedIn: false
       };
 
-    case constants.USER_VERIFY_FAILURE:
+    case getType(userActions.verifyFailure):
       return {
         ...state,
         initialized: true

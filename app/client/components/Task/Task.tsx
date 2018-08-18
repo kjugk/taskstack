@@ -3,22 +3,25 @@ import * as types from '../../types';
 import styled from 'styled-components';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
-import { Transition } from 'react-transition-group';
-import { CloseButton } from './CloseButton/CloseButton';
-import { DeleteButton } from './DeleteButton/DeleteButton';
-import key from 'keymaster';
+import { TaskCloseButton } from './TaskCloseButton/TaskCloseButton';
+import { TaskDeleteButton } from './TaskDeleteButton/TaskDeleteButton';
 
-const Container = styled<{ state: string }, any>('div')`
+const Container = styled('div')`
   background: #eee;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  transform: translateX(100%);
-  transition: all 0.2s ease;
-  transition-property: transform width;
-  width: 0;
-  ${(props) => props.state === 'entered' && `transform: translateX(0); width: 360px;`};
+  position: relative
+  width: 360px;
+
+   @media (max-width: 787px) {
+     position: absolute;
+     left: 0;
+     top; 0;
+     width: 100%;
+     height: 100%;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -34,6 +37,7 @@ const TitleContainer = styled.div`
 const Contents = styled.div`
   flex: 1;
   padding: 1rem;
+  overflow-y: scroll;
 `;
 
 const ButtonContainer = styled.div`
@@ -41,9 +45,6 @@ const ButtonContainer = styled.div`
   display: flex;
 `;
 
-/**
- * TODO onClose を追加
- */
 interface TaskProps {
   task: types.TaskState;
   onUpdate(id: number, params: any): any;
@@ -51,73 +52,37 @@ interface TaskProps {
   onClose(): any;
 }
 
-interface TaskState {
-  open: boolean;
-}
-
-class Task extends React.Component<TaskProps, TaskState> {
-  constructor(props: TaskProps) {
-    super(props);
-    this.handleCheckChange = this.handleCheckChange.bind(this);
-    this.state = {
-      open: true
-    };
-  }
-
-  componentDidMount() {
-    key('esc', () => this.setState({ open: false }));
-  }
-
-  componentWillUnmount() {
-    key.unbind('esc');
-  }
-
-  componentDidUpdate(prevProps: TaskProps, prevState: TaskState) {
-    if (prevState.open && !this.state.open) {
-      setTimeout(this.props.onClose, 200);
-    }
-  }
-
+class Task extends React.Component<TaskProps> {
   render() {
     const { task, onUpdate } = this.props;
 
     return (
-      <Transition appear in={this.state.open} timeout={0}>
-        {(state: string) => (
-          <Container state={state}>
-            <TitleContainer>
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={this.handleCheckChange}
-                style={{ marginRight: '1.4rem' }}
-              />
-              <TaskTitle task={task} onSubmit={onUpdate} />
-            </TitleContainer>
+      <Container onClick={(e) => e.stopPropagation()}>
+        <TitleContainer>
+          <input
+            type="checkbox"
+            checked={task.completed}
+            onChange={this.handleCheckChange}
+            style={{ marginRight: '1.4rem' }}
+          />
+          <TaskTitle task={task} onSubmit={onUpdate} />
+        </TitleContainer>
 
-            <Contents>
-              <TaskMemo task={task} onSubmit={onUpdate} />
-            </Contents>
+        <Contents>
+          <TaskMemo task={task} onSubmit={onUpdate} />
+        </Contents>
 
-            <ButtonContainer>
-              <CloseButton
-                onClick={() => {
-                  this.setState((prevState, props) => ({
-                    open: false
-                  }));
-                }}
-              />
-              <DeleteButton
-                onClick={() => {
-                  if (window.confirm('削除しますか?')) {
-                    this.props.onDestroy(task.id);
-                  }
-                }}
-              />
-            </ButtonContainer>
-          </Container>
-        )}
-      </Transition>
+        <ButtonContainer>
+          <TaskCloseButton onClick={this.props.onClose} />
+          <TaskDeleteButton
+            onClick={() => {
+              if (window.confirm('削除しますか?')) {
+                this.props.onDestroy(task.id);
+              }
+            }}
+          />
+        </ButtonContainer>
+      </Container>
     );
   }
 

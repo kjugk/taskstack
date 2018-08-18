@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Message, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -58,9 +59,13 @@ const mapStateToProps = (state: types.RootState) => ({
   message: state.message.message
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  setMessage: (message: string) => dispatch(messageActions.setMessage(message))
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      setMessage: (message: string) => messageActions.setMessage(message)
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,

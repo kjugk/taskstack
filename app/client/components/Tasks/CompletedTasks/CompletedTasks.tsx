@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import { Segment } from 'semantic-ui-react';
-import { TaskListItem } from '../TaskListItem/TaskListItem';
+import { TasksListItem } from '../TasksListItem/TasksListItem';
 import { Button, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -57,7 +57,7 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
           <div>
             <Segment.Group style={{ boxShadow: 'none' }}>
               {items.map((item: any, i: number) => {
-                return <TaskListItem key={i} item={item} {...rest} />;
+                return <TasksListItem key={i} item={item} {...rest} />;
               })}
             </Segment.Group>
 

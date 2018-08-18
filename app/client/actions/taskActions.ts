@@ -1,79 +1,38 @@
-import * as constants from '../constants';
+import { createAction } from 'typesafe-actions';
 
-export const fetchTasks = (tasklistId: number) => {
-  return {
-    type: constants.TASKS_FETCH,
-    payload: {
-      tasklistId
-    }
-  };
-};
-
-export const receiveTasks = (tasklistId: number, tasksById: any) => {
-  return {
-    type: constants.TASKS_FETCH_SUCCESS,
-    payload: {
-      tasklistId,
-      tasksById
-    }
-  };
-};
-
-export const receiveNewTask = (task: any) => {
-  return {
-    type: constants.TASK_CREATE_SUCCESS,
-    payload: {
-      task
-    }
-  };
-};
-
-export const updateTask = (id: number, params: any) => {
-  return {
-    type: constants.TASK_UPDATE,
-    payload: {
-      id,
-      params
-    }
-  };
-};
-
-export const receiveUpdatedTask = (task: any) => {
-  return {
-    type: constants.TASK_UPDATE_SUCCESS,
-    payload: {
-      task
-    }
-  };
-};
-
-export const destroyTask = (id: number) => {
-  return {
-    type: constants.TASK_DESTROY,
-    payload: {
-      id
-    }
-  };
-};
-
-export const receiveDestroyedTaskId = (id: number) => ({
-  type: constants.TASK_DESTROY_SUCCESS,
-  payload: {
-    id
-  }
+export const fetchTasks = createAction('FETCH_TASKS', (resolve) => {
+  return (tasklistId: number) => resolve({ tasklistId });
 });
 
-export const updateSort = (tasklistId: number, taskIds: number[]) => ({
-  type: constants.TASK_SORT_UPDATE,
-  payload: {
-    tasklistId,
-    taskIds
-  }
+export const setTasks = createAction('SET_TASKS', (resolve) => {
+  return (tasklistId: number, tasksById: any) => resolve({ tasklistId, tasksById });
 });
 
-export const receiveDestroyedTaskIds = (taskIds: number[]) => ({
-  type: constants.COMPLETED_TASKS_DESTROY_SUCCESS,
-  payload: {
-    taskIds
-  }
+export const setCreatedTask = createAction('SET_CREATED_TASK', (resolve) => {
+  return (task: any) => resolve({ task });
+});
+
+export const updateTask = createAction('UPDATE_TASK', (resolve) => {
+  return (id: number, params: any) => resolve({ id, params });
+});
+
+export const setUpdatedTask = createAction('SET_UPDATED_TASK', (resolve) => {
+  return (task: any) => resolve({ task });
+});
+
+export const destroyTask = createAction('DESTROY_TASK', (resolve) => {
+  return (id: number) => resolve({ id });
+});
+
+export const removeDestroyedTaskId = createAction('REMOVE_DESTROYED_TASK_ID', (resolve) => {
+  return (id: number) => resolve({ id });
+});
+
+// TODO: このメソッドの置き場所を考える
+export const updateTaskSort = createAction('UPDATE_TASK_SORT', (resolve) => {
+  return (tasklistId: number, taskIds: number[]) => resolve({ tasklistId, taskIds });
+});
+
+export const removeDestroyedTaskIds = createAction('REMOVE_DESTROYED_TASK_IDS', (resolve) => {
+  return (taskIds: number[]) => resolve({ taskIds });
 });

@@ -1,26 +1,31 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import * as constants from '../constants';
+import { getType } from 'typesafe-actions';
 import * as api from '../Api';
 import * as userActions from '../actions/userActions';
+import * as messageActions from '../actions/messageActions';
 import * as Cookies from 'js-cookie';
+import { UserAction } from '../reducers/user';
 
 export default function* userSaga() {
-  function* verifyUser(action: any) {
+  function* verify(action: UserAction) {
     try {
       const res = yield call(api.verifyUser);
 
-      yield put(userActions.receiveVerifiedUser(res.data.user));
+      yield put(userActions.setVerifiedUser(res.data.user));
+      yield delay(500);
+      yield put(messageActions.setMessage('ログインしました'));
     } catch (e) {
-      yield put(userActions.failVefirication());
+      yield put(userActions.verifyFailure());
     }
   }
 
-  function* signOut(action: any) {
+  function* signOut(action: UserAction) {
     Cookies.remove('token');
     yield put(userActions.signOutSuccess());
+    yield put(messageActions.setMessage('ログアウトしました'));
   }
 
-  yield all([takeLatest(constants.USER_VERIFY, verifyUser)]);
-  yield all([takeLatest(constants.USER_SIGN_OUT, signOut)]);
+  yield all([takeLatest(getType(userActions.verify), verify)]);
+  yield all([takeLatest(getType(userActions.signOut), signOut)]);
 }

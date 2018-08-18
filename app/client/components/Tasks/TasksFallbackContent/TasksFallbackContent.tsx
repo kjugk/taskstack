@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const FallbackContent: React.SFC = () => (
+const TasksFallbackContent: React.SFC = () => (
   <div
     style={{
       flex: 1,
@@ -19,4 +19,4 @@ const FallbackContent: React.SFC = () => (
   </div>
 );
 
-export { FallbackContent };
+export { TasksFallbackContent };

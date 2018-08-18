@@ -6,6 +6,11 @@
     <title>Taskstacker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
+
+    <% if Rails.env.production? %>
+      <%= stylesheet_link_tag 'application' %>
+    <% end %>
 
     <style>
       body {

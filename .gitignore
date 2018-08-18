@@ -28,9 +28,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials.yml.enc
 
 /app/assets/javascripts/bundle.js
 /app/assets/javascripts/bundle.js.map
+/app/assets/stylesheets/main.css
 
-/config/credentials.yml.enc
 *.DS_Store

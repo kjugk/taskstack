@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklists';
 import { Loader } from 'semantic-ui-react';
@@ -65,11 +66,15 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  fetchTasklists: () => dispatch(tasklistActions.fetchTasklists()),
-  editTasklist: (tasklist: any) => dispatch(tasklistActions.editTasklist(tasklist)),
-  closeMenu: () => dispatch(sidebarActions.close())
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      fetchTasklists: () => tasklistActions.fetchTasklists(),
+      editTasklist: (tasklist: any) => tasklistActions.editTasklist(tasklist),
+      closeMenu: () => sidebarActions.close()
+    },
+    dispatch
+  );
 
 export default withRouter(
   connect(

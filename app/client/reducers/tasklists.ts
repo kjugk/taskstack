@@ -1,7 +1,9 @@
-import * as constants from '../constants';
+import _ from 'lodash';
 import * as types from '../types';
 import { createSelector } from 'reselect';
-import _ from 'lodash';
+import { getType, ActionType } from 'typesafe-actions';
+import * as tasklistActions from '../actions/tasklistActions';
+export type TasklistAction = ActionType<typeof tasklistActions>;
 
 const initialState: types.TasklistsState = {
   ids: [],
@@ -11,15 +13,15 @@ const initialState: types.TasklistsState = {
   tasklistsById: {}
 };
 
-export const tasklists = (state = initialState, action: any) => {
+export const tasklists = (state = initialState, action: TasklistAction) => {
   switch (action.type) {
-    case constants.TASKLISTS_FETCH:
+    case getType(tasklistActions.fetchTasklists):
       return {
         ...state,
         isFetching: true
       };
 
-    case constants.TASKLISTS_FETCH_SUCCESS:
+    case getType(tasklistActions.setTasklists):
       return {
         ...state,
         ids: action.payload.ids,
@@ -28,7 +30,7 @@ export const tasklists = (state = initialState, action: any) => {
         tasklistsById: action.payload.tasklistsById
       };
 
-    case constants.TASKLIST_CREATE_SUCCESS:
+    case getType(tasklistActions.setCreatedTasklist):
       return {
         ...state,
         ids: [action.payload.id, ...state.ids],
@@ -38,7 +40,7 @@ export const tasklists = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASKLIST_UPDATE_SUCCESS:
+    case getType(tasklistActions.setUpdatedTasklist):
       return {
         ...state,
         tasklistsById: {
@@ -50,14 +52,14 @@ export const tasklists = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASKLIST_DESTROY_SUCCESS:
+    case getType(tasklistActions.setDestroyedTasklistId):
       return {
         ...state,
         ids: state.ids.filter((id) => id !== action.payload.id),
         tasklistsById: destroyTasklistById(action.payload.id, state.tasklistsById)
       };
 
-    case constants.TASK_IDS_RECEIVE:
+    case getType(tasklistActions.setTaskIds):
       return {
         ...state,
         tasklistsById: {
@@ -69,7 +71,7 @@ export const tasklists = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASK_COUNT_UPDATE_SUCCESS:
+    case getType(tasklistActions.setTaskCount):
       return {
         ...state,
         tasklistsById: {
@@ -81,7 +83,7 @@ export const tasklists = (state = initialState, action: any) => {
         }
       };
 
-    case constants.TASKS_FETCH_SUCCESS:
+    case getType(tasklistActions.setTaskLoadedFlag):
       return {
         ...state,
         tasklistsById: {

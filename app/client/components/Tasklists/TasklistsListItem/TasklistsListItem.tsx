@@ -32,7 +32,7 @@ interface ListItemProps {
   onEditButtonClick(id: number): any;
 }
 
-class TasklistListItem extends React.Component<ListItemProps> {
+class TasklistsListItem extends React.Component<ListItemProps> {
   render() {
     const { item, onClick, onEditButtonClick, isSelecting } = this.props;
 
@@ -40,7 +40,7 @@ class TasklistListItem extends React.Component<ListItemProps> {
       <Container isSelecting={isSelecting} onClick={() => onClick(item.id)}>
         <TitleWrapper>{item.title}</TitleWrapper>
 
-        <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>
+        {!isSelecting && <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>}
 
         {isSelecting && (
           <IconWrapper
@@ -57,4 +57,4 @@ class TasklistListItem extends React.Component<ListItemProps> {
   }
 }
 
-export { TasklistListItem };
+export { TasklistsListItem };

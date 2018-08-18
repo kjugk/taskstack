@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
-import { TasklistListItem } from './TasklistListItem/TasklistListItem';
+import { TasklistsListItem } from './TasklistsListItem/TasklistsListItem';
 import styled from 'styled-components';
 
 const Container = styled.ul`
@@ -25,7 +25,7 @@ class Tasklists extends React.Component<TasklistsProps> {
       <Container>
         {items.map((item, i) => {
           return (
-            <TasklistListItem
+            <TasklistsListItem
               onClick={onItemClick}
               onEditButtonClick={onEditButtonClick}
               item={item}

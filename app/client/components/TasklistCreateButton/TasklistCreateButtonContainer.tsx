@@ -15,14 +15,14 @@ interface TasklistCreateButtonContainerProps {
 class TasklistCreateButtonContainer extends React.Component<TasklistCreateButtonContainerProps> {
   constructor(props: TasklistCreateButtonContainerProps) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
   render() {
-    return <TasklistCreateButton onClick={this.handleClick} />;
+    return <TasklistCreateButton onClick={this.handleOnClick} />;
   }
 
-  handleClick() {
+  private handleOnClick() {
     const { tasklist, history } = this.props;
 
     if (tasklist) {

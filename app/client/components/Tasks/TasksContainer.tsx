@@ -1,15 +1,16 @@
 import * as React from 'react';
 import * as types from '../../types';
 import { Loader, Dimmer } from 'semantic-ui-react';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTasklist } from '../../reducers/tasklists';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as tasklistActions from '../../actions/tasklistActions';
 import * as taskActions from '../../actions/taskActions';
-import { Tasks } from './Tasks';
+import { ActiveTasks } from './ActiveTasks/ActiveTasks';
 import { CompletedTasks } from './CompletedTasks/CompletedTasks';
 import { withRouter } from 'react-router-dom';
-import { FallbackContent } from './FallbackContent/FallbackContent';
+import { TasksFallbackContent } from './TasksFallbackContent/TasksFallbackContent';
 
 interface TasksContainerProps {
   tasksState: types.TasksState;
@@ -32,13 +33,6 @@ class TasksContainer extends React.Component<TasksContainerProps> {
     this.handleOnItemClick = this.handleOnItemClick.bind(this);
   }
 
-  componentDidMount() {
-    const { tasklist, fetchTasks } = this.props;
-    if (!tasklist) return;
-
-    fetchTasks(tasklist.id);
-  }
-
   componentDidUpdate() {
     const { tasklist, tasksState, fetchTasks } = this.props;
     if (!tasklist) return;
@@ -59,19 +53,19 @@ class TasksContainer extends React.Component<TasksContainerProps> {
       destroyCompletedTasks
     } = this.props;
 
-    if (!tasklist) return <FallbackContent />;
+    if (!tasklist) return <TasksFallbackContent />;
 
     if (tasksState.isFetching) {
       return <Loader active>Loading</Loader>;
     }
 
     return (
-      <div style={{ flex: 1 }} onClick={() => this.props.history.push(`/tasklists/${tasklist.id}`)}>
+      <div>
         <Dimmer page active={tasksState.isUpdating}>
           <Loader>Loading</Loader>
         </Dimmer>
 
-        <Tasks
+        <ActiveTasks
           tasklist={tasklist}
           items={activeTasks}
           onCheckChange={updateTask}
@@ -111,14 +105,18 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  destroyCompletedTasks: (tasklistId: number, taskIds: number[]) =>
-    dispatch(tasklistActions.destroyCompletedTasks(tasklistId, taskIds)),
-  fetchTasks: (tasklistId: number) => dispatch(taskActions.fetchTasks(tasklistId)),
-  updateTask: (id: number, params: any) => dispatch(taskActions.updateTask(id, params)),
-  updateSort: (tasklistId: number, taskIds: number[]) =>
-    dispatch(taskActions.updateSort(tasklistId, taskIds))
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      fetchTasks: (tasklistId: number) => taskActions.fetchTasks(tasklistId),
+      updateTask: (id: number, params: any) => taskActions.updateTask(id, params),
+      updateSort: (tasklistId: number, taskIds: number[]) =>
+        taskActions.updateTaskSort(tasklistId, taskIds),
+      destroyCompletedTasks: (tasklistId: number, taskIds: number[]) =>
+        tasklistActions.removeCompletedTaskIds(tasklistId, taskIds)
+    },
+    dispatch
+  );
 
 export default withRouter(
   connect(

@@ -16,42 +16,34 @@ let config = {
 
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: [
-          {
-            loader: 'style-loader' // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader' // translates CSS into CommonJS
-          },
-          {
-            loader: 'sass-loader' // compiles Sass to CSS
-          }
-        ]
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/
       },
       {
         test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
         loader: 'file-loader',
         options: {
-          outputPath: '../../../public/fonts',   // font ファイルの配置バス
-          publicPath : path => '/fonts/' + path, // css が参照するパス
-          name: '[name].[hash:8].[ext]',
-        },
+          outputPath: '../../../public/fonts', // font ファイルの配置バス
+          publicPath: (path) => '/fonts/' + path, // css が参照するパス
+          name: '[name].[hash:8].[ext]'
+        }
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'public/[name].[hash:8].[ext]',
-        },
-      },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: 10000,
+              outputPath: '../../../public',
+              publicPath: (path) => '/' + path,
+              name: '[name].[hash:8].[ext]'
+            }
+          }
+        ]
+      }
     ]
   }
 };

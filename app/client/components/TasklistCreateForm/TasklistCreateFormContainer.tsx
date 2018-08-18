@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as types from '../../types';
+import * as formActions from '../../actions/tasklistCreateFormActions';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Modal, Loader, Dimmer } from 'semantic-ui-react';
 import { TasklistForm } from '../TasklistForm/TasklistForm';
-import * as formActions from '../../actions/tasklistCreateFormActions';
 import { Redirect, withRouter } from 'react-router-dom';
 
 interface TasklistCreateFormContainerProps {
@@ -71,14 +72,19 @@ class TasklistCreateFormContainer extends React.Component<TasklistCreateFormCont
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => ({
-  formState: state.tasklistCreateForm
+  formState: state.tasklistCreateForm,
+  ...ownProps
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  changeTitle: (title: string) => dispatch(formActions.changeTitle(title)),
-  submit: (params: {}) => dispatch(formActions.submit(params)),
-  close: () => dispatch(formActions.close())
-});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      changeTitle: (title: string) => formActions.changeTitle(title),
+      submit: (params: {}) => formActions.submit(params),
+      close: () => formActions.close()
+    },
+    dispatch
+  );
 
 export default withRouter(
   connect(

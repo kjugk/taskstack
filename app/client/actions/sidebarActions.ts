@@ -1,11 +1,9 @@
-import * as constants from '../constants';
+import { createAction } from 'typesafe-actions';
 
-export const open = () => ({
-  type: constants.SIDEBAR_OPEN,
-  payload: {}
+export const open = createAction('sidebar/OPEN', (resolve) => {
+  return () => resolve();
 });
 
-export const close = () => ({
-  type: constants.SIDEBAR_CLOSE,
-  payload: {}
+export const close = createAction('sidebar/CLOSE', (resolve) => {
+  return () => resolve();
 });
