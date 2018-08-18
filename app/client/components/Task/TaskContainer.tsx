@@ -9,7 +9,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { Task } from './Task';
 import key from 'keymaster';
 
-interface TaskContainerProps {
+interface Props {
   tasklist: types.TasklistState;
   task: types.TaskState | undefined;
   history: any;
@@ -17,15 +17,23 @@ interface TaskContainerProps {
   destroyTask(id: number): any;
 }
 
-class TaskContainer extends React.Component<TaskContainerProps> {
-  constructor(props: TaskContainerProps) {
+interface State {
+  open: boolean;
+}
+
+class TaskContainer extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
+    this.state = { open: false };
     this.close = this.close.bind(this);
   }
 
   componentDidMount() {
     key('esc', this.close);
     window.addEventListener('click', this.close);
+    setTimeout(() => {
+      this.setState(() => ({ open: true }));
+    }, 0);
   }
 
   componentWillUnmount() {
@@ -34,16 +42,26 @@ class TaskContainer extends React.Component<TaskContainerProps> {
   }
 
   render() {
-    const { task, tasklist, updateTask, destroyTask } = this.props;
+    const { task, tasklist, updateTask, destroyTask, history } = this.props;
 
     if (!task) return <Redirect to={`/tasklists/${tasklist.id}`} />;
 
-    return <Task task={task} onUpdate={updateTask} onDestroy={destroyTask} onClose={this.close} />;
+    return (
+      <Task
+        open={this.state.open}
+        task={task}
+        onUpdate={updateTask}
+        onDestroy={destroyTask}
+        onClose={this.close}
+        onHide={() => {
+          history.push(`/tasklists/${tasklist.id}`);
+        }}
+      />
+    );
   }
 
   private close() {
-    const { history, tasklist } = this.props;
-    history.push(`/tasklists/${tasklist.id}`);
+    this.setState(() => ({ open: false }));
   }
 }
 

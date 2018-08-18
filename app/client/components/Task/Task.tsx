@@ -6,21 +6,26 @@ import { TaskMemo } from './TaskMemo/TaskMemo';
 import { TaskCloseButton } from './TaskCloseButton/TaskCloseButton';
 import { TaskDeleteButton } from './TaskDeleteButton/TaskDeleteButton';
 
-const Container = styled('div')`
+const Container = styled<{ open: boolean }, any>('div')`
   background: #eee;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
   position: relative
-  width: 360px;
+  transform: translateX(100%);
+  transition: all .2s;
+  @media (min-width: 787px) {
+    width: 0;
+    ${(props) => props.open && 'transform: translate3d(0, 0, 0); width: 360px;'};
+  }
 
-   @media (max-width: 787px) {
+   @media (max-width: 786px) {
      position: absolute;
+     width: 100%;
      left: 0;
      top; 0;
-     width: 100%;
-     height: 100%;
+     ${(props) => props.open && 'transform: translate3d(0, 0, 0);'};
   }
 `;
 
@@ -45,19 +50,34 @@ const ButtonContainer = styled.div`
   display: flex;
 `;
 
-interface TaskProps {
+interface Props {
   task: types.TaskState;
+  open: boolean;
   onUpdate(id: number, params: any): any;
   onDestroy(id: number): any;
   onClose(): any;
+  onHide(): any;
 }
 
-class Task extends React.Component<TaskProps> {
+class Task extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.handleCheckChange = this.handleCheckChange.bind(this);
+  }
+
+  componentDidUpdate(prevProp: Props) {
+    if (prevProp.open && !this.props.open) {
+      setTimeout(() => {
+        this.props.onHide();
+      }, 120);
+    }
+  }
+
   render() {
-    const { task, onUpdate } = this.props;
+    const { open, task, onUpdate } = this.props;
 
     return (
-      <Container onClick={(e) => e.stopPropagation()}>
+      <Container open={open} onClick={(e: any) => e.stopPropagation()}>
         <TitleContainer>
           <input
             type="checkbox"
@@ -91,6 +111,7 @@ class Task extends React.Component<TaskProps> {
 
     const { task, onUpdate } = this.props;
     if (!task) return;
+
     onUpdate(task.id, { completed: !task.completed });
   }
 }
