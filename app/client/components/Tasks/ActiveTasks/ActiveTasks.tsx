@@ -22,7 +22,7 @@ const SortableList = SortableContainer((props: any) => {
   const { items, ...rest } = props;
 
   return (
-    <Segment.Group style={{ marginBottom: '3rem' }}>
+    <Segment.Group style={{ marginBottom: '3rem', boxShadow: 'none' }}>
       {props.items.map((item: any, i: number) => (
         <SortableItem key={i} index={i} value={item} {...rest} />
       ))}

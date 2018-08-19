@@ -6,7 +6,7 @@ import { getTasklists } from '../../reducers/tasklists';
 import { Loader } from 'semantic-ui-react';
 import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as sidebarActions from '../../actions/sidebarActions';
 
 interface TasklistsContainerProps {
@@ -37,11 +37,6 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
 
     if (tasklistsState.isFetching) {
       return <Loader active>Loading</Loader>;
-    }
-
-    // Dashboard に移譲する?
-    if (match.path === '/tasklists' && tasklists.length > 0) {
-      return <Redirect to={`/tasklists/${tasklists[0].id}`} />;
     }
 
     return (

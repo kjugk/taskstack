@@ -8,17 +8,34 @@ import * as types from '../../types';
 import * as userActions from '../../actions/userActions';
 import { Loader } from 'semantic-ui-react';
 
-interface AppContainerProps {
+interface Props {
   user: types.UserState;
   verifyUser(): any;
 }
 
-class AppContainer extends React.Component<AppContainerProps> {
+interface State {
+  hasError: boolean;
+}
+
+class AppContainer extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
   componentDidMount() {
     this.props.verifyUser();
   }
 
+  componentDidCatch(error: any, info: any) {
+    this.setState(() => ({ hasError: true }));
+  }
+
   render() {
+    if (this.state.hasError) {
+      return <div>Sorry, Something went wrong.</div>;
+    }
+
     if (!this.props.user.initialized) {
       return <Loader />;
     }

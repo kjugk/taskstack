@@ -33,10 +33,17 @@ class TasksContainer extends React.Component<TasksContainerProps> {
     this.handleOnItemClick = this.handleOnItemClick.bind(this);
   }
 
+  componentDidMount() {
+    const { tasklist, tasksState, fetchTasks } = this.props;
+    if (!tasklist) return;
+    if (!tasklist.taskLoaded && !tasksState.isFetching) {
+      fetchTasks(tasklist.id);
+    }
+  }
+
   componentDidUpdate() {
     const { tasklist, tasksState, fetchTasks } = this.props;
     if (!tasklist) return;
-
     if (!tasklist.taskLoaded && !tasksState.isFetching) {
       fetchTasks(tasklist.id);
     }

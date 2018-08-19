@@ -33,7 +33,6 @@ interface Props {
   onSignOutClick(): any;
 }
 
-// reducer に移そうかな?
 interface State {
   openMenu: boolean;
 }
