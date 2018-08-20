@@ -20,7 +20,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         isFetching: true
       };
 
-    case getType(taskActions.setTasks):
+    case getType(taskActions.fetchTasksSuccess):
       return {
         ...state,
         isFetching: false,
@@ -30,7 +30,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.setCreatedTask):
+    case getType(taskActions.createSuccess):
       return {
         ...state,
         tasksById: {
@@ -39,7 +39,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.setUpdatedTask):
+    case getType(taskActions.updateSuccess):
       return {
         ...state,
         tasksById: {

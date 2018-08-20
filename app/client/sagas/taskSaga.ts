@@ -21,7 +21,9 @@ export default function* taskSaga() {
     const normalized = normalize(res.data, { tasks: [tasks] });
 
     yield put(tasklistActions.setTaskLoadedFlag(action.payload.tasklistId));
-    yield put(taskActions.setTasks(action.payload.tasklistId, normalized.entities.tasks || {}));
+    yield put(
+      taskActions.fetchTasksSuccess(action.payload.tasklistId, normalized.entities.tasks || {})
+    );
   }
 
   /**
@@ -35,7 +37,7 @@ export default function* taskSaga() {
     const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
     const normalized = normalize(res.data, { task });
 
-    yield put(taskActions.setCreatedTask(normalized.entities.task || {}));
+    yield put(taskActions.createSuccess(normalized.entities.task || {}));
     yield put(tasklistActions.setTaskIds(action.payload.tasklistId, res.data.taskIds));
     yield put(tasklistActions.setTaskCount(action.payload.tasklistId, res.data.taskCount));
     yield put(taskCreateFormActions.clear());
@@ -46,11 +48,11 @@ export default function* taskSaga() {
    * @param action
    */
   function* updateTask(action: TaskAction) {
-    if (!isActionOf(taskActions.updateTask, action)) return;
+    if (!isActionOf(taskActions.update, action)) return;
 
     const res = yield call(api.updateTask, action.payload.id, action.payload.params);
 
-    yield put(taskActions.setUpdatedTask(res.data.task));
+    yield put(taskActions.updateSuccess(res.data.task));
     yield put(tasklistActions.setTaskCount(res.data.task.tasklistId, res.data.taskCount));
   }
 
@@ -59,7 +61,7 @@ export default function* taskSaga() {
    * @param action
    */
   function* destroyTask(action: TaskAction) {
-    if (!isActionOf(taskActions.destroyTask, action)) return;
+    if (!isActionOf(taskActions.destroy, action)) return;
 
     const res = yield call(api.destroyTask, action.payload.id);
 
@@ -84,8 +86,8 @@ export default function* taskSaga() {
   yield all([
     takeLatest(getType(taskActions.fetchTasks), fetchTasks),
     takeLatest(getType(taskCreateFormActions.submit), createTask),
-    takeLatest(getType(taskActions.updateTask), updateTask),
-    takeLatest(getType(taskActions.destroyTask), destroyTask),
+    takeLatest(getType(taskActions.update), updateTask),
+    takeLatest(getType(taskActions.destroy), destroyTask),
     takeLatest(getType(taskActions.updateTaskSort), updateSort)
   ]);
 }

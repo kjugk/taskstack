@@ -76,8 +76,8 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      destroyTask: (id: number) => taskActions.destroyTask(id),
-      updateTask: (id: number, params: any) => taskActions.updateTask(id, params)
+      destroyTask: (id: number) => taskActions.destroy(id),
+      updateTask: (id: number, params: any) => taskActions.update(id, params)
     },
     dispatch
   );

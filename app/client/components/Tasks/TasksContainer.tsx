@@ -116,7 +116,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchTasks: (tasklistId: number) => taskActions.fetchTasks(tasklistId),
-      updateTask: (id: number, params: any) => taskActions.updateTask(id, params),
+      updateTask: (id: number, params: any) => taskActions.update(id, params),
       updateSort: (tasklistId: number, taskIds: number[]) =>
         taskActions.updateTaskSort(tasklistId, taskIds),
       destroyCompletedTasks: (tasklistId: number, taskIds: number[]) =>
