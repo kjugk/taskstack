@@ -12,7 +12,7 @@ export default function* userSaga() {
     try {
       const res = yield call(api.verifyUser);
 
-      yield put(userActions.setVerifiedUser(res.data.user));
+      yield put(userActions.verifySuccess(res.data.user));
       yield delay(500);
       yield put(messageActions.setMessage('ログインしました'));
     } catch (e) {

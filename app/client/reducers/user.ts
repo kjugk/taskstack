@@ -11,7 +11,7 @@ const initialState = {
 
 const user = (state = initialState, action: UserAction) => {
   switch (action.type) {
-    case getType(userActions.setVerifiedUser):
+    case getType(userActions.verifySuccess):
       return {
         ...state,
         initialized: true,
@@ -19,16 +19,16 @@ const user = (state = initialState, action: UserAction) => {
         ...action.payload.user
       };
 
-    case getType(userActions.signOutSuccess):
-      return {
-        ...state,
-        signedIn: false
-      };
-
     case getType(userActions.verifyFailure):
       return {
         ...state,
         initialized: true
+      };
+
+    case getType(userActions.signOutSuccess):
+      return {
+        ...state,
+        signedIn: false
       };
 
     default:
