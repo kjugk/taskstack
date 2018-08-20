@@ -43,7 +43,7 @@ export default function* tasklistSaga() {
       );
       yield put(sidebarActions.close());
       yield put(createFormActions.complete());
-      yield put(messageActions.setMessage('リストを作成しました。'));
+      yield put(messageActions.set('リストを作成しました。'));
     } catch (e) {
       // TODO error handrong
     }
@@ -62,7 +62,7 @@ export default function* tasklistSaga() {
       yield delay(1000);
       yield put(tasklistActions.setUpdatedTasklist(res.data.tasklist));
       yield put(editFormActions.complete());
-      yield put(messageActions.setMessage('リストを更新しました。'));
+      yield put(messageActions.set('リストを更新しました。'));
     } catch (e) {
       console.log(e);
     }
@@ -78,7 +78,7 @@ export default function* tasklistSaga() {
 
     yield delay(1000);
     yield put(tasklistActions.setDestroyedTasklistId(action.payload.id));
-    yield put(messageActions.setMessage('リストを削除しました。'));
+    yield put(messageActions.set('リストを削除しました。'));
   }
 
   function* destoryCompletedTasks(action: any) {
@@ -87,7 +87,7 @@ export default function* tasklistSaga() {
     yield delay(1000);
     yield put(tasklistActions.setUpdatedTasklist(res.data.tasklist));
     yield put(taskActions.removeDestroyedTaskIds(action.payload.taskIds));
-    yield put(messageActions.setMessage(`${action.payload.taskIds.length}件削除しました。`));
+    yield put(messageActions.set(`${action.payload.taskIds.length}件削除しました。`));
   }
 
   yield all([

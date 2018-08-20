@@ -62,7 +62,7 @@ const mapStateToProps = (state: types.RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      setMessage: (message: string) => messageActions.setMessage(message)
+      setMessage: (message: string) => messageActions.set(message)
     },
     dispatch
   );

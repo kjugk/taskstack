@@ -14,7 +14,7 @@ export default function* userSaga() {
 
       yield put(userActions.verifySuccess(res.data.user));
       yield delay(500);
-      yield put(messageActions.setMessage('ログインしました'));
+      yield put(messageActions.set('ログインしました'));
     } catch (e) {
       yield put(userActions.verifyFailure());
     }
@@ -23,7 +23,7 @@ export default function* userSaga() {
   function* signOut(action: UserAction) {
     Cookies.remove('token');
     yield put(userActions.signOutSuccess());
-    yield put(messageActions.setMessage('ログアウトしました'));
+    yield put(messageActions.set('ログアウトしました'));
   }
 
   yield all([takeLatest(getType(userActions.verify), verify)]);

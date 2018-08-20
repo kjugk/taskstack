@@ -8,7 +8,7 @@ const initialState = {
 
 const message = (state = initialState, action: MessageAction) => {
   switch (action.type) {
-    case getType(messages.setMessage):
+    case getType(messages.set):
       return {
         ...state,
         message: action.payload

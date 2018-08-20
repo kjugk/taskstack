@@ -66,7 +66,7 @@ export default function* taskSaga() {
     yield put(taskActions.removeDestroyedTaskId(action.payload.id));
     yield put(tasklistActions.setTaskIds(res.data.task.tasklistId, res.data.taskIds));
     yield put(tasklistActions.setTaskCount(res.data.task.tasklistId, res.data.taskCount));
-    yield put(messageActions.setMessage('削除しました'));
+    yield put(messageActions.set('削除しました'));
   }
 
   /**
