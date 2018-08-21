@@ -51,13 +51,13 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.removeDestroyedTaskId):
+    case getType(taskActions.destroySuccess):
       return {
         ...state,
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
-    case getType(taskActions.removeDestroyedTaskIds):
+    case getType(taskActions.destroyCompletedTasksSuccess):
       return {
         ...state,
         isUpdating: false,

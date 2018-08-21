@@ -24,15 +24,17 @@ export const destroy = createAction('task/DESTROY', (resolve) => {
   return (id: number) => resolve({ id });
 });
 
-export const removeDestroyedTaskId = createAction('task/REMOVE_DESTROYED_TASK_ID', (resolve) => {
+export const destroySuccess = createAction('task/DESTROY_SUCCESS', (resolve) => {
   return (id: number) => resolve({ id });
 });
 
-// TODO: このメソッドの置き場所を考える
 export const updateTaskSort = createAction('task/UPDATE_TASK_SORT', (resolve) => {
   return (tasklistId: number, taskIds: number[]) => resolve({ tasklistId, taskIds });
 });
 
-export const removeDestroyedTaskIds = createAction('task/REMOVE_DESTROYED_TASK_IDS', (resolve) => {
-  return (taskIds: number[]) => resolve({ taskIds });
-});
+export const destroyCompletedTasksSuccess = createAction(
+  'task/DESTROY_COMPLETED_TASKS_SUCCESS',
+  (resolve) => {
+    return (taskIds: number[]) => resolve({ taskIds });
+  }
+);

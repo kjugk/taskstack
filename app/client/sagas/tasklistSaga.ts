@@ -22,7 +22,10 @@ export default function* tasklistSaga() {
     const normalized = normalize(res.data, { tasklists: [tasklist] });
 
     yield put(
-      tasklistActions.setTasklists(normalized.result.tasklists, normalized.entities.tasklists || {})
+      tasklistActions.fetchTasklistsSuccess(
+        normalized.result.tasklists,
+        normalized.entities.tasklists || {}
+      )
     );
   }
 
@@ -39,7 +42,7 @@ export default function* tasklistSaga() {
 
       yield delay(1000);
       yield put(
-        tasklistActions.setCreatedTasklist(normalized.result.tasklist, normalized.entities.tasklist)
+        tasklistActions.createSuccess(normalized.result.tasklist, normalized.entities.tasklist)
       );
       yield put(sidebarActions.close());
       yield put(createFormActions.complete());
@@ -60,7 +63,7 @@ export default function* tasklistSaga() {
       const res = yield call(api.updateTasklist, id, params);
 
       yield delay(1000);
-      yield put(tasklistActions.setUpdatedTasklist(res.data.tasklist));
+      yield put(tasklistActions.updateSuccess(res.data.tasklist));
       yield put(editFormActions.complete());
       yield put(messageActions.set('リストを更新しました。'));
     } catch (e) {
@@ -75,9 +78,8 @@ export default function* tasklistSaga() {
     if (!isActionOf(editFormActions.destroyTasklist, action)) return;
 
     yield call(api.destroyTasklist, action.payload.id);
-
     yield delay(1000);
-    yield put(tasklistActions.setDestroyedTasklistId(action.payload.id));
+    yield put(tasklistActions.destroySuccess(action.payload.id));
     yield put(messageActions.set('リストを削除しました。'));
   }
 
@@ -85,8 +87,8 @@ export default function* tasklistSaga() {
     const res = yield call(api.destoryCompletedTasks, action.payload.tasklistId);
 
     yield delay(1000);
-    yield put(tasklistActions.setUpdatedTasklist(res.data.tasklist));
-    yield put(taskActions.removeDestroyedTaskIds(action.payload.taskIds));
+    yield put(tasklistActions.updateSuccess(res.data.tasklist));
+    yield put(taskActions.destroyCompletedTasksSuccess(action.payload.taskIds));
     yield put(messageActions.set(`${action.payload.taskIds.length}件削除しました。`));
   }
 

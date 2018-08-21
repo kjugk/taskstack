@@ -65,7 +65,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchTasklists: () => tasklistActions.fetchTasklists(),
-      editTasklist: (tasklist: any) => tasklistActions.editTasklist(tasklist),
+      editTasklist: (tasklist: any) => tasklistActions.edit(tasklist),
       closeMenu: () => sidebarActions.close()
     },
     dispatch
