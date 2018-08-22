@@ -28,9 +28,10 @@ const MobileSidebar = styled<{ open: boolean }, any>('div')`
   height: 100%;
   background: #eee;
   z-index: 3;
+  will-change: transform;
   transform: translateX(-100%);
   transition: transform 0.25s linear;
-  ${(props) => props.open && 'transform: translate3D(0,0,0)'};
+  ${(props) => props.open && 'transform: translateX(0)'};
 `;
 
 const MobileOverlay = styled<{ open: boolean }, any>('div')`
@@ -42,6 +43,7 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
   z-index: 2;
   opacity: 0;
   width: 0;
+  will-change: opacity;
   transition: opacity 0.2s ease;
   ${(props) => props.open && 'opacity: 1; width: 100%;'};
 `;

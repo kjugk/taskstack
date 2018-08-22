@@ -6,7 +6,7 @@ const Container = styled<{ open: boolean }, any>(List)`
   margin: 0 !important;
   max-height: 0;
   overflow-y: hidden;
-  transition: all 0.2s linear;
+  transition: max-height 0.2s linear;
   ${(props) => props.open && 'max-height: 100px'};
 `;
 
