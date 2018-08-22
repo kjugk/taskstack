@@ -9,6 +9,9 @@ import { getType, isActionOf } from 'typesafe-actions';
 import { TaskCreateFormAction } from '../reducers/task/createForm';
 import { TaskAction } from '../reducers/tasks';
 
+const tasksSchema = new schema.Entity('tasks');
+const taskSchema = new schema.Entity('task');
+
 export default function* taskSaga() {
   /**
    * task のリストを取得する。
@@ -16,14 +19,12 @@ export default function* taskSaga() {
   function* fetchTasks(action: TaskAction) {
     if (!isActionOf(taskActions.fetchTasks, action)) return;
 
-    const tasks = new schema.Entity('tasks');
-    const res = yield call(api.fetchTasks, action.payload.tasklistId);
-    const normalized = normalize(res.data, { tasks: [tasks] });
+    const { tasklistId } = action.payload;
+    const { data } = yield call(api.fetchTasks, tasklistId);
+    const { entities } = normalize(data, { tasks: [tasksSchema] });
 
-    yield put(tasklistActions.fetchTasksSuccess(action.payload.tasklistId));
-    yield put(
-      taskActions.fetchTasksSuccess(action.payload.tasklistId, normalized.entities.tasks || {})
-    );
+    yield put(tasklistActions.fetchTasksSuccess(tasklistId));
+    yield put(taskActions.fetchTasksSuccess(tasklistId, entities.tasks || {}));
   }
 
   /**
@@ -33,13 +34,13 @@ export default function* taskSaga() {
   function* createTask(action: TaskCreateFormAction) {
     if (!isActionOf(taskCreateFormActions.submit, action)) return;
 
-    const task = new schema.Entity('task');
-    const res = yield call(api.createTask, action.payload.tasklistId, action.payload.params);
-    const normalized = normalize(res.data, { task });
+    const { tasklistId, params } = action.payload;
+    const { data } = yield call(api.createTask, tasklistId, params);
+    const { entities } = normalize(data, { task: taskSchema });
 
-    yield put(taskActions.createSuccess(normalized.entities.task || {}));
-    yield put(tasklistActions.updateTaskSortSuccess(action.payload.tasklistId, res.data.taskIds));
-    yield put(tasklistActions.updateTaskCount(action.payload.tasklistId, res.data.taskCount));
+    yield put(taskActions.createSuccess(entities.task || {}));
+    yield put(tasklistActions.updateTaskSortSuccess(tasklistId, data.taskIds));
+    yield put(tasklistActions.updateTaskCount(tasklistId, data.taskCount));
     yield put(taskCreateFormActions.clear());
   }
 
@@ -50,10 +51,11 @@ export default function* taskSaga() {
   function* updateTask(action: TaskAction) {
     if (!isActionOf(taskActions.update, action)) return;
 
-    const res = yield call(api.updateTask, action.payload.id, action.payload.params);
+    const { id, params } = action.payload;
+    const { data } = yield call(api.updateTask, id, params);
 
-    yield put(taskActions.updateSuccess(res.data.task));
-    yield put(tasklistActions.updateTaskCount(res.data.task.tasklistId, res.data.taskCount));
+    yield put(taskActions.updateSuccess(data.task));
+    yield put(tasklistActions.updateTaskCount(data.task.tasklistId, data.taskCount));
   }
 
   /**
@@ -63,11 +65,11 @@ export default function* taskSaga() {
   function* destroyTask(action: TaskAction) {
     if (!isActionOf(taskActions.destroy, action)) return;
 
-    const res = yield call(api.destroyTask, action.payload.id);
+    const { data } = yield call(api.destroyTask, action.payload.id);
 
     yield put(taskActions.destroySuccess(action.payload.id));
-    yield put(tasklistActions.updateTaskSortSuccess(res.data.task.tasklistId, res.data.taskIds));
-    yield put(tasklistActions.updateTaskCount(res.data.task.tasklistId, res.data.taskCount));
+    yield put(tasklistActions.updateTaskSortSuccess(data.task.tasklistId, data.taskIds));
+    yield put(tasklistActions.updateTaskCount(data.task.tasklistId, data.taskCount));
     yield put(messageActions.set('削除しました'));
   }
 
@@ -79,10 +81,10 @@ export default function* taskSaga() {
   function* updateSort(action: any) {
     if (!isActionOf(taskActions.updateTaskSort, action)) return;
 
-    api.updateTasklist(action.payload.tasklistId, { task_id_list: action.payload.taskIds });
-    yield put(
-      tasklistActions.updateTaskSortSuccess(action.payload.tasklistId, action.payload.taskIds)
-    );
+    const { tasklistId, taskIds } = action.payload;
+
+    api.updateTasklist(tasklistId, { task_id_list: taskIds });
+    yield put(tasklistActions.updateTaskSortSuccess(tasklistId, taskIds));
   }
 
   yield all([

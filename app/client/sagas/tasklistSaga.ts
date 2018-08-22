@@ -12,21 +12,18 @@ import { normalize, schema } from 'normalizr';
 import { TasklistCreateFormAction } from '../reducers/tasklist/createForm';
 import { TasklistEditFormAction } from '../reducers/tasklist/editForm';
 
+const tasklistsSchema = new schema.Entity('tasklists');
+const tasklistSchema = new schema.Entity('tasklist');
+
 export default function* tasklistSaga() {
   /**
    * tasklist のリストを取得する。
    */
   function* fetch() {
-    const tasklist = new schema.Entity('tasklists');
-    const res = yield call(api.fetchTasklists);
-    const normalized = normalize(res.data, { tasklists: [tasklist] });
+    const { data } = yield call(api.fetchTasklists);
+    const { result, entities } = normalize(data, { tasklists: [tasklistsSchema] });
 
-    yield put(
-      tasklistActions.fetchTasklistsSuccess(
-        normalized.result.tasklists,
-        normalized.entities.tasklists || {}
-      )
-    );
+    yield put(tasklistActions.fetchTasklistsSuccess(result.tasklists, entities.tasklists || {}));
   }
 
   /**
@@ -35,21 +32,14 @@ export default function* tasklistSaga() {
   function* create(action: TasklistCreateFormAction) {
     if (!isActionOf(createFormActions.submit, action)) return;
 
-    try {
-      const tasklist = new schema.Entity('tasklist');
-      const res = yield call(api.postTasklist, action.payload.params);
-      const normalized = normalize(res.data, { tasklist });
+    const { data } = yield call(api.postTasklist, action.payload.params);
+    const { result, entities } = normalize(data, { tasklist: tasklistSchema });
 
-      yield delay(1000);
-      yield put(
-        tasklistActions.createSuccess(normalized.result.tasklist, normalized.entities.tasklist)
-      );
-      yield put(sidebarActions.close());
-      yield put(createFormActions.complete());
-      yield put(messageActions.set('リストを作成しました。'));
-    } catch (e) {
-      // TODO error handrong
-    }
+    yield delay(1000);
+    yield put(tasklistActions.createSuccess(result.tasklist, entities.tasklist));
+    yield put(sidebarActions.close());
+    yield put(createFormActions.complete());
+    yield put(messageActions.set('リストを作成しました。'));
   }
 
   /**
@@ -58,17 +48,13 @@ export default function* tasklistSaga() {
   function* update(action: TasklistEditFormAction) {
     if (!isActionOf(editFormActions.submit, action)) return;
 
-    try {
-      const { id, params } = action.payload;
-      const res = yield call(api.updateTasklist, id, params);
+    const { id, params } = action.payload;
+    const { data } = yield call(api.updateTasklist, id, params);
 
-      yield delay(1000);
-      yield put(tasklistActions.updateSuccess(res.data.tasklist));
-      yield put(editFormActions.complete());
-      yield put(messageActions.set('リストを更新しました。'));
-    } catch (e) {
-      console.log(e);
-    }
+    yield delay(1000);
+    yield put(tasklistActions.updateSuccess(data.tasklist));
+    yield put(editFormActions.complete());
+    yield put(messageActions.set('リストを更新しました。'));
   }
 
   /**
@@ -77,19 +63,22 @@ export default function* tasklistSaga() {
   function* destroy(action: any) {
     if (!isActionOf(editFormActions.destroyTasklist, action)) return;
 
-    yield call(api.destroyTasklist, action.payload.id);
+    const { id } = action.payload;
+
     yield delay(1000);
-    yield put(tasklistActions.destroySuccess(action.payload.id));
+    yield call(api.destroyTasklist, id);
+    yield put(tasklistActions.destroySuccess(id));
     yield put(messageActions.set('リストを削除しました。'));
   }
 
   function* destoryCompletedTasks(action: any) {
-    const res = yield call(api.destoryCompletedTasks, action.payload.tasklistId);
+    const { data } = yield call(api.destoryCompletedTasks, action.payload.tasklistId);
+    const { taskIds } = action.payload;
 
     yield delay(1000);
-    yield put(tasklistActions.updateSuccess(res.data.tasklist));
-    yield put(taskActions.destroyCompletedTasksSuccess(action.payload.taskIds));
-    yield put(messageActions.set(`${action.payload.taskIds.length}件削除しました。`));
+    yield put(tasklistActions.updateSuccess(data.tasklist));
+    yield put(taskActions.destroyCompletedTasksSuccess(taskIds));
+    yield put(messageActions.set(`${taskIds.length}件削除しました。`));
   }
 
   yield all([
