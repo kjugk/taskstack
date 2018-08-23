@@ -22,6 +22,6 @@ class SessionsController < ApplicationController
       secure: Rails.env.production? ? true : false
     }
 
-    render 'dashboard/show'
+    render file: 'public/dist/index.html', status: 200, layout: false
   end
 end

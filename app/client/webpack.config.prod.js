@@ -6,7 +6,7 @@ const config = merge(baseConfig, {
   watch: false,
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '../stylesheets/[name].css',
+      filename: '[name].[contenthash].css',
       chunkFilename: '[id].css'
     })
   ],
