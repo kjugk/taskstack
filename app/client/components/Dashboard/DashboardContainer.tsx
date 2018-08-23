@@ -8,10 +8,10 @@ import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TasksContainer from '../tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistTitleContainer from '../TasklistTitle/TasklistTitleContainer';
-import { Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withRouter, Redirect } from 'react-router-dom';
 import { getTasklists } from '../../reducers/tasklists';
+import { app } from '../../reducers/app';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -34,14 +34,19 @@ const Right = styled.div`
 `;
 
 interface Props {
-  tasklists: types.TasklistState[];
+  app: types.AppState;
   user: types.UserState;
+  tasklists: types.TasklistState[];
   match: any;
 }
 
 class DashboardContainer extends React.Component<Props> {
   render() {
-    const { user, match, tasklists } = this.props;
+    const { app, user, match, tasklists } = this.props;
+
+    if (app.hasUnkownError) {
+      return <Redirect to="/unknown_error" />;
+    }
 
     if (!user.signedIn) {
       return <Redirect to="/" />;
@@ -76,6 +81,7 @@ class DashboardContainer extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => ({
+  app: state.app,
   user: state.user,
   tasklists: getTasklists(state)
 });

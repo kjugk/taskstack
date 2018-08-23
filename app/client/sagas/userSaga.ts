@@ -13,8 +13,6 @@ export default function* userSaga() {
       const { data } = yield call(api.verifyUser);
 
       yield put(userActions.verifySuccess(data.user));
-      yield delay(500);
-      yield put(messageActions.set('ログインしました'));
     } catch (e) {
       yield put(userActions.verifyFailure());
     }
