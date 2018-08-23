@@ -1,7 +1,6 @@
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getTasklist } from './tasklists';
-import cloneDeep from 'lodash/cloneDeep';
 import { getType, ActionType } from 'typesafe-actions';
 import * as taskActions from '../actions/taskActions';
 export type TaskAction = ActionType<typeof taskActions>;
@@ -71,14 +70,14 @@ export const tasks = (state = initialState, action: TaskAction) => {
 
 // helpers
 const deleteTask = (tasksById: any, id: number) => {
-  const cloned = cloneDeep(tasksById);
+  const cloned = Object.assign({}, tasksById);
   delete cloned[id];
 
   return cloned;
 };
 
 const deleteTasks = (tasksById: any, ids: number[]) => {
-  const cloned = cloneDeep(tasksById);
+  const cloned = Object.assign({}, tasksById);
   ids.forEach((id) => delete cloned[id]);
 
   return cloned;

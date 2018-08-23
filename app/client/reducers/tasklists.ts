@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep';
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getType, ActionType } from 'typesafe-actions';
@@ -107,7 +106,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
  * @param tasklistsById tasklist を格納している object
  */
 const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }) => {
-  const cloned = cloneDeep(tasklistsById);
+  const cloned = Object.assign({}, tasklistsById);
   delete cloned[id];
 
   return cloned;
