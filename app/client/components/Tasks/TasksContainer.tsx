@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
-import { Loader, Dimmer } from 'semantic-ui-react';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTasklist } from '../../reducers/tasklists';

@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
 import { TasklistTitleCount } from './TasklistTitleCount/TasklistTitleCount';
-import { Responsive, Icon } from 'semantic-ui-react';
+import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 
 const Wrapper = styled.div`
   display: flex;

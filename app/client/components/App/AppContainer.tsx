@@ -7,7 +7,7 @@ import UnknownErrorScreen from '../UnknownErrorScreen/UnknownErrorScreen';
 import { connect } from 'react-redux';
 import * as types from '../../types';
 import * as userActions from '../../actions/userActions';
-import { Loader } from 'semantic-ui-react';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
 
 interface Props {
   user: types.UserState;

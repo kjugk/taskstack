@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Container } from 'semantic-ui-react';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 
 const Brand = styled.span`
   font-weight: bold;

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
-import { Form, TextArea, Message } from 'semantic-ui-react';
+import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 
 const HeaderContainer = styled.div`
   margin-bottom: 1rem;
@@ -84,7 +85,7 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     if (this.state.isEditing) {
       return (
         <Form>
-          <TextArea
+          <Form.TextArea
             autoHeight
             placeholder="メモを追加"
             ref={(r: any) => (this.input = r)}

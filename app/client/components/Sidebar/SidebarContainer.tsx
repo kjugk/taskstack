@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import { Responsive } from 'semantic-ui-react';
+import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
 import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';

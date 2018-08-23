@@ -11,7 +11,6 @@ import TasklistTitleContainer from '../TasklistTitle/TasklistTitleContainer';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklists';
-import { app } from '../../reducers/app';
 
 const DashBoard = styled.div`
   height: 100%;

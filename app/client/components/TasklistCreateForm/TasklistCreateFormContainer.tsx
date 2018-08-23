@@ -3,7 +3,10 @@ import * as types from '../../types';
 import * as formActions from '../../actions/tasklistCreateFormActions';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Modal, Loader, Dimmer, Transition } from 'semantic-ui-react';
+import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer';
+import Transition from 'semantic-ui-react/dist/commonjs/modules/Transition/Transition';
 import { TasklistForm } from '../TasklistForm/TasklistForm';
 import { Redirect, withRouter } from 'react-router-dom';
 

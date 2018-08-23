@@ -1,9 +1,8 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const distPath = path.resolve(__dirname, '../../public/dist');
-
 const pathToClean = [distPath];
 
 let config = {
@@ -25,8 +24,7 @@ let config = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: /node_modules/
+        loader: 'awesome-typescript-loader'
       },
       {
         test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
@@ -54,6 +52,9 @@ let config = {
     ]
   },
   plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerPort: 8888
+    }),
     new CleanWebpackPlugin(pathToClean, {
       allowExternal: true
     }),

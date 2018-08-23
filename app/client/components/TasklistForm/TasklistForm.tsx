@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import styled from 'styled-components';
 
 interface TasklistFormProps {

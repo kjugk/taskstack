@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { List } from 'semantic-ui-react';
+import List from 'semantic-ui-react/dist/commonjs/elements/List';
 
 const Container = styled<{ open: boolean }, any>(List)`
   margin: 0 !important;

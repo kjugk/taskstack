@@ -3,7 +3,7 @@ import * as types from '../../types';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklists';
-import { Loader } from 'semantic-ui-react';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
 import { Tasklists } from './Tasklists';
 import * as tasklistActions from '../../actions/tasklistActions';
 import { withRouter } from 'react-router-dom';

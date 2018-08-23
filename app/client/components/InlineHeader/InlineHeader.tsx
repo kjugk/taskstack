@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
 import key from 'keymaster';
-import { Image, Icon } from 'semantic-ui-react';
+import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import { InlineHeaderUserMenu } from './InlineHeaderUserMenu/InlineHeaderUserMenu';
 
 const Wrapper = styled.div`
