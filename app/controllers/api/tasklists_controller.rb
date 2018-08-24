@@ -1,7 +1,6 @@
 class Api::TasklistsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  # TODO: verify token and send error
-  # TODO model authorization
+  before_action :verify_jwt_token
 
   def index
     @tasklists = current_user.tasklists.order("created_at DESC")
@@ -21,6 +20,7 @@ class Api::TasklistsController < ApplicationController
 
   def update
     @tasklist = Tasklist.find(params[:id])
+    authorize! :manage, @tasklist
 
     if @tasklist.update(tasklist_params)
       render 'api/tasklists/show', status: :ok
@@ -32,6 +32,7 @@ class Api::TasklistsController < ApplicationController
 
   def destroy
     @tasklist = Tasklist.find(params[:id])
+    authorize! :manage, @tasklist
 
     if @tasklist.destroy
       head :ok
@@ -43,6 +44,7 @@ class Api::TasklistsController < ApplicationController
 
   def destory_completed_tasks
     @tasklist = Tasklist.find(params[:tasklist_id])
+    authorize! :manage, @tasklist
 
     if @tasklist.destroy_completed_tasks
       render 'api/tasklists/show', status: :ok
