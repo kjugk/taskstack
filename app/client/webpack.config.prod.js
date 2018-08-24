@@ -1,12 +1,16 @@
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config.base').config;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const config = merge(baseConfig, {
   watch: false,
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
+    }),
+    new CompressionPlugin({
+      test: /\.(css)|(js)$/
     })
   ],
   module: {

@@ -15,5 +15,8 @@ export default function* rootSaga() {
     // 予期しないエラーが発生した
     // TODO: バグトラックにエラー送信
     yield put(appActions.notifyUnknownError());
+
+    // 復帰できるエラーなら、sagaを再起動する
+    yield call(forkAllSagas);
   }
 }
