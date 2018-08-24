@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
+import TextArea from 'semantic-ui-react/dist/commonjs/collections/Form/FormTextArea';
+import Ref from 'semantic-ui-react/dist/commonjs/addons/Ref';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 
 const HeaderContainer = styled.div`
@@ -67,7 +69,10 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
 
     if (!prevState.isEditing && this.state.isEditing) {
       if (this.input) {
-        this.input.focus();
+        const wrapper = document.querySelector('.wrapper');
+        if (wrapper) {
+          (wrapper.children[0] as HTMLInputElement).focus();
+        }
       }
     }
   }
@@ -85,20 +90,22 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     if (this.state.isEditing) {
       return (
         <Form>
-          <Form.TextArea
-            autoHeight
-            placeholder="メモを追加"
-            ref={(r: any) => (this.input = r)}
-            value={this.state.memo}
-            onBlur={this.handleSubmit}
-            onChange={this.handleInputChange}
-            onKeyDown={(e: any) => {
-              if (e.keyCode === 27) {
-                this.handleCancel();
-                return;
-              }
-            }}
-          />
+          <Ref innerRef={(node) => (this.input = node)}>
+            <TextArea
+              autoHeight
+              className="wrapper"
+              placeholder="メモを追加"
+              value={this.state.memo}
+              onBlur={this.handleSubmit}
+              onChange={this.handleInputChange}
+              onKeyDown={(e: any) => {
+                if (e.keyCode === 27) {
+                  this.handleCancel();
+                  return;
+                }
+              }}
+            />
+          </Ref>
         </Form>
       );
     } else {
