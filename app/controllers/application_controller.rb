@@ -41,10 +41,13 @@ class ApplicationController < ActionController::Base
       @token ||= JWT.decode(
         jwt_bearer_token,
         Rails.application.credentials[:secret_key_base],
+        true,
         algorithm: 'HS256'
       )
       @token[0]
     rescue JWT::DecodeError => e
+      nil
+    rescue JWT::ExpiredSignature => e
       nil
     end
   end

@@ -12,11 +12,20 @@ export default function* rootSaga() {
   try {
     yield call(forkAllSagas);
   } catch (e) {
-    // 予期しないエラーが発生した
+    // 予期しないエラーが発生した場合
     // TODO: バグトラックにエラー送信
-    yield put(appActions.notifyUnknownError());
+    const { response } = e;
 
-    // 復帰できるエラーなら、sagaを再起動する
+    if (response) {
+      switch (response.status) {
+        case 401:
+        case 403:
+          location.href = '/';
+          return;
+      }
+    }
+
+    yield put(appActions.notifyUnknownError());
     yield call(forkAllSagas);
   }
 }

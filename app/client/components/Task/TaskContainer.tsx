@@ -44,6 +44,7 @@ class TaskContainer extends React.Component<Props, State> {
   render() {
     const { task, tasklist, updateTask, destroyTask, history } = this.props;
 
+    if (!tasklist) return null;
     if (!task) return <Redirect to={`/tasklists/${tasklist.id}`} />;
 
     return (
