@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
-import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
+import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import TextArea from 'semantic-ui-react/dist/commonjs/collections/Form/FormTextArea';
 import Ref from 'semantic-ui-react/dist/commonjs/addons/Ref';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
