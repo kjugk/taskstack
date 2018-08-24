@@ -1,4 +1,5 @@
 export interface RootState {
+  app: AppState;
   user: UserState;
   tasklists: TasklistsState;
   tasklistCreateForm: TasklistCreateFormState;
@@ -7,6 +8,10 @@ export interface RootState {
   taskCreateForm: TaskCreateFormState;
   message: MessageState;
   sidebar: SidebarState;
+}
+
+export interface AppState {
+  hasUnkownError: boolean;
 }
 
 export interface UserState {

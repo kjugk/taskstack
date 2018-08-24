@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import { Segment } from 'semantic-ui-react';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
 import { TasksListItem } from '../TasksListItem/TasksListItem';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 

@@ -11,17 +11,15 @@ class SessionsController < ApplicationController
       )
     end
 
-    # jwt token を生成して、response に 含める
-    # TODO expiration date を作る
-    issued_at = Time.zone.now
+    exp = Time.now.to_i + 10 * 24 * 3600
     key = Rails.application.credentials[:secret_key_base]
-    token = JWT.encode({ id: user.id, iat: issued_at.to_i }, key, 'HS256')
+    token = JWT.encode({ id: user.id, exp: exp }, key, 'HS256')
 
     cookies[:token] = {
       value: token,
-      secure: Rails.env.production? ? true : false
+      secure: Rails.env.production? ? false : false
     }
 
-    render 'dashboard/show'
+    render file: 'public/dist/index.html', status: 200, layout: false
   end
 end

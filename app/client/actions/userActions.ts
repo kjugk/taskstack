@@ -1,11 +1,10 @@
 import { createAction } from 'typesafe-actions';
 
-export const verify = createAction('user/VERIFY', (resolve) => {
+export const verify = createAction('user/VERIFY_START', (resolve) => {
   return () => resolve();
 });
 
-// TODO: define entity
-export const setVerifiedUser = createAction('user/SET_VERIFIED_USER', (resolve) => {
+export const verifySuccess = createAction('user/VERIFY_SUCCESS', (resolve) => {
   return (user: any) => resolve({ user });
 });
 
@@ -13,7 +12,7 @@ export const verifyFailure = createAction('user/VERIFY_FAILURE', (resolve) => {
   return () => resolve();
 });
 
-export const signOut = createAction('user/SIGN_OUT', (resolve) => {
+export const signOut = createAction('user/SIGN_OUT_START', (resolve) => {
   return () => resolve();
 });
 

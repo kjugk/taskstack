@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Container, Button, Grid } from 'semantic-ui-react';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 
 const Hero = styled.div`
   color: #f5f5f5 !important;

@@ -1,10 +1,15 @@
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const distPath = path.resolve(__dirname, '../../public/dist');
+const pathToClean = [distPath];
 
 let config = {
   entry: path.resolve(__dirname, './index.tsx'),
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, '../assets/javascripts/')
+    filename: '[name].[contenthash].js',
+    publicPath: '/dist',
+    path: distPath
   },
 
   resolve: {
@@ -18,34 +23,29 @@ let config = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: /node_modules/
+        loader: 'awesome-typescript-loader'
       },
       {
         test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
         loader: 'file-loader',
         options: {
-          outputPath: '../../../public/fonts', // font ファイルの配置バス
-          publicPath: (path) => '/fonts/' + path, // css が参照するパス
+          outputPath: './fonts',
+          publicPath: (path) => '/dist/fonts/' + path,
           name: '[name].[hash:8].[ext]'
         }
-      },
-      {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              limit: 10000,
-              outputPath: '../../../public',
-              publicPath: (path) => '/' + path,
-              name: '[name].[hash:8].[ext]'
-            }
-          }
-        ]
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin(pathToClean, {
+      allowExternal: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, './template/index.html'),
+      minify: true
+    })
+  ]
 };
 
 module.exports = {

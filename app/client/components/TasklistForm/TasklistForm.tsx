@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
+import FormField from 'semantic-ui-react/dist/commonjs/collections/Form/FormField';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import styled from 'styled-components';
 
 interface TasklistFormProps {
@@ -35,7 +37,7 @@ class TasklistForm extends React.Component<TasklistFormProps> {
           onSubmit();
         }}
       >
-        <Form.Field>
+        <FormField>
           <label>タイトル</label>
 
           <input
@@ -46,7 +48,7 @@ class TasklistForm extends React.Component<TasklistFormProps> {
               onTitleChange(e.target.value);
             }}
           />
-        </Form.Field>
+        </FormField>
 
         <ActionsContainer>
           <Button

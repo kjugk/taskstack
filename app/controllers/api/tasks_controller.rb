@@ -1,15 +1,19 @@
 class Api::TasksController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :verify_jwt_token
 
   def index
     tasklist = Tasklist.find(params[:tasklist_id])
+    authorize! :manage, tasklist
+
     @tasks = tasklist.tasks
   end
 
   def create
     @tasklist = Tasklist.find(params[:tasklist_id])
-    @task = Task.new(task_params.merge(user: current_user)) 
+    authorize! :manage, @tasklist
 
+    @task = Task.new(task_params.merge(user: current_user)) 
     @tasklist.transaction do 
       @task.tasklist = @tasklist
       @task.save!
@@ -20,8 +24,9 @@ class Api::TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @tasklist = @task.tasklist
+    authorize! :manage, @task
 
+    @tasklist = @task.tasklist
     if @task.update(task_params)
       render 'api/tasks/show'
     else
@@ -30,8 +35,9 @@ class Api::TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id])
-    @tasklist = @task.tasklist
+    authorize! :manage, @task
 
+    @tasklist = @task.tasklist
     @tasklist.transaction do
       @task.destroy!
       @tasklist.delete_task_id(@task.id)

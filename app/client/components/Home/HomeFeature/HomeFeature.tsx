@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { Container, Header, Icon, Card, Grid } from 'semantic-ui-react';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
+import Card from 'semantic-ui-react/dist/commonjs/views/Card';
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`

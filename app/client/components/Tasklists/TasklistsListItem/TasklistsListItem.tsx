@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import { Icon } from 'semantic-ui-react';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import styled from 'styled-components';
 
 const Container = styled<{ isSelecting: boolean }, any>('li')`

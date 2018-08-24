@@ -10,20 +10,18 @@ import { UserAction } from '../reducers/user';
 export default function* userSaga() {
   function* verify(action: UserAction) {
     try {
-      const res = yield call(api.verifyUser);
+      const { data } = yield call(api.verifyUser);
 
-      yield put(userActions.setVerifiedUser(res.data.user));
-      yield delay(500);
-      yield put(messageActions.setMessage('ログインしました'));
+      yield put(userActions.verifySuccess(data.user));
     } catch (e) {
       yield put(userActions.verifyFailure());
     }
   }
 
   function* signOut(action: UserAction) {
-    Cookies.remove('token');
+    Cookies.remove('token'); // TODO: helper に移す
     yield put(userActions.signOutSuccess());
-    yield put(messageActions.setMessage('ログアウトしました'));
+    yield put(messageActions.set('ログアウトしました'));
   }
 
   yield all([takeLatest(getType(userActions.verify), verify)]);

@@ -1,7 +1,6 @@
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getTasklist } from './tasklists';
-import _ from 'lodash';
 import { getType, ActionType } from 'typesafe-actions';
 import * as taskActions from '../actions/taskActions';
 export type TaskAction = ActionType<typeof taskActions>;
@@ -20,7 +19,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         isFetching: true
       };
 
-    case getType(taskActions.setTasks):
+    case getType(taskActions.fetchTasksSuccess):
       return {
         ...state,
         isFetching: false,
@@ -30,7 +29,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.setCreatedTask):
+    case getType(taskActions.createSuccess):
       return {
         ...state,
         tasksById: {
@@ -39,7 +38,7 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.setUpdatedTask):
+    case getType(taskActions.updateSuccess):
       return {
         ...state,
         tasksById: {
@@ -51,13 +50,13 @@ export const tasks = (state = initialState, action: TaskAction) => {
         }
       };
 
-    case getType(taskActions.removeDestroyedTaskId):
+    case getType(taskActions.destroySuccess):
       return {
         ...state,
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
-    case getType(taskActions.removeDestroyedTaskIds):
+    case getType(taskActions.destroyCompletedTasksSuccess):
       return {
         ...state,
         isUpdating: false,
@@ -71,14 +70,14 @@ export const tasks = (state = initialState, action: TaskAction) => {
 
 // helpers
 const deleteTask = (tasksById: any, id: number) => {
-  const cloned = _.cloneDeep(tasksById);
+  const cloned = Object.assign({}, tasksById);
   delete cloned[id];
 
   return cloned;
 };
 
 const deleteTasks = (tasksById: any, ids: number[]) => {
-  const cloned = _.cloneDeep(tasksById);
+  const cloned = Object.assign({}, tasksById);
   ids.forEach((id) => delete cloned[id]);
 
   return cloned;

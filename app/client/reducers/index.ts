@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { app } from './app';
 import { user } from './user';
 import { tasklists } from './tasklists';
 import { tasklistCreateForm } from './tasklist/createForm';
@@ -9,6 +10,7 @@ import { message } from './message';
 import { sidebar } from './sidebar';
 
 const rootReducer = combineReducers({
+  app,
   user,
   tasklists,
   tasklistCreateForm,

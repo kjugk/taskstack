@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
-import { Input, Icon } from 'semantic-ui-react';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import styled from 'styled-components';
 
 const Container = styled.div`

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
-import { Icon } from 'semantic-ui-react';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 
 const ItemContainer = styled<{ completed: boolean }, any>('div')`
   cursor: pointer;

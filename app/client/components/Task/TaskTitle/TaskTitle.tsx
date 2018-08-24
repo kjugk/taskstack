@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
-import { Input } from 'semantic-ui-react';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 
 const Title = styled<{ completed: boolean }, any>('h2')`
   font-size: 1.4rem;

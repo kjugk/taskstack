@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
-import { Loader, Dimmer } from 'semantic-ui-react';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTasklist } from '../../reducers/tasklists';
@@ -116,7 +117,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchTasks: (tasklistId: number) => taskActions.fetchTasks(tasklistId),
-      updateTask: (id: number, params: any) => taskActions.updateTask(id, params),
+      updateTask: (id: number, params: any) => taskActions.update(id, params),
       updateSort: (tasklistId: number, taskIds: number[]) =>
         taskActions.updateTaskSort(tasklistId, taskIds),
       destroyCompletedTasks: (tasklistId: number, taskIds: number[]) =>

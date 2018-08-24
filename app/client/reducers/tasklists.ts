@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import * as types from '../types';
 import { createSelector } from 'reselect';
 import { getType, ActionType } from 'typesafe-actions';
@@ -21,7 +20,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         isFetching: true
       };
 
-    case getType(tasklistActions.setTasklists):
+    case getType(tasklistActions.fetchTasklistsSuccess):
       return {
         ...state,
         ids: action.payload.ids,
@@ -30,7 +29,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         tasklistsById: action.payload.tasklistsById
       };
 
-    case getType(tasklistActions.setCreatedTasklist):
+    case getType(tasklistActions.createSuccess):
       return {
         ...state,
         ids: [action.payload.id, ...state.ids],
@@ -40,7 +39,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.setUpdatedTasklist):
+    case getType(tasklistActions.updateSuccess):
       return {
         ...state,
         tasklistsById: {
@@ -52,14 +51,14 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.setDestroyedTasklistId):
+    case getType(tasklistActions.destroySuccess):
       return {
         ...state,
         ids: state.ids.filter((id) => id !== action.payload.id),
         tasklistsById: destroyTasklistById(action.payload.id, state.tasklistsById)
       };
 
-    case getType(tasklistActions.setTaskIds):
+    case getType(tasklistActions.updateTaskSortSuccess):
       return {
         ...state,
         tasklistsById: {
@@ -71,7 +70,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.setTaskCount):
+    case getType(tasklistActions.updateTaskCount):
       return {
         ...state,
         tasklistsById: {
@@ -83,7 +82,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         }
       };
 
-    case getType(tasklistActions.setTaskLoadedFlag):
+    case getType(tasklistActions.fetchTasksSuccess):
       return {
         ...state,
         tasklistsById: {
@@ -107,7 +106,7 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
  * @param tasklistsById tasklist を格納している object
  */
 const destroyTasklistById = (id: number, tasklistsById: { [index: number]: any }) => {
-  const cloned = _.cloneDeep(tasklistsById);
+  const cloned = Object.assign({}, tasklistsById);
   delete cloned[id];
 
   return cloned;

@@ -3,10 +3,11 @@ import DashboardContainer from '../Dashboard/DashboardContainer';
 import MessageContainer from '../Message/MessageContainer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomeContainer from '../Home/HomeContainer';
+import UnknownErrorScreen from '../UnknownErrorScreen/UnknownErrorScreen';
 import { connect } from 'react-redux';
 import * as types from '../../types';
 import * as userActions from '../../actions/userActions';
-import { Loader } from 'semantic-ui-react';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
 
 interface Props {
   user: types.UserState;
@@ -28,6 +29,7 @@ class AppContainer extends React.Component<Props, State> {
   }
 
   componentDidCatch(error: any, info: any) {
+    // TODO: send error to bug track system.
     this.setState(() => ({ hasError: true }));
   }
 
@@ -47,6 +49,7 @@ class AppContainer extends React.Component<Props, State> {
             <Route exact path="/" component={HomeContainer} />
             <Route exact path="/tasklists" component={DashboardContainer} />
             <Route path="/tasklists/:tasklistId" component={DashboardContainer} />
+            <Route exact path="/unknown_error" component={UnknownErrorScreen} />
             <Route component={HomeContainer} />
           </Switch>
           <MessageContainer />

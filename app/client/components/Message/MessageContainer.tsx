@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as types from '../../types';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Message, Icon } from 'semantic-ui-react';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import styled from 'styled-components';
 import Transition from 'react-transition-group/Transition';
 import * as messageActions from '../../actions/messageActions';
@@ -62,7 +63,7 @@ const mapStateToProps = (state: types.RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      setMessage: (message: string) => messageActions.setMessage(message)
+      setMessage: (message: string) => messageActions.set(message)
     },
     dispatch
   );

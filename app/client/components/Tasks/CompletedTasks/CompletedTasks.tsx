@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import { Segment } from 'semantic-ui-react';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
 import { TasksListItem } from '../TasksListItem/TasksListItem';
-import { Button, Icon } from 'semantic-ui-react';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import styled from 'styled-components';
 
 const Chevron = styled<{ open: boolean }, any>('span')`
