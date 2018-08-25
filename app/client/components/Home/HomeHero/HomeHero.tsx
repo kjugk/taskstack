@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
+import png from '../../../images/samlpe@3x-min.png';
 
 const Hero = styled.div`
   color: #f5f5f5 !important;
@@ -40,7 +41,7 @@ const HomeHero: React.SFC = () => (
           </div>
         </Grid.Column>
         <Grid.Column width={7}>
-          <img src="/images/samlpe@3x-min.png" style={{ width: '100%' }} />
+          <img src={png} style={{ width: '100%' }} />
         </Grid.Column>
       </Grid>
     </Hero>

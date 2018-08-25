@@ -5,7 +5,7 @@ import SidebarContainer from '../Sidebar/SidebarContainer';
 import TasklistCreateFormContainer from '../TasklistCreateForm/TasklistCreateFormContainer';
 import TasklistEditFormContainer from '../TasklistEditForm/TasklistEditFormContainer';
 import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
-import TasksContainer from '../tasks/TasksContainer';
+import TasksContainer from '../Tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistTitleContainer from '../TasklistTitle/TasklistTitleContainer';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';

@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const Upper = styled.div`
-  background: ##2185d0;
+  background: #2185d0;
   background-image: linear-gradient(149deg, rgba(33, 133, 208, 1) 0%, rgba(63, 199, 204, 1) 100%);
 `;
 
