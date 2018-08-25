@@ -48,6 +48,7 @@ const Contents = styled.div`
 const ButtonContainer = styled.div`
   padding: 1rem;
   display: flex;
+  z-index: 100;
 `;
 
 interface Props {
