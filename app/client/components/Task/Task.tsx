@@ -12,7 +12,7 @@ const Container = styled<{ open: boolean }, any>('div')`
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  position: relative
+  position: relative;
   transform: translateX(100%);
   transition: all .2s;
   @media (min-width: 787px) {
