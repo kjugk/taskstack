@@ -8,9 +8,11 @@ class Api::UsersController < ApplicationController
       render json: {
         user: {
           name: current_user.name,
-          imageUrl: current_user.image_url
+          imageUrl: current_user.image_url,
+          newUser: current_user.new_user
         }
       }
+      current_user.update(new_user: false) if current_user.new_user?
     else
       head 400
     end

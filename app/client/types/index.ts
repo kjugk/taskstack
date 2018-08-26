@@ -19,6 +19,7 @@ export interface UserState {
   signedIn: boolean;
   name: string;
   imageUrl: string;
+  newUser: false;
 }
 
 export interface TasklistState {

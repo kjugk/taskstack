@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :google_uid
       t.string :image_url
+      t.boolean :new_user, default: true
 
       t.timestamps
     end
