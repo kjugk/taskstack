@@ -58,17 +58,18 @@ class TasklistEditFormContainer extends React.Component<Props, State> {
 
     return (
       <Transition
+        animation="fade down"
+        duration={180}
         visible={this.state.open}
-        duration={120}
-        animation="fade up"
         onHide={() => history.replace(`/tasklists/${tasklist.id}`)}
       >
         <Modal
-          open={true}
-          onClose={() => this.setState(() => ({ open: false }))}
+          centered={false}
           closeOnEscape={!formState.isSubmitting}
           closeOnDimmerClick={!formState.isSubmitting}
+          open={true}
           size="tiny"
+          onClose={() => this.setState(() => ({ open: false }))}
         >
           <Modal.Header>リストを編集</Modal.Header>
           <Modal.Content>
@@ -79,10 +80,10 @@ class TasklistEditFormContainer extends React.Component<Props, State> {
             )}
 
             <TasklistForm
+              canDestroy={true}
               title={formState.title}
               onTitleChange={changeTitle}
               onSubmit={this.handleSubmit}
-              canDestroy={true}
               onDestroyClick={() => {
                 if (window.confirm('本当に削除しますか?')) {
                   destroyTasklist(formState.id);
