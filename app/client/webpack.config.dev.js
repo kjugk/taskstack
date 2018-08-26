@@ -11,8 +11,8 @@ const config = merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.(scss|sass)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.(less)$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
