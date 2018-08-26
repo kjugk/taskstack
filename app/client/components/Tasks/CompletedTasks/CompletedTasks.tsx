@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
+import SegmentGroup from 'semantic-ui-react/dist/commonjs/elements/Segment/SegmentGroup';
 import { TasksListItem } from '../TasksListItem/TasksListItem';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
@@ -56,11 +56,11 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
 
         {this.state.openCompletedList && (
           <div>
-            <Segment.Group style={{ boxShadow: 'none' }}>
+            <SegmentGroup style={{ boxShadow: 'none' }}>
               {items.map((item: any, i: number) => {
                 return <TasksListItem key={i} item={item} {...rest} />;
               })}
-            </Segment.Group>
+            </SegmentGroup>
 
             <div style={{ textAlign: 'right' }}>
               <Button

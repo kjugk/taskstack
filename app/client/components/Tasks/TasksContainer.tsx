@@ -52,13 +52,13 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 
   render() {
     const {
-      tasksState,
-      tasklist,
       activeTasks,
       completedTasks,
+      tasklist,
+      tasksState,
+      destroyCompletedTasks,
       updateTask,
-      updateSort,
-      destroyCompletedTasks
+      updateSort
     } = this.props;
 
     if (!tasklist) return <TasksFallbackContent />;
@@ -74,8 +74,8 @@ class TasksContainer extends React.Component<TasksContainerProps> {
         </Dimmer>
 
         <ActiveTasks
-          tasklist={tasklist}
           items={activeTasks}
+          tasklist={tasklist}
           onCheckChange={updateTask}
           onItemClick={this.handleOnItemClick}
           onSort={(tasklistId: number, taskIds: number[]) => {

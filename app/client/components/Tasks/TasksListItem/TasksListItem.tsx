@@ -2,23 +2,20 @@ import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 
 const ItemContainer = styled<{ completed: boolean }, any>('div')`
+  align-items: center;
   cursor: pointer;
   display: flex;
-  align-items: center;
   flex-direction: row;
-  padding: 1rem;
-  border-bottom: 1px solid rgba(34, 36, 38, 0.15);
-  :last-child {
-    border-bottom: none;
-  }
+  padding: 1.2rem 1rem;
   ${(props) => props.completed && 'color: #ccc; background: #f5f5f5'};
 `;
 
 const TitleWrapper = styled<{ completed: boolean }, any>('span')`
-  margin-left: 0.8rem;
   flex: 1;
+  margin-left: 0.8rem;
   ${(props) => props.completed && 'text-decoration: line-through;'};
 `;
 
@@ -33,26 +30,28 @@ class TasksListItem extends React.Component<TaskListItemProps> {
     const { item, onItemClick, onCheckChange } = this.props;
 
     return (
-      <ItemContainer
-        completed={item.completed}
-        onClick={(e: any) => {
-          e.preventDefault();
-          e.stopPropagation();
-          onItemClick(item.id);
-        }}
-      >
-        <input
-          type="checkbox"
-          checked={item.completed}
-          onClick={(e) => e.stopPropagation()}
-          onChange={(e) => {
+      <Segment style={{ padding: 0 }}>
+        <ItemContainer
+          completed={item.completed}
+          onClick={(e: any) => {
+            e.preventDefault();
             e.stopPropagation();
-            onCheckChange(item.id, { completed: !item.completed });
+            onItemClick(item.id);
           }}
-        />
-        <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
-        {item.memo !== '' && <Icon name="pen square" color="grey" />}
-      </ItemContainer>
+        >
+          <input
+            type="checkbox"
+            checked={item.completed}
+            onClick={(e) => e.stopPropagation()}
+            onChange={(e) => {
+              e.stopPropagation();
+              onCheckChange(item.id, { completed: !item.completed });
+            }}
+          />
+          <TitleWrapper completed={item.completed}>{item.title}</TitleWrapper>
+          {item.memo !== '' && <Icon name="pen square" color="grey" />}
+        </ItemContainer>
+      </Segment>
     );
   }
 }
