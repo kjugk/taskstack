@@ -14,7 +14,10 @@ let config = {
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+    alias: {
+      '../../theme.config$': path.join(__dirname, 'my-semantic-theme/theme.config')
+    }
   },
 
   performance: { hints: false },

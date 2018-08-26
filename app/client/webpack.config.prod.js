@@ -16,8 +16,12 @@ const config = merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.(scss|sass)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        test: /\.(less)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { minimize: true } },
+          'less-loader'
+        ]
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
