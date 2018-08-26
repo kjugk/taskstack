@@ -8,6 +8,7 @@ import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TasksContainer from '../Tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
 import TasklistTitleContainer from '../TasklistTitle/TasklistTitleContainer';
+import { Tutorial } from '../Tutorial/Tutorial';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklists';
@@ -68,6 +69,8 @@ class DashboardContainer extends React.Component<Props> {
         <Right>
           <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
         </Right>
+
+        {user.newUser && <Tutorial />}
 
         <Switch>
           <Route exact path="/tasklists/new" component={TasklistCreateFormContainer} />

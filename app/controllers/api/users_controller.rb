@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
           newUser: current_user.new_user
         }
       }
-      current_user.update(new_user: false) if current_user.new_user?
+      # current_user.update(new_user: false) if current_user.new_user?
     else
       head 400
     end
