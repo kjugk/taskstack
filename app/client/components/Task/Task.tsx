@@ -14,10 +14,12 @@ const Container = styled<{ open: boolean }, any>('div')`
   overflow: hidden;
   position: relative;
   transform: translateX(100%);
-  transition: all .2s;
+  transition: all .25s linear;
+  will-change: transform;
+
   @media (min-width: 787px) {
     width: 0;
-    ${(props) => props.open && 'transform: translate3d(0, 0, 0); width: 360px;'};
+    ${(props) => props.open && 'transform: translateX(0); width: 360px;'};
   }
 
    @media (max-width: 786px) {
@@ -25,7 +27,7 @@ const Container = styled<{ open: boolean }, any>('div')`
      width: 100%;
      left: 0;
      top; 0;
-     ${(props) => props.open && 'transform: translate3d(0, 0, 0);'};
+     ${(props) => props.open && 'transform: translateX(0);'};
   }
 `;
 
@@ -48,7 +50,6 @@ const Contents = styled.div`
 const ButtonContainer = styled.div`
   padding: 1rem;
   display: flex;
-  z-index: 100;
 `;
 
 interface Props {

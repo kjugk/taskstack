@@ -47,17 +47,18 @@ class TasklistCreateFormContainer extends React.Component<Props, State> {
 
     return (
       <Transition
+        animation="fade down"
+        duration={180}
         visible={this.state.open}
-        animation="fade up"
-        duration={120}
         onHide={() => history.goBack()}
       >
         <Modal
-          open={true}
-          onClose={() => this.setState(() => ({ open: false }))}
+          centered={false}
           closeOnEscape={!formState.isSubmitting}
           closeOnDimmerClick={!formState.isSubmitting}
+          open={true}
           size="tiny"
+          onClose={() => this.setState(() => ({ open: false }))}
         >
           <Modal.Header>リストを作成</Modal.Header>
           <Modal.Content>
@@ -68,10 +69,10 @@ class TasklistCreateFormContainer extends React.Component<Props, State> {
             )}
 
             <TasklistForm
+              canDestroy={false}
               title={formState.title}
               onTitleChange={changeTitle}
               onSubmit={this.handleSubmit}
-              canDestroy={false}
             />
           </Modal.Content>
         </Modal>

@@ -54,6 +54,7 @@ export default function* tasklistSaga() {
     yield delay(1000);
     yield put(tasklistActions.updateSuccess(data.tasklist));
     yield put(editFormActions.complete());
+    yield put(sidebarActions.close());
     yield put(messageActions.set('リストを更新しました。'));
   }
 
@@ -68,6 +69,7 @@ export default function* tasklistSaga() {
     yield delay(1000);
     yield call(api.destroyTasklist, id);
     yield put(tasklistActions.destroySuccess(id));
+    yield put(sidebarActions.close());
     yield put(messageActions.set('リストを削除しました。'));
   }
 
