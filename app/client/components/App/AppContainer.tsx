@@ -1,8 +1,8 @@
 import * as React from 'react';
-import DashboardContainer from '../Dashboard/DashboardContainer';
+import DashboardScreenContainer from '../DashboardScreen/DashboardContainer';
 import MessageContainer from '../Message/MessageContainer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomeContainer from '../Home/HomeContainer';
+import HomeScreenContainer from '../HomeScreen/HomeScreenContainer';
 import UnknownErrorScreen from '../UnknownErrorScreen/UnknownErrorScreen';
 import { connect } from 'react-redux';
 import * as types from '../../types';
@@ -46,11 +46,11 @@ class AppContainer extends React.Component<Props, State> {
       <Router>
         <>
           <Switch>
-            <Route exact path="/" component={HomeContainer} />
-            <Route exact path="/tasklists" component={DashboardContainer} />
-            <Route path="/tasklists/:tasklistId" component={DashboardContainer} />
+            <Route exact path="/" component={HomeScreenContainer} />
+            <Route exact path="/tasklists" component={DashboardScreenContainer} />
+            <Route path="/tasklists/:tasklistId" component={DashboardScreenContainer} />
             <Route exact path="/unknown_error" component={UnknownErrorScreen} />
-            <Route component={HomeContainer} />
+            <Route component={HomeScreenContainer} />
           </Switch>
           <MessageContainer />
         </>

@@ -17,7 +17,7 @@ const Upper = styled.div`
   background-image: linear-gradient(149deg, rgba(33, 133, 208, 1) 0%, rgba(63, 199, 204, 1) 100%);
 `;
 
-const Home: React.SFC = () => (
+const HomeScreen: React.SFC = () => (
   <Wrapper>
     <Upper>
       <Header />
@@ -28,4 +28,4 @@ const Home: React.SFC = () => (
   </Wrapper>
 );
 
-export { Home };
+export { HomeScreen };

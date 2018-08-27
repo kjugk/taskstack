@@ -40,7 +40,7 @@ interface Props {
   match: any;
 }
 
-class DashboardContainer extends React.Component<Props> {
+class DashboardScreenContainer extends React.Component<Props> {
   render() {
     const { app, user, match, tasklists } = this.props;
 
@@ -88,4 +88,4 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => ({
   tasklists: getTasklists(state)
 });
 
-export default withRouter(connect(mapStateToProps)(DashboardContainer));
+export default withRouter(connect(mapStateToProps)(DashboardScreenContainer));
