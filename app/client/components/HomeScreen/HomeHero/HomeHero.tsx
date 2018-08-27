@@ -32,7 +32,7 @@ const HomeHero: React.SFC = () => (
           width={9}
           style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
-          <HeroHeader>山積みの仕事を、 終わらせましょう</HeroHeader>
+          <HeroHeader>山積みの仕事を、 片付けたいなら</HeroHeader>
           <HeroSubheader>TaskStack は、シンプルで使いやすいタスク管理サービスです。</HeroSubheader>
           <div>
             <a href="/login">
@@ -41,7 +41,7 @@ const HomeHero: React.SFC = () => (
           </div>
         </Grid.Column>
         <Grid.Column width={7}>
-          <img src={png} style={{ width: '100%' }} />
+          <img src={png} style={{ width: '100%' }} alt="hero_image" />
         </Grid.Column>
       </Grid>
     </Hero>
