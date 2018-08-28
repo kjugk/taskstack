@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  font-family: 'M PLUS 1p', sans-serif !important;
 `;
 
 const Upper = styled.div`

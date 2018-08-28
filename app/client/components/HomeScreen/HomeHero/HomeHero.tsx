@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
-import png from '../../../images/samlpe@3x-min.png';
+import png from '../../../assets/images/samlpe@3x-min.png';
 
 const Hero = styled.div`
   color: #f5f5f5 !important;
@@ -13,7 +13,6 @@ const Hero = styled.div`
 `;
 
 const HeroHeader = styled.h1`
-  font-family: 'M PLUS 1p', sans-serif !important;
   font-size: 2.6rem;
   font-weight: 800;
   margin-bottom: 1rem;

@@ -3,7 +3,7 @@ import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
 import * as taskCreateFormActions from '../actions/taskCreateFormActions';
 import * as messageActions from '../actions/messageActions';
-import * as api from '../Api';
+import * as api from '../api';
 import { normalize, schema } from 'normalizr';
 import { getType, isActionOf } from 'typesafe-actions';
 import { TaskCreateFormAction } from '../reducers/task/createForm';
