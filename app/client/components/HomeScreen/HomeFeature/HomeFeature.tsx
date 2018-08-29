@@ -32,8 +32,7 @@ const HomeFeature: React.SFC = () => {
                   </Header>
                 </Card.Header>
                 <Card.Description>
-                  こんな素晴らしいことができます、的な。alk dlkjelkjasdf lkjasdfielkj aslkjasdoilkj
-                  asdflkj
+                  シンプルで親しみやすい操作性で、すぐに使いこなすことができます。
                 </Card.Description>
               </Card.Content>
             </FeatureCard>
@@ -45,10 +44,12 @@ const HomeFeature: React.SFC = () => {
                 <Card.Header>
                   <Header as="h2" icon textAlign="center">
                     <Icon name="mobile alternate" circular />
-                    <Header.Content>スマホ対応</Header.Content>
+                    <Header.Content>PCでもスマホでも</Header.Content>
                   </Header>
                 </Card.Header>
-                <Card.Description>こんな素晴らしいことができます、的な。</Card.Description>
+                <Card.Description>
+                  TaskStackは、最新のPC・スマートフォンブラウザでご利用いただけます。
+                </Card.Description>
               </Card.Content>
             </FeatureCard>
           </Grid.Column>
@@ -62,7 +63,7 @@ const HomeFeature: React.SFC = () => {
                     <Header.Content>無料</Header.Content>
                   </Header>
                 </Card.Header>
-                <Card.Description>こんな素晴らしいことができます、的な。</Card.Description>
+                <Card.Description>TaskStackは、誰でも無料でご利用いただけます。</Card.Description>
               </Card.Content>
             </FeatureCard>
           </Grid.Column>
