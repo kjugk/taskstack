@@ -1,7 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 import { getType } from 'typesafe-actions';
-import * as api from '../Api';
+import * as api from '../api';
 import * as userActions from '../actions/userActions';
 import * as messageActions from '../actions/messageActions';
 import * as Cookies from 'js-cookie';

@@ -6,7 +6,8 @@ const initialState = {
   initialized: false,
   signedIn: false,
   name: '',
-  imageUrl: ''
+  imageUrl: '',
+  newUser: false
 };
 
 const user = (state = initialState, action: UserAction) => {
@@ -16,6 +17,7 @@ const user = (state = initialState, action: UserAction) => {
         ...state,
         initialized: true,
         signedIn: true,
+        newUser: action.payload.user.newUser,
         ...action.payload.user
       };
 

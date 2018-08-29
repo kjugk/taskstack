@@ -16,7 +16,7 @@ let config = {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
     alias: {
-      '../../theme.config$': path.join(__dirname, 'my-semantic-theme/theme.config')
+      '../../theme.config$': path.join(__dirname, '/assets/my-semantic-theme/theme.config')
     }
   },
 
@@ -45,10 +45,21 @@ let config = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(__dirname, './template/index.html'),
+      template: path.resolve(__dirname, './assets/template/index.html'),
       minify: true
     })
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  }
 };
 
 module.exports = {

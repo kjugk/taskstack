@@ -7,7 +7,7 @@ import * as createFormActions from '../actions/tasklistCreateFormActions';
 import * as editFormActions from '../actions/tasklistEditFormActions';
 import * as messageActions from '../actions/messageActions';
 import * as sidebarActions from '../actions/sidebarActions';
-import * as api from '../Api';
+import * as api from '../api';
 import { normalize, schema } from 'normalizr';
 import { TasklistCreateFormAction } from '../reducers/tasklist/createForm';
 import { TasklistEditFormAction } from '../reducers/tasklist/editForm';

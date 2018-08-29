@@ -5,9 +5,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const config = merge(baseConfig, {
   watch: true,
   devtool: 'source-map',
-  watchOptions: {
-    poll: false
-  },
   module: {
     rules: [
       {
