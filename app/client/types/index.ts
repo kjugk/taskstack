@@ -34,7 +34,6 @@ export interface TasklistsState {
   ids: number[];
   isInitialized: boolean;
   isFetching: boolean;
-  selectingId: number | undefined;
   tasklistsById: {
     [index: number]: TasklistState;
   };

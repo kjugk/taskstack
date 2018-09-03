@@ -1,22 +1,37 @@
 import * as React from 'react';
 import * as types from '../../types';
+import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 import styled from 'styled-components';
 
 const Container = styled.div`
   margin-bottom: 1rem;
 `;
 
-interface TaskCreateFormProps {
+interface Props {
   formState: types.TaskCreateFormState;
   onSubmit(e: React.FormEvent<HTMLFormElement>): any;
-  onTitleChange(e: React.SyntheticEvent<HTMLInputElement>): any;
+  onTitleChange(title: string): any;
 }
 
-class TaskCreateForm extends React.Component<TaskCreateFormProps> {
+interface State {
+  errorMessage: string;
+}
+
+class TaskCreateForm extends React.Component<Props, State> {
   private input: any;
 
-  componentDidUpdate(prevProps: TaskCreateFormProps) {
+  constructor(props: Props) {
+    super(props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleInputChange.bind(this);
+    this.state = {
+      errorMessage: ''
+    };
+  }
+
+  componentDidUpdate(prevProps: Props) {
     const { formState } = this.props;
 
     // 連続入力をやりやすくするために、submit 後に focus させている。
@@ -26,25 +41,53 @@ class TaskCreateForm extends React.Component<TaskCreateFormProps> {
   }
 
   render() {
-    const { formState, onTitleChange } = this.props;
+    const { formState } = this.props;
 
     return (
       <Container>
-        <form onSubmit={(e) => this.props.onSubmit(e)}>
+        <Form error={!!this.state.errorMessage} onSubmit={this.handleSubmit}>
           <Input
             disabled={formState.isSubmitting}
             fluid
             icon="plus"
             iconPosition="left"
-            onChange={(e) => onTitleChange(e)}
+            onChange={this.handleInputChange}
             placeholder="タスクを作成"
             value={formState.title}
             ref={(ref) => (this.input = ref)}
           />
-        </form>
+          <Message error content={this.state.errorMessage} />
+        </Form>
       </Container>
     );
   }
+
+  private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    if (!!this.state.errorMessage) {
+      return;
+    } else {
+      this.props.onSubmit(e);
+    }
+  }
+
+  private handleInputChange(e: React.FormEvent<HTMLInputElement>) {
+    const value = e.currentTarget.value;
+    this.setState(() => ({
+      errorMessage: validate(value)
+    }));
+
+    this.props.onTitleChange(value);
+  }
 }
+
+const validate = (title: string) => {
+  if (typeof title === 'undefined') return;
+
+  if (title.length > 10) {
+    return '100文字以内で入力してください';
+  }
+
+  return '';
+};
 
 export { TaskCreateForm };
