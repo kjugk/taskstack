@@ -70,7 +70,7 @@ class DashboardScreenContainer extends React.Component<Props> {
           <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
         </Right>
 
-        {user.newUser && <Tutorial />}
+        {/* {user.newUser && <Tutorial />} */}
 
         <Switch>
           <Route exact path="/tasklists/new" component={TasklistCreateFormContainer} />

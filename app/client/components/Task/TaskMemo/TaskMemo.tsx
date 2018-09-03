@@ -29,6 +29,7 @@ interface TaskMemoProps {
 interface TaskMemoState {
   memo: string;
   isEditing: boolean;
+  errorMessage: string;
 }
 
 // TODO: move to utils.
@@ -53,7 +54,8 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
 
     this.state = {
       memo: props.task.memo,
-      isEditing: false
+      isEditing: false,
+      errorMessage: ''
     };
   }
 
@@ -89,24 +91,27 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
   private renderMemo() {
     if (this.state.isEditing) {
       return (
-        <Form>
-          <Ref innerRef={(node) => (this.input = node)}>
-            <TextArea
-              autoHeight
-              className="wrapper"
-              placeholder="メモを追加"
-              value={this.state.memo}
-              onBlur={this.handleSubmit}
-              onChange={this.handleInputChange}
-              onKeyDown={(e: any) => {
-                if (e.keyCode === 27) {
-                  this.handleCancel();
-                  return;
-                }
-              }}
-            />
-          </Ref>
-        </Form>
+        <>
+          <Form>
+            <Ref innerRef={(node) => (this.input = node)}>
+              <TextArea
+                autoHeight
+                className="wrapper"
+                placeholder="メモを追加"
+                value={this.state.memo}
+                onBlur={this.handleSubmit}
+                onChange={this.handleInputChange}
+                onKeyDown={(e: any) => {
+                  if (e.keyCode === 27) {
+                    this.handleCancel();
+                    return;
+                  }
+                }}
+              />
+            </Ref>
+          </Form>
+          {this.state.errorMessage && <Message error content={this.state.errorMessage} />}
+        </>
       );
     } else {
       return (
@@ -126,17 +131,25 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     const initialMemo = this.props.task.memo;
     this.setState(() => ({
       memo: initialMemo,
-      isEditing: false
+      isEditing: false,
+      errorMessage: ''
     }));
   }
 
   private handleInputChange(e: React.FormEvent<HTMLTextAreaElement>) {
     e.stopPropagation();
     const value = e.currentTarget.value;
-    this.setState(() => ({ memo: value }));
+    this.setState(() => ({
+      memo: value,
+      errorMessage: validate(value)
+    }));
   }
 
   private handleSubmit() {
+    if (this.state.errorMessage) {
+      return;
+    }
+
     if (this.state.memo !== this.props.task.memo) {
       this.props.onSubmit(this.props.task.id, { memo: this.state.memo });
     }
@@ -144,5 +157,13 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     this.setState(() => ({ isEditing: false }));
   }
 }
+
+const validate = (memo: string) => {
+  if (memo.length > 1000) {
+    return '1000文字以内で入力してください';
+  }
+
+  return '';
+};
 
 export { TaskMemo };

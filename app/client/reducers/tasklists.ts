@@ -8,7 +8,6 @@ const initialState: types.TasklistsState = {
   ids: [],
   isFetching: false,
   isInitialized: false,
-  selectingId: undefined,
   tasklistsById: {}
 };
 

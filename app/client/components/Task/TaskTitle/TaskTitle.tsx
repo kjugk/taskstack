@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as types from '../../../types';
 import styled from 'styled-components';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 
 const Title = styled<{ completed: boolean }, any>('h2')`
   font-size: 1.4rem;
@@ -21,6 +22,7 @@ interface TaskTitleProps {
 interface TaskTitleState {
   title: string;
   isEditing: boolean;
+  errorMessage: string;
 }
 
 class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
@@ -29,13 +31,15 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
   constructor(props: TaskTitleProps) {
     super(props);
 
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
 
     this.state = {
       title: props.task.title,
-      isEditing: false
+      isEditing: false,
+      errorMessage: ''
     };
   }
 
@@ -73,33 +77,40 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
 
   private renderInput() {
     return (
-      <Input
-        ref={(r: any) => (this.input = r)}
-        style={{ width: '100%' }}
-        size="mini"
-        value={this.state.title}
-        onKeyDown={(e: any) => {
-          if (e.keyCode === 13) {
-            this.handleSubmit();
-            return;
-          }
-          if (e.keyCode === 27) {
-            this.handleCancel();
-            return;
-          }
-        }}
-        onChange={(e: any) => {
-          const value = e.currentTarget.value;
-          this.setState(() => ({ title: value }));
-        }}
-        onBlur={this.handleSubmit}
-      />
+      <>
+        <Input
+          ref={(r: any) => (this.input = r)}
+          style={{ width: '100%' }}
+          size="mini"
+          value={this.state.title}
+          onKeyDown={(e: any) => {
+            if (e.keyCode === 13) {
+              this.handleSubmit();
+              return;
+            }
+            if (e.keyCode === 27) {
+              this.handleCancel();
+              return;
+            }
+          }}
+          onBlur={this.handleSubmit}
+          onChange={this.handleInputChange}
+        />
+        {this.state.errorMessage && <Message error content={this.state.errorMessage} />}
+      </>
     );
   }
 
+  private handleInputChange(e: React.FormEvent<HTMLInputElement>) {
+    const value = e.currentTarget.value;
+    this.setState(() => ({
+      title: value,
+      errorMessage: validate(value)
+    }));
+  }
+
   private handleSubmit() {
-    if (this.state.title.trim() === '') {
-      this.handleCancel();
+    if (this.state.errorMessage) {
       return;
     }
 
@@ -115,8 +126,24 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
   }
 
   private handleCancel() {
-    this.setState((prevState, props) => ({ title: props.task.title, isEditing: false }));
+    this.setState((prevState, props) => ({
+      title: props.task.title,
+      isEditing: false,
+      errorMessage: ''
+    }));
   }
 }
+
+const validate = (title: string): string => {
+  if (title.trim() === '') {
+    return '必須項目です。';
+  }
+
+  if (title.length > 100) {
+    return '100文字以内で入力してください。';
+  }
+
+  return '';
+};
 
 export { TaskTitle };
