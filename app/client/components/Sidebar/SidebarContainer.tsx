@@ -10,13 +10,12 @@ import { connect } from 'react-redux';
 
 const Sidebar = styled.div`
   display: flex;
+  flex-basis: 260px;
   flex-direction: column;
   height: 100%;
-  position: relative;
-  flex-basis: 260px;
   max-width: 260px;
+  position: relative;
   ${(props) => `background: ${props.theme.grey}`};
-  /* ${(props) => `border-right: 1px solid ${props.theme.border}`}; */
 `;
 
 const MobileSidebar = styled<{ open: boolean }, any>('div')`

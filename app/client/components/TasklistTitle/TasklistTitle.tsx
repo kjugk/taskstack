@@ -6,10 +6,10 @@ import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 
 const Wrapper = styled.div`
-  display: flex;
   align-items: center;
-  min-height: 3rem;
+  display: flex;
   margin-bottom: 1rem;
+  min-height: 3rem;
 `;
 
 const Title = styled.div`

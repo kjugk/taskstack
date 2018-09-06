@@ -83,7 +83,7 @@ class TasklistEditFormContainer extends React.Component<Props, State> {
             <TasklistForm
               canDestroy={true}
               title={formState.title}
-              onTitleChange={changeTitle}
+              onChangeTitle={changeTitle}
               onSubmit={this.handleSubmit}
               onDestroyClick={() => {
                 if (window.confirm('本当に削除しますか?')) {

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
-import FormField from 'semantic-ui-react/dist/commonjs/collections/Form/FormField';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import styled from 'styled-components';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
@@ -9,7 +8,7 @@ interface TasklistFormProps {
   title: string;
   canDestroy: boolean;
   onDestroyClick?(): any;
-  onTitleChange(title: string): any;
+  onChangeTitle(title: string): any;
   onSubmit(): any;
 }
 
@@ -40,7 +39,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
   }
 
   render() {
-    const { title, onTitleChange, onSubmit, canDestroy, onDestroyClick } = this.props;
+    const { title, onChangeTitle, onSubmit, canDestroy, onDestroyClick } = this.props;
 
     return (
       <Form
@@ -58,7 +57,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
             value={title}
             onChange={(e) => {
               const value = e.target.value;
-              onTitleChange(value);
+              onChangeTitle(value);
               this.setState(() => ({
                 errorMessage: validate(value)
               }));
