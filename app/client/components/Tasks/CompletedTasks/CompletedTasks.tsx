@@ -46,7 +46,7 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
     return (
       <>
         <div style={{ marginBottom: '1rem' }}>
-          <Button type="button" primary basic onClick={this.handleToggleButtonClick}>
+          <Button type="button" onClick={this.handleToggleButtonClick}>
             {items.length} 件の完了済みタスク
             <Chevron open={this.state.openCompletedList}>
               <Icon name="chevron down" style={{ margin: 0 }} />
@@ -56,11 +56,11 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
 
         {this.state.openCompletedList && (
           <div>
-            <SegmentGroup style={{ boxShadow: 'none' }}>
+            <div style={{ boxShadow: 'none', marginBottom: '1rem' }}>
               {items.map((item: any, i: number) => {
                 return <TasksListItem key={i} item={item} {...rest} />;
               })}
-            </SegmentGroup>
+            </div>
 
             <div style={{ textAlign: 'right' }}>
               <Button

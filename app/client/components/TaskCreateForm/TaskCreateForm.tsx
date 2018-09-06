@@ -6,7 +6,7 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin-bottom: 1rem;
+  /* margin-bottom: 1.5rem; */
 `;
 
 interface Props {
@@ -25,7 +25,7 @@ class TaskCreateForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       errorMessage: ''
     };
@@ -53,6 +53,7 @@ class TaskCreateForm extends React.Component<Props, State> {
             iconPosition="left"
             onChange={this.handleInputChange}
             placeholder="タスクを作成"
+            size="large"
             value={formState.title}
             ref={(ref) => (this.input = ref)}
           />
@@ -81,7 +82,7 @@ class TaskCreateForm extends React.Component<Props, State> {
 }
 
 const validate = (title: string) => {
-  if (typeof title === 'undefined') return;
+  if (typeof title === 'undefined') return '';
 
   if (title.length > 10) {
     return '100文字以内で入力してください';

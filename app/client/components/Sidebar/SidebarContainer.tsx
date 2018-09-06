@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
 import TasklistsContainer from '../Tasklists/TasklistsContainer';
@@ -14,8 +14,9 @@ const Sidebar = styled.div`
   height: 100%;
   position: relative;
   flex-basis: 260px;
-  background: #eee;
   max-width: 260px;
+  ${(props) => `background: ${props.theme.grey}`};
+  /* ${(props) => `border-right: 1px solid ${props.theme.border}`}; */
 `;
 
 const MobileSidebar = styled<{ open: boolean }, any>('div')`
@@ -26,11 +27,11 @@ const MobileSidebar = styled<{ open: boolean }, any>('div')`
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #eee;
   z-index: 3;
   will-change: transform;
   transform: translateX(-100%);
   transition: transform 0.25s linear;
+  ${(props) => `background: ${props.theme.grey}`};
   ${(props) => props.open && 'transform: translateX(0)'};
 `;
 
@@ -89,4 +90,4 @@ const mapStateToProps = (state: types.RootState) => ({
   sidebar: state.sidebar
 });
 
-export default connect(mapStateToProps)(SidebarContainer);
+export default withTheme(connect(mapStateToProps)(SidebarContainer));

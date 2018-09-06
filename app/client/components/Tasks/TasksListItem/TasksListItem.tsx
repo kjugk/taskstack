@@ -9,7 +9,7 @@ const ItemContainer = styled<{ completed: boolean }, any>('div')`
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  padding: 1.2rem 1rem;
+  padding: 0.6rem 1rem;
   ${(props) => props.completed && 'color: #ccc; background: #f5f5f5'};
 `;
 
@@ -30,7 +30,13 @@ class TasksListItem extends React.Component<TaskListItemProps> {
     const { item, onItemClick, onCheckChange } = this.props;
 
     return (
-      <Segment style={{ padding: 0 }}>
+      <Segment
+        style={{
+          margin: '0px 0px .5rem 0px',
+          padding: 0,
+          boxShadow: '0px 0px 1px 0px rbga(0,0,0,0.1)'
+        }}
+      >
         <ItemContainer
           completed={item.completed}
           onClick={(e: any) => {

@@ -21,16 +21,29 @@ const DashBoard = styled.div`
 
 const Center = styled.div`
   height: 100%;
-  padding: 1rem;
   flex: 1;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   position: relative;
+  ${(props) => `background: ${props.theme.lightGrey}`};
+`;
+
+const CenterTop = styled.div`
+  padding: .6rem 1rem 1.8rem 1rem;
+  ${(props) => `background: ${props.theme.lightGrey}`};
+  /* ${(props) => `border-bottom: 1px solid ${props.theme.border}`}; */
+`;
+
+const CenterBottom = styled.div`
+  /* padding: 1.8rem 1rem 1rem 1rem; */
+  padding: 1rem;
 `;
 
 const Right = styled.div`
   height: 100%;
+  /* padding: 1rem;
+  ${(props) => `background: ${props.theme.lightGrey}`}; */
 `;
 
 interface Props {
@@ -61,9 +74,13 @@ class DashboardScreenContainer extends React.Component<Props> {
         <SidebarContainer />
 
         <Center>
-          <TasklistTitleContainer />
-          <TaskCreateFormContainer />
-          <TasksContainer />
+          <CenterTop>
+            <TasklistTitleContainer />
+            <TaskCreateFormContainer />
+          </CenterTop>
+          <CenterBottom>
+            <TasksContainer />
+          </CenterBottom>
         </Center>
 
         <Right>

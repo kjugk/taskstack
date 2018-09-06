@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import SegmentGroup from 'semantic-ui-react/dist/commonjs/elements/Segment/SegmentGroup';
 import { TasksListItem } from '../TasksListItem/TasksListItem';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
@@ -22,11 +21,11 @@ const SortableList = SortableContainer((props: any) => {
   const { items, ...rest } = props;
 
   return (
-    <SegmentGroup style={{ marginBottom: '3rem', boxShadow: 'none' }}>
+    <div style={{ marginBottom: '3rem', boxShadow: 'none' }}>
       {props.items.map((item: any, i: number) => (
         <SortableItem key={i} index={i} value={item} {...rest} />
       ))}
-    </SegmentGroup>
+    </div>
   );
 });
 

@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  margin-right: 1rem;
+  margin-left: 1rem;
   line-height: 1;
 `;
 
@@ -37,8 +37,8 @@ class TasklistTitle extends React.Component<TasklistTitleProps> {
     return (
       <Wrapper>
         <Responsive as={Hamberger} maxWidth={767} onClick={onHambergerClick} />
-        <Title>{tasklist.title}</Title>
         <TasklistTitleCount count={tasklist.taskCount} />
+        <Title>{tasklist.title}</Title>
       </Wrapper>
     );
   }
