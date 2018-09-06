@@ -13,7 +13,8 @@ const Container = styled<{ open: boolean }, any>(List)`
 const Item = styled(List.Item)`
   cursor: pointer;
   padding: 1rem !important;
-  :hover {
+  transition: background 0.1s ease;
+  &:hover {
     background: #ccc;
   }
 `;

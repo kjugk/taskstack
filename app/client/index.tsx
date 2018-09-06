@@ -19,7 +19,7 @@ const theme: Theme = {
   white: 'rgba(255, 255, 255, 1)',
   black: 'rgba(31, 31, 45, 1)',
   grey: 'rgba(241, 241, 242, 1)',
-  lightGrey: 'rgba(251, 251, 251, 1)',
+  lightGrey: 'rgb(251, 251, 251)',
   border: 'rgba(221, 222, 223, 1)'
 };
 

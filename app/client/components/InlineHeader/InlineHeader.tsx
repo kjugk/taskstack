@@ -6,11 +6,15 @@ import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import { InlineHeaderUserMenu } from './InlineHeaderUserMenu/InlineHeaderUserMenu';
 
-const Wrapper = styled.div`
+const Content = styled.div`
   cursor: pointer;
   padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
+  transition: background 0.1s ease;
+  &:hover {
+    background: #ccc;
+  }
 `;
 
 const Avatar = styled.div`
@@ -63,7 +67,7 @@ class InlineHeader extends React.Component<Props, State> {
 
     return (
       <div>
-        <Wrapper
+        <Content
           onClick={(e) => {
             e.stopPropagation();
             this.setState((prevState) => ({
@@ -76,7 +80,7 @@ class InlineHeader extends React.Component<Props, State> {
           </Avatar>
           <UserName>{user.name}</UserName>
           <Chevron name="chevron down" color="grey" open={this.state.openMenu} />
-        </Wrapper>
+        </Content>
 
         <InlineHeaderUserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
       </div>

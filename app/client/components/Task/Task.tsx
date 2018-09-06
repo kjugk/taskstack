@@ -8,8 +8,10 @@ import { TaskDeleteButton } from './TaskDeleteButton/TaskDeleteButton';
 
 const Wrapper = styled<{ open: boolean }, any>('div')`
   height: 100%;
-  padding: 1rem 1rem 1rem 0;
   position: relative;
+  transform: translateX(100%);
+  transition: all .25s linear;
+  will-change: transform;
   ${(props) => `background: ${props.theme.lightGrey}`};
   @media (min-width: 787px) {
     width: 0;
@@ -25,18 +27,24 @@ const Wrapper = styled<{ open: boolean }, any>('div')`
      width: 100%;
      left: 0;
      top; 0;
+     ${(props) => props.open && 'transform: translateX(0);'};
   }
 `;
 
 const Container = styled<{ open: boolean }, any>('div')`
-  border-radius: 4px;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
   position: relative;
-  ${(props) => `border: 1px solid ${props.theme.border}`};
-  ${(props) => `background: ${props.theme.grey}`};
+  ${(props) => `
+    border-left: 1px solid ${props.theme.border};
+    background: ${props.theme.grey};
+  `};
+  @media (max-width: 786px) {
+    border-radius: 4px;
+    ${(props) => `border: 1px solid ${props.theme.border}`};
+  }
 `;
 
 const TitleContainer = styled.div`

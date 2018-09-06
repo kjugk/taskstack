@@ -15,8 +15,9 @@ import { getTasklists } from '../../reducers/tasklists';
 
 const DashBoard = styled.div`
   height: 100%;
-  display: flex;
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Center = styled.div`
@@ -30,7 +31,7 @@ const Center = styled.div`
 `;
 
 const CenterTop = styled.div`
-  padding: .6rem 1rem 1.8rem 1rem;
+  padding: .6rem 1rem 1rem 1rem;
   ${(props) => `background: ${props.theme.lightGrey}`};
   /* ${(props) => `border-bottom: 1px solid ${props.theme.border}`}; */
 `;
@@ -71,21 +72,33 @@ class DashboardScreenContainer extends React.Component<Props> {
 
     return (
       <DashBoard>
-        <SidebarContainer />
+        {/* <div
+          style={{
+            padding: '.8rem 1rem',
+            // background: 'rgba(33, 133, 208, 1)',
+            background: 'fff',
+            borderBottom: '1px solid #eee'
+          }}
+        >
+          Header
+        </div> */}
+        <div style={{ display: 'flex', flex: 1 }}>
+          <SidebarContainer />
 
-        <Center>
-          <CenterTop>
-            <TasklistTitleContainer />
-            <TaskCreateFormContainer />
-          </CenterTop>
-          <CenterBottom>
-            <TasksContainer />
-          </CenterBottom>
-        </Center>
+          <Center>
+            <CenterTop>
+              <TasklistTitleContainer />
+              <TaskCreateFormContainer />
+            </CenterTop>
+            <CenterBottom>
+              <TasksContainer />
+            </CenterBottom>
+          </Center>
 
-        <Right>
-          <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
-        </Right>
+          <Right>
+            <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
+          </Right>
+        </div>
 
         {/* {user.newUser && <Tutorial />} */}
 
