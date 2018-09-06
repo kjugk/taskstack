@@ -62,6 +62,7 @@ class TasklistEditFormContainer extends React.Component<Props, State> {
         duration={180}
         visible={this.state.open}
         onHide={() => history.replace(`/tasklists/${tasklist.id}`)}
+        unmountOnHide={true}
       >
         <Modal
           centered={false}

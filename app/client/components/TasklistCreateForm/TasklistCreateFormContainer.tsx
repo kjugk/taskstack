@@ -51,6 +51,7 @@ class TasklistCreateFormContainer extends React.Component<Props, State> {
         duration={180}
         visible={this.state.open}
         onHide={() => history.goBack()}
+        unmountOnHide={true}
       >
         <Modal
           centered={false}
