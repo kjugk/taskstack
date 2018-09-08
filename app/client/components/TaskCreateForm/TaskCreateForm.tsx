@@ -6,17 +6,34 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  margin-bottom: 1.5rem;
+  min-height: 5rem;
+`;
+
+const InputWrapper = styled<{ focuced: boolean }, any>('div')`
+  padding: 0.8rem;
+  border-radius: 0.25rem;
+  ${(props) => `
+    background: ${props.theme.grey};
+  `};
+  ${(props) =>
+    props.focuced &&
+    `
+    background: ${props.theme.white};
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.24);
+    border: 1px solid ${props.theme.border};
+  `};
 `;
 
 interface Props {
   formState: types.TaskCreateFormState;
+  tasklist: types.TasklistState;
   onSubmit(e: React.FormEvent<HTMLFormElement>): any;
   onTitleChange(title: string): any;
 }
 
 interface State {
   errorMessage: string;
+  focused: boolean;
 }
 
 class TaskCreateForm extends React.Component<Props, State> {
@@ -24,10 +41,13 @@ class TaskCreateForm extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      errorMessage: ''
+      errorMessage: '',
+      focused: false
     };
   }
 
@@ -41,26 +61,39 @@ class TaskCreateForm extends React.Component<Props, State> {
   }
 
   render() {
-    const { formState } = this.props;
+    const { formState, tasklist } = this.props;
 
     return (
       <Wrapper>
         <Form error={!!this.state.errorMessage} onSubmit={this.handleSubmit}>
-          <Input
-            disabled={formState.isSubmitting}
-            fluid
-            icon="plus"
-            iconPosition="left"
-            onChange={this.handleInputChange}
-            placeholder="タスクを作成"
-            size="large"
-            value={formState.title}
-            ref={(ref) => (this.input = ref)}
-          />
+          <InputWrapper focuced={this.state.focused}>
+            <Input
+              disabled={formState.isSubmitting}
+              fluid
+              icon="plus"
+              iconPosition="left"
+              onChange={this.handleInputChange}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              placeholder={`タスクを「${tasklist.title}」に追加`}
+              size="large"
+              value={formState.title}
+              ref={(ref) => (this.input = ref)}
+              transparent
+            />
+          </InputWrapper>
           <Message error content={this.state.errorMessage} />
         </Form>
       </Wrapper>
     );
+  }
+
+  private handleFocus() {
+    this.setState(() => ({ focused: true }));
+  }
+
+  private handleBlur() {
+    this.setState(() => ({ focused: false }));
   }
 
   private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
