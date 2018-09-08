@@ -7,8 +7,9 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message
 interface TasklistFormProps {
   title: string;
   canDestroy: boolean;
-  onDestroyClick?(): any;
+  onClickDestroy?(): any;
   onChangeTitle(title: string): any;
+  onClickClose(): any;
   onSubmit(): any;
 }
 
@@ -38,7 +39,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
   }
 
   render() {
-    const { title, onChangeTitle, onSubmit, canDestroy, onDestroyClick } = this.props;
+    const { title, onChangeTitle, onSubmit, canDestroy, onClickDestroy, onClickClose } = this.props;
 
     return (
       <Form
@@ -71,14 +72,14 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
               <Button
                 content="削除"
                 color="red"
-                onClick={onDestroyClick}
+                onClick={onClickDestroy}
                 size="tiny"
                 type="button"
               />
             )}
           </div>
           <div>
-            <Button content="キャンセル" size="tiny" type="button" />
+            <Button content="キャンセル" size="tiny" type="button" onClick={onClickClose} />
             <Button
               primary
               disabled={title.trim() === '' || !!this.state.errorMessage}

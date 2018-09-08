@@ -24,6 +24,7 @@ class TasklistCreateForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { open: true };
+    this.handleClose = this.handleClose.bind(this);
   }
 
   render() {
@@ -44,7 +45,7 @@ class TasklistCreateForm extends React.Component<Props, State> {
           closeOnDimmerClick={!formState.isSubmitting}
           open={true}
           size="tiny"
-          onClose={() => this.setState(() => ({ open: false }))}
+          onClose={this.handleClose}
         >
           <Modal.Header content="リストを作成" />
           <Modal.Content>
@@ -58,12 +59,17 @@ class TasklistCreateForm extends React.Component<Props, State> {
               canDestroy={false}
               title={formState.title}
               onChangeTitle={onChangeTitle}
+              onClickClose={this.handleClose}
               onSubmit={onSubmit}
             />
           </Modal.Content>
         </Modal>
       </Transition>
     );
+  }
+
+  private handleClose() {
+    this.setState(() => ({ open: false }));
   }
 }
 

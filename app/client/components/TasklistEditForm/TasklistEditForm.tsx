@@ -26,6 +26,7 @@ class TasklistEditForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { open: false };
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -51,7 +52,7 @@ class TasklistEditForm extends React.Component<Props, State> {
           closeOnDimmerClick={!formState.isSubmitting}
           open={true}
           size="tiny"
-          onClose={() => this.setState(() => ({ open: false }))}
+          onClose={this.handleClose}
         >
           <Modal.Header>リストを編集</Modal.Header>
           <Modal.Content>
@@ -65,8 +66,9 @@ class TasklistEditForm extends React.Component<Props, State> {
               canDestroy={true}
               title={formState.title}
               onChangeTitle={onChangeTitle}
+              onClickClose={this.handleClose}
               onSubmit={onSubmit}
-              onDestroyClick={() => {
+              onClickDestroy={() => {
                 if (window.confirm('本当に削除しますか?')) {
                   onDestroyTasklist(formState.id);
                 }
@@ -76,6 +78,10 @@ class TasklistEditForm extends React.Component<Props, State> {
         </Modal>
       </Transition>
     );
+  }
+
+  private handleClose() {
+    this.setState(() => ({ open: false }));
   }
 }
 
