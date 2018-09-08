@@ -17,9 +17,8 @@ interface State {
 }
 
 const ActionsContainer = styled.div`
-  display: flex;
   margin-top: 2rem;
-  justify-content: space-between;
+  display: flex;
 `;
 
 class TasklistForm extends React.Component<TasklistFormProps, State> {
@@ -67,24 +66,28 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
         </div>
 
         <ActionsContainer>
-          <Button
-            primary
-            disabled={title.trim() === '' || !!this.state.errorMessage}
-            icon="check"
-            content="保存"
-            type="submit"
-          />
-
-          {canDestroy && (
+          <div style={{ flex: 1 }}>
+            {canDestroy && (
+              <Button
+                content="削除"
+                color="red"
+                onClick={onDestroyClick}
+                size="tiny"
+                type="button"
+              />
+            )}
+          </div>
+          <div>
+            <Button content="キャンセル" size="tiny" type="button" />
             <Button
-              basic
-              color="red"
-              content="削除"
-              icon="trash"
-              onClick={onDestroyClick}
-              type="button"
+              primary
+              disabled={title.trim() === '' || !!this.state.errorMessage}
+              icon="check"
+              content="保存"
+              size="tiny"
+              type="submit"
             />
-          )}
+          </div>
         </ActionsContainer>
       </Form>
     );

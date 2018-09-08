@@ -46,7 +46,7 @@ class TasklistCreateForm extends React.Component<Props, State> {
           size="tiny"
           onClose={() => this.setState(() => ({ open: false }))}
         >
-          <Modal.Header>リストを作成</Modal.Header>
+          <Modal.Header content="リストを作成" />
           <Modal.Content>
             {formState.isSubmitting && (
               <Dimmer active>
