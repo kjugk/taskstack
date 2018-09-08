@@ -65,6 +65,7 @@ export interface TaskState {
   title: string;
   memo: string;
   completed: boolean;
+  createdAt: string;
 }
 
 export interface TaskCreateFormState {

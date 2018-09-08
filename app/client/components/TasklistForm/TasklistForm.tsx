@@ -70,6 +70,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
           <div style={{ flex: 1 }}>
             {canDestroy && (
               <Button
+                basic
                 content="削除"
                 color="red"
                 onClick={onClickDestroy}
@@ -79,7 +80,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
             )}
           </div>
           <div>
-            <Button content="キャンセル" size="tiny" type="button" onClick={onClickClose} />
+            <Button basic content="キャンセル" size="tiny" type="button" onClick={onClickClose} />
             <Button
               primary
               disabled={title.trim() === '' || !!this.state.errorMessage}

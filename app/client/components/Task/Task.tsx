@@ -3,8 +3,7 @@ import * as types from '../../types';
 import styled from 'styled-components';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
-import { TaskCloseButton } from './TaskCloseButton/TaskCloseButton';
-import { TaskDeleteButton } from './TaskDeleteButton/TaskDeleteButton';
+import { TaskActions } from './TaskActions/TaskActions';
 
 const Wrapper = styled<{ open: boolean }, any>('div')`
   height: 100%;
@@ -14,11 +13,7 @@ const Wrapper = styled<{ open: boolean }, any>('div')`
   ${(props) => `background: ${props.theme.lightGrey}`};
 
   @media (min-width: 787px) {
-    padding-left: 1rem;
     width: 0;
-    transform: translateX(100%);
-    transition: all .25s linear;
-    will-change: transform;
     ${(props) => props.open && 'transform: translateX(0); width: 360px;'};
   }
 
@@ -53,8 +48,7 @@ const TitleContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-  margin-bottom: 1rem;
-  padding: 1.2rem 1rem;
+  padding: 1rem;
   ${(props) => `
     background: ${props.theme.white};
     border-bottom: 1px solid ${props.theme.border}
@@ -65,15 +59,6 @@ const Contents = styled.div`
   flex: 1;
   padding: 1rem;
   overflow-y: scroll;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  padding: 1.2rem 1rem;
-  ${(props) => `
-    background: ${props.theme.white};
-    border-top: 1px solid ${props.theme.border};
-  `};
 `;
 
 interface Props {
@@ -100,7 +85,7 @@ class Task extends React.Component<Props> {
   }
 
   render() {
-    const { open, task, onUpdate } = this.props;
+    const { open, task, onUpdate, onClose, onDestroy } = this.props;
 
     return (
       <Wrapper open={open}>
@@ -119,16 +104,7 @@ class Task extends React.Component<Props> {
             <TaskMemo task={task} onSubmit={onUpdate} />
           </Contents>
 
-          <ButtonContainer>
-            <TaskCloseButton onClick={this.props.onClose} />
-            <TaskDeleteButton
-              onClick={() => {
-                if (window.confirm('削除しますか?')) {
-                  this.props.onDestroy(task.id);
-                }
-              }}
-            />
-          </ButtonContainer>
+          <TaskActions task={task} onClickClose={onClose} onClickDestroy={onDestroy} />
         </Container>
       </Wrapper>
     );
