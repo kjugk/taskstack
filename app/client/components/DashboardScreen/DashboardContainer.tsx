@@ -7,7 +7,6 @@ import TasklistEditFormContainer from '../TasklistEditForm/TasklistEditFormConta
 import TaskCreateFormContainer from '../TaskCreateForm/TaskCreateFormContainer';
 import TasksContainer from '../Tasks/TasksContainer';
 import TaskContainer from '../Task/TaskContainer';
-import TasklistTitleContainer from '../TasklistTitle/TasklistTitleContainer';
 import { Tutorial } from '../Tutorial/Tutorial';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -21,23 +20,14 @@ const DashBoard = styled.div`
 `;
 
 const Center = styled.div`
-  height: 100%;
-  flex: 1;
-  overflow-y: scroll;
   display: flex;
+  flex: 1;
   flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
+  padding: 1rem;
   position: relative;
   ${(props) => `background: ${props.theme.lightGrey}`};
-`;
-
-const CenterTop = styled.div`
-  padding: 1rem;
-  ${(props) => `background: ${props.theme.lightGrey}`};
-  /* ${(props) => `border-bottom: 1px solid ${props.theme.border}`}; */
-`;
-
-const CenterBottom = styled.div`
-  padding: 1rem;
 `;
 
 const Right = styled.div`
@@ -84,13 +74,8 @@ class DashboardScreenContainer extends React.Component<Props> {
           <SidebarContainer />
 
           <Center>
-            <CenterTop>
-              {/* <TasklistTitleContainer /> */}
-              <TaskCreateFormContainer />
-            </CenterTop>
-            <CenterBottom>
-              <TasksContainer />
-            </CenterBottom>
+            <TaskCreateFormContainer />
+            <TasksContainer />
           </Center>
 
           <Right>

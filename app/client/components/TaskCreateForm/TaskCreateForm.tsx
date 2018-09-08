@@ -3,6 +3,11 @@ import * as types from '../../types';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  margin-bottom: 1.5rem;
+`;
 
 interface Props {
   formState: types.TaskCreateFormState;
@@ -39,20 +44,22 @@ class TaskCreateForm extends React.Component<Props, State> {
     const { formState } = this.props;
 
     return (
-      <Form error={!!this.state.errorMessage} onSubmit={this.handleSubmit}>
-        <Input
-          disabled={formState.isSubmitting}
-          fluid
-          icon="plus"
-          iconPosition="left"
-          onChange={this.handleInputChange}
-          placeholder="タスクを作成"
-          size="large"
-          value={formState.title}
-          ref={(ref) => (this.input = ref)}
-        />
-        <Message error content={this.state.errorMessage} />
-      </Form>
+      <Wrapper>
+        <Form error={!!this.state.errorMessage} onSubmit={this.handleSubmit}>
+          <Input
+            disabled={formState.isSubmitting}
+            fluid
+            icon="plus"
+            iconPosition="left"
+            onChange={this.handleInputChange}
+            placeholder="タスクを作成"
+            size="large"
+            value={formState.title}
+            ref={(ref) => (this.input = ref)}
+          />
+          <Message error content={this.state.errorMessage} />
+        </Form>
+      </Wrapper>
     );
   }
 

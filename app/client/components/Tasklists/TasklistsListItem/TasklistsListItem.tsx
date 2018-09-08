@@ -40,7 +40,7 @@ class TasklistsListItem extends React.Component<ListItemProps> {
       <Container isSelecting={isSelecting} onClick={() => onClick(item.id)}>
         <TitleWrapper>{item.title}</TitleWrapper>
 
-        {!isSelecting && <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>}
+        <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>
 
         {isSelecting && (
           <IconWrapper
