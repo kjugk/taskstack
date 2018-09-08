@@ -8,12 +8,13 @@ import { TaskDeleteButton } from './TaskDeleteButton/TaskDeleteButton';
 
 const Wrapper = styled<{ open: boolean }, any>('div')`
   height: 100%;
-  position: relative;
   transform: translateX(100%);
   transition: all .25s linear;
   will-change: transform;
   ${(props) => `background: ${props.theme.lightGrey}`};
+
   @media (min-width: 787px) {
+    padding-left: 1rem;
     width: 0;
     transform: translateX(100%);
     transition: all .25s linear;
@@ -27,6 +28,7 @@ const Wrapper = styled<{ open: boolean }, any>('div')`
      width: 100%;
      left: 0;
      top; 0;
+     bottom: 0;
      ${(props) => props.open && 'transform: translateX(0);'};
   }
 `;
@@ -52,10 +54,11 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
-  min-height: 2rem;
-  padding: 1rem;
-  ${(props) => `background: ${props.theme.white}`};
-  ${(props) => `border-bottom: 1px solid ${props.theme.border}`};
+  padding: 1.2rem 1rem;
+  ${(props) => `
+    background: ${props.theme.white};
+    border-bottom: 1px solid ${props.theme.border}
+  `};
 `;
 
 const Contents = styled.div`
@@ -66,9 +69,11 @@ const Contents = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  padding: 1rem;
-  ${(props) => `background: ${props.theme.white}`};
-  ${(props) => `border-top: 1px solid ${props.theme.border}`};
+  padding: 1.2rem 1rem;
+  ${(props) => `
+    background: ${props.theme.white};
+    border-top: 1px solid ${props.theme.border};
+  `};
 `;
 
 interface Props {

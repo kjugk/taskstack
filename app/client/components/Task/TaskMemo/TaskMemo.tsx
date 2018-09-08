@@ -13,12 +13,13 @@ const HeaderContainer = styled.div`
 
 const MemoContainer = styled.div`
   margin-bottom: 1rem;
-  min-height: 5.4rem;
+  min-height: 8rem !important;
 `;
 
 const Memo = styled(Message)`
   cursor: pointer;
-  min-height: 5.4rem !important;
+  min-height: 8rem !important;
+  ${(props) => `background: ${props.theme.white}!important;`};
 `;
 
 interface TaskMemoProps {

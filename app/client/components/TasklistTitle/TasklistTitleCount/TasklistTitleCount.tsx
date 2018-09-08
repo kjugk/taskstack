@@ -38,9 +38,9 @@ const Wrapper = styled<{ changed: boolean }, any>(`div`)`
   line-height: 1em;
   text-align: center;
   border-radius: 500rem;
-  background: #2185d0;
   color: #fff;
   ${(props) => props.changed && `animation: ${Bound} 1.1s linear`};
+  ${(props) => `background: ${props.theme.main}`};
 `;
 
 interface CountProps {

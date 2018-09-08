@@ -64,7 +64,7 @@ class SidebarContainer extends React.Component<Props> {
     return (
       <>
         <Responsive as={Sidebar} minWidth={768}>
-          <InlineHeaderContainer />
+          {/* <InlineHeaderContainer /> */}
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Responsive>

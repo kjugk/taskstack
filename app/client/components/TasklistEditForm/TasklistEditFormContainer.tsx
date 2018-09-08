@@ -2,14 +2,10 @@ import * as React from 'react';
 import * as types from '../../types';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal';
-import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
-import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer';
-import Transition from 'semantic-ui-react/dist/commonjs/modules/Transition/Transition';
-import { TasklistForm } from '../TasklistForm/TasklistForm';
 import { getTasklist } from '../../reducers/tasklists';
 import * as formActions from '../../actions/tasklistEditFormActions';
 import { withRouter, Redirect } from 'react-router-dom';
+import { TasklistEditForm } from './TasklistEditForm';
 
 interface Props {
   formState: types.TasklistEditFormState;
@@ -22,22 +18,16 @@ interface Props {
   init(tasklist: types.TasklistState): any;
 }
 
-interface State {
-  open: boolean;
-}
-
 /**
  * Tasklist 編集フォーム
  */
-class TasklistEditFormContainer extends React.Component<Props, State> {
+class TasklistEditFormContainer extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    this.state = { open: false };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.setState(() => ({ open: true }));
     this.props.init(this.props.tasklist);
   }
 
@@ -57,43 +47,16 @@ class TasklistEditFormContainer extends React.Component<Props, State> {
     }
 
     return (
-      <Transition
-        animation="fade down"
-        duration={180}
-        visible={this.state.open}
-        onHide={() => history.replace(`/tasklists/${tasklist.id}`)}
-        unmountOnHide={true}
-      >
-        <Modal
-          centered={false}
-          closeOnEscape={!formState.isSubmitting}
-          closeOnDimmerClick={!formState.isSubmitting}
-          open={true}
-          size="tiny"
-          onClose={() => this.setState(() => ({ open: false }))}
-        >
-          <Modal.Header>リストを編集</Modal.Header>
-          <Modal.Content>
-            {formState.isSubmitting && (
-              <Dimmer active>
-                <Loader inline="centered">Loading</Loader>
-              </Dimmer>
-            )}
-
-            <TasklistForm
-              canDestroy={true}
-              title={formState.title}
-              onChangeTitle={changeTitle}
-              onSubmit={this.handleSubmit}
-              onDestroyClick={() => {
-                if (window.confirm('本当に削除しますか?')) {
-                  destroyTasklist(formState.id);
-                }
-              }}
-            />
-          </Modal.Content>
-        </Modal>
-      </Transition>
+      <TasklistEditForm
+        formState={formState}
+        tasklist={tasklist}
+        onChangeTitle={changeTitle}
+        onDestroyTasklist={destroyTasklist}
+        onSubmit={this.handleSubmit}
+        onClose={() => {
+          history.replace(`/tasklists/${tasklist.id}`);
+        }}
+      />
     );
   }
 
