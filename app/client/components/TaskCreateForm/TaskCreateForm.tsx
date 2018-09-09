@@ -10,8 +10,9 @@ const Wrapper = styled.div`
 `;
 
 const InputWrapper = styled<{ focuced: boolean }, any>('div')`
-  padding: 0.8rem;
   border-radius: 0.25rem;
+  padding: 0.8rem;
+  cursor: pointer;
   ${(props) => `
     background: ${props.theme.grey};
   `};
