@@ -11,6 +11,7 @@ import { Tutorial } from '../Tutorial/Tutorial';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklists';
+import HeaderContainer from '../Header/HeaderContainer';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -59,17 +60,7 @@ class DashboardScreenContainer extends React.Component<Props> {
 
     return (
       <DashBoard>
-        <div
-          style={{
-            padding: '.8rem 1rem',
-            // background: 'rgba(33, 133, 208, 1)',
-            // background: '#1d127d',
-            background: '#fff',
-            borderBottom: '1px solid #eee'
-          }}
-        >
-          <span style={{ fontWeight: 800, fontSize: '1.4rem' }}>Header</span>
-        </div>
+        <HeaderContainer />
         <div style={{ display: 'flex', flex: 1 }}>
           <SidebarContainer />
 

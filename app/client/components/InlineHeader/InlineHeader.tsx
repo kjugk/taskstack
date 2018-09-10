@@ -5,29 +5,26 @@ import key from 'keymaster';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import { InlineHeaderUserMenu } from './InlineHeaderUserMenu/InlineHeaderUserMenu';
+import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 
 const Content = styled.div`
   cursor: pointer;
-  padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
-  transition: background 0.1s ease;
-  &:hover {
-    background: #ccc;
-  }
 `;
 
 const Avatar = styled.div`
-  flex-basis: 36px;
-  margin-right: 1rem;
+  min-width: 36px;
 `;
 
 const UserName = styled.div`
   flex: 1;
   font-weight: bold;
+  margin-left: 0.5rem;
 `;
 
 const Chevron = styled<{ open: boolean }, any>(Icon)`
+  margin-left: 0.5rem !important;
   transform: rotate(0);
   transition: transform 0.2s ease;
   ${(props) => props.open && 'transform: rotate(-180deg)'};
@@ -66,7 +63,7 @@ class InlineHeader extends React.Component<Props, State> {
     const { user, onSignOutClick } = this.props;
 
     return (
-      <div>
+      <div style={{ position: 'relative' }}>
         <Content
           onClick={(e) => {
             e.stopPropagation();
@@ -78,10 +75,9 @@ class InlineHeader extends React.Component<Props, State> {
           <Avatar>
             <Image src={user.imageUrl} avatar size="mini" />
           </Avatar>
-          <UserName>{user.name}</UserName>
-          <Chevron name="chevron down" color="grey" open={this.state.openMenu} />
+          <Responsive minWidth={768} as={() => <UserName>{user.name}</UserName>} />
+          <Chevron name="chevron down" open={this.state.openMenu} />
         </Content>
-
         <InlineHeaderUserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
       </div>
     );

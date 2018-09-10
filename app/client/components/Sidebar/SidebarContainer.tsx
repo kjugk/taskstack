@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as types from '../../types';
 import styled, { withTheme } from 'styled-components';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
-import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
 import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 import * as sidebarActions from '../../actions/sidebarActions';
@@ -48,6 +47,15 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
   ${(props) => props.open && 'opacity: 1; width: 100%;'};
 `;
 
+const Brand = styled.div`
+  padding: 1rem;
+  line-height: 1;
+  ${(props) => `
+    color: ${props.theme.white};
+    background: ${props.theme.main};
+  `};
+`;
+
 const Overlay: React.SFC = (props: any) => (
   <MobileOverlay open={props.open} onClick={props.onClick} />
 );
@@ -64,13 +72,12 @@ class SidebarContainer extends React.Component<Props> {
     return (
       <>
         <Responsive as={Sidebar} minWidth={768}>
-          {/* <InlineHeaderContainer /> */}
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Responsive>
 
         <Responsive as={MobileSidebar} maxWidth={767} open={sidebar.isOpen}>
-          <InlineHeaderContainer />
+          <Brand>TaskStack</Brand>
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Responsive>
