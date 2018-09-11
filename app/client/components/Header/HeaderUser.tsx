@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import key from 'keymaster';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
-import { InlineHeaderUserMenu } from './InlineHeaderUserMenu/InlineHeaderUserMenu';
+import { HeaderUserMenu } from './HeaderUserMenu';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 
 const Content = styled.div`
@@ -32,14 +32,14 @@ const Chevron = styled<{ open: boolean }, any>(Icon)`
 
 interface Props {
   user: types.UserState;
-  onSignOutClick(): any;
+  onClickSignOut(): any;
 }
 
 interface State {
   openMenu: boolean;
 }
 
-class InlineHeader extends React.Component<Props, State> {
+class HeaderUser extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -60,7 +60,7 @@ class InlineHeader extends React.Component<Props, State> {
   }
 
   render() {
-    const { user, onSignOutClick } = this.props;
+    const { user, onClickSignOut } = this.props;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -78,7 +78,7 @@ class InlineHeader extends React.Component<Props, State> {
           <Responsive minWidth={768} as={() => <UserName>{user.name}</UserName>} />
           <Chevron name="chevron down" open={this.state.openMenu} />
         </Content>
-        <InlineHeaderUserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
+        <HeaderUserMenu open={this.state.openMenu} onSignOutClick={onClickSignOut} />
       </div>
     );
   }
@@ -90,4 +90,4 @@ class InlineHeader extends React.Component<Props, State> {
   }
 }
 
-export { InlineHeader };
+export { HeaderUser };

@@ -6,5 +6,5 @@ interface DeleteButtonProps {
 }
 
 export const TaskDeleteButton: React.SFC<DeleteButtonProps> = (props) => (
-  <Button basic color="red" icon="trash" size="tiny" onClick={props.onClick} />
+  <Button basic color="red" icon="trash" size="mini" onClick={props.onClick} />
 );

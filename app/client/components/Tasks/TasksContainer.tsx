@@ -4,7 +4,7 @@ import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
 import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getTasklist } from '../../reducers/tasklists';
+import { getTasklist, tasklists } from '../../reducers/tasklists';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
 import * as tasklistActions from '../../actions/tasklistActions';
 import * as taskActions from '../../actions/taskActions';
@@ -14,6 +14,7 @@ import { withRouter } from 'react-router-dom';
 import { TasksFallbackContent } from './TasksFallbackContent/TasksFallbackContent';
 
 interface TasksContainerProps {
+  tasklistsState: types.TasklistsState;
   tasksState: types.TasksState;
   tasklist: types.TasklistState | undefined;
   activeTasks: types.TaskState[];
@@ -54,12 +55,15 @@ class TasksContainer extends React.Component<TasksContainerProps> {
     const {
       activeTasks,
       completedTasks,
+      tasklistsState,
       tasklist,
       tasksState,
       destroyCompletedTasks,
       updateTask,
       updateSort
     } = this.props;
+
+    if (!tasklistsState.isInitialized) return null;
 
     if (!tasklist) return <TasksFallbackContent />;
 
@@ -105,6 +109,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
   return {
+    tasklistsState: state.tasklists,
     tasksState: state.tasks,
     tasklist: getTasklist(state, ownProps),
     activeTasks: getActiveTasks(state, ownProps),

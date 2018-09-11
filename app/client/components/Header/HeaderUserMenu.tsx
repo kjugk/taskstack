@@ -34,7 +34,7 @@ interface UserMenuProps {
   onSignOutClick(): any;
 }
 
-class InlineHeaderUserMenu extends React.Component<UserMenuProps> {
+class HeaderUserMenu extends React.Component<UserMenuProps> {
   render() {
     const { open, onSignOutClick } = this.props;
 
@@ -51,4 +51,4 @@ class InlineHeaderUserMenu extends React.Component<UserMenuProps> {
   }
 }
 
-export { InlineHeaderUserMenu };
+export { HeaderUserMenu };

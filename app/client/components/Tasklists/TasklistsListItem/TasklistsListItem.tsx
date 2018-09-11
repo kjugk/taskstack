@@ -12,7 +12,7 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
     props.isSelecting &&
     `
     transition: background .1s; background: ${props.theme.darkGrey};
-    color: ${props.theme.black};
+    color: ${props.theme.main};
   `};
 `;
 

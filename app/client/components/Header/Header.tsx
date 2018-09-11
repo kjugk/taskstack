@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
+import { HeaderUser } from './HeaderUser';
 
 const Container = styled.div`
   align-items: center;
@@ -17,33 +17,35 @@ const Container = styled.div`
 `;
 
 const Brand = styled.div`
-  font-weight: 800;
   font-size: 1.4rem;
+  font-weight: 800;
   line-height: 1;
 `;
 
 const TasklistTitle = styled.div`
   flex: 1;
-  text-align: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
   margin-right: 0.5rem;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 interface Props {
   tasklist: types.TasklistState | undefined;
+  user: types.UserState;
   onClickBars(): any;
+  onClickSignOut(): any;
 }
 
 class Header extends React.Component<Props> {
   render() {
-    const { tasklist, onClickBars } = this.props;
+    const { tasklist, user, onClickBars, onClickSignOut } = this.props;
 
     return (
       <Container>
         <div>
-          <Responsive minWidth={768} fireOnMount as={() => <Brand>TaskStack</Brand>} />
+          <Responsive minWidth={768} as={() => <Brand>TaskStack</Brand>} />
           <Responsive
             maxWidth={767}
             fireOnMount
@@ -51,11 +53,9 @@ class Header extends React.Component<Props> {
           />
         </div>
         <TasklistTitle>
-          {tasklist && (
-            <Responsive fireOnMount maxWidth={767} as={() => <span>{tasklist.title}</span>} />
-          )}
+          {tasklist && <Responsive maxWidth={767} as={() => <span>{tasklist.title}</span>} />}
         </TasklistTitle>
-        <InlineHeaderContainer />
+        <HeaderUser user={user} onClickSignOut={onClickSignOut} />
       </Container>
     );
   }
