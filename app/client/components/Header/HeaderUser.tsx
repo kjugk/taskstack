@@ -25,9 +25,6 @@ const UserName = styled.div`
 
 const Chevron = styled<{ open: boolean }, any>(Icon)`
   margin-left: 0.5rem !important;
-  transform: rotate(0);
-  transition: transform 0.2s ease;
-  ${(props) => props.open && 'transform: rotate(-180deg)'};
 `;
 
 interface Props {
@@ -75,8 +72,15 @@ class HeaderUser extends React.Component<Props, State> {
           <Avatar>
             <Image src={user.imageUrl} avatar size="mini" />
           </Avatar>
-          <Responsive minWidth={768} as={() => <UserName>{user.name}</UserName>} />
-          <Chevron name="chevron down" open={this.state.openMenu} />
+          <Responsive
+            minWidth={768}
+            as={() => (
+              <>
+                <UserName>{user.name}</UserName>
+                <Chevron name="chevron down" />
+              </>
+            )}
+          />
         </Content>
         <HeaderUserMenu open={this.state.openMenu} onSignOutClick={onClickSignOut} />
       </div>

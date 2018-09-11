@@ -26,7 +26,7 @@ const InputWrapper = styled<{ focuced: boolean }, any>('div')`
   `};
 `;
 
-const ClearButton: React.SFC<any> = (props) => (
+const ClearButton: React.SFC<{ onClick(): any }> = (props) => (
   <span onClick={props.onClick}>
     <Icon name="close" color="grey" onClick={props.onClick} />
   </span>
@@ -79,7 +79,7 @@ class TaskCreateForm extends React.Component<Props, State> {
             <Input
               disabled={formState.isSubmitting}
               fluid
-              icon={() => formState.title && <ClearButton onClick={() => onClear()} />}
+              icon={formState.title ? <ClearButton onClick={() => onClear()} /> : null}
               onChange={this.handleInputChange}
               onFocus={this.handleFocus}
               onBlur={this.handleBlur}

@@ -26,9 +26,13 @@ const Center = styled.div`
   flex-direction: column;
   height: 100%;
   overflow-y: scroll;
-  padding: 1rem;
+  padding: 1rem 2rem;
   position: relative;
   ${(props) => `background: ${props.theme.lightGrey}`};
+
+  @media (max-width: 786px) {
+    padding: 1rem;
+  }
 `;
 
 const Right = styled.div`

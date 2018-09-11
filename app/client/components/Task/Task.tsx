@@ -7,47 +7,51 @@ import { TaskActions } from './TaskActions/TaskActions';
 
 const Wrapper = styled<{ open: boolean }, any>('div')`
   height: 100%;
-  transform: translateX(100%);
-  transition: all .25s linear;
-  will-change: transform;
-  ${(props) => `background: ${props.theme.lightGrey}`};
-
   @media (min-width: 787px) {
+    transform: translateX(100%);
+    transition: all .25s linear;
+    padding: 1rem;
+    padding-left: 0;
     width: 0;
     ${(props) => props.open && 'transform: translateX(0); width: 360px;'};
+    ${(props) => `background: ${props.theme.lightGrey}`};
   }
 
    @media (max-width: 786px) {
+     background: rgba(0,0,0,0.5);
+     bottom: 0;
      padding: 1rem;
      position: absolute;
-     width: 100%;
      left: 0;
      top; 0;
-     bottom: 0;
+     width: 100%;
      ${(props) => props.open && 'transform: translateX(0);'};
   }
 `;
 
 const Container = styled<{ open: boolean }, any>('div')`
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
   position: relative;
+  width: 344px;
   ${(props) => `
-    border-left: 1px solid ${props.theme.border};
+    border: 1px solid ${props.theme.border};
     background: ${props.theme.grey};
   `};
   @media (max-width: 786px) {
-    border-radius: 4px;
+    width: 100%;
     ${(props) => `border: 1px solid ${props.theme.border}`};
   }
 `;
 
 const TitleContainer = styled.div`
   align-items: center;
+  border-radius: 4px 4px 0 0;
   display: flex;
   flex-direction: row;
+  flex-wrap: no-wrap;
   padding: 1rem;
   ${(props) => `
     background: ${props.theme.white};

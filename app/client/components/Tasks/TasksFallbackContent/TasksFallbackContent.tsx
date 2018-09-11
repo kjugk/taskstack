@@ -6,15 +6,15 @@ import img from '../../../assets/images/main@2x.png';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   justify-content: center;
 `;
 
 const MainImage = styled(Image)`
-  width: 430px;
+  max-width: 430px !important;
   margin-bottom: 1rem;
 `;
 

@@ -45,7 +45,7 @@ class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasks
 
     return (
       <>
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1.5rem', textAlign: 'right' }}>
           <Button type="button" onClick={this.handleToggleButtonClick}>
             {items.length} 件の完了済みタスク
             <Chevron open={this.state.openCompletedList}>

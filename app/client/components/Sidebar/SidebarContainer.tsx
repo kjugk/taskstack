@@ -15,6 +15,7 @@ const Sidebar = styled.div`
   max-width: 260px;
   position: relative;
   ${(props) => `background: ${props.theme.grey}`};
+  ${(props) => `border-right: 1px solid ${props.theme.border}`};
 `;
 
 const MobileSidebar = styled<{ open: boolean }, any>('div')`

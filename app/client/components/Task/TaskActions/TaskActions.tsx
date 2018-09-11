@@ -5,8 +5,9 @@ import { TaskCloseButton } from '../TaskCloseButton/TaskCloseButton';
 import { TaskDeleteButton } from '../TaskDeleteButton/TaskDeleteButton';
 
 const Container = styled.div`
-  display: flex;
   align-items: center;
+  border-radius: 0 0 4px 4px;
+  display: flex;
   padding: 1rem;
   ${(props) => `
     background: ${props.theme.white};
