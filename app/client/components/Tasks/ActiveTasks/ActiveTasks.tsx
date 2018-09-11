@@ -1,8 +1,13 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import SegmentGroup from 'semantic-ui-react/dist/commonjs/elements/Segment/SegmentGroup';
 import { TasksListItem } from '../TasksListItem/TasksListItem';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  margin-bottom: 2rem;
+  box-shadow: none;
+`;
 
 interface TasksProps {
   items: types.TaskState[];
@@ -22,11 +27,11 @@ const SortableList = SortableContainer((props: any) => {
   const { items, ...rest } = props;
 
   return (
-    <SegmentGroup style={{ marginBottom: '3rem', boxShadow: 'none' }}>
+    <Container>
       {props.items.map((item: any, i: number) => (
         <SortableItem key={i} index={i} value={item} {...rest} />
       ))}
-    </SegmentGroup>
+    </Container>
   );
 });
 

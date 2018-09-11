@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
-import FormField from 'semantic-ui-react/dist/commonjs/collections/Form/FormField';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import styled from 'styled-components';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
@@ -8,8 +7,9 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message
 interface TasklistFormProps {
   title: string;
   canDestroy: boolean;
-  onDestroyClick?(): any;
-  onTitleChange(title: string): any;
+  onClickDestroy?(): any;
+  onChangeTitle(title: string): any;
+  onClickClose(): any;
   onSubmit(): any;
 }
 
@@ -18,9 +18,8 @@ interface State {
 }
 
 const ActionsContainer = styled.div`
-  display: flex;
   margin-top: 2rem;
-  justify-content: space-between;
+  display: flex;
 `;
 
 class TasklistForm extends React.Component<TasklistFormProps, State> {
@@ -40,7 +39,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
   }
 
   render() {
-    const { title, onTitleChange, onSubmit, canDestroy, onDestroyClick } = this.props;
+    const { title, onChangeTitle, onSubmit, canDestroy, onClickDestroy, onClickClose } = this.props;
 
     return (
       <Form
@@ -58,7 +57,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
             value={title}
             onChange={(e) => {
               const value = e.target.value;
-              onTitleChange(value);
+              onChangeTitle(value);
               this.setState(() => ({
                 errorMessage: validate(value)
               }));
@@ -68,24 +67,29 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
         </div>
 
         <ActionsContainer>
-          <Button
-            primary
-            disabled={title.trim() === '' || !!this.state.errorMessage}
-            icon="check"
-            content="保存"
-            type="submit"
-          />
-
-          {canDestroy && (
+          <div style={{ flex: 1 }}>
+            {canDestroy && (
+              <Button
+                basic
+                content="削除"
+                color="red"
+                onClick={onClickDestroy}
+                size="tiny"
+                type="button"
+              />
+            )}
+          </div>
+          <div>
+            <Button basic content="キャンセル" size="tiny" type="button" onClick={onClickClose} />
             <Button
-              basic
-              color="red"
-              content="削除"
-              icon="trash"
-              onClick={onDestroyClick}
-              type="button"
+              primary
+              disabled={title.trim() === '' || !!this.state.errorMessage}
+              icon="check"
+              content="保存"
+              size="tiny"
+              type="submit"
             />
-          )}
+          </div>
         </ActionsContainer>
       </Form>
     );

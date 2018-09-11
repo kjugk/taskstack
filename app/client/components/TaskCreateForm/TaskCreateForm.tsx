@@ -3,20 +3,46 @@ import * as types from '../../types';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import styled from 'styled-components';
 
-const Container = styled.div`
-  margin-bottom: 1rem;
+const Wrapper = styled.div`
+  min-height: 5rem;
 `;
+
+const InputWrapper = styled<{ focuced: boolean }, any>('div')`
+  border-radius: 0.25rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  ${(props) => `
+    background: ${props.theme.grey};
+  `};
+  ${(props) =>
+    props.focuced &&
+    `
+    background: ${props.theme.white};
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.24);
+    border: 1px solid ${props.theme.border};
+  `};
+`;
+
+const ClearButton: React.SFC<{ onClick(): any }> = (props) => (
+  <span onClick={props.onClick}>
+    <Icon name="close" color="grey" onClick={props.onClick} />
+  </span>
+);
 
 interface Props {
   formState: types.TaskCreateFormState;
+  tasklist: types.TasklistState;
+  onClear(): any;
   onSubmit(e: React.FormEvent<HTMLFormElement>): any;
   onTitleChange(title: string): any;
 }
 
 interface State {
   errorMessage: string;
+  focused: boolean;
 }
 
 class TaskCreateForm extends React.Component<Props, State> {
@@ -24,10 +50,13 @@ class TaskCreateForm extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      errorMessage: ''
+      errorMessage: '',
+      focused: false
     };
   }
 
@@ -41,25 +70,38 @@ class TaskCreateForm extends React.Component<Props, State> {
   }
 
   render() {
-    const { formState } = this.props;
+    const { formState, tasklist, onClear } = this.props;
 
     return (
-      <Container>
+      <Wrapper>
         <Form error={!!this.state.errorMessage} onSubmit={this.handleSubmit}>
-          <Input
-            disabled={formState.isSubmitting}
-            fluid
-            icon="plus"
-            iconPosition="left"
-            onChange={this.handleInputChange}
-            placeholder="タスクを作成"
-            value={formState.title}
-            ref={(ref) => (this.input = ref)}
-          />
+          <InputWrapper focuced={this.state.focused}>
+            <Input
+              disabled={formState.isSubmitting}
+              fluid
+              icon={formState.title ? <ClearButton onClick={() => onClear()} /> : null}
+              onChange={this.handleInputChange}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              placeholder={`タスクを「${tasklist.title}」に追加`}
+              ref={(ref) => (this.input = ref)}
+              size="large"
+              transparent
+              value={formState.title}
+            />
+          </InputWrapper>
           <Message error content={this.state.errorMessage} />
         </Form>
-      </Container>
+      </Wrapper>
     );
+  }
+
+  private handleFocus() {
+    this.setState(() => ({ focused: true }));
+  }
+
+  private handleBlur() {
+    this.setState(() => ({ focused: false }));
   }
 
   private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -81,9 +123,9 @@ class TaskCreateForm extends React.Component<Props, State> {
 }
 
 const validate = (title: string) => {
-  if (typeof title === 'undefined') return;
+  if (typeof title === 'undefined') return '';
 
-  if (title.length > 10) {
+  if (title.length > 100) {
     return '100文字以内で入力してください';
   }
 

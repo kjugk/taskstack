@@ -8,7 +8,7 @@ const Title = styled<{ completed: boolean }, any>('h2')`
   font-size: 1.4rem;
   font-weight: bold;
   cursor: pointer;
-  overflow: hidden;
+  overflow-x: hidden;
   word-break: break-word;
   margin-right: 1rem;
   ${(props) => props.completed && 'text-decoration: line-through; color: #ccc'};

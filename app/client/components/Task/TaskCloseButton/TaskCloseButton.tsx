@@ -7,7 +7,7 @@ interface CloseButtonProps {
 }
 
 const TaskCloseButton: React.SFC<CloseButtonProps> = (props) => (
-  <Button basic color="grey" icon onClick={props.onClick}>
+  <Button basic color="grey" icon size="mini" onClick={props.onClick}>
     <Icon name="chevron right" />
   </Button>
 );

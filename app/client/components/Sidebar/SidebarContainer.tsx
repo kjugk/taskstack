@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
-import InlineHeaderContainer from '../InlineHeader/InlineHeaderContainer';
 import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 import * as sidebarActions from '../../actions/sidebarActions';
@@ -10,12 +9,13 @@ import { connect } from 'react-redux';
 
 const Sidebar = styled.div`
   display: flex;
+  flex-basis: 260px;
   flex-direction: column;
   height: 100%;
-  position: relative;
-  flex-basis: 260px;
-  background: #eee;
   max-width: 260px;
+  position: relative;
+  ${(props) => `background: ${props.theme.grey}`};
+  ${(props) => `border-right: 1px solid ${props.theme.border}`};
 `;
 
 const MobileSidebar = styled<{ open: boolean }, any>('div')`
@@ -26,11 +26,11 @@ const MobileSidebar = styled<{ open: boolean }, any>('div')`
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #eee;
   z-index: 3;
   will-change: transform;
   transform: translateX(-100%);
   transition: transform 0.25s linear;
+  ${(props) => `background: ${props.theme.grey}`};
   ${(props) => props.open && 'transform: translateX(0)'};
 `;
 
@@ -46,6 +46,15 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
   will-change: opacity;
   transition: opacity 0.2s ease;
   ${(props) => props.open && 'opacity: 1; width: 100%;'};
+`;
+
+const Brand = styled.div`
+  padding: 1rem;
+  line-height: 1;
+  ${(props) => `
+    color: ${props.theme.white};
+    background: ${props.theme.main};
+  `};
 `;
 
 const Overlay: React.SFC = (props: any) => (
@@ -64,13 +73,12 @@ class SidebarContainer extends React.Component<Props> {
     return (
       <>
         <Responsive as={Sidebar} minWidth={768}>
-          <InlineHeaderContainer />
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Responsive>
 
         <Responsive as={MobileSidebar} maxWidth={767} open={sidebar.isOpen}>
-          <InlineHeaderContainer />
+          <Brand>TaskStack</Brand>
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Responsive>
@@ -89,4 +97,4 @@ const mapStateToProps = (state: types.RootState) => ({
   sidebar: state.sidebar
 });
 
-export default connect(mapStateToProps)(SidebarContainer);
+export default withTheme(connect(mapStateToProps)(SidebarContainer));

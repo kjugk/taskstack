@@ -7,10 +7,13 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
   align-items: center;
   cursor: pointer;
   display: flex;
-  height: 3.4rem;
-  padding: 0 1rem;
+  padding: 1rem;
   ${(props) =>
-    props.isSelecting && 'transition: background .1s; background: #4598D8!important; color: #fff;'};
+    props.isSelecting &&
+    `
+    transition: background .1s; background: ${props.theme.darkGrey};
+    color: ${props.theme.main};
+  `};
 `;
 
 const TitleWrapper = styled.div`
@@ -40,7 +43,7 @@ class TasklistsListItem extends React.Component<ListItemProps> {
       <Container isSelecting={isSelecting} onClick={() => onClick(item.id)}>
         <TitleWrapper>{item.title}</TitleWrapper>
 
-        {!isSelecting && <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>}
+        <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>
 
         {isSelecting && (
           <IconWrapper

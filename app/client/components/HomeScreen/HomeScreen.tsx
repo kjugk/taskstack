@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header } from '../Header/Header';
+import { Header } from './Header/Header';
 import { HomeHero } from './HomeHero/HomeHero';
 import { HomeFeature } from './HomeFeature/HomeFeature';
 import { HomeFooter } from './HomeFooter/HomeFooter';

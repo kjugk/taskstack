@@ -4,41 +4,39 @@ import styled from 'styled-components';
 import key from 'keymaster';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
-import { InlineHeaderUserMenu } from './InlineHeaderUserMenu/InlineHeaderUserMenu';
+import { HeaderUserMenu } from './HeaderUserMenu';
+import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 
-const Wrapper = styled.div`
+const Content = styled.div`
   cursor: pointer;
-  padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
 `;
 
 const Avatar = styled.div`
-  flex-basis: 36px;
-  margin-right: 1rem;
+  min-width: 36px;
 `;
 
 const UserName = styled.div`
   flex: 1;
   font-weight: bold;
+  margin-left: 0.5rem;
 `;
 
 const Chevron = styled<{ open: boolean }, any>(Icon)`
-  transform: rotate(0);
-  transition: transform 0.2s ease;
-  ${(props) => props.open && 'transform: rotate(-180deg)'};
+  margin-left: 0.5rem !important;
 `;
 
 interface Props {
   user: types.UserState;
-  onSignOutClick(): any;
+  onClickSignOut(): any;
 }
 
 interface State {
   openMenu: boolean;
 }
 
-class InlineHeader extends React.Component<Props, State> {
+class HeaderUser extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -59,11 +57,11 @@ class InlineHeader extends React.Component<Props, State> {
   }
 
   render() {
-    const { user, onSignOutClick } = this.props;
+    const { user, onClickSignOut } = this.props;
 
     return (
-      <div>
-        <Wrapper
+      <div style={{ position: 'relative' }}>
+        <Content
           onClick={(e) => {
             e.stopPropagation();
             this.setState((prevState) => ({
@@ -74,11 +72,17 @@ class InlineHeader extends React.Component<Props, State> {
           <Avatar>
             <Image src={user.imageUrl} avatar size="mini" />
           </Avatar>
-          <UserName>{user.name}</UserName>
-          <Chevron name="chevron down" color="grey" open={this.state.openMenu} />
-        </Wrapper>
-
-        <InlineHeaderUserMenu open={this.state.openMenu} onSignOutClick={onSignOutClick} />
+          <Responsive
+            minWidth={768}
+            as={() => (
+              <>
+                <UserName>{user.name}</UserName>
+                <Chevron name="chevron down" />
+              </>
+            )}
+          />
+        </Content>
+        <HeaderUserMenu open={this.state.openMenu} onSignOutClick={onClickSignOut} />
       </div>
     );
   }
@@ -90,4 +94,4 @@ class InlineHeader extends React.Component<Props, State> {
   }
 }
 
-export { InlineHeader };
+export { HeaderUser };

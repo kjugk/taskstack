@@ -3,37 +3,24 @@ import * as types from '../../types';
 import * as formActions from '../../actions/tasklistCreateFormActions';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal';
-import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
-import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer';
-import Transition from 'semantic-ui-react/dist/commonjs/modules/Transition/Transition';
-import { TasklistForm } from '../TasklistForm/TasklistForm';
 import { Redirect, withRouter } from 'react-router-dom';
+import { TasklistCreateForm } from './TasklistCreateForm';
 
 interface Props {
   formState: types.TasklistCreateFormState;
   history: any;
   changeTitle(title: string): any;
-  submit(params: object): any;
   close(): any;
-}
-
-interface State {
-  open: boolean;
+  submit(params: object): any;
 }
 
 /**
  * Tasklist 作成フォーム
  */
-class TasklistCreateFormContainer extends React.Component<Props, State> {
+class TasklistCreateFormContainer extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    this.state = { open: false };
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState(() => ({ open: true }));
   }
 
   componentWillUnmount() {
@@ -46,37 +33,12 @@ class TasklistCreateFormContainer extends React.Component<Props, State> {
     if (formState.isSubmitted) return <Redirect to="/tasklists" />;
 
     return (
-      <Transition
-        animation="fade down"
-        duration={180}
-        visible={this.state.open}
-        onHide={() => history.goBack()}
-      >
-        <Modal
-          centered={false}
-          closeOnEscape={!formState.isSubmitting}
-          closeOnDimmerClick={!formState.isSubmitting}
-          open={true}
-          size="tiny"
-          onClose={() => this.setState(() => ({ open: false }))}
-        >
-          <Modal.Header>リストを作成</Modal.Header>
-          <Modal.Content>
-            {formState.isSubmitting && (
-              <Dimmer active>
-                <Loader inline="centered">Loading</Loader>
-              </Dimmer>
-            )}
-
-            <TasklistForm
-              canDestroy={false}
-              title={formState.title}
-              onTitleChange={changeTitle}
-              onSubmit={this.handleSubmit}
-            />
-          </Modal.Content>
-        </Modal>
-      </Transition>
+      <TasklistCreateForm
+        formState={formState}
+        onChangeTitle={changeTitle}
+        onSubmit={this.handleSubmit}
+        onClose={() => history.goBack()}
+      />
     );
   }
 
@@ -98,8 +60,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       changeTitle: (title: string) => formActions.changeTitle(title),
-      submit: (params: {}) => formActions.submit(params),
-      close: () => formActions.close()
+      close: () => formActions.close(),
+      submit: (params: {}) => formActions.submit(params)
     },
     dispatch
   );

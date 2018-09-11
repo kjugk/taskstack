@@ -3,53 +3,66 @@ import * as types from '../../types';
 import styled from 'styled-components';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
-import { TaskCloseButton } from './TaskCloseButton/TaskCloseButton';
-import { TaskDeleteButton } from './TaskDeleteButton/TaskDeleteButton';
+import { TaskActions } from './TaskActions/TaskActions';
 
-const Container = styled<{ open: boolean }, any>('div')`
-  background: #eee;
-  display: flex;
-  flex-direction: column;
+const Wrapper = styled<{ open: boolean }, any>('div')`
   height: 100%;
-  overflow: hidden;
-  position: relative;
-  transform: translateX(100%);
-  transition: all .25s linear;
-  will-change: transform;
-
   @media (min-width: 787px) {
+    transform: translateX(100%);
+    transition: all .25s linear;
+    padding: 1rem;
+    padding-left: 0;
     width: 0;
     ${(props) => props.open && 'transform: translateX(0); width: 360px;'};
+    ${(props) => `background: ${props.theme.lightGrey}`};
   }
 
    @media (max-width: 786px) {
+     background: rgba(0,0,0,0.5);
+     bottom: 0;
+     padding: 1rem;
      position: absolute;
-     width: 100%;
      left: 0;
      top; 0;
+     width: 100%;
      ${(props) => props.open && 'transform: translateX(0);'};
+  }
+`;
+
+const Container = styled<{ open: boolean }, any>('div')`
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: 344px;
+  ${(props) => `
+    border: 1px solid ${props.theme.border};
+    background: ${props.theme.grey};
+  `};
+  @media (max-width: 786px) {
+    width: 100%;
+    ${(props) => `border: 1px solid ${props.theme.border}`};
   }
 `;
 
 const TitleContainer = styled.div`
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
   display: flex;
   flex-direction: row;
-  margin-bottom: 1rem;
-  min-height: 2rem;
+  flex-wrap: no-wrap;
   padding: 1rem;
+  ${(props) => `
+    background: ${props.theme.white};
+    border-bottom: 1px solid ${props.theme.border}
+  `};
 `;
 
 const Contents = styled.div`
   flex: 1;
   padding: 1rem;
   overflow-y: scroll;
-`;
-
-const ButtonContainer = styled.div`
-  padding: 1rem;
-  display: flex;
 `;
 
 interface Props {
@@ -76,35 +89,28 @@ class Task extends React.Component<Props> {
   }
 
   render() {
-    const { open, task, onUpdate } = this.props;
+    const { open, task, onUpdate, onClose, onDestroy } = this.props;
 
     return (
-      <Container open={open} onClick={(e: any) => e.stopPropagation()}>
-        <TitleContainer>
-          <input
-            type="checkbox"
-            checked={task.completed}
-            onChange={this.handleCheckChange}
-            style={{ marginRight: '1.4rem' }}
-          />
-          <TaskTitle task={task} onSubmit={onUpdate} />
-        </TitleContainer>
+      <Wrapper open={open}>
+        <Container open={open} onClick={(e: any) => e.stopPropagation()}>
+          <TitleContainer>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={this.handleCheckChange}
+              style={{ marginRight: '1.4rem' }}
+            />
+            <TaskTitle task={task} onSubmit={onUpdate} />
+          </TitleContainer>
 
-        <Contents>
-          <TaskMemo task={task} onSubmit={onUpdate} />
-        </Contents>
+          <Contents>
+            <TaskMemo task={task} onSubmit={onUpdate} />
+          </Contents>
 
-        <ButtonContainer>
-          <TaskCloseButton onClick={this.props.onClose} />
-          <TaskDeleteButton
-            onClick={() => {
-              if (window.confirm('削除しますか?')) {
-                this.props.onDestroy(task.id);
-              }
-            }}
-          />
-        </ButtonContainer>
-      </Container>
+          <TaskActions task={task} onClickClose={onClose} onClickDestroy={onDestroy} />
+        </Container>
+      </Wrapper>
     );
   }
 
