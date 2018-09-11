@@ -3,6 +3,7 @@ import * as types from '../../types';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -25,9 +26,16 @@ const InputWrapper = styled<{ focuced: boolean }, any>('div')`
   `};
 `;
 
+const ClearButton: React.SFC<any> = (props) => (
+  <span onClick={props.onClick}>
+    <Icon name="close" color="grey" onClick={props.onClick} />
+  </span>
+);
+
 interface Props {
   formState: types.TaskCreateFormState;
   tasklist: types.TasklistState;
+  onClear(): any;
   onSubmit(e: React.FormEvent<HTMLFormElement>): any;
   onTitleChange(title: string): any;
 }
@@ -62,7 +70,7 @@ class TaskCreateForm extends React.Component<Props, State> {
   }
 
   render() {
-    const { formState, tasklist } = this.props;
+    const { formState, tasklist, onClear } = this.props;
 
     return (
       <Wrapper>
@@ -71,16 +79,15 @@ class TaskCreateForm extends React.Component<Props, State> {
             <Input
               disabled={formState.isSubmitting}
               fluid
-              icon="plus"
-              iconPosition="left"
+              icon={() => formState.title && <ClearButton onClick={() => onClear()} />}
               onChange={this.handleInputChange}
               onFocus={this.handleFocus}
               onBlur={this.handleBlur}
               placeholder={`タスクを「${tasklist.title}」に追加`}
-              size="large"
-              value={formState.title}
               ref={(ref) => (this.input = ref)}
+              size="large"
               transparent
+              value={formState.title}
             />
           </InputWrapper>
           <Message error content={this.state.errorMessage} />
@@ -118,7 +125,7 @@ class TaskCreateForm extends React.Component<Props, State> {
 const validate = (title: string) => {
   if (typeof title === 'undefined') return '';
 
-  if (title.length > 10) {
+  if (title.length > 100) {
     return '100文字以内で入力してください';
   }
 

@@ -28,6 +28,7 @@ class TaskCreateFormContainer extends React.Component<TaskCreateFormContainerPro
       <TaskCreateForm
         formState={formState}
         tasklist={tasklist}
+        onClear={() => changeTitle('')}
         onSubmit={this.handleOnSubmit}
         onTitleChange={(title) => changeTitle(title)}
       />
