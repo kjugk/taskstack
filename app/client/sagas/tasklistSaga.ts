@@ -73,19 +73,8 @@ export default function* tasklistSaga() {
     yield put(messageActions.set('リストを削除しました。'));
   }
 
-  function* destoryCompletedTasks(action: any) {
-    const { data } = yield call(api.destoryCompletedTasks, action.payload.tasklistId);
-    const { taskIds } = action.payload;
-
-    yield delay(1000);
-    yield put(tasklistActions.updateSuccess(data.tasklist));
-    yield put(taskActions.destroyCompletedTasksSuccess(taskIds));
-    yield put(messageActions.set(`${taskIds.length}件削除しました。`));
-  }
-
   yield all([
     takeLatest(getType(tasklistActions.fetchTasklists), fetch),
-    takeLatest(getType(tasklistActions.removeCompletedTaskIds), destoryCompletedTasks),
     takeLatest(getType(createFormActions.submit), create),
     takeLatest(getType(editFormActions.submit), update),
     takeLatest(getType(editFormActions.destroyTasklist), destroy)

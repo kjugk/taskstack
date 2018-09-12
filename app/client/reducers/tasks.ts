@@ -56,13 +56,6 @@ export const tasks = (state = initialState, action: TaskAction) => {
         tasksById: deleteTask(state.tasksById, action.payload.id)
       };
 
-    case getType(taskActions.destroyCompletedTasksSuccess):
-      return {
-        ...state,
-        isUpdating: false,
-        tasksById: deleteTasks(state.tasksById, action.payload.taskIds)
-      };
-
     default:
       return state;
   }
@@ -72,13 +65,6 @@ export const tasks = (state = initialState, action: TaskAction) => {
 const deleteTask = (tasksById: any, id: number) => {
   const cloned = Object.assign({}, tasksById);
   delete cloned[id];
-
-  return cloned;
-};
-
-const deleteTasks = (tasksById: any, ids: number[]) => {
-  const cloned = Object.assign({}, tasksById);
-  ids.forEach((id) => delete cloned[id]);
 
   return cloned;
 };
