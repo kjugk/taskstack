@@ -17,6 +17,9 @@ const ItemContainer = styled<{ completed: boolean }, any>('div')`
 const TitleWrapper = styled<{ completed: boolean }, any>('span')`
   flex: 1;
   margin-left: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   ${(props) => props.completed && 'text-decoration: line-through;'};
 `;
 

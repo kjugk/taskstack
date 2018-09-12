@@ -6,26 +6,28 @@ import { TaskMemo } from './TaskMemo/TaskMemo';
 import { TaskActions } from './TaskActions/TaskActions';
 
 const Wrapper = styled<{ open: boolean }, any>('div')`
-  height: 100%;
+  transition: all 0.25s linear;
+
   @media (min-width: 787px) {
-    transform: translateX(100%);
-    transition: all .25s linear;
+    height: 100%;
     padding: 1rem;
     padding-left: 0;
+    transform: translateX(100%);
     width: 0;
     ${(props) => props.open && 'transform: translateX(0); width: 360px;'};
     ${(props) => `background: ${props.theme.lightGrey}`};
   }
 
-   @media (max-width: 786px) {
-     background: rgba(0,0,0,0.5);
-     bottom: 0;
-     padding: 1rem;
-     position: absolute;
-     left: 0;
-     top; 0;
-     width: 100%;
-     ${(props) => props.open && 'transform: translateX(0);'};
+  @media (max-width: 786px) {
+    background: rgba(0, 0, 0, 0);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+    position: absolute;
+    z-index: 3;
+    ${(props) => props.open && 'background: rgba(0, 0, 0, 0.5)'};
   }
 `;
 
@@ -34,15 +36,20 @@ const Container = styled<{ open: boolean }, any>('div')`
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: relative;
-  width: 344px;
   ${(props) => `
-    border: 1px solid ${props.theme.border};
     background: ${props.theme.grey};
+    border: 1px solid ${props.theme.border};
   `};
+
+  @media (min-width: 787px) {
+    width: 344px;
+  }
+
   @media (max-width: 786px) {
     width: 100%;
-    ${(props) => `border: 1px solid ${props.theme.border}`};
+    transform: translateX(100%);
+    transition: all 0.25s linear;
+    ${(props) => props.open && 'transform: translate3D(0, 0, 0);'};
   }
 `;
 
