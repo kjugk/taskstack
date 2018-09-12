@@ -40,10 +40,3 @@ export const fetchTasksSuccess = createAction('tasklist/FETCH_TASKS_SUCCESS', (r
 export const updateTaskCount = createAction('tasklist/UPDATE_TASK_COUNT', (resolve) => {
   return (tasklistId: number, taskCount: number) => resolve({ tasklistId, taskCount });
 });
-
-export const removeCompletedTaskIds = createAction(
-  'tasklist/REMOVE_COMPLETED_TASK_IDS',
-  (resolve) => {
-    return (tasklistId: number, taskIds: number[]) => resolve({ tasklistId, taskIds });
-  }
-);
