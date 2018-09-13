@@ -15,14 +15,9 @@ interface Props {
   signOut(): any;
 }
 
-class HeaderContainer extends React.Component<Props> {
-  render() {
-    const { tasklist, user, openSidebar, signOut } = this.props;
-    return (
-      <Header tasklist={tasklist} user={user} onClickSignOut={signOut} onClickBars={openSidebar} />
-    );
-  }
-}
+const HeaderContainer: React.SFC<Props> = ({ tasklist, user, openSidebar, signOut }) => (
+  <Header tasklist={tasklist} user={user} onClickSignOut={signOut} onClickBars={openSidebar} />
+);
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
   return {

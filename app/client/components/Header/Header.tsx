@@ -38,27 +38,20 @@ interface Props {
   onClickSignOut(): any;
 }
 
-class Header extends React.Component<Props> {
-  render() {
-    const { tasklist, user, onClickBars, onClickSignOut } = this.props;
-
-    return (
-      <Container>
-        <div>
-          <Responsive minWidth={768} as={() => <Brand>TaskStack</Brand>} />
-          <Responsive
-            maxWidth={767}
-            fireOnMount
-            as={() => <Icon name="bars" size="large" onClick={onClickBars} />}
-          />
-        </div>
-        <TasklistTitle>
-          {tasklist && <Responsive maxWidth={767} as={() => <span>{tasklist.title}</span>} />}
-        </TasklistTitle>
-        <HeaderUser user={user} onClickSignOut={onClickSignOut} />
-      </Container>
-    );
-  }
-}
+const Header: React.SFC<Props> = ({ tasklist, user, onClickBars, onClickSignOut }) => (
+  <Container>
+    <div>
+      <Responsive minWidth={768} as={() => <Brand>TaskStack</Brand>} />
+      <Responsive
+        maxWidth={767}
+        as={() => <Icon name="bars" size="large" onClick={onClickBars} />}
+      />
+    </div>
+    <TasklistTitle>
+      {tasklist && <Responsive maxWidth={767} as={() => <span>{tasklist.title}</span>} />}
+    </TasklistTitle>
+    <HeaderUser user={user} onClickSignOut={onClickSignOut} />
+  </Container>
+);
 
 export { Header };

@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
 import key from 'keymaster';
-import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import { HeaderUserMenu } from './HeaderUserMenu';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
+import noavatar from '../../assets/images/noavatar.png';
 
 const Content = styled.div`
   cursor: pointer;
@@ -13,8 +13,10 @@ const Content = styled.div`
   align-items: center;
 `;
 
-const Avatar = styled.div`
-  min-width: 36px;
+const Avatar = styled.img`
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
 `;
 
 const UserName = styled.div`
@@ -34,6 +36,7 @@ interface Props {
 
 interface State {
   openMenu: boolean;
+  avatarSrc: any;
 }
 
 class HeaderUser extends React.Component<Props, State> {
@@ -41,14 +44,19 @@ class HeaderUser extends React.Component<Props, State> {
     super(props);
 
     this.closeMenu = this.closeMenu.bind(this);
+    this.handleOnLoadAvatarError = this.handleOnLoadAvatarError.bind(this);
     this.state = {
-      openMenu: false
+      openMenu: false,
+      avatarSrc: noavatar
     };
   }
 
   componentDidMount() {
     key('esc', this.closeMenu);
     window.addEventListener('click', this.closeMenu);
+    this.setState(() => ({
+      avatarSrc: this.props.user.imageUrl
+    }));
   }
 
   componentWillUnmount() {
@@ -69,9 +77,7 @@ class HeaderUser extends React.Component<Props, State> {
             }));
           }}
         >
-          <Avatar>
-            <Image src={user.imageUrl} avatar size="mini" />
-          </Avatar>
+          <Avatar src={this.state.avatarSrc} onError={this.handleOnLoadAvatarError} />
           <Responsive
             minWidth={768}
             as={() => (
@@ -90,6 +96,12 @@ class HeaderUser extends React.Component<Props, State> {
   private closeMenu() {
     this.setState(() => ({
       openMenu: false
+    }));
+  }
+
+  private handleOnLoadAvatarError() {
+    this.setState(() => ({
+      avatarSrc: noavatar
     }));
   }
 }

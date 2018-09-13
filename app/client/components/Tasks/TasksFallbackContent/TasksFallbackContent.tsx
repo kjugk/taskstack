@@ -14,8 +14,9 @@ const Container = styled.div`
 `;
 
 const MainImage = styled(Image)`
-  max-width: 430px !important;
+  max-width: 100% !important;
   margin-bottom: 1rem;
+  width: 430px;
 `;
 
 const TasksFallbackContent: React.SFC = () => (

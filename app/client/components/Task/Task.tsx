@@ -5,8 +5,10 @@ import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
 import { TaskActions } from './TaskActions/TaskActions';
 
+const TRANSITION_DURATION = 250;
+
 const Wrapper = styled<{ open: boolean }, any>('div')`
-  transition: all 0.25s linear;
+  transition: all ${TRANSITION_DURATION}ms linear;
 
   @media (min-width: 787px) {
     height: 100%;
@@ -14,18 +16,20 @@ const Wrapper = styled<{ open: boolean }, any>('div')`
     padding-left: 0;
     transform: translateX(100%);
     width: 0;
-    ${(props) => props.open && 'transform: translateX(0); width: 360px;'};
-    ${(props) => `background: ${props.theme.lightGrey}`};
+    ${(props) => `
+      ${props.open && 'transform: translate3D(0, 0, 0); width: 360px;'}
+      background: ${props.theme.lightGrey};
+    `};
   }
 
   @media (max-width: 786px) {
     background: rgba(0, 0, 0, 0);
-    top: 0;
-    left: 0;
-    right: 0;
     bottom: 0;
+    left: 0;
     padding: 1rem;
     position: absolute;
+    right: 0;
+    top: 0;
     z-index: 3;
     ${(props) => props.open && 'background: rgba(0, 0, 0, 0.5)'};
   }
@@ -48,7 +52,7 @@ const Container = styled<{ open: boolean }, any>('div')`
   @media (max-width: 786px) {
     width: 100%;
     transform: translateX(100%);
-    transition: all 0.25s linear;
+    transition: all ${TRANSITION_DURATION}ms linear;
     ${(props) => props.open && 'transform: translate3D(0, 0, 0);'};
   }
 `;
@@ -68,13 +72,13 @@ const TitleContainer = styled.div`
 
 const Contents = styled.div`
   flex: 1;
-  padding: 1rem;
   overflow-y: scroll;
+  padding: 1rem;
 `;
 
 interface Props {
-  task: types.TaskState;
   open: boolean;
+  task: types.TaskState;
   onUpdate(id: number, params: any): any;
   onDestroy(id: number): any;
   onClose(): any;
@@ -91,7 +95,7 @@ class Task extends React.Component<Props> {
     if (prevProp.open && !this.props.open) {
       setTimeout(() => {
         this.props.onHide();
-      }, 120);
+      }, TRANSITION_DURATION);
     }
   }
 
@@ -122,8 +126,6 @@ class Task extends React.Component<Props> {
   }
 
   private handleCheckChange(e: any) {
-    e.preventDefault();
-
     const { task, onUpdate } = this.props;
     if (!task) return;
 

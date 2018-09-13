@@ -13,8 +13,8 @@ const Container = styled(List)`
   z-index: 100;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.24);
   ${(props) => `
-    color: ${props.theme.black};
     background: ${props.theme.white};
+    color: ${props.theme.black};
   `};
 `;
 
@@ -23,32 +23,26 @@ const Item = styled(List.Item)`
   padding: 1rem !important;
   transition: background 0.1s ease;
   &:hover {
-    ${(props) => `
-      background: ${props.theme.darkGrey};
-      `};
+    ${(props) => `background: ${props.theme.darkGrey};`};
   }
 `;
 
-interface UserMenuProps {
+interface Props {
   open: boolean;
   onSignOutClick(): any;
 }
 
-class HeaderUserMenu extends React.Component<UserMenuProps> {
-  render() {
-    const { open, onSignOutClick } = this.props;
+const HeaderUserMenu: React.SFC<Props> = ({ open, onSignOutClick }) => {
+  if (!open) return null;
 
-    if (!open) return null;
-
-    return (
-      <Container>
-        <Item onClick={onSignOutClick}>
-          <List.Icon name="log out" color="grey" />
-          <List.Content>ログアウト</List.Content>
-        </Item>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <Item onClick={onSignOutClick}>
+        <List.Icon name="log out" color="grey" />
+        <List.Content>ログアウト</List.Content>
+      </Item>
+    </Container>
+  );
+};
 
 export { HeaderUserMenu };
