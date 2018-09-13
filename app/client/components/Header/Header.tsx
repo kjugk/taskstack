@@ -48,7 +48,6 @@ class Header extends React.Component<Props> {
           <Responsive minWidth={768} as={() => <Brand>TaskStack</Brand>} />
           <Responsive
             maxWidth={767}
-            fireOnMount
             as={() => <Icon name="bars" size="large" onClick={onClickBars} />}
           />
         </div>

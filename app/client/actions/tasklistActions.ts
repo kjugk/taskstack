@@ -8,7 +8,6 @@ export const fetchTasklistsSuccess = createAction('tasklist/FETCH_TASKLISTS_SUCC
   return (ids: number[], tasklistsById: any) => resolve({ ids, tasklistsById });
 });
 
-// TODO update に マージできないか?;
 export const updateTaskSortSuccess = createAction(
   'tasklist/UPDATE_TASK_SORT_SUCCESS',
   (resolve) => {

@@ -14,8 +14,10 @@ const Sidebar = styled.div`
   height: 100%;
   max-width: 260px;
   position: relative;
-  ${(props) => `background: ${props.theme.grey}`};
-  ${(props) => `border-right: 1px solid ${props.theme.border}`};
+  ${(props) => `
+    background: ${props.theme.grey};
+    border-right: 1px solid ${props.theme.border}
+  `};
 `;
 
 const MobileSidebar = styled<{ open: boolean }, any>('div')`
@@ -30,8 +32,10 @@ const MobileSidebar = styled<{ open: boolean }, any>('div')`
   will-change: transform;
   transform: translateX(-100%);
   transition: transform 0.25s linear;
-  ${(props) => `background: ${props.theme.grey}`};
-  ${(props) => props.open && 'transform: translateX(0)'};
+  ${(props) => `
+    background: ${props.theme.grey};
+    ${props.open && 'transform: translateX(0);'}
+  `};
 `;
 
 const MobileOverlay = styled<{ open: boolean }, any>('div')`
