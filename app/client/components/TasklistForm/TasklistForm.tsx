@@ -49,7 +49,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
           onSubmit();
         }}
       >
-        <div>
+        <Form.Field>
           <label>タイトル</label>
           <input
             ref={(r) => (this.input = r)}
@@ -64,7 +64,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
             }}
           />
           <Message error content={this.state.errorMessage} />
-        </div>
+        </Form.Field>
 
         <ActionsContainer>
           <div style={{ flex: 1 }}>
