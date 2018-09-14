@@ -5,7 +5,7 @@ import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
 import { TaskActions } from './TaskActions/TaskActions';
 
-const TRANSITION_DURATION = 250;
+const TRANSITION_DURATION = 180;
 
 const Wrapper = styled<{ open: boolean }, any>('div')`
   transition: all ${TRANSITION_DURATION}ms linear;
@@ -28,6 +28,7 @@ const Wrapper = styled<{ open: boolean }, any>('div')`
     left: 0;
     padding: 1rem;
     position: absolute;
+    overflow: hidden;
     right: 0;
     top: 0;
     z-index: 3;
@@ -40,6 +41,7 @@ const Container = styled<{ open: boolean }, any>('div')`
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
   ${(props) => `
     background: ${props.theme.grey};
     border: 1px solid ${props.theme.border};
@@ -50,7 +52,6 @@ const Container = styled<{ open: boolean }, any>('div')`
   }
 
   @media (max-width: 786px) {
-    width: 100%;
     transform: translateX(100%);
     transition: all ${TRANSITION_DURATION}ms linear;
     ${(props) => props.open && 'transform: translate3D(0, 0, 0);'};
@@ -79,10 +80,10 @@ const Contents = styled.div`
 interface Props {
   open: boolean;
   task: types.TaskState;
-  onUpdate(id: number, params: any): any;
-  onDestroy(id: number): any;
   onClose(): any;
+  onDestroy(id: number): any;
   onHide(): any;
+  onUpdate(id: number, params: any): any;
 }
 
 class Task extends React.Component<Props> {

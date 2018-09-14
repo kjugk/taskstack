@@ -40,7 +40,7 @@ class TasklistEditForm extends React.Component<Props, State> {
 
     return (
       <Transition
-        animation="fade down"
+        animation="scale"
         duration={180}
         unmountOnHide={true}
         visible={this.state.open}
@@ -58,7 +58,7 @@ class TasklistEditForm extends React.Component<Props, State> {
           <Modal.Content>
             {formState.isSubmitting && (
               <Dimmer active>
-                <Loader inline="centered">更新中</Loader>
+                <Loader inline="centered">更新中...</Loader>
               </Dimmer>
             )}
 

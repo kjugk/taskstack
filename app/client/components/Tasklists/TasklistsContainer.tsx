@@ -42,11 +42,11 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
     return (
       <Tasklists
         selectingId={selectingId}
-        onItemClick={(id: number) => {
+        onClickItem={(id: number) => {
           this.props.closeMenu();
           this.props.history.push(`/tasklists/${id}`);
         }}
-        onEditButtonClick={(id: number) => this.props.history.push(`/tasklists/${id}/edit`)}
+        onClickEditButton={(id: number) => this.props.history.push(`/tasklists/${id}/edit`)}
         items={tasklists}
       />
     );

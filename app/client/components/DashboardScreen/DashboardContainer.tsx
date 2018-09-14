@@ -73,9 +73,7 @@ class DashboardScreenContainer extends React.Component<Props> {
             <TasksContainer />
           </Center>
 
-          <Right>
-            <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
-          </Right>
+          <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />
         </div>
 
         <Switch>

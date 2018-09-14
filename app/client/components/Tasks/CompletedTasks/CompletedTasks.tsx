@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as types from '../../../types';
-import SegmentGroup from 'semantic-ui-react/dist/commonjs/elements/Segment/SegmentGroup';
 import { TasksListItem } from '../TasksListItem/TasksListItem';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
@@ -17,18 +16,18 @@ const Chevron = styled<{ open: boolean }, any>('span')`
   ${(props) => props.open && 'transform: rotate(-180deg)'};
 `;
 
-interface CompletedTasksProps {
+interface Props {
   items: types.TaskState[];
-  onItemClick(id: number): any;
-  onCheckChange(id: number, params: any): any;
+  onClickItem(id: number): any;
+  onChangeCheck(id: number, params: any): any;
 }
 
-interface CompletedTasksState {
+interface State {
   openCompletedList: boolean;
 }
 
-class CompletedTasks extends React.Component<CompletedTasksProps, CompletedTasksState> {
-  constructor(props: CompletedTasksProps) {
+class CompletedTasks extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.handleToggleButtonClick = this.handleToggleButtonClick.bind(this);

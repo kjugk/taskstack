@@ -29,24 +29,18 @@ interface Props {
   onClickDestroy(id: number): any;
 }
 
-class TaskActions extends React.Component<Props> {
-  render() {
-    const { task, onClickClose, onClickDestroy } = this.props;
-
-    return (
-      <Container>
-        <TaskCloseButton onClick={onClickClose} />
-        <CreatedAt>作成日 : {task.createdAt}</CreatedAt>
-        <TaskDeleteButton
-          onClick={() => {
-            if (window.confirm('削除しますか?')) {
-              onClickDestroy(task.id);
-            }
-          }}
-        />
-      </Container>
-    );
-  }
-}
+const TaskActions: React.SFC<Props> = ({ task, onClickClose, onClickDestroy }) => (
+  <Container>
+    <TaskCloseButton onClick={onClickClose} />
+    <CreatedAt>作成日 : {task.createdAt}</CreatedAt>
+    <TaskDeleteButton
+      onClick={() => {
+        if (window.confirm('削除しますか?')) {
+          onClickDestroy(task.id);
+        }
+      }}
+    />
+  </Container>
+);
 
 export { TaskActions };

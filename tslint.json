@@ -1,18 +1,16 @@
 {
   "defaultSeverity": "error",
-  "extends": [
-      "tslint:recommended"
-  ],
+  "extends": ["tslint:recommended"],
   "jsRules": {},
   "rules": {
-      "quotemark": [true, "single", "jsx-double"],
-      "interface-name": [true, "never-prefix"],
-      "ordered-imports": false,
-      "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
-      "object-literal-sort-keys": false,
-      "member-access": [true, "no-public"],
-      "curly": [true, "ignore-same-line"],
-      "no-debugger": false
+    "quotemark": [true, "single", "jsx-double"],
+    "interface-name": [true, "never-prefix"],
+    "ordered-imports": false,
+    "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+    "object-literal-sort-keys": false,
+    "member-access": [true, "no-public"],
+    "curly": [true, "ignore-same-line"],
+    "no-debugger": false
   },
   "rulesDirectory": []
 }

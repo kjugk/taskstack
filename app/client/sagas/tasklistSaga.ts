@@ -2,7 +2,6 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { getType, isActionOf } from 'typesafe-actions';
 import * as tasklistActions from '../actions/tasklistActions';
-import * as taskActions from '../actions/taskActions';
 import * as createFormActions from '../actions/tasklistCreateFormActions';
 import * as editFormActions from '../actions/tasklistEditFormActions';
 import * as messageActions from '../actions/messageActions';
@@ -27,7 +26,7 @@ export default function* tasklistSaga() {
   }
 
   /**
-   * tasklist のリストを作成する。
+   * tasklist を作成する。
    */
   function* create(action: TasklistCreateFormAction) {
     if (!isActionOf(createFormActions.submit, action)) return;
@@ -43,7 +42,7 @@ export default function* tasklistSaga() {
   }
 
   /**
-   * tasklistを更新する。
+   * tasklist を更新する。
    */
   function* update(action: TasklistEditFormAction) {
     if (!isActionOf(editFormActions.submit, action)) return;
