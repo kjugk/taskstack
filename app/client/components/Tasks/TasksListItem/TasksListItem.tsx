@@ -3,7 +3,6 @@ import * as types from '../../../types';
 import styled from 'styled-components';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
-import Checkbox from 'semantic-ui-react/dist/commonjs/modules/Checkbox/Checkbox';
 
 const Container = styled<{ completed: boolean }, any>('div')`
   align-items: center;
@@ -46,8 +45,8 @@ const TasksListItem: React.SFC<Props> = ({ item, onClickItem, onChangeCheck }) =
         onClickItem(item.id);
       }}
     >
-      <Checkbox
-        fitted
+      <input
+        type="checkbox"
         checked={item.completed}
         onClick={(e) => e.stopPropagation()}
         onChange={(e) => {
