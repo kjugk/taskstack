@@ -11,8 +11,7 @@ const Container = styled<{ completed: boolean }, any>('div')`
   display: flex;
   flex-direction: row;
   padding: 0.6rem 1rem;
-  ${(props) =>
-    props.completed && `color: ${props.theme.darkGrey}; background: ${props.theme.lightGrey}`};
+  ${(props) => props.completed && `color: ${props.theme.darkGrey};`};
 `;
 
 const Title = styled<{ completed: boolean }, any>('span')`
