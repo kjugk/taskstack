@@ -78,8 +78,8 @@ class TasksContainer extends React.Component<TasksContainerProps> {
         <ActiveTasks
           items={activeTasks}
           tasklist={tasklist}
-          onCheckChange={updateTask}
-          onItemClick={this.handleOnItemClick}
+          onChangeCheck={updateTask}
+          onClickItem={this.handleOnItemClick}
           onSort={(tasklistId: number, taskIds: number[]) => {
             updateSort(tasklistId, taskIds.concat(completedTasks.map((t) => t.id)));
           }}
@@ -87,8 +87,8 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 
         <CompletedTasks
           items={completedTasks}
-          onCheckChange={updateTask}
-          onItemClick={this.handleOnItemClick}
+          onChangeCheck={updateTask}
+          onClickItem={this.handleOnItemClick}
         />
       </div>
     );

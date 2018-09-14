@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as types from '../../types';
-import { TasklistsListItem } from './TasklistsListItem/TasklistsListItem';
 import styled from 'styled-components';
+import { TasklistsListItem } from './TasklistsListItem/TasklistsListItem';
 
 const Container = styled.ul`
   padding: 0;
@@ -10,33 +10,25 @@ const Container = styled.ul`
   flex: 1;
 `;
 
-interface TasklistsProps {
+interface Props {
   items: types.TasklistState[];
   selectingId: number;
-  onItemClick(id: number): any;
-  onEditButtonClick(id: number): any;
+  onClickItem(id: number): any;
+  onClickEditButton(id: number): any;
 }
 
-class Tasklists extends React.Component<TasklistsProps> {
-  render() {
-    const { items, onItemClick, onEditButtonClick, selectingId } = this.props;
-
-    return (
-      <Container>
-        {items.map((item, i) => {
-          return (
-            <TasklistsListItem
-              onClick={onItemClick}
-              onEditButtonClick={onEditButtonClick}
-              item={item}
-              isSelecting={item.id === selectingId}
-              key={i}
-            />
-          );
-        })}
-      </Container>
-    );
-  }
-}
+const Tasklists: React.SFC<Props> = ({ items, onClickItem, onClickEditButton, selectingId }) => (
+  <Container>
+    {items.map((item, i) => (
+      <TasklistsListItem
+        onClickItem={onClickItem}
+        onClickEditButton={onClickEditButton}
+        item={item}
+        isSelecting={item.id === selectingId}
+        key={i}
+      />
+    ))}
+  </Container>
+);
 
 export { Tasklists };

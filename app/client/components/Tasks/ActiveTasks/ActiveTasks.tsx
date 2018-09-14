@@ -5,15 +5,15 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin-bottom: 2rem;
   box-shadow: none;
+  margin-bottom: 2rem;
 `;
 
 interface TasksProps {
   items: types.TaskState[];
   tasklist: types.TasklistState;
-  onItemClick(id: number): any;
-  onCheckChange(id: number, params: any): any;
+  onClickItem(id: number): any;
+  onChangeCheck(id: number, params: any): any;
   onSort(tasklistId: number, taskIds: number[]): any;
 }
 
@@ -38,6 +38,7 @@ const SortableList = SortableContainer((props: any) => {
 class ActiveTasks extends React.Component<TasksProps> {
   render() {
     const { items, ...rest } = this.props;
+
     if (items.length <= 0) return null;
 
     return (

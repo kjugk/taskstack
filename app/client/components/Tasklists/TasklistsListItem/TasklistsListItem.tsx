@@ -7,6 +7,7 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
   align-items: center;
   cursor: pointer;
   display: flex;
+  flex-direction: row;
   padding: 1rem;
   ${(props) =>
     props.isSelecting &&
@@ -24,40 +25,46 @@ const TitleWrapper = styled.div`
   margin-right: 0.5rem;
 `;
 
-const IconWrapper = styled.div`
-  margin-left: 0.5rem;
+const CountWrapper = styled.div`
+  margin-right: 0.7rem;
 `;
 
-interface ListItemProps {
+const EditIcon: React.SFC<{ onClick(): any }> = ({ onClick }) => (
+  <span
+    onClick={(e) => {
+      e.stopPropagation();
+      onClick();
+    }}
+  >
+    <Icon name="edit" />
+  </span>
+);
+
+interface Props {
   isSelecting: boolean;
   item: types.TasklistState;
-  onClick(id: number): any;
-  onEditButtonClick(id: number): any;
+  onClickItem(id: number): any;
+  onClickEditButton(id: number): any;
 }
 
-class TasklistsListItem extends React.Component<ListItemProps> {
-  render() {
-    const { item, onClick, onEditButtonClick, isSelecting } = this.props;
+const TasklistsListItem: React.SFC<Props> = ({
+  item,
+  onClickItem,
+  onClickEditButton,
+  isSelecting
+}) => (
+  <Container isSelecting={isSelecting} onClick={() => onClickItem(item.id)}>
+    <TitleWrapper>{item.title}</TitleWrapper>
+    <CountWrapper>{item.taskCount}</CountWrapper>
 
-    return (
-      <Container isSelecting={isSelecting} onClick={() => onClick(item.id)}>
-        <TitleWrapper>{item.title}</TitleWrapper>
-
-        <span style={{ marginRight: '.5rem' }}>{item.taskCount}</span>
-
-        {isSelecting && (
-          <IconWrapper
-            onClick={(e) => {
-              e.stopPropagation();
-              onEditButtonClick(item.id);
-            }}
-          >
-            <Icon name="edit" />
-          </IconWrapper>
-        )}
-      </Container>
-    );
-  }
-}
+    {isSelecting && (
+      <EditIcon
+        onClick={() => {
+          onClickEditButton(item.id);
+        }}
+      />
+    )}
+  </Container>
+);
 
 export { TasklistsListItem };

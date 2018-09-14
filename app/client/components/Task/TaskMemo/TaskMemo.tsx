@@ -22,12 +22,12 @@ const Memo = styled(Message)`
   ${(props) => `background: ${props.theme.white}!important;`};
 `;
 
-interface TaskMemoProps {
+interface Props {
   task: types.TaskState;
   onSubmit(id: number, params: any): any;
 }
 
-interface TaskMemoState {
+interface State {
   memo: string;
   isEditing: boolean;
   errorMessage: string;
@@ -42,14 +42,13 @@ const nlToBr = (str: string) =>
     </span>
   ));
 
-class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
+class TaskMemo extends React.Component<Props, State> {
   private input: any;
 
-  constructor(props: TaskMemoProps) {
+  constructor(props: Props) {
     super(props);
 
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -60,7 +59,7 @@ class TaskMemo extends React.Component<TaskMemoProps, TaskMemoState> {
     };
   }
 
-  componentDidUpdate(prevProps: TaskMemoProps, prevState: TaskMemoState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     // 選択済みtask が変更された場合
     if (this.props.task && prevProps.task.id !== this.props.task.id) {
       const memo = this.props.task.memo;

@@ -32,12 +32,12 @@ class TasklistCreateForm extends React.Component<Props, State> {
 
     return (
       <Transition
-        animation="fade down"
+        animation="scale"
         duration={180}
         visible={this.state.open}
         transitionOnMount={true}
         unmountOnHide={true}
-        onHide={() => onClose()}
+        onHide={onClose}
       >
         <Modal
           centered={false}
