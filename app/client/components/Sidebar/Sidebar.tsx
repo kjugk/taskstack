@@ -3,6 +3,7 @@ import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import styled from 'styled-components';
 import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
+import Logo from '../../assets/images/logo.png';
 
 const PcSidebar = styled.div`
   display: flex;
@@ -52,7 +53,6 @@ const Brand = styled.div`
   padding: 1rem;
   line-height: 1;
   ${(props) => `
-    color: ${props.theme.white};
     background: ${props.theme.main};
   `};
 `;
@@ -70,7 +70,9 @@ export const Sidebar: React.SFC<Props> = ({ open, onClose }) => (
     </Responsive>
 
     <Responsive as={MobileSidebar} maxWidth={767} open={open}>
-      <Brand>TaskStack</Brand>
+      <Brand>
+        <img src={Logo} style={{ width: '150px' }} />
+      </Brand>
       <TasklistsContainer />
       <TasklistCreateButtonContainer />
     </Responsive>

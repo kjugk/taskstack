@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import { HeaderUser } from './HeaderUser';
+import Logo from '../../assets/images/logo.png';
 
 const Container = styled.div`
   align-items: center;
@@ -17,8 +18,6 @@ const Container = styled.div`
 `;
 
 const Brand = styled.div`
-  font-size: 1.4rem;
-  font-weight: 800;
   line-height: 1;
 `;
 
@@ -41,10 +40,14 @@ interface Props {
 const Header: React.SFC<Props> = ({ tasklist, user, onClickBars, onClickSignOut }) => (
   <Container>
     <div>
-      <Responsive minWidth={768} as={() => <Brand>TaskStack</Brand>} />
+      <Responsive minWidth={768} as={() => <img src={Logo} style={{ width: '150px' }} />} />
       <Responsive
         maxWidth={767}
-        as={() => <Icon name="bars" size="large" onClick={onClickBars} />}
+        as={() => (
+          <Brand>
+            <Icon name="bars" size="large" onClick={onClickBars} />
+          </Brand>
+        )}
       />
     </div>
     <TasklistTitle>
