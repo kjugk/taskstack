@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import { HeaderUser } from './HeaderUser';
+import Logo from '../../assets/images/logo.png';
 
 const Container = styled.div`
   align-items: center;
@@ -17,8 +18,6 @@ const Container = styled.div`
 `;
 
 const Brand = styled.div`
-  font-size: 1.4rem;
-  font-weight: 800;
   line-height: 1;
 `;
 
@@ -45,7 +44,14 @@ class Header extends React.Component<Props> {
     return (
       <Container>
         <div>
-          <Responsive minWidth={768} as={() => <Brand>TaskStack</Brand>} />
+          <Responsive
+            minWidth={768}
+            as={() => (
+              <Brand>
+                <img src={Logo} style={{ width: '150px' }} />
+              </Brand>
+            )}
+          />
           <Responsive
             maxWidth={767}
             fireOnMount

@@ -19,7 +19,6 @@ const Avatar = styled.div`
 
 const UserName = styled.div`
   flex: 1;
-  font-weight: bold;
   margin-left: 0.5rem;
 `;
 

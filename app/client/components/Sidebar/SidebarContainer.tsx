@@ -6,6 +6,7 @@ import TasklistsContainer from '../Tasklists/TasklistsContainer';
 import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 import * as sidebarActions from '../../actions/sidebarActions';
 import { connect } from 'react-redux';
+import Logo from '../../assets/images/logo.png';
 
 const Sidebar = styled.div`
   display: flex;
@@ -78,7 +79,9 @@ class SidebarContainer extends React.Component<Props> {
         </Responsive>
 
         <Responsive as={MobileSidebar} maxWidth={767} open={sidebar.isOpen}>
-          <Brand>TaskStack</Brand>
+          <Brand>
+            <img src={Logo} style={{ width: '150px' }} />
+          </Brand>
           <TasklistsContainer />
           <TasklistCreateButtonContainer />
         </Responsive>
