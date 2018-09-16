@@ -6,6 +6,7 @@ interface Theme {
   lightGrey: string;
   darkGrey: string;
   border: string;
+  lightBlue: string;
 }
 
 export const theme: Theme = {
@@ -16,5 +17,6 @@ export const theme: Theme = {
   grey: 'rgba(241, 241, 242, 1)',
   lightGrey: 'rgb(251, 251, 251)',
   darkGrey: 'rgb(224, 225, 226)',
-  border: 'rgba(221, 222, 223, 1)'
+  border: 'rgba(221, 222, 223, 1)',
+  lightBlue: 'rgb(198, 228, 250)'
 };
