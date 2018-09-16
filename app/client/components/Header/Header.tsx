@@ -39,8 +39,8 @@ interface Props {
 
 const Header: React.SFC<Props> = ({ tasklist, user, onClickBars, onClickSignOut }) => (
   <Container>
-    <div>
-      <Responsive minWidth={768} as={() => <img src={Logo} style={{ width: '150px' }} />} />
+    <div style={{ lineHeight: 1 }}>
+      <Responsive minWidth={768} as={() => <img src={Logo} style={{ width: '120px' }} />} />
       <Responsive
         maxWidth={767}
         as={() => (
