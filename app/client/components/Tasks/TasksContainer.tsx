@@ -4,9 +4,8 @@ import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
 import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getTasklist, tasklists } from '../../reducers/tasklists';
+import { getTasklist } from '../../reducers/tasklists';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
-import * as tasklistActions from '../../actions/tasklistActions';
 import * as taskActions from '../../actions/taskActions';
 import { ActiveTasks } from './ActiveTasks/ActiveTasks';
 import { CompletedTasks } from './CompletedTasks/CompletedTasks';
@@ -19,6 +18,7 @@ interface TasksContainerProps {
   tasklist: types.TasklistState | undefined;
   activeTasks: types.TaskState[];
   completedTasks: types.TaskState[];
+  match: any;
   history: any;
   fetchTasks(tasklistId: number): any;
   updateTask(id: number, params: any): any;
@@ -57,6 +57,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
       tasklistsState,
       tasklist,
       tasksState,
+      match,
       updateTask,
       updateSort
     } = this.props;
@@ -78,6 +79,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
         <ActiveTasks
           items={activeTasks}
           tasklist={tasklist}
+          selectingId={parseInt(match.params.taskId, 10)}
           onChangeCheck={updateTask}
           onClickItem={this.handleOnItemClick}
           onSort={(tasklistId: number, taskIds: number[]) => {
@@ -87,6 +89,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
 
         <CompletedTasks
           items={completedTasks}
+          selectingId={parseInt(match.params.taskId, 10)}
           onChangeCheck={updateTask}
           onClickItem={this.handleOnItemClick}
         />

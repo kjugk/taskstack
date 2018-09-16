@@ -34,10 +34,6 @@ const Center = styled.div`
   }
 `;
 
-const Right = styled.div`
-  height: 100%;
-`;
-
 interface Props {
   app: types.AppState;
   user: types.UserState;
@@ -70,7 +66,10 @@ class DashboardScreenContainer extends React.Component<Props> {
 
           <Center>
             <TaskCreateFormContainer />
-            <TasksContainer />
+            <Switch>
+              <Route exact path="/tasklists/:tasklistId/tasks/:taskId" component={TasksContainer} />
+              <Route component={TasksContainer} />
+            </Switch>
           </Center>
 
           <Route path="/tasklists/:tasklistId/tasks/:taskId" component={TaskContainer} />

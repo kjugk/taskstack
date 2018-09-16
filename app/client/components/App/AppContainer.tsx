@@ -48,7 +48,7 @@ class AppContainer extends React.Component<Props, State> {
           <Switch>
             <Route exact path="/" component={HomeScreenContainer} />
             <Route exact path="/tasklists" component={DashboardScreenContainer} />
-            <Route path="/tasklists/:tasklistId" component={DashboardScreenContainer} />
+            <Route path="/tasklists/:tasklistId?" component={DashboardScreenContainer} />
             <Route exact path="/unknown_error" component={UnknownErrorScreen} />
             <Route component={HomeScreenContainer} />
           </Switch>

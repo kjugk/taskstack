@@ -5,13 +5,16 @@ import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 import Checkbox from '../../Checkbox/Checkbox';
 
-const Container = styled<{ completed: boolean }, any>('div')`
+const Container = styled<{ selecting: boolean; completed: boolean }, any>('div')`
   align-items: center;
   cursor: pointer;
   display: flex;
   flex-direction: row;
   padding: 0.6rem 1rem;
   ${(props) => props.completed && `color: ${props.theme.darkGrey};`};
+  ${(props) =>
+    props.selecting &&
+    `background: ${props.theme.lightBlue}; color: ${props.theme.black}!important;`};
 `;
 
 const Title = styled<{ completed: boolean }, any>('span')`
@@ -25,11 +28,12 @@ const Title = styled<{ completed: boolean }, any>('span')`
 
 interface Props {
   item: types.TaskState;
+  selectingId: number;
   onClickItem(id: number): any;
   onChangeCheck(id: number, params: any): any;
 }
 
-const TasksListItem: React.SFC<Props> = ({ item, onClickItem, onChangeCheck }) => (
+const TasksListItem: React.SFC<Props> = ({ item, selectingId, onClickItem, onChangeCheck }) => (
   <Segment
     style={{
       alignItems: 'center',
@@ -40,6 +44,7 @@ const TasksListItem: React.SFC<Props> = ({ item, onClickItem, onChangeCheck }) =
   >
     <Container
       completed={item.completed}
+      selecting={item.id === selectingId}
       onClick={(e: any) => {
         e.preventDefault();
         e.stopPropagation();
