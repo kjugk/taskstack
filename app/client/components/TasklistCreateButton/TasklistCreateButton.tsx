@@ -11,7 +11,8 @@ const TasklistCreateButton: React.SFC<Props> = (props: Props) => {
       content="リストを作成"
       fluid
       icon="plus"
-      style={{ borderRadius: 0 }}
+      size="large"
+      style={{ borderRadius: 0, background: '#fff' }}
       onClick={props.onClick}
     />
   );

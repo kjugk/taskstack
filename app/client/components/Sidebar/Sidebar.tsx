@@ -13,6 +13,7 @@ const PcSidebar = styled.div`
   width: 260px;
   ${(props) => `
     background: ${props.theme.grey};
+    border-right: 1px solid ${props.theme.border};
   `};
 `;
 
