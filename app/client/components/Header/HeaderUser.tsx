@@ -51,7 +51,6 @@ class HeaderUser extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    key('esc', this.closeMenu);
     window.addEventListener('click', this.closeMenu);
     this.setState(() => ({
       avatarSrc: this.props.user.imageUrl
@@ -59,7 +58,6 @@ class HeaderUser extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    key.unbind('esc');
     window.removeEventListener('click', this.closeMenu);
   }
 

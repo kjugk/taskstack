@@ -3,8 +3,8 @@ import * as types from '../../types';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import styled from 'styled-components';
+import key from 'keymaster';
 
 const Wrapper = styled.div`
   min-height: 5rem;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 const InputWrapper = styled<{ focuced: boolean }, any>('div')`
   border-radius: 0.25rem;
-  padding: 0.8rem;
+  padding: 0.8rem 1rem;
   cursor: pointer;
   ${(props) => `
     background: ${props.theme.grey};
@@ -25,12 +25,6 @@ const InputWrapper = styled<{ focuced: boolean }, any>('div')`
     border: 1px solid ${props.theme.border};
   `};
 `;
-
-const ClearButton: React.SFC<{ onClick(): any }> = (props) => (
-  <span onClick={props.onClick}>
-    <Icon name="close" color="grey" onClick={props.onClick} />
-  </span>
-);
 
 interface Props {
   formState: types.TaskCreateFormState;
@@ -70,7 +64,7 @@ class TaskCreateForm extends React.Component<Props, State> {
   }
 
   render() {
-    const { formState, tasklist, onClear } = this.props;
+    const { formState, tasklist } = this.props;
 
     return (
       <Wrapper>
@@ -79,7 +73,8 @@ class TaskCreateForm extends React.Component<Props, State> {
             <Input
               disabled={formState.isSubmitting}
               fluid
-              icon={formState.title ? <ClearButton onClick={() => onClear()} /> : null}
+              icon="plus"
+              iconPosition="left"
               onChange={this.handleInputChange}
               onFocus={this.handleFocus}
               onBlur={this.handleBlur}
