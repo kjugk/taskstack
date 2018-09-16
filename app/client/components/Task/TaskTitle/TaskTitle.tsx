@@ -64,7 +64,7 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
     const { title, isEditing } = this.state;
 
     return (
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, marginLeft: '.5rem' }}>
         {isEditing && this.renderInput()}
         {!isEditing && (
           <Title completed={this.props.task.completed} onClick={this.handleEdit}>

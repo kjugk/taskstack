@@ -13,7 +13,6 @@ const PcSidebar = styled.div`
   width: 260px;
   ${(props) => `
     background: ${props.theme.grey};
-    border-right: 1px solid ${props.theme.border}
   `};
 `;
 
@@ -50,7 +49,7 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
 `;
 
 const Brand = styled.div`
-  padding: 1rem;
+  padding: 1.2rem 0.8rem;
   line-height: 1;
   ${(props) => `
     background: ${props.theme.main};
@@ -71,7 +70,7 @@ export const Sidebar: React.SFC<Props> = ({ open, onClose }) => (
 
     <Responsive as={MobileSidebar} maxWidth={767} open={open}>
       <Brand>
-        <img src={Logo} style={{ width: '150px' }} />
+        <img src={Logo} style={{ width: '120px' }} />
       </Brand>
       <TasklistsContainer />
       <TasklistCreateButtonContainer />

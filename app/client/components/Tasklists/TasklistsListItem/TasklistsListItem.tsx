@@ -4,15 +4,15 @@ import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import styled from 'styled-components';
 
 const Container = styled<{ isSelecting: boolean }, any>('li')`
-  align-items: center;
+  align-items: stretch;
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  padding: 1rem;
+  padding-left: 1rem;
   ${(props) =>
     props.isSelecting &&
     `
-    transition: background .1s; background: ${props.theme.darkGrey};
+    transition: background .1s; background: ${props.theme.lightBlue};
     color: ${props.theme.main};
   `};
 `;
@@ -20,25 +20,22 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
 const TitleWrapper = styled.div`
   flex: 1;
   overflow: hidden;
+  padding: 1rem 0;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: 0.5rem;
 `;
 
 const CountWrapper = styled.div`
-  margin-right: 0.7rem;
+  padding: 1rem;
 `;
 
-const EditIcon: React.SFC<{ onClick(): any }> = ({ onClick }) => (
-  <span
-    onClick={(e) => {
-      e.stopPropagation();
-      onClick();
-    }}
-  >
-    <Icon name="edit" />
-  </span>
-);
+const EditIconWrapper = styled.div`
+  padding: 1rem 0.6rem 1rem 0.7rem;
+  ${(props) => `
+    border-left: 1px solid ${props.theme.grey};
+  `};
+`;
 
 interface Props {
   isSelecting: boolean;
@@ -58,11 +55,14 @@ const TasklistsListItem: React.SFC<Props> = ({
     <CountWrapper>{item.taskCount}</CountWrapper>
 
     {isSelecting && (
-      <EditIcon
-        onClick={() => {
+      <EditIconWrapper
+        onClick={(e) => {
+          e.stopPropagation();
           onClickEditButton(item.id);
         }}
-      />
+      >
+        <Icon name="pencil" />
+      </EditIconWrapper>
     )}
   </Container>
 );

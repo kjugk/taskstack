@@ -18,6 +18,7 @@ const Chevron = styled<{ open: boolean }, any>('span')`
 
 interface Props {
   items: types.TaskState[];
+  selectingId: number;
   onClickItem(id: number): any;
   onChangeCheck(id: number, params: any): any;
 }
@@ -44,7 +45,7 @@ class CompletedTasks extends React.Component<Props, State> {
     return (
       <>
         <div style={{ marginBottom: '1.5rem', textAlign: 'right' }}>
-          <Button type="button" onClick={this.handleToggleButtonClick}>
+          <Button type="button" size="small" onClick={this.handleToggleButtonClick}>
             {items.length} 件の完了済みタスク
             <Chevron open={this.state.openCompletedList}>
               <Icon name="chevron down" style={{ margin: 0 }} />

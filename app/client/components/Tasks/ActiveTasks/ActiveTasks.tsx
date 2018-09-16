@@ -12,6 +12,7 @@ const Container = styled.div`
 interface TasksProps {
   items: types.TaskState[];
   tasklist: types.TasklistState;
+  selectingId: number;
   onClickItem(id: number): any;
   onChangeCheck(id: number, params: any): any;
   onSort(tasklistId: number, taskIds: number[]): any;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { TaskTitle } from './TaskTitle/TaskTitle';
 import { TaskMemo } from './TaskMemo/TaskMemo';
 import { TaskActions } from './TaskActions/TaskActions';
+import Checkbox from '../Checkbox/Checkbox';
 
 const TRANSITION_DURATION = 180;
 
@@ -107,12 +108,7 @@ class Task extends React.Component<Props> {
       <Wrapper open={open}>
         <Container open={open} onClick={(e: any) => e.stopPropagation()}>
           <TitleContainer>
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={this.handleCheckChange}
-              style={{ marginRight: '1.4rem' }}
-            />
+            <Checkbox checked={task.completed} onClick={this.handleCheckChange} />
             <TaskTitle task={task} onSubmit={onUpdate} />
           </TitleContainer>
 
@@ -126,7 +122,7 @@ class Task extends React.Component<Props> {
     );
   }
 
-  private handleCheckChange(e: any) {
+  private handleCheckChange() {
     const { task, onUpdate } = this.props;
     if (!task) return;
 
