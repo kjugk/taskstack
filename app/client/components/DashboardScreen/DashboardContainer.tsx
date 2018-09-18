@@ -24,6 +24,7 @@ const Center = styled.div`
   flex: 1;
   flex-direction: column;
   height: 100%;
+  overflow-x: hidden;
   overflow-y: scroll;
   padding: 1rem 2rem;
   position: relative;
