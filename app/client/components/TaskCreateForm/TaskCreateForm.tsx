@@ -4,7 +4,6 @@ import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 import styled from 'styled-components';
-import key from 'keymaster';
 
 const Wrapper = styled.div`
   min-height: 5rem;

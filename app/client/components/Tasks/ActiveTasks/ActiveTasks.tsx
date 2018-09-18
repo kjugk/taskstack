@@ -30,7 +30,7 @@ const SortableList = SortableContainer((props: any) => {
   return (
     <Container>
       {props.items.map((item: any, i: number) => (
-        <SortableItem key={i} index={i} value={item} {...rest} />
+        <SortableItem key={item.id} index={i} value={item} {...rest} />
       ))}
     </Container>
   );

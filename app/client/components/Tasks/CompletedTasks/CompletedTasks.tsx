@@ -56,7 +56,7 @@ class CompletedTasks extends React.Component<Props, State> {
         {this.state.openCompletedList && (
           <div style={{ boxShadow: 'none', marginBottom: '1rem' }}>
             {items.map((item: any, i: number) => {
-              return <TasksListItem key={i} item={item} {...rest} />;
+              return <TasksListItem key={item.id} item={item} {...rest} />;
             })}
           </div>
         )}
