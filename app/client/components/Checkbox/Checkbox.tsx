@@ -18,7 +18,7 @@ const Checkbox: React.SFC<Props> = ({ checked, onClick, theme }) => (
     }}
   >
     {checked && <Icon name="check square" color="blue" />}
-    {!checked && <Icon name="square outline" style={{ color: theme.black }} />}
+    {!checked && <Icon name="square outline" style={{ color: 'rgba(0, 0, 0, 0.87)' }} />}
   </a>
 );
 
