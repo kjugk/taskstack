@@ -3,7 +3,7 @@ import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  background: #eee;
+  ${(props) => `background: ${props.theme.grey}`};
 `;
 
 const HomeFooter: React.SFC = () => {
