@@ -12,7 +12,7 @@ const fade = keyframes`
 
   100% {
     opacity: 0;
-    transform: translateX(70%);
+    transform: translateX(80%);
   }
 `;
 
@@ -29,7 +29,7 @@ const Container = styled<{ fading: boolean; selecting: boolean; completed: boole
     border: 1px solid ${props.theme.border};
     box-shadow: 0 1px 2px 0 ${props.theme.border};
   `};
-  ${(props) => props.fading && `animation: ${fade} 0.3s 0.15s;`};
+  ${(props) => props.fading && `animation: ${fade} 0.5s 0.2s;`};
   ${(props) =>
     props.selecting &&
     `
@@ -100,7 +100,7 @@ class TasksListItem extends React.Component<Props, State> {
 
             this.timerId = window.setTimeout(() => {
               onChangeCheck(item.id, { completed: !item.completed });
-            }, 300);
+            }, 400);
           }}
         />
         <Title completed={this.state.completed}>{item.title}</Title>
