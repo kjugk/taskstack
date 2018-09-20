@@ -10,7 +10,7 @@ const Container = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-  padding: 0.8rem 1rem;
+  padding: 0.6rem 1rem;
   ${(props) => `
     color: ${props.theme.white};
     background: ${props.theme.main};
