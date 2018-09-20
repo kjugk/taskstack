@@ -1,4 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import { getType } from 'typesafe-actions';
 import * as api from '../api';
 import * as userActions from '../actions/userActions';
@@ -11,6 +12,7 @@ export default function* userSaga() {
     try {
       const { data } = yield call(api.verifyUser);
 
+      yield delay(1000);
       yield put(userActions.verifySuccess(data.user));
     } catch (e) {
       yield put(userActions.verifyFailure());

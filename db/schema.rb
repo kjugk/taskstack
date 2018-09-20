@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_09_043003) do
+ActiveRecord::Schema.define(version: 2018_09_20_055314) do
 
   create_table "tasklists", force: :cascade do |t|
     t.string "title"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2018_08_09_043003) do
     t.boolean "new_user", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "tasklist_id_list"
   end
 
 end

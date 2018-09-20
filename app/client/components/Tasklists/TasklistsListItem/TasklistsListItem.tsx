@@ -17,7 +17,7 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
   `};
 `;
 
-const TitleWrapper = styled.div`
+const Title = styled.div`
   flex: 1;
   overflow: hidden;
   padding: 1rem 0;
@@ -26,12 +26,12 @@ const TitleWrapper = styled.div`
   margin-right: 0.5rem;
 `;
 
-const CountWrapper = styled.div`
+const Count = styled.div`
   padding: 1rem;
 `;
 
-const EditIconWrapper = styled.div`
-  padding: 1rem 0.6rem 1rem 0.7rem;
+const EditIcon = styled.div`
+  padding: 1rem 0.5rem 1rem 0.7rem;
   ${(props) => `
     border-left: 1px solid ${props.theme.grey};
   `};
@@ -51,18 +51,18 @@ const TasklistsListItem: React.SFC<Props> = ({
   isSelecting
 }) => (
   <Container isSelecting={isSelecting} onClick={() => onClickItem(item.id)}>
-    <TitleWrapper>{item.title}</TitleWrapper>
-    <CountWrapper>{item.taskCount}</CountWrapper>
+    <Title>{item.title}</Title>
+    <Count>{item.taskCount}</Count>
 
     {isSelecting && (
-      <EditIconWrapper
+      <EditIcon
         onClick={(e) => {
           e.stopPropagation();
           onClickEditButton(item.id);
         }}
       >
         <Icon name="pencil" />
-      </EditIconWrapper>
+      </EditIcon>
     )}
   </Container>
 );

@@ -20,9 +20,9 @@ export default function* tasklistSaga() {
    */
   function* fetch() {
     const { data } = yield call(api.fetchTasklists);
-    const { result, entities } = normalize(data, { tasklists: [tasklistsSchema] });
+    const { entities } = normalize(data, { tasklists: [tasklistsSchema] });
 
-    yield put(tasklistActions.fetchTasklistsSuccess(result.tasklists, entities.tasklists || {}));
+    yield put(tasklistActions.fetchTasklistsSuccess(data.tasklistIds, entities.tasklists || {}));
   }
 
   /**
