@@ -57,7 +57,13 @@ export const tasklists = (state = initialState, action: TasklistAction) => {
         tasklistsById: destroyTasklistById(action.payload.id, state.tasklistsById)
       };
 
-    case getType(tasklistActions.updateTaskSortSuccess):
+    case getType(tasklistActions.sortTasklistSuccess):
+      return {
+        ...state,
+        ids: action.payload.ids
+      };
+
+    case getType(tasklistActions.sortTaskSuccess):
       return {
         ...state,
         tasklistsById: {

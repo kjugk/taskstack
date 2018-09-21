@@ -17,4 +17,11 @@ class Api::UsersController < ApplicationController
       head 400
     end
   end
+
+  def sort_tasklist 
+    if current_user.update(tasklist_id_list: params[:tasklist_id_list])
+      head :ok
+    else
+    end
+  end
 end

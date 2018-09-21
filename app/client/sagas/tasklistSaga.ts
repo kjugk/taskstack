@@ -10,6 +10,7 @@ import * as api from '../api';
 import { normalize, schema } from 'normalizr';
 import { TasklistCreateFormAction } from '../reducers/tasklist/createForm';
 import { TasklistEditFormAction } from '../reducers/tasklist/editForm';
+import { updateTaskSort } from '../actions/taskActions';
 
 const tasklistsSchema = new schema.Entity('tasklists');
 const tasklistSchema = new schema.Entity('tasklist');
@@ -72,10 +73,23 @@ export default function* tasklistSaga() {
     yield put(messageActions.set('リストを削除しました。'));
   }
 
+  function* sortTasklist(action: any) {
+    if (!isActionOf(tasklistActions.sortTasklist, action)) return;
+
+    const { ids } = action.payload;
+    yield put(tasklistActions.sortTasklistSuccess(ids));
+    try {
+      yield call(api.sortTasklist, { tasklist_id_list: ids });
+    } catch (e) {
+      // このエラーはユーザーに知らせない
+    }
+  }
+
   yield all([
     takeLatest(getType(tasklistActions.fetchTasklists), fetch),
     takeLatest(getType(createFormActions.submit), create),
     takeLatest(getType(editFormActions.submit), update),
-    takeLatest(getType(editFormActions.destroyTasklist), destroy)
+    takeLatest(getType(editFormActions.destroyTasklist), destroy),
+    takeLatest(getType(tasklistActions.sortTasklist), sortTasklist)
   ]);
 }

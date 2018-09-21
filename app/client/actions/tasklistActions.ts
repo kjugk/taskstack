@@ -8,12 +8,17 @@ export const fetchTasklistsSuccess = createAction('tasklist/FETCH_TASKLISTS_SUCC
   return (ids: number[], tasklistsById: any) => resolve({ ids, tasklistsById });
 });
 
-export const updateTaskSortSuccess = createAction(
-  'tasklist/UPDATE_TASK_SORT_SUCCESS',
-  (resolve) => {
-    return (tasklistId: number, taskIds: number[]) => resolve({ tasklistId, taskIds });
-  }
-);
+export const sortTasklist = createAction('sortTasklist', (resolve) => {
+  return (ids: number[]) => resolve({ ids });
+});
+
+export const sortTasklistSuccess = createAction('sortTasklistSuccess', (resolve) => {
+  return (ids: number[]) => resolve({ ids });
+});
+
+export const sortTaskSuccess = createAction('tasklist/SORT_TASK_SUCCESS', (resolve) => {
+  return (tasklistId: number, taskIds: number[]) => resolve({ tasklistId, taskIds });
+});
 
 // TODO entity type を定義する。
 export const createSuccess = createAction('tasklist/CREATE_SUCCESS', (resolve) => {

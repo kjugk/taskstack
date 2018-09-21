@@ -9,11 +9,14 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
   display: flex;
   flex-direction: row;
   padding-left: 1rem;
-  ${(props) =>
-    props.isSelecting &&
-    `
-    transition: background .1s; background: ${props.theme.lightBlue};
-    color: ${props.theme.main};
+
+  ${(props) => `
+    background: ${props.theme.grey};
+    ${props.isSelecting &&
+      `
+      transition: background .1s; background: ${props.theme.lightBlue};
+      color: ${props.theme.main};
+    `}
   `};
 `;
 
@@ -38,7 +41,7 @@ const EditIcon = styled.div`
 `;
 
 interface Props {
-  isSelecting: boolean;
+  selectingId: number;
   item: types.TasklistState;
   onClickItem(id: number): any;
   onClickEditButton(id: number): any;
@@ -48,13 +51,13 @@ const TasklistsListItem: React.SFC<Props> = ({
   item,
   onClickItem,
   onClickEditButton,
-  isSelecting
+  selectingId
 }) => (
-  <Container isSelecting={isSelecting} onClick={() => onClickItem(item.id)}>
+  <Container isSelecting={selectingId === item.id} onClick={() => onClickItem(item.id)}>
     <Title>{item.title}</Title>
     <Count>{item.taskCount}</Count>
 
-    {isSelecting && (
+    {selectingId === item.id && (
       <EditIcon
         onClick={(e) => {
           e.stopPropagation();
