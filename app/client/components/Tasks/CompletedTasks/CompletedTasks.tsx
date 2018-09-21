@@ -20,6 +20,7 @@ interface Props {
   items: types.TaskState[];
   selectingId: number;
   onClickItem(id: number): any;
+  onDestory(id: number): any;
   onChangeCheck(id: number, params: any): any;
 }
 

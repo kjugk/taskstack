@@ -3,6 +3,7 @@ import * as types from '../../../types';
 import styled, { keyframes } from 'styled-components';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Checkbox from '../../Checkbox/Checkbox';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 
 const fade = keyframes`
   0% {
@@ -56,6 +57,7 @@ interface Props {
   selectingId: number;
   onClickItem(id: number): any;
   onChangeCheck(id: number, params: any): any;
+  onDestory?(id: number): any;
 }
 
 interface State {
@@ -77,7 +79,7 @@ class TasksListItem extends React.Component<Props, State> {
   }
 
   render() {
-    const { item, selectingId, onClickItem, onChangeCheck } = this.props;
+    const { item, selectingId, onClickItem, onChangeCheck, onDestory } = this.props;
 
     return (
       <Container
@@ -105,6 +107,17 @@ class TasksListItem extends React.Component<Props, State> {
         />
         <Title completed={this.state.completed}>{item.title}</Title>
         {item.memo !== '' && <Icon size="small" name="thumbtack" color="grey" />}
+        {onDestory && (
+          <a
+            href="#"
+            onClick={(e: any) => {
+              e.stopPropagation();
+              onDestory(item.id);
+            }}
+          >
+            <Icon name="times circle" color="grey" />
+          </a>
+        )}
       </Container>
     );
   }

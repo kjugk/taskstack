@@ -1,5 +1,4 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 import * as tasklistActions from '../actions/tasklistActions';
 import * as taskActions from '../actions/taskActions';
 import * as taskCreateFormActions from '../actions/taskCreateFormActions';
@@ -24,8 +23,6 @@ export default function* taskSaga() {
     const { data } = yield call(api.fetchTasks, tasklistId);
     const { entities } = normalize(data, { tasks: [tasksSchema] });
 
-    yield delay(300);
-
     yield put(tasklistActions.fetchTasksSuccess(tasklistId));
     yield put(taskActions.fetchTasksSuccess(tasklistId, entities.tasks || {}));
   }
@@ -42,7 +39,7 @@ export default function* taskSaga() {
     const { entities } = normalize(data, { task: taskSchema });
 
     yield put(taskActions.createSuccess(entities.task || {}));
-    yield put(tasklistActions.updateTaskSortSuccess(tasklistId, data.taskIds));
+    yield put(tasklistActions.sortTaskSuccess(tasklistId, data.taskIds));
     yield put(tasklistActions.updateTaskCount(tasklistId, data.taskCount));
     yield put(taskCreateFormActions.clear());
   }
@@ -71,7 +68,7 @@ export default function* taskSaga() {
     const { data } = yield call(api.destroyTask, action.payload.id);
 
     yield put(taskActions.destroySuccess(action.payload.id));
-    yield put(tasklistActions.updateTaskSortSuccess(data.task.tasklistId, data.taskIds));
+    yield put(tasklistActions.sortTaskSuccess(data.task.tasklistId, data.taskIds));
     yield put(tasklistActions.updateTaskCount(data.task.tasklistId, data.taskCount));
     yield put(messageActions.set('削除しました'));
   }
@@ -87,7 +84,7 @@ export default function* taskSaga() {
     const { tasklistId, taskIds } = action.payload;
 
     api.updateTasklist(tasklistId, { task_id_list: taskIds });
-    yield put(tasklistActions.updateTaskSortSuccess(tasklistId, taskIds));
+    yield put(tasklistActions.sortTaskSuccess(tasklistId, taskIds));
   }
 
   yield all([

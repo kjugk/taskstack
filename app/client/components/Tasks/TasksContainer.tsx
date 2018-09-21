@@ -20,6 +20,7 @@ interface TasksContainerProps {
   completedTasks: types.TaskState[];
   match: any;
   history: any;
+  destroyTask(id: number): any;
   fetchTasks(tasklistId: number): any;
   updateTask(id: number, params: any): any;
   updateSort(tasklistId: number, taskIds: number[]): any;
@@ -58,6 +59,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
       tasklist,
       tasksState,
       match,
+      destroyTask,
       updateTask,
       updateSort
     } = this.props;
@@ -90,6 +92,7 @@ class TasksContainer extends React.Component<TasksContainerProps> {
         <CompletedTasks
           items={completedTasks}
           selectingId={parseInt(match.params.taskId, 10)}
+          onDestory={destroyTask}
           onChangeCheck={updateTask}
           onClickItem={this.handleOnItemClick}
         />
@@ -119,6 +122,7 @@ const mapStateToProps = (state: types.RootState, ownProps: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
+      destroyTask: (id: number) => taskActions.destroy(id),
       fetchTasks: (tasklistId: number) => taskActions.fetchTasks(tasklistId),
       updateTask: (id: number, params: any) => taskActions.update(id, params),
       updateSort: (tasklistId: number, taskIds: number[]) =>

@@ -17,6 +17,7 @@ interface TasklistsContainerProps {
   closeMenu(): any;
   fetchTasklists(): any;
   editTasklist(tasklist: any): any;
+  sortTasklist(ids: number[]): any;
 }
 
 /**
@@ -32,7 +33,7 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
   }
 
   render() {
-    const { tasklistsState, tasklists, match } = this.props;
+    const { tasklistsState, tasklists, sortTasklist, match, history } = this.props;
     const selectingId = parseInt(match.params.tasklistId, 10);
 
     if (tasklistsState.isFetching) {
@@ -46,7 +47,8 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
           this.props.closeMenu();
           this.props.history.push(`/tasklists/${id}`);
         }}
-        onClickEditButton={(id: number) => this.props.history.push(`/tasklists/${id}/edit`)}
+        onClickEditButton={(id: number) => history.push(`/tasklists/${id}/edit`)}
+        onSort={(ids: number[]) => sortTasklist(ids)}
         items={tasklists}
       />
     );
@@ -66,7 +68,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       fetchTasklists: () => tasklistActions.fetchTasklists(),
       editTasklist: (tasklist: any) => tasklistActions.edit(tasklist),
-      closeMenu: () => sidebarActions.close()
+      closeMenu: () => sidebarActions.close(),
+      sortTasklist: (ids: number[]) => tasklistActions.sortTasklist(ids)
     },
     dispatch
   );
