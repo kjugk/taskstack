@@ -6,6 +6,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getTasklist } from '../../reducers/tasklists';
 import { getActiveTasks, getCompletedTasks } from '../../reducers/tasks';
+import * as tasklistActions from '../../actions/tasklistActions';
 import * as taskActions from '../../actions/taskActions';
 import { ActiveTasks } from './ActiveTasks/ActiveTasks';
 import { CompletedTasks } from './CompletedTasks/CompletedTasks';
@@ -126,7 +127,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       fetchTasks: (tasklistId: number) => taskActions.fetchTasks(tasklistId),
       updateTask: (id: number, params: any) => taskActions.update(id, params),
       updateSort: (tasklistId: number, taskIds: number[]) =>
-        taskActions.updateTaskSort(tasklistId, taskIds)
+        tasklistActions.sortTask(tasklistId, taskIds)
     },
     dispatch
   );

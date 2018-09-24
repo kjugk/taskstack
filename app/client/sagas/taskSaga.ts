@@ -73,25 +73,10 @@ export default function* taskSaga() {
     yield put(messageActions.set('削除しました'));
   }
 
-  /**
-   * task の並び順を更新する。
-   * 更新されるのは、tasklist の taskIds なのに注意。(てかそれならtasklsitAction にあるべきでは?)
-   * @param action
-   */
-  function* updateSort(action: any) {
-    if (!isActionOf(taskActions.updateTaskSort, action)) return;
-
-    const { tasklistId, taskIds } = action.payload;
-
-    api.updateTasklist(tasklistId, { task_id_list: taskIds });
-    yield put(tasklistActions.sortTaskSuccess(tasklistId, taskIds));
-  }
-
   yield all([
     takeLatest(getType(taskActions.fetchTasks), fetchTasks),
     takeLatest(getType(taskCreateFormActions.submit), createTask),
     takeLatest(getType(taskActions.update), updateTask),
-    takeLatest(getType(taskActions.destroy), destroyTask),
-    takeLatest(getType(taskActions.updateTaskSort), updateSort)
+    takeLatest(getType(taskActions.destroy), destroyTask)
   ]);
 }

@@ -50,7 +50,7 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
 `;
 
 const Brand = styled.div`
-  padding: 1.2rem 0.8rem;
+  padding: 1rem 0.8rem;
   line-height: 1;
   ${(props) => `
     background: ${props.theme.main};

@@ -27,7 +27,3 @@ export const destroy = createAction('task/DESTROY', (resolve) => {
 export const destroySuccess = createAction('task/DESTROY_SUCCESS', (resolve) => {
   return (id: number) => resolve({ id });
 });
-
-export const updateTaskSort = createAction('task/UPDATE_TASK_SORT', (resolve) => {
-  return (tasklistId: number, taskIds: number[]) => resolve({ tasklistId, taskIds });
-});

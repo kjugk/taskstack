@@ -8,12 +8,16 @@ export const fetchTasklistsSuccess = createAction('tasklist/FETCH_TASKLISTS_SUCC
   return (ids: number[], tasklistsById: any) => resolve({ ids, tasklistsById });
 });
 
-export const sortTasklist = createAction('sortTasklist', (resolve) => {
+export const sortTasklist = createAction('tasklist/SORT', (resolve) => {
   return (ids: number[]) => resolve({ ids });
 });
 
-export const sortTasklistSuccess = createAction('sortTasklistSuccess', (resolve) => {
+export const sortTasklistSuccess = createAction('tasklist/SORT_SUCCESS', (resolve) => {
   return (ids: number[]) => resolve({ ids });
+});
+
+export const sortTask = createAction('tasklist/SORT_TASK', (resolve) => {
+  return (tasklistId: number, taskIds: number[]) => resolve({ tasklistId, taskIds });
 });
 
 export const sortTaskSuccess = createAction('tasklist/SORT_TASK_SUCCESS', (resolve) => {

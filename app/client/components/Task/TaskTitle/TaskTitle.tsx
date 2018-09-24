@@ -80,7 +80,7 @@ class TaskTitle extends React.Component<TaskTitleProps, TaskTitleState> {
       <>
         <Input
           ref={(r: any) => (this.input = r)}
-          style={{ width: '100%' }}
+          style={{ width: '100%', fontSize: '1rem' }}
           size="mini"
           value={this.state.title}
           onKeyDown={(e: any) => {
