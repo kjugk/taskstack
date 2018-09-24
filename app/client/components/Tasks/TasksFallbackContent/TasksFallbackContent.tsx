@@ -24,7 +24,7 @@ const TasksFallbackContent: React.SFC = () => (
     <MainImage src={img} />
 
     <div style={{ marginBottom: '1.5rem' }}>
-      <div>最初のリストを作成しましょう</div>
+      <div>最初のリストを作成しましょう (例 : 今日やること、買い物) </div>
     </div>
 
     <Link to="/tasklists/new">

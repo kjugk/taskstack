@@ -34,7 +34,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
 
   componentDidMount() {
     if (this.input) {
-      this.input.focus();
+      setTimeout(() => this.input.focus(), 200);
     }
   }
 
@@ -84,7 +84,6 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
             <Button
               primary
               disabled={title.trim() === '' || !!this.state.errorMessage}
-              icon="check"
               content="保存"
               size="tiny"
               type="submit"

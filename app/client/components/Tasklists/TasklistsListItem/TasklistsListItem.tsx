@@ -9,12 +9,12 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
   display: flex;
   flex-direction: row;
   padding-left: 1rem;
-
+  z-index: 4;
   ${(props) => `
     background: ${props.theme.grey};
     ${props.isSelecting &&
       `
-      transition: background .1s; background: ${props.theme.lightBlue};
+      background: ${props.theme.lightBlue};
       color: ${props.theme.main};
     `}
   `};
