@@ -8,7 +8,6 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message
 
 const HeaderContainer = styled.div`
   margin-bottom: 1rem;
-  font-weight: bold;
 `;
 
 const MemoContainer = styled.div`

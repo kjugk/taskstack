@@ -1,5 +1,5 @@
 import * as React from 'react';
-import png from '../../assets/images/logo.png';
+import logo from '../../assets/images/logo_blue_500.png';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -12,6 +12,6 @@ const Container = styled.div`
 
 export const Loading: React.SFC = () => (
   <Container>
-    <img src={png} style={{ width: '120px' }} />
+    <img src={logo} style={{ width: '250px' }} />
   </Container>
 );

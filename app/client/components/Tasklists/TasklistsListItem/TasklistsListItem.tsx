@@ -7,6 +7,7 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
   align-items: stretch;
   cursor: pointer;
   display: flex;
+  font-size: 0.88rem;
   flex-direction: row;
   padding-left: 1rem;
   z-index: 4;
@@ -23,18 +24,18 @@ const Container = styled<{ isSelecting: boolean }, any>('li')`
 const Title = styled.div`
   flex: 1;
   overflow: hidden;
-  padding: 1rem 0;
+  padding: 0.8rem 0;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: 0.5rem;
 `;
 
 const Count = styled.div`
-  padding: 1rem;
+  padding: 0.8rem 1rem;
 `;
 
 const EditIcon = styled.div`
-  padding: 1rem 0.5rem 1rem 0.7rem;
+  padding: 0.8rem 0.5rem 0.8rem 0.7rem;
   ${(props) => `
     border-left: 1px solid ${props.theme.grey};
   `};
