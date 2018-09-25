@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as types from '../../types';
 import styled from 'styled-components';
-import key from 'keymaster';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import { HeaderUserMenu } from './HeaderUserMenu';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
@@ -15,11 +14,12 @@ const Content = styled.div`
 
 const Avatar = styled.img`
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
 `;
 
 const UserName = styled.div`
+  font-size: 0.8rem;
   flex: 1;
   margin-left: 0.5rem;
 `;
@@ -80,7 +80,7 @@ class HeaderUser extends React.Component<Props, State> {
             as={() => (
               <>
                 <UserName>{user.name}</UserName>
-                <Chevron name="chevron down" />
+                <Chevron name="chevron down" size="tiny" />
               </>
             )}
           />

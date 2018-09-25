@@ -32,7 +32,13 @@ const HomeFeature: React.SFC = () => {
           <Grid.Column>
             <Card>
               <CardIcon>
-                <Icon name="tasks" size="big" color="blue" circular />
+                <Icon
+                  name="tasks"
+                  size="big"
+                  color="blue"
+                  circular
+                  style={{ boxShadow: 'none', background: 'lightBlue' }}
+                />
               </CardIcon>
               <CardHeader>シンプルな操作性</CardHeader>
               <div>シンプルで親しみやすい操作性で、すぐに使いこなすことができます。</div>
@@ -42,7 +48,13 @@ const HomeFeature: React.SFC = () => {
           <Grid.Column>
             <Card>
               <CardIcon>
-                <Icon name="mobile alternate" size="big" color="blue" circular />
+                <Icon
+                  name="mobile alternate"
+                  size="big"
+                  color="blue"
+                  circular
+                  style={{ boxShadow: 'none', background: 'lightBlue' }}
+                />
               </CardIcon>
               <CardHeader>PCでもスマホでも</CardHeader>
               <div>TaskStackは、最新のPC・スマートフォンブラウザでご利用いただけます。</div>
@@ -52,7 +64,13 @@ const HomeFeature: React.SFC = () => {
           <Grid.Column>
             <Card>
               <CardIcon>
-                <Icon name="cny" size="big" color="blue" circular />
+                <Icon
+                  name="cny"
+                  size="big"
+                  color="blue"
+                  circular
+                  style={{ boxShadow: 'none', background: 'lightBlue' }}
+                />
               </CardIcon>
               <CardHeader>無料</CardHeader>
               <div>TaskStackは、誰でも無料でご利用いただけます。</div>

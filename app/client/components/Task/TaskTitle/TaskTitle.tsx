@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 
-const Title = styled<{ completed: boolean }, any>('h2')`
+const Title = styled<{ completed: boolean }, any>('div')`
   font-size: 1.4rem;
-  font-weight: bold;
   cursor: pointer;
   overflow-x: hidden;
   word-break: break-word;

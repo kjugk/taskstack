@@ -30,7 +30,7 @@ const HeroSubheader = styled.div`
   font-size: 1.2rem;
 
   @media (max-width: 786px) {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -40,7 +40,7 @@ const HomeHero: React.SFC = () => (
       <HeroHeader>山積みの仕事を、 片付けたいなら</HeroHeader>
       <HeroSubheader>TaskStack は、シンプルで使いやすいタスク管理サービスです</HeroSubheader>
 
-      <div style={{ marginBottom: '40px' }}>
+      <div>
         <a href="/login">
           <Button
             icon="google"
@@ -51,7 +51,16 @@ const HomeHero: React.SFC = () => (
         </a>
       </div>
 
-      <img src={png} style={{ width: '100%', maxWidth: '768px' }} />
+      <div
+        style={{
+          display: 'inline-block',
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, .2)',
+          transform: 'translateY(120px)',
+          marginTop: '-50px'
+        }}
+      >
+        <img src={png} style={{ width: '100%', maxWidth: '768px' }} />
+      </div>
     </Hero>
   </Container>
 );

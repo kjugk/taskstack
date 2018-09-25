@@ -11,7 +11,6 @@ interface Theme {
 
 export const theme: Theme = {
   main: 'rgba(33, 133, 208, 1)',
-  // main: '#1d127d',
   white: 'rgba(255, 255, 255, 1)',
   black: 'rgba(31, 31, 45, 1)',
   grey: 'rgba(241, 241, 242, 1)',
