@@ -2,7 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
-import png from '../../../assets/images/top@2x.png';
+import hero from '../../../assets/images/hero@2x.png';
+import login from '../../../assets/images/google_login@2x.png';
 
 const Hero = styled.div`
   color: #f5f5f5 !important;
@@ -42,24 +43,18 @@ const HomeHero: React.SFC = () => (
 
       <div>
         <a href="/login">
-          <Button
-            icon="google"
-            style={{ background: '#fff' }}
-            size="large"
-            content="Google ログイン"
-          />
+          <img src={login} style={{ width: '215px' }} />
         </a>
       </div>
 
       <div
         style={{
-          display: 'inline-block',
-          boxShadow: '0px 1px 2px rgba(0, 0, 0, .2)',
-          transform: 'translateY(120px)',
-          marginTop: '-50px'
+          position: 'relative',
+          marginTop: '-50px',
+          transform: 'translateY(100px)'
         }}
       >
-        <img src={png} style={{ width: '100%', maxWidth: '768px' }} />
+        <img src={hero} style={{ width: '100%', maxWidth: '768px' }} />
       </div>
     </Hero>
   </Container>

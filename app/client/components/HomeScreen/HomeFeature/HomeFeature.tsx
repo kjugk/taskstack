@@ -37,7 +37,7 @@ const HomeFeature: React.SFC = () => {
                   size="big"
                   color="blue"
                   circular
-                  style={{ boxShadow: 'none', background: 'lightBlue' }}
+                  style={{ boxShadow: 'none', background: '#EEF7FE' }}
                 />
               </CardIcon>
               <CardHeader>シンプルな操作性</CardHeader>
@@ -53,7 +53,7 @@ const HomeFeature: React.SFC = () => {
                   size="big"
                   color="blue"
                   circular
-                  style={{ boxShadow: 'none', background: 'lightBlue' }}
+                  style={{ boxShadow: 'none', background: '#EEF7FE' }}
                 />
               </CardIcon>
               <CardHeader>PCでもスマホでも</CardHeader>
@@ -69,7 +69,7 @@ const HomeFeature: React.SFC = () => {
                   size="big"
                   color="blue"
                   circular
-                  style={{ boxShadow: 'none', background: 'lightBlue' }}
+                  style={{ boxShadow: 'none', background: '#EEF7FE' }}
                 />
               </CardIcon>
               <CardHeader>無料</CardHeader>

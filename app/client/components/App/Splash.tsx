@@ -12,6 +12,6 @@ const Container = styled.div`
 
 export const Splash: React.SFC = () => (
   <Container>
-    <img src={logo} style={{ width: '200px' }} />
+    <img src={logo} style={{ width: '200px', marginTop: '-60px' }} />
   </Container>
 );
