@@ -30,6 +30,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/credentials.yml.enc
+master.key
 
 /app/assets/javascripts/bundle.js
 /app/assets/javascripts/bundle.js.map

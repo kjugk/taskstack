@@ -13,8 +13,8 @@ const Wrapper = styled.div`
 
 const Upper = styled.div`
   background: #2185d0;
-  background-image: linear-gradient(149deg, rgba(33, 133, 208, 1) 0%, rgba(63, 199, 204, 1) 100%);
-  margin-bottom: 140px;
+  background-image: linear-gradient(to right bottom, #2185d0, #2f8fd8, #3c99e1, #48a3e9, #53adf1);
+  margin-bottom: 100px;
 `;
 
 const HomeScreen: React.SFC = () => (

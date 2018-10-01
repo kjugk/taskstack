@@ -79,7 +79,6 @@ class TaskCreateForm extends React.Component<Props, State> {
               onBlur={this.handleBlur}
               placeholder={`タスクを「${tasklist.title}」に追加`}
               ref={(ref) => (this.input = ref)}
-              size="large"
               transparent
               value={formState.title}
             />

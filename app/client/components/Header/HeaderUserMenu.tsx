@@ -9,7 +9,6 @@ const Container = styled(List)`
   position: absolute;
   right: 0;
   top: 120%;
-  min-width: 10rem;
   z-index: 100;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.24);
   ${(props) => `
@@ -36,7 +35,7 @@ const HeaderUserMenu: React.SFC<Props> = ({ open, onSignOutClick }) => {
   if (!open) return null;
 
   return (
-    <Container>
+    <Container size="mini">
       <Item onClick={onSignOutClick}>
         <List.Icon name="log out" color="grey" />
         <List.Content>ログアウト</List.Content>
