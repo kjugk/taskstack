@@ -7,7 +7,7 @@ import UnknownErrorScreen from '../UnknownErrorScreen/UnknownErrorScreen';
 import { connect } from 'react-redux';
 import * as types from '../../types';
 import * as userActions from '../../actions/userActions';
-import { Loading } from './Loading';
+import { Splash } from './Splash';
 
 interface Props {
   user: types.UserState;
@@ -39,7 +39,7 @@ class AppContainer extends React.Component<Props, State> {
     }
 
     if (!this.props.user.initialized) {
-      return <Loading />;
+      return <Splash />;
     }
 
     return (

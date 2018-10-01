@@ -10,8 +10,8 @@ const Container = styled.div`
   ${(props) => `background: ${props.theme.grey}`};
 `;
 
-export const Loading: React.SFC = () => (
+export const Splash: React.SFC = () => (
   <Container>
-    <img src={logo} style={{ width: '250px' }} />
+    <img src={logo} style={{ width: '200px' }} />
   </Container>
 );
