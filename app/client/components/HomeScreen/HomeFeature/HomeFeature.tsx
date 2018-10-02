@@ -5,9 +5,9 @@ import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  background: #fff;
   padding: 2rem 0 4rem;
   flex: 1;
+  ${(props) => `background: ${props.theme.lightGrey}`};
 `;
 
 const Card = styled.div`

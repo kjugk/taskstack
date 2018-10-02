@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import hero from '../../../assets/images/hero@2x.png';
 import login from '../../../assets/images/google_login@2x.png';
 
@@ -11,13 +10,12 @@ const Hero = styled.div`
   position: relative;
   text-align: center;
   line-height: 0.8;
+  background: transparent;
 `;
 
 const HeroHeader = styled.h1`
   font-weight: 300;
   margin-bottom: 1rem;
-  text-align: center;
-  line-height: 1.5;
   font-size: 2.8rem;
 
   @media (max-width: 786px) {
@@ -31,7 +29,7 @@ const HeroSubheader = styled.div`
   font-size: 1.2rem;
 
   @media (max-width: 786px) {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 `;
 

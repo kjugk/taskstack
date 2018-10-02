@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  ${(props) => `background: ${props.theme.lightGrey}`};
 `;
 
 const GradientScreen = styled.div`

@@ -9,6 +9,8 @@ import * as types from '../../types';
 import * as userActions from '../../actions/userActions';
 import { Splash } from './Splash';
 import Terms from '../Terms/Terms';
+import Privacy from '../Privacy/Privacy';
+import ScrollToTop from '../util/ScrollToTop';
 
 interface Props {
   user: types.UserState;
@@ -47,17 +49,18 @@ class AppContainer extends React.Component<Props, State> {
 
     return (
       <Router>
-        <>
+        <ScrollToTop>
           <Switch>
             <Route exact path="/" component={HomeScreenContainer} />
             <Route exact path="/tasklists" component={DashboardScreenContainer} />
             <Route path="/tasklists/:tasklistId?" component={DashboardScreenContainer} />
-            <Route exact path="/unknown_error" component={UnknownErrorScreen} />
             <Route exact path="/terms" component={Terms} />
+            <Route exact path="/privacy" component={Privacy} />
+            <Route exact path="/unknown_error" component={UnknownErrorScreen} />
             <Route component={HomeScreenContainer} />
           </Switch>
           <MessageContainer />
-        </>
+        </ScrollToTop>
       </Router>
     );
   }
