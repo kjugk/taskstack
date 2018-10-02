@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -25,7 +26,7 @@ const CopyRight = styled.div`
   }
 `;
 
-const Link = styled.a`
+const HtmlLink = styled.a`
   font-size: 0.8rem;
   margin-left: 0.5rem;
   @media (max-width: 786px) {
@@ -40,12 +41,12 @@ const HomeFooter: React.SFC = () => {
         <InnerWrapper>
           <CopyRight>&#9400; 2018 TaskStack</CopyRight>
           <div>
-            <Link>TaskStackについて</Link>
-            <Link href="https://goo.gl/forms/8NCdMMZcPWvwl5n03" target="_blank">
+            <HtmlLink>TaskStackについて</HtmlLink>
+            <HtmlLink href="https://goo.gl/forms/8NCdMMZcPWvwl5n03" target="_blank">
               お問い合わせ
-            </Link>
-            <Link>利用規約</Link>
-            <Link>プライバシーポリシー</Link>
+            </HtmlLink>
+            <Link to="/terms">利用規約</Link>
+            <HtmlLink>プライバシーポリシー</HtmlLink>
           </div>
         </InnerWrapper>
       </Container>

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import * as types from '../../types';
 import * as userActions from '../../actions/userActions';
 import { Splash } from './Splash';
+import Terms from '../Terms/Terms';
 
 interface Props {
   user: types.UserState;
@@ -52,6 +53,7 @@ class AppContainer extends React.Component<Props, State> {
             <Route exact path="/tasklists" component={DashboardScreenContainer} />
             <Route path="/tasklists/:tasklistId?" component={DashboardScreenContainer} />
             <Route exact path="/unknown_error" component={UnknownErrorScreen} />
+            <Route exact path="/terms" component={Terms} />
             <Route component={HomeScreenContainer} />
           </Switch>
           <MessageContainer />
