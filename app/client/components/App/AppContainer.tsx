@@ -25,7 +25,9 @@ class AppContainer extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.verifyUser();
+    if (!this.props.user.initialized) {
+      this.props.verifyUser();
+    }
   }
 
   componentDidCatch(error: any, info: any) {

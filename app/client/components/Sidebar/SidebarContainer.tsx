@@ -10,8 +10,10 @@ interface Props {
   close(): any;
 }
 
-const SidebarContainer: React.SFC<Props> = ({ sidebar, close }) => (
-  <Sidebar open={sidebar.isOpen} onClose={close} />
+const SidebarContainer: React.SFC<Props> = ({ sidebar, close, children }) => (
+  <Sidebar open={sidebar.isOpen} onClose={close}>
+    {children}
+  </Sidebar>
 );
 
 const mapStateToProps = (state: types.RootState) => ({

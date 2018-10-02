@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import styled from 'styled-components';
-import TasklistsContainer from '../Tasklists/TasklistsContainer';
-import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 import Logo from '../../assets/images/logo.png';
 
 const PcSidebar = styled.div`
@@ -50,7 +48,7 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
 `;
 
 const Brand = styled.div`
-  padding: 1rem 0.8rem;
+  padding: 0.8rem 1rem;
   line-height: 1;
   ${(props) => `
     background: ${props.theme.main};
@@ -62,19 +60,17 @@ interface Props {
   onClose(): any;
 }
 
-export const Sidebar: React.SFC<Props> = ({ open, onClose }) => (
+export const Sidebar: React.SFC<Props> = ({ open, onClose, children }) => (
   <>
     <Responsive as={PcSidebar} minWidth={768}>
-      <TasklistsContainer />
-      <TasklistCreateButtonContainer />
+      {children}
     </Responsive>
 
     <Responsive as={MobileSidebar} maxWidth={767} open={open}>
       <Brand>
         <img src={Logo} style={{ width: '120px' }} />
       </Brand>
-      <TasklistsContainer />
-      <TasklistCreateButtonContainer />
+      {children}
     </Responsive>
 
     <Responsive as={MobileOverlay} maxWidth={767} open={open} onClick={onClose} />

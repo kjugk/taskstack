@@ -11,6 +11,8 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklists';
 import HeaderContainer from '../Header/HeaderContainer';
+import TasklistsContainer from '../Tasklists/TasklistsContainer';
+import TasklistCreateButtonContainer from '../TasklistCreateButton/TasklistCreateButtonContainer';
 
 const DashBoard = styled.div`
   height: 100%;
@@ -63,7 +65,10 @@ class DashboardScreenContainer extends React.Component<Props> {
         <HeaderContainer />
 
         <div style={{ display: 'flex', flex: 1 }}>
-          <SidebarContainer />
+          <SidebarContainer>
+            <TasklistsContainer />
+            <TasklistCreateButtonContainer />
+          </SidebarContainer>
 
           <Center>
             <TaskCreateFormContainer />
