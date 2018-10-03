@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Header } from './Header/Header';
+import { Header } from '../Header/Header';
 import { HomeHero } from './HomeHero/HomeHero';
 import { HomeFeature } from './HomeFeature/HomeFeature';
-import { HomeFooter } from './HomeFooter/HomeFooter';
+import { Footer } from '../Footer/Footer';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -21,11 +21,11 @@ const GradientScreen = styled.div`
 const HomeScreen: React.SFC = () => (
   <Wrapper>
     <GradientScreen>
-      <Header />
+      <Header style={{ background: 'transparent' }} />
       <HomeHero />
     </GradientScreen>
     <HomeFeature />
-    <HomeFooter />
+    <Footer />
   </Wrapper>
 );
 

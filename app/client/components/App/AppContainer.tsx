@@ -10,7 +10,7 @@ import * as userActions from '../../actions/userActions';
 import { Splash } from './Splash';
 import Terms from '../Terms/Terms';
 import Privacy from '../Privacy/Privacy';
-import ScrollToTop from '../util/ScrollToTop';
+import ScrollToTop from '../utils/ScrollToTop';
 
 interface Props {
   user: types.UserState;

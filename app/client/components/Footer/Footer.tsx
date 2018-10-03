@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  ${(props) => `background: ${props.theme.grey}`};
+  ${(props) => `background: ${props.theme.darkGrey}`};
 `;
 
 const InnerWrapper = styled.div`
@@ -34,7 +34,7 @@ const HtmlLink = styled(Link)`
   }
 `;
 
-const HomeFooter: React.SFC = () => {
+const Footer: React.SFC = () => {
   return (
     <Wrapper>
       <Container>
@@ -52,4 +52,4 @@ const HomeFooter: React.SFC = () => {
   );
 };
 
-export { HomeFooter };
+export { Footer };

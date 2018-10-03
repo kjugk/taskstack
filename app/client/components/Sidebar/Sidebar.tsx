@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive';
 import styled from 'styled-components';
-import Logo from '../../assets/images/logo.png';
+import { Brand } from '../Brand/Brand';
 
 const PcSidebar = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const MobileOverlay = styled<{ open: boolean }, any>('div')`
   ${(props) => props.open && 'opacity: 1; width: 100%;'};
 `;
 
-const Brand = styled.div`
+const Header = styled.div`
   padding: 0.8rem 1rem;
   line-height: 1;
   ${(props) => `
@@ -67,9 +67,9 @@ export const Sidebar: React.SFC<Props> = ({ open, onClose, children }) => (
     </Responsive>
 
     <Responsive as={MobileSidebar} maxWidth={767} open={open}>
-      <Brand>
-        <img src={Logo} style={{ width: '120px' }} />
-      </Brand>
+      <Header>
+        <Brand onClick={() => onClose()} />
+      </Header>
       {children}
     </Responsive>
 

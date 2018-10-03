@@ -12,7 +12,7 @@ const TasklistCreateButton: React.SFC<Props> = (props: Props) => {
       fluid
       icon="plus"
       size="small"
-      style={{ borderRadius: 0, paddingTop: '.9rem', paddingBottom: '.9rem' }}
+      style={{ borderRadius: 0, paddingTop: '1rem', paddingBottom: '1rem' }}
       onClick={props.onClick}
     />
   );

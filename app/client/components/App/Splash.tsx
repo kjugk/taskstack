@@ -7,11 +7,12 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   ${(props) => `background: ${props.theme.grey}`};
 `;
 
 export const Splash: React.SFC = () => (
   <Container>
-    <img src={logo} style={{ width: '200px', marginTop: '-60px' }} />
+    <img src={logo} style={{ width: '200px', marginTop: '-40px' }} />
   </Container>
 );

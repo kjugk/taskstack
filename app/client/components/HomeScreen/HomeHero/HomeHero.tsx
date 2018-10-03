@@ -15,7 +15,7 @@ const Hero = styled.div`
 
 const HeroHeader = styled.h1`
   font-weight: 300;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-size: 2.8rem;
 
   @media (max-width: 786px) {
@@ -24,8 +24,7 @@ const HeroHeader = styled.h1`
 `;
 
 const HeroSubheader = styled.div`
-  line-height: 1.5;
-  margin-bottom: 1.6rem;
+  margin-bottom: 3rem;
   font-size: 1.2rem;
 
   @media (max-width: 786px) {
@@ -48,7 +47,7 @@ const HomeHero: React.SFC = () => (
       <div
         style={{
           position: 'relative',
-          marginTop: '-50px',
+          marginTop: '-60px',
           transform: 'translateY(100px)'
         }}
       >

@@ -50,7 +50,7 @@ class TasklistForm extends React.Component<TasklistFormProps, State> {
         }}
       >
         <Form.Field>
-          <label>タイトル</label>
+          <label style={{ fontWeight: 400 }}>タイトル</label>
           <input
             ref={(r) => (this.input = r)}
             type="text"
