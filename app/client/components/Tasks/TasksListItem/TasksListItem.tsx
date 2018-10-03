@@ -3,7 +3,6 @@ import * as types from '../../../types';
 import styled, { keyframes } from 'styled-components';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Checkbox from '../../Checkbox/Checkbox';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 
 const fade = keyframes`
   0% {

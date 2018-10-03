@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  ${(props) => `background: ${props.theme.grey}`};
+  ${(props) => `background: ${props.theme.darkGrey}`};
 `;
 
 const InnerWrapper = styled.div`
@@ -25,7 +26,7 @@ const CopyRight = styled.div`
   }
 `;
 
-const Link = styled.a`
+const LinkWrapper = styled.span`
   font-size: 0.8rem;
   margin-left: 0.5rem;
   @media (max-width: 786px) {
@@ -33,19 +34,25 @@ const Link = styled.a`
   }
 `;
 
-const HomeFooter: React.SFC = () => {
+const Footer: React.SFC = () => {
   return (
     <Wrapper>
       <Container>
         <InnerWrapper>
           <CopyRight>&#9400; 2018 TaskStack</CopyRight>
+
           <div>
-            <Link>TaskStackについて</Link>
-            <Link href="https://goo.gl/forms/8NCdMMZcPWvwl5n03" target="_blank">
-              お問い合わせ
-            </Link>
-            <Link>利用規約</Link>
-            <Link>プライバシーポリシー</Link>
+            <LinkWrapper>
+              <a href="https://goo.gl/forms/8NCdMMZcPWvwl5n03" rel="nofollow">
+                お問い合わせ
+              </a>
+            </LinkWrapper>
+            <LinkWrapper>
+              <Link to="/terms">利用規約</Link>
+            </LinkWrapper>
+            <LinkWrapper>
+              <Link to="/privacy">プライバシーポリシー</Link>
+            </LinkWrapper>
           </div>
         </InnerWrapper>
       </Container>
@@ -53,4 +60,4 @@ const HomeFooter: React.SFC = () => {
   );
 };
 
-export { HomeFooter };
+export { Footer };

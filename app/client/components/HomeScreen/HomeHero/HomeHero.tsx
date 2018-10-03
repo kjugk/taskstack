@@ -1,37 +1,33 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import hero from '../../../assets/images/hero@2x.png';
 import login from '../../../assets/images/google_login@2x.png';
 
 const Hero = styled.div`
-  color: #f5f5f5 !important;
-  padding-top: 40px;
+  padding-top: 60px;
   position: relative;
   text-align: center;
-  line-height: 0.8;
+  background: transparent;
+  ${(props) => `color: ${props.theme.white}`};
 `;
 
 const HeroHeader = styled.h1`
   font-weight: 300;
-  margin-bottom: 1rem;
-  text-align: center;
-  line-height: 1.5;
+  margin-bottom: 1.5rem;
   font-size: 2.8rem;
 
   @media (max-width: 786px) {
-    font-size: 1.4rem;
+    font-size: 2rem;
   }
 `;
 
 const HeroSubheader = styled.div`
-  line-height: 1.5;
-  margin-bottom: 1.6rem;
+  margin-bottom: 2.8rem;
   font-size: 1.2rem;
 
   @media (max-width: 786px) {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -42,7 +38,7 @@ const HomeHero: React.SFC = () => (
       <HeroSubheader>TaskStack は、シンプルで使いやすいタスク管理サービスです</HeroSubheader>
 
       <div>
-        <a href="/login">
+        <a href="/login" rel="nofollow">
           <img src={login} style={{ width: '215px' }} />
         </a>
       </div>
@@ -50,7 +46,7 @@ const HomeHero: React.SFC = () => (
       <div
         style={{
           position: 'relative',
-          marginTop: '-50px',
+          marginTop: '-60px',
           transform: 'translateY(100px)'
         }}
       >

@@ -54,7 +54,9 @@ class TasklistEditForm extends React.Component<Props, State> {
           size="tiny"
           onClose={this.handleClose}
         >
-          <Modal.Header>リストを編集</Modal.Header>
+          <Modal.Header>
+            <div style={{ fontWeight: 400 }}>リストを編集</div>
+          </Modal.Header>
           <Modal.Content>
             {formState.isSubmitting && (
               <Dimmer active>

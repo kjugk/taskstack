@@ -11,6 +11,7 @@ const Container = styled(List)`
   top: 120%;
   z-index: 100;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.24);
+  min-width: 140px;
   ${(props) => `
     background: ${props.theme.white};
     color: ${props.theme.black};
