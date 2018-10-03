@@ -1,6 +1,6 @@
 import * as React from 'react';
-import logo from '../../assets/images/logo_blue_500.png';
 import styled from 'styled-components';
+import { Brand } from '../Brand/Brand';
 
 const Container = styled.div`
   height: 100%;
@@ -13,6 +13,6 @@ const Container = styled.div`
 
 export const Splash: React.SFC = () => (
   <Container>
-    <img src={logo} style={{ width: '200px', marginTop: '-40px' }} />
+    <Brand inverse style={{ width: '160px', marginTop: '-40px' }} />
   </Container>
 );

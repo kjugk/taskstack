@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Logo from '../../assets/images/logo.png';
+import InverseLogo from '../../assets/images/logo_inverse.png';
 
 interface Props {
   inverse?: boolean;
@@ -19,9 +20,15 @@ class Brand extends React.Component<Props> {
   }
 
   render() {
-    const { style } = this.props;
+    const { style, inverse } = this.props;
 
-    return <img src={Logo} style={{ width: '120px', ...style }} onClick={this.handleClick} />;
+    if (inverse) {
+      return (
+        <img src={InverseLogo} style={{ width: '120px', ...style }} onClick={this.handleClick} />
+      );
+    } else {
+      return <img src={Logo} style={{ width: '120px', ...style }} onClick={this.handleClick} />;
+    }
   }
 
   private handleClick() {
