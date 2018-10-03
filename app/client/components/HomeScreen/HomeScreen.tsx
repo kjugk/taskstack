@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const GradientScreen = styled.div`
   background: #2185d0;
   background-image: linear-gradient(to right bottom, #2185d0, #2f8fd8, #3c99e1, #48a3e9, #53adf1);
-  margin-bottom: 100px;
+  margin-bottom: 90px;
 `;
 
 const HomeScreen: React.SFC = () => (

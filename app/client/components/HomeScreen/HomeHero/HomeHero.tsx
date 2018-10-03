@@ -5,12 +5,11 @@ import hero from '../../../assets/images/hero@2x.png';
 import login from '../../../assets/images/google_login@2x.png';
 
 const Hero = styled.div`
-  color: #f5f5f5 !important;
-  padding-top: 40px;
+  padding-top: 60px;
   position: relative;
   text-align: center;
-  line-height: 0.8;
   background: transparent;
+  ${(props) => `color: ${props.theme.white}`};
 `;
 
 const HeroHeader = styled.h1`
@@ -19,16 +18,16 @@ const HeroHeader = styled.h1`
   font-size: 2.8rem;
 
   @media (max-width: 786px) {
-    font-size: 1.4rem;
+    font-size: 2rem;
   }
 `;
 
 const HeroSubheader = styled.div`
-  margin-bottom: 3rem;
+  margin-bottom: 2.8rem;
   font-size: 1.2rem;
 
   @media (max-width: 786px) {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 `;
 
