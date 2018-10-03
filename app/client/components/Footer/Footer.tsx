@@ -26,7 +26,7 @@ const CopyRight = styled.div`
   }
 `;
 
-const HtmlLink = styled(Link)`
+const LinkWrapper = styled.span`
   font-size: 0.8rem;
   margin-left: 0.5rem;
   @media (max-width: 786px) {
@@ -42,9 +42,15 @@ const Footer: React.SFC = () => {
           <CopyRight>&#9400; 2018 TaskStack</CopyRight>
 
           <div>
-            <HtmlLink to="https://goo.gl/forms/8NCdMMZcPWvwl5n03">お問い合わせ</HtmlLink>
-            <HtmlLink to="/terms">利用規約</HtmlLink>
-            <HtmlLink to="/privacy">プライバシーポリシー</HtmlLink>
+            <LinkWrapper>
+              <a href="https://goo.gl/forms/8NCdMMZcPWvwl5n03">お問い合わせ</a>
+            </LinkWrapper>
+            <LinkWrapper>
+              <Link to="/terms">利用規約</Link>
+            </LinkWrapper>
+            <LinkWrapper>
+              <Link to="/privacy">プライバシーポリシー</Link>
+            </LinkWrapper>
           </div>
         </InnerWrapper>
       </Container>
