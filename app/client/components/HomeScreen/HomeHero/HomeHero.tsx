@@ -39,7 +39,7 @@ const HomeHero: React.SFC = () => (
       <HeroSubheader>TaskStack は、シンプルで使いやすいタスク管理サービスです</HeroSubheader>
 
       <div>
-        <a href="/login">
+        <a href="/login" rel="nofollow">
           <img src={login} style={{ width: '215px' }} />
         </a>
       </div>

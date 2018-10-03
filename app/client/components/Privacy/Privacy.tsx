@@ -4,6 +4,7 @@ import Headline from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import { Header } from '../Header/Header';
 import { Footer } from '../Footer/Footer';
 import { withRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 interface Props {
   match: any;
@@ -13,6 +14,9 @@ interface Props {
 
 const Privacy: React.SFC<Props> = (props) => (
   <>
+    <Helmet>
+      <title>プライバシーポリシー - TaskStack</title>
+    </Helmet>
     <Header style={{ marginBottom: '2rem' }} onClickBrand={() => props.history.push('/')} />
     <Container>
       <Headline as="h1">プライバシーポリシー</Headline>

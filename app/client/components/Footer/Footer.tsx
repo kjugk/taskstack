@@ -43,7 +43,9 @@ const Footer: React.SFC = () => {
 
           <div>
             <LinkWrapper>
-              <a href="https://goo.gl/forms/8NCdMMZcPWvwl5n03">お問い合わせ</a>
+              <a href="https://goo.gl/forms/8NCdMMZcPWvwl5n03" rel="nofollow">
+                お問い合わせ
+              </a>
             </LinkWrapper>
             <LinkWrapper>
               <Link to="/terms">利用規約</Link>
