@@ -1,17 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get "/auth/google_oauth2/callback", to: "sessions#create"
-  get "/login", to: redirect("/auth/google_oauth2")
-
-  # 直接指定でアクセスされた時のフォールバック
   get '/', to: 'dashboard#show'
-  get '/tasklists', to: 'dashboard#show'
-  get '/tasklists/:tasklist_id', to: 'dashboard#show'
-  get '/tasklists/:tasklist_id/tasks/:task_id', to: 'dashboard#show'
+  get '/auth/google_oauth2/callback', to: 'sessions#create'
+  get '/login', to: redirect('/auth/google_oauth2')
 
   namespace :api do
-    get '/users/verify', to: "users#verify"
-    patch '/users/tasklist_sort', to: "users#sort_tasklist"
+    get   '/users/verify', to: 'users#verify'
+    patch '/users/tasklist_sort', to: 'users#sort_tasklist'
 
     resources :tasklists, only: [:index, :create, :update, :destroy] do
       resources :tasks, only: [:index, :create]
@@ -19,4 +14,6 @@ Rails.application.routes.draw do
 
     resources :tasks, only: [:update, :destroy]
   end
+
+  get '*path', to: 'dashboard#show'
 end

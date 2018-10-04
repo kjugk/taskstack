@@ -7,7 +7,7 @@ import UnknownErrorScreen from '../UnknownErrorScreen/UnknownErrorScreen';
 import { connect } from 'react-redux';
 import * as types from '../../types';
 import * as userActions from '../../actions/userActions';
-import { Splash } from './Splash';
+import { Splash } from '../Splash/Splash';
 import Terms from '../Terms/Terms';
 import Privacy from '../Privacy/Privacy';
 import ScrollToTop from '../utils/ScrollToTop';
