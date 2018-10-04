@@ -39,7 +39,7 @@ const Container = styled<{ fading: boolean; selecting: boolean; completed: boole
 
 const Title = styled<{ completed: boolean }, any>('span')`
   flex: 1;
-  margin-left: 0.8rem;
+  margin-left: 0.4rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -49,6 +49,21 @@ const Title = styled<{ completed: boolean }, any>('span')`
     text-decoration: line-through;
     color: ${props.theme.darkGrey};
   `};
+`;
+
+const ButtonLink = styled.a`
+  outline: none;
+  padding: 0.2rem 0.3rem;
+  transition: background 0.15s;
+  &:focus,
+  &:hover,
+  &:active {
+    background: #eee;
+    border-radius: 4px;
+  }
+  i {
+    margin: 0 !important;
+  }
 `;
 
 interface Props {
@@ -105,17 +120,20 @@ class TasksListItem extends React.Component<Props, State> {
           }}
         />
         <Title completed={this.state.completed}>{item.title}</Title>
+
         {item.memo !== '' && <Icon size="small" name="thumbtack" color="grey" />}
+
         {onDestory && (
-          <a
+          <ButtonLink
             href="#"
             onClick={(e: any) => {
               e.stopPropagation();
+              e.preventDefault();
               onDestory(item.id);
             }}
           >
             <Icon name="times circle" color="grey" />
-          </a>
+          </ButtonLink>
         )}
       </Container>
     );

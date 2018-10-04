@@ -31,16 +31,32 @@ const HeroSubheader = styled.div`
   }
 `;
 
+const ButtonWrapper = styled.a`
+  outline: none;
+  @media (min-width: 787px) {
+    img {
+      transition: transform 0.2s;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      img {
+        transform: scale(1.1, 1.1);
+      }
+    }
+  }
+`;
+
 const HomeHero: React.SFC = () => (
   <Container>
     <Hero>
-      <HeroHeader>山積みの仕事を、 片付けたいなら</HeroHeader>
+      <HeroHeader>山積みの仕事を、片付けたいなら</HeroHeader>
       <HeroSubheader>TaskStack は、シンプルで使いやすいタスク管理サービスです</HeroSubheader>
 
       <div>
-        <a href="/login" rel="nofollow">
+        <ButtonWrapper href="/login" rel="nofollow">
           <img src={login} style={{ width: '215px' }} />
-        </a>
+        </ButtonWrapper>
       </div>
 
       <div
