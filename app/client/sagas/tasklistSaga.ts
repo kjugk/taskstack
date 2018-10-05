@@ -10,7 +10,6 @@ import * as api from '../api';
 import { normalize, schema } from 'normalizr';
 import { TasklistCreateFormAction } from '../reducers/tasklist/createForm';
 import { TasklistEditFormAction } from '../reducers/tasklist/editForm';
-import { sortTask } from '../actions/tasklistActions';
 
 const tasklistsSchema = new schema.Entity('tasklists');
 const tasklistSchema = new schema.Entity('tasklist');
