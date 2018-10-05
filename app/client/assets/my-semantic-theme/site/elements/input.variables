@@ -1,0 +1,2 @@
+@placeholderColor: rgba(0, 0, 0, 0.6);
+@placeholderFocusColor: rgba(0, 0, 0, 0.6);
