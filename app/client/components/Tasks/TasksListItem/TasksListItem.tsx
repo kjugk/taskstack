@@ -23,11 +23,11 @@ const Container = styled<{ fading: boolean; selecting: boolean; completed: boole
   display: flex;
   flex-direction: row;
   margin-bottom: 0.5rem;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem;
   ${(props) => `
     background: ${props.theme.white};
     border: 1px solid ${props.theme.border};
-    box-shadow: 0 1px 2px 0 ${props.theme.border};
+    box-shadow: 0 1px 2px 0 ${props.theme.border}, 0 2px 3px 0 ${props.theme.grey};
   `};
   ${(props) => props.fading && `animation: ${fade} 0.5s 0.2s;`};
   ${(props) =>
@@ -39,7 +39,7 @@ const Container = styled<{ fading: boolean; selecting: boolean; completed: boole
 
 const Title = styled<{ completed: boolean }, any>('span')`
   flex: 1;
-  margin-left: 0.4rem;
+  margin-left: 0.6rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

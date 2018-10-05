@@ -3,4 +3,5 @@
 
 @headerFont: @fontName, 'Hiragino Sans', Meiryo, sans-serif;
 @pageFont: @fontName, 'Hiragino Sans', Meiryo, sans-serif;
-@borderColor: rgba(221, 222, 223, 1);
+@borderColor: rgb(221, 222, 223);
+@textColor : rgb(31, 31, 45);
