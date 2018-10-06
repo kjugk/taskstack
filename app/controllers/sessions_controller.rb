@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
     cookies[:token] = {
       value: token,
-      secure: Rails.env.production? ? true : false
+      secure: false
     }
 
     render file: 'public/dist/index.html', status: 200, layout: false
