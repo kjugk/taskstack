@@ -29,13 +29,16 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build:dev": "./node_modules/.bin/webpack --mode development --config ./app/client/webpack.config.dev.js",
     "build:prod": "./node_modules/.bin/webpack --mode production --config ./app/client/webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/enzyme": "^3.1.14",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.3.3",
     "@types/js-cookie": "^2.2.0",
     "@types/keymaster": "^1.6.28",
     "@types/react": "^16.4.14",
@@ -44,6 +47,10 @@
     "@types/react-redux": "^6.0.9",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-transition-group": "^2.0.14",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "jest": "^23.6.0",
+    "jest-enzyme": "^6.1.2",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^0.1.19",
     "compression-webpack-plugin": "^1.1.12",
@@ -59,6 +66,7 @@
     "pretty-quick": "^1.7.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
+    "ts-jest": "^23.10.3",
     "typescript": "^3.1.1",
     "url-loader": "^1.1.1",
     "webpack": "^4.20.2",
@@ -70,5 +78,17 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "setupTestFrameworkScriptFile": "./app/client/setupTests.ts",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/client/__mocks__/fileMock.js"
+    },
+    "unmockedModulePathPatterns": [
+      "react",
+      "enzyme",
+      "jest-enzyme"
+    ]
   }
 }

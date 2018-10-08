@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 import { getTasklists } from '../../reducers/tasklists';
 import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader';
 import { Tasklists } from './Tasklists';
+import { TasklistCreateButton } from './TasklistCreateButton/TasklistCreateButton';
 import * as tasklistActions from '../../actions/tasklistActions';
 import { withRouter } from 'react-router-dom';
 import * as sidebarActions from '../../actions/sidebarActions';
+import { getTasklist } from '../../reducers/tasklists';
 
-interface TasklistsContainerProps {
+interface Props {
+  tasklist: types.TasklistState;
   tasklistsState: types.TasklistsState;
   tasklists: types.TasklistState[];
   match: any;
@@ -23,7 +26,12 @@ interface TasklistsContainerProps {
 /**
  * タスクリスト一覧
  */
-class TasklistsContainer extends React.Component<TasklistsContainerProps> {
+class TasklistsContainer extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.handleOnClickCreateButton = this.handleOnClickCreateButton.bind(this);
+  }
+
   componentDidMount() {
     const { tasklistsState, fetchTasklists } = this.props;
 
@@ -41,22 +49,36 @@ class TasklistsContainer extends React.Component<TasklistsContainerProps> {
     }
 
     return (
-      <Tasklists
-        selectingId={selectingId}
-        onClickItem={(id: number) => {
-          this.props.closeMenu();
-          this.props.history.push(`/tasklists/${id}`);
-        }}
-        onClickEditButton={(id: number) => history.push(`/tasklists/${id}/edit`)}
-        onSort={(ids: number[]) => sortTasklist(ids)}
-        items={tasklists}
-      />
+      <>
+        <Tasklists
+          selectingId={selectingId}
+          onClickItem={(id: number) => {
+            this.props.closeMenu();
+            this.props.history.push(`/tasklists/${id}`);
+          }}
+          onClickEditButton={(id: number) => history.push(`/tasklists/${id}/edit`)}
+          onSort={(ids: number[]) => sortTasklist(ids)}
+          items={tasklists}
+        />
+        <TasklistCreateButton onClick={this.handleOnClickCreateButton} />
+      </>
     );
+  }
+
+  private handleOnClickCreateButton() {
+    const { tasklist, history } = this.props;
+
+    if (tasklist) {
+      history.push(`/tasklists/${tasklist.id}/with/new`);
+    } else {
+      history.push('/tasklists/new');
+    }
   }
 }
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
   return {
+    tasklist: getTasklist(state, ownProps),
     tasklistsState: state.tasklists,
     tasklists: getTasklists(state),
     ...ownProps
