@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   get '/login', to: redirect('/auth/google_oauth2')
 
   namespace :api do
-    get   '/users/verify', to: 'users#verify'
-    patch '/users/tasklist_sort', to: 'users#sort_tasklist'
+    resources :users, only: [:destroy] do
+      get   'verify', on: :collection
+      patch 'tasklist_sort', to: 'users#sort_tasklist', on: :collection
+    end
 
     resources :tasklists, only: [:index, :create, :update, :destroy] do
       resources :tasks, only: [:index, :create]
