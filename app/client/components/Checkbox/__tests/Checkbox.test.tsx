@@ -5,6 +5,11 @@ import Checkbox from '../Checkbox';
 const onClick = jest.fn();
 
 describe('<Checkbox />', () => {
+  describe('renders correctly', () => {
+    const wrapper = shallow(<Checkbox checked={false} onClick={onClick} theme={{}} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('fire onClick', () => {
     const wrapper = mount(<Checkbox checked={true} onClick={onClick} theme={{}} />);
     wrapper.find('a').simulate('click');

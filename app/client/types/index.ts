@@ -27,7 +27,7 @@ export interface TasklistState {
   title: string;
   taskIds: number[];
   taskCount: number;
-  taskLoaded: boolean; // このfield は model に持たせたい
+  taskLoaded: boolean;
 }
 
 export interface TasklistsState {

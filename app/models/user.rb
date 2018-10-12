@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :tasklists
+  has_many :tasklists, dependent: :destroy
   serialize :tasklist_id_list, Array
 
   def unshift_tasklist_id(tasklist_id)
