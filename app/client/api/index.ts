@@ -10,6 +10,10 @@ export async function verifyUser() {
   return await instance.get('/api/users/verify');
 }
 
+export async function destroyAccount() {
+  return await instance.delete('/api/account');
+}
+
 export async function sortTasklist(params: any) {
   return await instance.patch('/api/users/tasklist_sort', params);
 }

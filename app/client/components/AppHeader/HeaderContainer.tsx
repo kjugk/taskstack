@@ -13,10 +13,23 @@ interface Props {
   user: types.UserState;
   openSidebar(): any;
   signOut(): any;
+  destroyAccount(): any;
 }
 
-const HeaderContainer: React.SFC<Props> = ({ tasklist, user, openSidebar, signOut }) => (
-  <Header tasklist={tasklist} user={user} onClickSignOut={signOut} onClickBars={openSidebar} />
+const HeaderContainer: React.SFC<Props> = ({
+  tasklist,
+  user,
+  openSidebar,
+  signOut,
+  destroyAccount
+}) => (
+  <Header
+    tasklist={tasklist}
+    user={user}
+    onClickSignOut={signOut}
+    onClickBars={openSidebar}
+    onClickDestroyAccount={destroyAccount}
+  />
 );
 
 const mapStateToProps = (state: types.RootState, ownProps: any) => {
@@ -30,7 +43,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators(
     {
       openSidebar: () => sidebarActions.open(),
-      signOut: () => userActions.signOut()
+      signOut: () => userActions.signOut(),
+      destroyAccount: () => userActions.destroyAccount()
     },
     dispatch
   );

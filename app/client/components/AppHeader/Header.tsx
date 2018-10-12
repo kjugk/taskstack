@@ -31,9 +31,16 @@ interface Props {
   user: types.UserState;
   onClickBars(): any;
   onClickSignOut(): any;
+  onClickDestroyAccount(): any;
 }
 
-const Header: React.SFC<Props> = ({ tasklist, user, onClickBars, onClickSignOut }) => (
+const Header: React.SFC<Props> = ({
+  tasklist,
+  user,
+  onClickBars,
+  onClickSignOut,
+  onClickDestroyAccount
+}) => (
   <Container>
     <div style={{ lineHeight: 1 }}>
       <Responsive minWidth={768} as={() => <Brand />} />
@@ -42,10 +49,16 @@ const Header: React.SFC<Props> = ({ tasklist, user, onClickBars, onClickSignOut 
         as={() => <Icon name="bars" size="large" onClick={onClickBars} />}
       />
     </div>
+
     <TasklistTitle>
       {tasklist && <Responsive maxWidth={767} as={() => <span>{tasklist.title}</span>} />}
     </TasklistTitle>
-    <HeaderUser user={user} onClickSignOut={onClickSignOut} />
+
+    <HeaderUser
+      user={user}
+      onClickSignOut={onClickSignOut}
+      onClickDestroyAccount={onClickDestroyAccount}
+    />
   </Container>
 );
 

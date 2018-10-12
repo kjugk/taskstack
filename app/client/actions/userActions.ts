@@ -19,3 +19,7 @@ export const signOut = createAction('user/SIGN_OUT_START', (resolve) => {
 export const signOutSuccess = createAction('user/SIGN_OUT_SUCCESS', (resolve) => {
   return () => resolve();
 });
+
+export const destroyAccount = createAction('user/DESTROY_ACCOUNT', (resolve) => {
+  return () => resolve();
+});

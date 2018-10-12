@@ -31,6 +31,7 @@ const Chevron = styled<{ open: boolean }, any>(Icon)`
 interface Props {
   user: types.UserState;
   onClickSignOut(): any;
+  onClickDestroyAccount(): any;
 }
 
 interface State {
@@ -62,7 +63,7 @@ class HeaderUser extends React.Component<Props, State> {
   }
 
   render() {
-    const { user, onClickSignOut } = this.props;
+    const { user, onClickSignOut, onClickDestroyAccount } = this.props;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -85,7 +86,11 @@ class HeaderUser extends React.Component<Props, State> {
             )}
           />
         </Content>
-        <HeaderUserMenu open={this.state.openMenu} onSignOutClick={onClickSignOut} />
+        <HeaderUserMenu
+          open={this.state.openMenu}
+          onClickSignOut={onClickSignOut}
+          onClickDestroyAccount={onClickDestroyAccount}
+        />
       </div>
     );
   }

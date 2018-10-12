@@ -25,6 +25,14 @@ export default function* userSaga() {
     yield put(messageActions.set('ログアウトしました'));
   }
 
+  function* destroyAccount(action: UserAction) {
+    yield call(api.destroyAccount);
+    Cookies.remove('token'); // TODO: helper に移す
+    yield put(userActions.signOutSuccess());
+    yield put(messageActions.set('アカウントを削除しました'));
+  }
+
   yield all([takeLatest(getType(userActions.verify), verify)]);
   yield all([takeLatest(getType(userActions.signOut), signOut)]);
+  yield all([takeLatest(getType(userActions.destroyAccount), destroyAccount)]);
 }
