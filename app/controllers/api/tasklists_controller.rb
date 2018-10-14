@@ -15,8 +15,7 @@ class Api::TasklistsController < ApplicationController
         current_user.unshift_tasklist_id(@tasklist.id)
         render 'api/tasklists/show', status: :created
       else
-        # TODO
-        # 共通のエラーフォーマットで、エラーメッセージを送信する
+        render json: {messages: @tasklist.errors.full_messages}, status: 422
       end
     end
   end
@@ -28,8 +27,7 @@ class Api::TasklistsController < ApplicationController
     if @tasklist.update(tasklist_params)
       render 'api/tasklists/show', status: :ok
     else
-      # TODO
-      # 共通のエラーフォーマットで、エラーメッセージを送信する
+      render json: {messages: @tasklist.errors.full_messages}, status: 422
     end
   end
 
@@ -42,8 +40,7 @@ class Api::TasklistsController < ApplicationController
         current_user.delete_tasklist_id(@tasklist.id)
         head :ok
       else
-        # TODO
-        # 共通のエラーフォーマットで、エラーメッセージを送信する
+        render json: {messages: @tasklist.errors.full_messages}, status: 422
       end
     end
   end
