@@ -54,10 +54,10 @@ class HeaderUserMenu extends React.Component<Props> {
 
         <Divider />
 
-        <Item onClick={this.handleOnClickDestroyAccount} style={{ color: 'red' }}>
+        {/* <Item onClick={this.handleOnClickDestroyAccount} style={{ color: 'red' }}>
           <List.Icon name="log out" color="red" />
           <List.Content>アカウント削除</List.Content>
-        </Item>
+        </Item> */}
       </Container>
     );
   }

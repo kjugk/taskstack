@@ -2,16 +2,10 @@
 
 one:
   name: MyString
-  string: MyString
   google_uid: MyString
-  string: MyString
   image_url: MyString
-  string: MyString
 
 two:
   name: MyString
-  string: MyString
   google_uid: MyString
-  string: MyString
   image_url: MyString
-  string: MyString
