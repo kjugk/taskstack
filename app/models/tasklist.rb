@@ -9,11 +9,11 @@ class Tasklist < ApplicationRecord
   # constants
   MAX_TITLE_LENGTH = 100
 
-  def unshift_task_id(task_id)
+  def unshift_task_id!(task_id)
     update!(task_id_list: task_id_list.unshift(task_id))
   end
 
-  def delete_task_id(task_id)
+  def delete_task_id!(task_id)
     task_id_list.delete(task_id)
     save!
   end

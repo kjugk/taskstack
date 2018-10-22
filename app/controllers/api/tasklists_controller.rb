@@ -11,13 +11,14 @@ class Api::TasklistsController < ApplicationController
     @tasklist.user = current_user
 
     @tasklist.transaction do
-      if @tasklist.save
-        current_user.unshift_tasklist_id(@tasklist.id)
-        render 'api/tasklists/show', status: :created
-      else
-        render json: {messages: @tasklist.errors.full_messages}, status: 422
-      end
+      @tasklist.save!
+      current_user.unshift_tasklist_id!(@tasklist.id)
     end
+
+    render 'api/tasklists/show', status: :created
+
+  rescue => e
+    render json: {messages: @tasklist.errors.full_messages}, status: 422
   end
 
   def update
@@ -36,13 +37,14 @@ class Api::TasklistsController < ApplicationController
     authorize! :manage, @tasklist
 
     @tasklist.transaction do
-      if @tasklist.destroy
-        current_user.delete_tasklist_id(@tasklist.id)
-        head :ok
-      else
-        render json: {messages: @tasklist.errors.full_messages}, status: 422
-      end
+      @tasklist.destroy!
+      current_user.delete_tasklist_id!(@tasklist.id)
     end
+    
+    head :ok
+
+  rescue => e
+    render json: {messages: @tasklist.errors.full_messages}, status: 422
   end
 
   private

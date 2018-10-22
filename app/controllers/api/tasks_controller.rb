@@ -13,13 +13,19 @@ class Api::TasksController < ApplicationController
     @tasklist = Tasklist.find(params[:tasklist_id])
     authorize! :manage, @tasklist
 
-    @task = Task.new(task_params.merge(user: current_user)) 
+    @task = Task.new(task_params)
+    @task.user = current_user
+    @task.tasklist = @tasklist
+
     @tasklist.transaction do 
-      @task.tasklist = @tasklist
       @task.save!
-      @tasklist.unshift_task_id(@task.id)
-      render 'api/tasks/show'
+      @tasklist.unshift_task_id!(@task.id)
     end
+
+    render 'api/tasks/show'
+
+  rescue => e
+    render json: {messages: @task.errors.full_messages}, status: 422
   end
 
   def update
@@ -40,9 +46,13 @@ class Api::TasksController < ApplicationController
     @tasklist = @task.tasklist
     @tasklist.transaction do
       @task.destroy!
-      @tasklist.delete_task_id(@task.id)
-      render 'api/tasks/show'
+      @tasklist.delete_task_id!(@task.id)
     end
+
+    render 'api/tasks/show'
+
+  rescue => e
+    render json: {messages: @task.errors.full_messages}, status: 422
   end
 
   private
