@@ -6,11 +6,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     get 'users/verify', to: 'users#verify'
-    patch 'users/tasklist_sort', to: 'users#sort_tasklist'
     delete 'account', to: 'users#destroy'
 
     resources :tasklists, only: [:index, :create, :update, :destroy] do
       resources :tasks, only: [:index, :create]
+      patch :sort, on: :collection
     end
 
     resources :tasks, only: [:update, :destroy]

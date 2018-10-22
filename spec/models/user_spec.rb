@@ -12,16 +12,8 @@
 #  tasklist_id_list :text
 #
 
-class User < ApplicationRecord
-  has_many :tasklists, dependent: :destroy
-  serialize :tasklist_id_list, Array
+require 'rails_helper'
 
-  def unshift_tasklist_id!(tasklist_id)
-    update!(tasklist_id_list: tasklist_id_list.unshift(tasklist_id))
-  end
-
-  def delete_tasklist_id!(tasklist_id)
-    tasklist_id_list.delete(tasklist_id)
-    save!
-  end
+RSpec.describe User, type: :model do
+  # pending "add some examples to (or delete) #{__FILE__}"
 end

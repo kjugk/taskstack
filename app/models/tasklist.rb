@@ -1,19 +1,31 @@
+# == Schema Information
+#
+# Table name: tasklists
+#
+#  id           :integer          not null, primary key
+#  title        :string
+#  task_id_list :text
+#  user_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Tasklist < ApplicationRecord
+  # constants
+  MAXIMUM_TITLE_LENGTH = 100
+
   belongs_to :user
   has_many :tasks, dependent: :destroy
   serialize :task_id_list, Array
 
   validates :title, presence: true
-  validates :title, length: { maximum: 100 }
+  validates :title, length: { maximum: MAXIMUM_TITLE_LENGTH }
 
-  # constants
-  MAX_TITLE_LENGTH = 100
-
-  def unshift_task_id(task_id)
+  def unshift_task_id!(task_id)
     update!(task_id_list: task_id_list.unshift(task_id))
   end
 
-  def delete_task_id(task_id)
+  def delete_task_id!(task_id)
     task_id_list.delete(task_id)
     save!
   end

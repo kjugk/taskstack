@@ -15,7 +15,7 @@ export async function destroyAccount() {
 }
 
 export async function sortTasklist(params: any) {
-  return await instance.patch('/api/users/tasklist_sort', params);
+  return await instance.patch('/api/tasklists/sort.json', params);
 }
 
 export async function fetchTasklists() {
