@@ -47,6 +47,16 @@ class Api::TasklistsController < ApplicationController
     render json: {messages: @tasklist.errors.full_messages}, status: 422
   end
 
+  # tasklist の並び替え
+  # 実際は、User#tasklist_id_list を更新する
+  def sort
+    if current_user.update(tasklist_id_list: params[:tasklist_id_list])
+      head :ok
+    else
+      render json: {messages: ['Sort faild.']}, status: 422
+    end
+  end
+
   private
 
   def tasklist_params
