@@ -27,6 +27,8 @@
 /public/dist
 .byebug_history
 
+/vendor/bundle
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/credentials.yml.enc
