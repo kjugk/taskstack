@@ -13,9 +13,10 @@ class Api::TasksController < ApplicationController
     @tasklist = Tasklist.find(params[:tasklist_id])
     authorize! :manage, @tasklist
 
-    @task = Task.new(task_params)
-    @task.user = current_user
-    @task.tasklist = @tasklist
+    @task = Task.new(task_params) do |t|
+      t.user = current_user
+      t.tasklist = @tasklist
+    end
 
     @tasklist.transaction do 
       @task.save!
@@ -24,7 +25,7 @@ class Api::TasksController < ApplicationController
 
     render 'api/tasks/show'
 
-  rescue => e
+  rescue
     render json: {messages: @task.errors.full_messages}, status: 422
   end
 
@@ -36,6 +37,7 @@ class Api::TasksController < ApplicationController
     if @task.update(task_params)
       render 'api/tasks/show'
     else
+      render json: {messages: @task.errors.full_messages}, status: 422
     end
   end
 
@@ -51,7 +53,7 @@ class Api::TasksController < ApplicationController
 
     render 'api/tasks/show'
 
-  rescue => e
+  rescue
     render json: {messages: @task.errors.full_messages}, status: 422
   end
 

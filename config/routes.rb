@@ -13,7 +13,10 @@ Rails.application.routes.draw do
       patch :sort, on: :collection
     end
 
-    resources :tasks, only: [:update, :destroy]
+    resources :tasks, only: [:update, :destroy] do
+      resources :subtasks, only: [:create]
+    end
+    resources :subtasks, only: [:update, :destroy]
   end
 
   get '*path', to: 'dashboard#show'

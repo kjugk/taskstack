@@ -17,7 +17,7 @@ class Api::TasklistsController < ApplicationController
 
     render 'api/tasklists/show', status: :created
 
-  rescue => e
+  rescue
     render json: {messages: @tasklist.errors.full_messages}, status: 422
   end
 
@@ -43,7 +43,7 @@ class Api::TasklistsController < ApplicationController
     
     head :ok
 
-  rescue => e
+  rescue
     render json: {messages: @tasklist.errors.full_messages}, status: 422
   end
 
