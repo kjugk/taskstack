@@ -1,0 +1,48 @@
+class Api::SubTasksController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  before_action :verify_jwt_token
+
+  def create
+    task = Task.find(params[:task_id])
+    authorize! :manage, task
+
+    @subtask = Subtask.new(subtask_params) do |t|
+      t.task = task
+      t.user = current_user
+    end
+
+    if @subtask.save
+      render 'api/subtasks/show', status: :created
+    else
+      render json: {messages: @subtask.errors.full_messages}
+    end
+  end
+
+  def update
+    @subtask = Subtask.find(params[:id])
+    authorize! :manage, @subtask
+
+    if @subtask.update(subtask_params)
+      render 'api/subtasks/show', status: :created
+    else
+      render json: {messages: @subtask.errors.full_messages}
+    end
+  end
+
+  def destroy
+    @subtask = Subtask.find(params[:id])
+    authorize! :manage, @subtask
+
+    if @subtask.destroy
+      head :ok
+    else
+      render json: {messages: @subtask.errors.full_messages}
+    end
+  end
+
+  private
+
+  def subtask_params
+    params.require(:subtask).permit(:title, :completed)
+  end
+end

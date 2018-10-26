@@ -15,6 +15,7 @@
 class Task < ApplicationRecord
   belongs_to :tasklist
   belongs_to :user
+  has_many :subtasks
 
   scope :active, -> { where(completed: false) }
 end

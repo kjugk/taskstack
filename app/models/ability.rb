@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     if user.present?
+      can :manage, Subtask, user_id: user.id
       can :manage, Tasklist, user_id: user.id
       can :manage, Task, user_id: user.id
     end
