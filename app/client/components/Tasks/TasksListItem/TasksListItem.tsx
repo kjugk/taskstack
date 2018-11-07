@@ -29,7 +29,7 @@ const Container = styled<{ fading: boolean; selecting: boolean; completed: boole
     border: 1px solid ${props.theme.border};
     box-shadow: 0 1px 2px 0 ${props.theme.border}, 0 2px 3px 0 ${props.theme.grey};
   `};
-  ${(props) => props.fading && `animation: ${fade} 0.5s 0.2s;`};
+  ${(props) => props.fading && `animation: ${fade} 0.5s 0.2s forwards;`};
   ${(props) =>
     props.selecting &&
     `
